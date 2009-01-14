@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 TAG
+Tag name: ScienceTools-09-08-03, operation: add
+Package: SConsFiles
+User: glastrm  Wed Jan 14 12:01:23 2009
+Files:
+  SConsFiles/site_scons/site_tools/registerObjects.py  1.1.1.1
+
+    *
+------------------------------------------------------------
+TAG
 Tag name: ScienceTools-09-09-00, operation: add
 Package: SConsFiles
 User: glastrm  Wed Jan 14 11:59:52 2009
