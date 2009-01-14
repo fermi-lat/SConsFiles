@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 TAG
+Tag name: GlastRelease-15-50-10, operation: del
+Package: SConsFiles
+User: glastrm  Wed Jan 14 11:58:23 2009
+Files:
+  SConsFiles/site_scons/site_tools/addLibrary.py  1.1.1.1
+
+    *
+------------------------------------------------------------
+TAG
 Tag name: ScienceTools-09-09-00, operation: add
 Package: SConsFiles
 User: glastrm  Wed Jan 14 11:56:55 2009
