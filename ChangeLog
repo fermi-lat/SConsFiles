@@ -1,0 +1,19 @@
+------------------------------------------------------------
+User: glastrm  Wed Jan 14 11:44:57 PST 2009
+SConsFiles
+
+Log Message:
+Initial import of common SCons files directory
+
+Status:
+
+Vendor Tag:	GLAST
+Release Tags:	MAIN
+		
+N SConsFiles/site_scons/site_tools/generateScript.py
+N SConsFiles/site_scons/site_tools/addLibrary.py
+N SConsFiles/site_scons/site_tools/registerObjects.py
+
+No conflicts created by this import
+
+    *
