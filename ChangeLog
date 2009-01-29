@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Wed Jan 28 18:35:31 PST 2009
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	generateScript.py 
+Log Message:
+Bug fix for Windows.  Chmod fails, so take it out
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-15-49-00, operation: add
 Package: SConsFiles
