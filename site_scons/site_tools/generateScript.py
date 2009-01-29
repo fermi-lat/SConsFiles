@@ -137,12 +137,12 @@ def generateScriptEmitter(target, source, env):
 def generate(env):
     if env['PLATFORM'] != 'win32':
         GenerateScriptAction = SCons.Action.Action(generatePosixScript, "Creating wrapper script for '$TARGET'")
+        GenerateScriptBuilder = SCons.Builder.Builder(action = [GenerateScriptAction, SCons.Defaults.Chmod('$TARGET', 0755)], 
+                                                      emitter = generateScriptEmitter,
+                                                      single_source = 1)
     else:
         GenerateScriptAction = SCons.Action.Action(generateWindowsScript, "Creating wrapper script fpr '$TARGET'")
-
-    GenerateScriptBuilder = SCons.Builder.Builder(action = [GenerateScriptAction, SCons.Defaults.Chmod('$TARGET', 0755)], 
-                                                  emitter = generateScriptEmitter,
-                                                  single_source = 1)
+	GenerateScriptBuilder = SCons.Builder.Builder(action = [GenerateScriptAction], emitter = generateScriptEmitter, single_source = 1)
 
     env['BUILDERS']['GenerateWrapperScript'] = GenerateScriptBuilder
 
