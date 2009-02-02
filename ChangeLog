@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Mon Feb  2 10:06:16 PST 2009
+SConsFiles
+
+Added Files:
+	SConstruct 
+Log Message:
+Added globally shared SConstruct
+    *
+------------------------------------------------------------
 User: jrb  Wed Jan 28 18:35:31 PST 2009
 SConsFiles/site_scons/site_tools
 
