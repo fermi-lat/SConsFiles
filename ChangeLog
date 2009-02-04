@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+TAG
+Tag name: GlastRelease-15-49-00, operation: add
+Package: SConsFiles
+User: glastrm  Wed Feb  4 09:58:23 2009
+Files:
+  SConsFiles/SConstruct  1.1
+
+    *
+------------------------------------------------------------
 User: glastrm  Mon Feb  2 10:06:16 PST 2009
 SConsFiles
 
