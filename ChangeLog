@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Wed Feb 25 09:51:20 PST 2009
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	registerObjects.py 
+Log Message:
+remove debug print statement when registering environment variables
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-09-09-00, operation: add
 Package: SConsFiles
