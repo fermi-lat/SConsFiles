@@ -86,7 +86,6 @@ def generate(env, **kw):
             # user has passed in a list of (exename, envdict) tuples
             # to be registered in the construction environment and eventually
             # emitted into the wrapper scripts
-            print 'registerObjects: registering env dicts for %s' % list(x[0] for x in kw.get('wrapper_env'))
             env.Append( WRAPPER_ENV = kw.get('wrapper_env') )
                                         
 def exists(env):
