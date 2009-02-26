@@ -1,4 +1,16 @@
 ------------------------------------------------------------
+User: jrb  Thu Feb 26 15:46:08 PST 2009
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+1. Add --vc9 option
+2. Add line to create Windows manifest files
+3. Add to, modify Windows compiler options
+
+    *
+------------------------------------------------------------
 User: jrb  Thu Feb 26 12:24:38 PST 2009
 SConsFiles
 
