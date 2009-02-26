@@ -1,6 +1,23 @@
 import os, pprint
 import SCons.Node.FS
 
+## * Install various specified objects (includes, libraries, etc.) and
+##   xxLib.py
+## * Add to the list of default targets and to definition of 'all'
+## * Generate wrappers for programs
+## Recognized keywords are
+##        package - string
+##        libraries - list of library nodes
+##        testApps  - list of program nodes
+##        binaries  - list of program nodes
+##        includes - list of file paths
+##        data     - list of file paths
+##        xml      - list of file paths
+##        pfiles
+##        python
+##        wrapper_env
+##
+
 def generate(env, **kw):
     if kw.get('package', '') != '':
         if os.path.exists(os.path.join(str(env.Dir('.').srcnode()),kw.get('package')+"Lib.py")):
