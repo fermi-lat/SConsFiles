@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.1 2009/02/02 18:06:15 glastrm Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.2 2009/02/26 20:24:38 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands
@@ -28,6 +28,8 @@ if baseEnv['PLATFORM'] == "darwin":
         variant+="32bit"
 if baseEnv['PLATFORM'] == "win32":
     variant = platform.release()+"-"+"i386"+"-"+platform.architecture()[0]
+    baseEnv['WINDOWS_INSERT_MANIFEST'] = 'true'
+
 baseEnv.AppendUnique(CPPDEFINES = ['SCons'])
 
 AddOption('--compile-debug', dest='debug', action='store_true', help='Compile with debug flags')
@@ -46,6 +48,7 @@ if baseEnv['PLATFORM'] != 'win32':
 else:
     AddOption('--vc7', dest='vc', action='store_const', const='7.1', help='Use the Visual C++ 7.1 compiler')
     AddOption('--vc8', dest='vc', action='store_const', const='8.0', help='Use the Visual C++ 8.0 compiler')
+    AddOption('--vc9', dest='vc', action='store_const', const='9.0', help='Use the Visual C++ 9.0 compiler')
 
 if baseEnv.GetOption('debug'):
     if baseEnv['PLATFORM'] == 'win32':
@@ -53,12 +56,14 @@ if baseEnv.GetOption('debug'):
     else:
         baseEnv.AppendUnique(CCFLAGS = '-g')
     variant+="-Debug"
+
 if baseEnv.GetOption('opt'):
     if baseEnv['PLATFORM'] == 'win32':
         baseEnv.AppendUnique(CCFLAGS = '/O2 /Z7')
     else:
         baseEnv.AppendUnique(CCFLAGS = '-O2')
     variant+='-Optimized'
+
 if baseEnv['PLATFORM'] != 'win32':
     if baseEnv.GetOption('cc'):
         baseEnv.Replace(CC = baseEnv.GetOption('cc'))
@@ -69,6 +74,7 @@ else:
         baseEnv['MSVS'] = {'VERSION' : baseEnv.GetOption('vc')}
         baseEnv['MSVS_VERSION'] = baseEnv.GetOption('vc')
         Tool('msvc')(baseEnv)
+
 if baseEnv.GetOption('ccflags'):
     baseEnv.AppendUnique(CCFLAGS = baseEnv.GetOption('ccflags'))
 if baseEnv.GetOption('cxxflags'):
@@ -92,15 +98,29 @@ if baseEnv['PLATFORM'] == "win32":
     baseEnv.AppendUnique(CCFLAGS = "/wd4305") # disable warning C4305: 'initializing' : truncation from double to float
     baseEnv.AppendUnique(CCFLAGS = "/wd4290") # disable warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
     baseEnv.AppendUnique(CCFLAGS = "/wd4800") # disable warning C4800: 'type' : forcing value to bool 'tru' or 'false' (performance warning)
-    baseEnv.AppendUnique(CCFLAGS = "/MD")
-    baseEnv.AppendUnique(CCFLAGS = "/LD")
-    baseEnv.AppendUnique(CCFLAGS = "/Zm500")
+    # baseEnv.AppendUnique(CCFLAGS = "/Zm500") probably not necessary
     baseEnv.AppendUnique(CCFLAGS = "/GR")
-    baseEnv.AppendUnique(CCFLAGS = "/Ob2")
     baseEnv.AppendUnique(LINKFLAGS = "/SUBSYSTEM:CONSOLE")
     baseEnv.AppendUnique(LINKFLAGS = "/NODEFAULTLIB:LIBCMT")
-    if baseEnv['MSVS_VERSION'] == "8.0":
+
+    if baseEnv.GetOption('debug'):
+        baseEnv.AppendUnique(CCFLAGS = "/MDd")
+        baseEnv.AppendUnique(CCFLAGS = "/LDd")
+        baseEnv.AppendUnique(CCFLAGS = "/Ob0")
+
+    else:
+        baseEnv.AppendUnique(CCFLAGS = "/MD")
+        baseEnv.AppendUnique(CCFLAGS = "/LD")
+        baseEnv.AppendUnique(CCFLAGS = "/Ob2")
+
+    if (baseEnv['MSVS_VERSION']=="8.0") or (baseEnv['MSVS_VERSION']=="8.0") :
         libEnv.AppendUnique(CPPFLAGS = "/wd4812")
+        # Eliminate warnings for sscanf, getenv, etc. versus secure versions
+        baseEnv.AppendUnique(CPPDEFINES = ['_CRT_SECURE_NO_WARNINGS'])
+        if baseEnv.GetOption('debug'):
+            baseEnv.AppendUnique(LINKFLAGS = "/DEBUG")
+            baseEnv.AppendUnique(LINKFLAGS = "/ASSEMBLYDEBUG")
+
 else:
     baseEnv.AppendUnique(CXXFLAGS = "-fpermissive")
 if baseEnv['PLATFORM'] == "posix":
