@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Thu Feb 26 11:30:13 PST 2009
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	addLibrary.py generateScript.py registerObjects.py 
+Log Message:
+Add some comments
+
+    *
+------------------------------------------------------------
 User: glastrm  Wed Feb 25 09:51:20 PST 2009
 SConsFiles/site_scons/site_tools
 
