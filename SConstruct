@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.2 2009/02/26 20:24:38 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/ScienceTools-scons/SConstruct,v 1.3 2009/02/26 23:46:08 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands
@@ -123,9 +123,11 @@ if baseEnv['PLATFORM'] == "win32":
 
 else:
     baseEnv.AppendUnique(CXXFLAGS = "-fpermissive")
+
 if baseEnv['PLATFORM'] == "posix":
     if platform.machine() == "x86_64":
         baseEnv.AppendUnique(CCFLAGS = "-fPIC")
+    baseEnv.AppendUnique(CPPDEFINES = ['TRAP_FPE'])
 
 #########################
 #  Project Environment  #
