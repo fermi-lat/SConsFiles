@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Thu Apr  2 17:50:35 PDT 2009
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	addLibrary.py 
+Log Message:
+Don't need brackets; kw.get('library') is already a list
+
+    *
+------------------------------------------------------------
 User: jrb  Thu Feb 26 15:46:08 PST 2009
 SConsFiles
 
