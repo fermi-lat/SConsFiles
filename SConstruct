@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/ScienceTools-scons/SConstruct,v 1.3 2009/02/26 23:46:08 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.4 2009/04/03 15:33:57 glastrm Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands
@@ -45,6 +45,8 @@ AddOption('--user-release', dest='userRelease', nargs=1, type='string', action='
 if baseEnv['PLATFORM'] != 'win32':
     AddOption('--with-cc', dest='cc', action='store', nargs=1, type='string', metavar='COMPILER', help='Compiler to use for compiling C files')
     AddOption('--with-cxx', dest='cxx', action='store', nargs=1, type='string', metavar='COMPILER', help='Compiler to user for compiling C++ files')
+    AddOption('--32bit', dest='bits', action='store_const', const='32', help='Force 32bit compiles even on 64bit machines')
+    AddOption('--64bit', dest='bits', action='store_const', const='64', help='Force 64bit compiles even on 32bit machines')
 else:
     AddOption('--vc7', dest='vc', action='store_const', const='7.1', help='Use the Visual C++ 7.1 compiler')
     AddOption('--vc8', dest='vc', action='store_const', const='8.0', help='Use the Visual C++ 8.0 compiler')
@@ -69,6 +71,10 @@ if baseEnv['PLATFORM'] != 'win32':
         baseEnv.Replace(CC = baseEnv.GetOption('cc'))
     if baseEnv.GetOption('cxx'):
         baseEnv.Replace(CXX = baseEnv.GetOption('cxx'))
+    if baseEnv.GetOption('bits') == '32':
+        baseEnv.AppendUnique(CCFLAGS = ['-m32'])
+    if baseEnv.GetOption('bits') == '64':
+        baseEnv.AppendUnique(CCFLAGS = ['-m64'])
 else:
     if baseEnv.GetOption('vc'):
         baseEnv['MSVS'] = {'VERSION' : baseEnv.GetOption('vc')}
