@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Fri Apr 24 10:52:12 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Force linker as well to use 32/64bit
+    *
+------------------------------------------------------------
 User: glastrm  Fri Apr 24 10:12:05 PDT 2009
 SConsFiles
 
