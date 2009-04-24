@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Fri Apr 24 10:12:05 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Add option to force 64/32bit comiles
+    *
+------------------------------------------------------------
 User: jrb  Thu Apr  2 17:50:35 PDT 2009
 SConsFiles/site_scons/site_tools
 
