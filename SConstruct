@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.4 2009/04/03 15:33:57 glastrm Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.5 2009/04/24 17:12:05 glastrm Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands
@@ -73,8 +73,10 @@ if baseEnv['PLATFORM'] != 'win32':
         baseEnv.Replace(CXX = baseEnv.GetOption('cxx'))
     if baseEnv.GetOption('bits') == '32':
         baseEnv.AppendUnique(CCFLAGS = ['-m32'])
+        baseEnv.AppnedUnique(LINKFLAGS = ['-m32'])
     if baseEnv.GetOption('bits') == '64':
         baseEnv.AppendUnique(CCFLAGS = ['-m64'])
+        baseEnv.AppendUnique(LINKFLAGS = ['-m64'])
 else:
     if baseEnv.GetOption('vc'):
         baseEnv['MSVS'] = {'VERSION' : baseEnv.GetOption('vc')}
