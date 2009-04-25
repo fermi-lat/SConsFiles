@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Fri Apr 24 19:00:34 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Fix typo in code for new -m32 option
+
+    *
+------------------------------------------------------------
 User: glastrm  Fri Apr 24 10:52:12 PDT 2009
 SConsFiles
 
