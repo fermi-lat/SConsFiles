@@ -1,0 +1,72 @@
+# -*- python -*-
+
+externalLibraries = {
+    'CLHEP'    : { '1.9.2.2' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                 'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                 'includes'     : [ 'CLHEP/config/CLHEP.h' ],
+                                 'libraries'    : { 'clhepLibs' : [ 'CLHEP'] }
+                               }
+                 },
+
+    'fftw'     : { '3.1.2' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                               'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                               'includes'     : [ 'fftw/fftw3.h' ],
+                               'libraries'    : { 'fftwLibs' : ['fftw3'] }
+                             }
+                 },
+
+    'cfitsio'  : { 'v3060' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                               'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                               'includes'     : [ 'fitsio.h' ],
+                               'libraries'    : { 'cfitsioLibs' : [ 'cfitsio', 'm' ] }
+                             }
+                 }
+    
+    'ape'      : { '2.3-gl1' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                 'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                 'includes'     : [ 'ape/ape_list.h' ],
+                                 'libraries'    : { 'apeLibs' : [ 'ape', 'readline', 'termcap' ] }
+                               }
+                 },
+    
+    'ROOT'     : { 'v5.18.00c-gl1' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                       'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                       'includes'     : [ 'RVersion.h' ],
+                                       'libraries'    : { 'rootLibs'    : [ 'Tree', 'Net', 'Gpad', 'Graf', 'RIO', 'Hist', 'Physics', 'Matrix', 'Core', 'Cint', 'pthread', 'm', 'dl' ],
+                                                          'rootGuiLibs' : [ 'Rint', 'Postscript', 'TreePlayer', 'Tree', 'Net', 'Graf3d', 'Gui', 'HistPainter', 'Gpad' ],
+                                                          'minuitLibs'  : [ 'Minuit2', 'Minuit', 'Graf', 'RIO', 'Hist', 'Matrix', 'Core', 'Cint' ]
+                                                        }
+                                     }
+                 },
+
+    'swig'     : { '1.3.31' : { }
+                 },
+    
+    'xerces'   : { '2.7.0' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                               'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                               'includes'     : [ 'xercesc/util/XercesVersion.hpp' ],
+                               'libraries'    : { 'xercesLibs'  : [ 'xerces-c', 'pthread' ] }
+                             }
+                 },
+                   
+    'cppunit'  : { '1.10.2' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                'includes'     : [ 'cppunit/ui/text/TextTestRunner.h' ],
+                                'libraries'    : { 'cppunitLibs' : [ 'cppunit', 'dl' ] }
+                              }
+                 },
+                   
+    'python'   : { '2.5.1' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include', 'python2.5'),
+                               'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib', 'python2.5', 'config'),
+                               'includes'     : [ 'Python.h' ],
+                               'libraries'    : { 'pythonLibs'  : [ 'pthread', 'dl', 'util', 'm', 'python2.5' ] }
+                             }
+                 },
+                   
+    'f2c'      : { '3.4.6' : { 'libraries'    : { 'f2cLibs' : [ 'g2c' ] }
+                             }
+                 },
+
+    'extFiles' : { 'v0r7' : { 'cppDefines' : [ 'extFiles=\\"$VERSION\\"' ] }
+                 }
+  }
