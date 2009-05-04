@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Mon May  4 12:21:45 PDT 2009
+SConsFiles
+
+Added Files:
+	allExternals.scons 
+Log Message:
+First attempts at a globabl external libraries file
+    *
+------------------------------------------------------------
 User: jrb  Fri Apr 24 19:00:34 PDT 2009
 SConsFiles
 
