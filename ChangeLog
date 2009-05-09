@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Fri May  8 17:23:36 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+Support different operating systems
+    *
+------------------------------------------------------------
 User: glastrm  Mon May  4 12:21:45 PDT 2009
 SConsFiles
 
