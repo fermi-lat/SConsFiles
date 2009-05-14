@@ -1,6 +1,6 @@
 # -*- python -*-
 
-externalLibraries = {
+allExternalLibraries = {
     'CLHEP'    : { '1.9.2.2' : { 'default' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
                                                'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
                                                'ld-path'      : '$LIB-PATH',
@@ -131,3 +131,54 @@ externalLibraries = {
     'extFiles' : { 'v0r7' : { 'cppDefines' : [ 'extFiles=\\"$VERSION\\"' ] }
                  }
   }
+
+def compilerName(env):
+    if env['PLATFORM'] == "win32":
+        return 'vc' + ''.join(env['MSVS']['VERSION'].split('.')[0:2])
+    else:
+        return 'gcc' + ''.join(env['CXXVERSION'].split('.')[0:2])
+    
+def useExternal(env, name, version):
+    if not name in allExternalLibraries:
+        return 0
+    if not version in allExternalLibraries[name]:
+        return 0
+    ourExternal = allExternalLibraries[name][version]['default']
+    if env['PLATFORM'] in allExternalLibraries[name][version]:
+        for section in allExternalLibraries[name][version][env['PLATFORM']]:
+            ourExternal[section] = allExternalLibraries[name][version][env['PLATFORM']][section]
+
+    if compilerName(env) in allExternalLibraries[name][version]:
+        for section in allExternalLibraries[name][version][compilerName(env)]:
+            ourExternal[section] = allExternalLibraries[name][version][compilerName(env)]
+    return setupEnvironment(env, ourExternal, name, version)
+
+def setupEnvironment(env, external, name, version):
+    env.AddOption('--with-'+name, dest = name, nargs=1, type='string', action='store', metavar='DIR', help='location of '+name+' '+version+' headers/libraries')
+    if 'include-path' in external:
+        env.AddOption('--with-'+name+'-includes', dest = name+'-includes', nargs=1, type='string', action='store', metavar='DIR', help='location of '+name+' '+version+' headers')
+    if 'lib-path' in external:
+        env.AddOption('--with-'+name+'-libraries', dest = name+'-libraries', nargs=1, type='string', action='store', metavar='DIR', help='location of '+name+' '+version+' libraries')
+    if 'bin-path' in external:
+        env.AddOption('--with-'+name+'-binaries', dest = name+'-binaries', nargs=1, type='string', action='store', metavar='DIR', help='location of '+name+' '+version+' binaries')
+
+    if env.GetOption(name):
+        if 'include-path' in external:
+            external['include-path'] = os.path.join(env.GetOption(name), 'include')
+        if 'lib-path' in external:
+            external['lib-path'] = os.path.join(env.GetOption(name), 'lib')
+        if 'bin-path' in external:
+            external['bin-path'] = os.path.join(env.GetOption(name), 'bin')
+    else:
+        if env.GetOption(name+'-includes'):
+            external['include-path'] = env.GetOption(name+'-includes')
+        if env.GetOption(name+'-libraries'):
+            external['lib-path'] = env.GetOption(name+'-libraries')
+        if env.GetOption(name+'-binaries'):
+            external['bin-path'] = env.GetOption(name+'-binaries')
+            
+    for section in external:
+        external[section] = external[section].replace('$COMPILER', compilerName(env))
+        external[section] = external[section].replace('$VERSION', version)
+        external[section] = external[section].replace('$NAME', name)
+        
