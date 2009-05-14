@@ -1,128 +1,130 @@
 # -*- python -*-
 
 externalLibraries = {
-    'CLHEP'    : { '1.9.2.2' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
-                                 'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
-                                 'ld-path'      : '$LIB-PATH',
-                                 'includes'     : [ 'CLHEP/config/CLHEP.h' ],
-                                 'libraries'    : { 'clhepLibs' : [ 'CLHEP'] }
+    'CLHEP'    : { '1.9.2.2' : { 'default' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                               'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                               'ld-path'      : '$LIB-PATH',
+                                               'includes'     : [ 'CLHEP/config/CLHEP.h' ],
+                                               'libraries'    : { 'clhepLibs' : [ 'CLHEP'] }
+                                             }
                                }
                  },
 
-    'fftw'     : { '3.1.2' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
-                               'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
-                               'ld-path'    : '$LIB-PATH',
-                               'includes'     : [ 'fftw/fftw3.h' ],
-                               'libraries'    : { 'default' : { 'fftwLibs' : ['fftw3'] },
-                                                  'win32'   : { 'fftwLibs' : ['libfftw3'] }
-                                                }
+    'fftw'     : { '3.1.2' : { 'default' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                             'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                             'ld-path'      : '$LIB-PATH',
+                                             'includes'     : [ 'fftw/fftw3.h' ],
+                                             'libraries'    : { 'fftwLibs' : ['fftw3'] }
+                                           },
+                               'win32'   : { 'libraries'    : { 'fftwLibs' : ['libfftw3'] } }
                              }
                  },
 
-    'cfitsio'  : { 'v3060' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
-                               'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
-                               'ld-path'    : '$LIB-PATH',
-                               'includes'     : [ 'fitsio.h' ],
-                               'libraries'    : { 'default' : { 'cfitsioLibs' : [ 'cfitsio', 'm' ] }
-                                                  'win32'   : { 'cfitsioLibs' : [ 'cfitsio' ] }
-                                                }
+    'cfitsio'  : { 'v3060' : { 'default' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                             'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                             'ld-path'      : '$LIB-PATH',
+                                             'includes'     : [ 'fitsio.h' ],
+                                             'libraries'    : { 'cfitsioLibs' : [ 'cfitsio', 'm' ] }
+                                           },
+                               'win32'   : { 'libraries'    : { 'cfitsioLibs' : [ 'cfitsio' ] } }
                              }
                  }
     
-    'ape'      : { '2.3-gl1' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
-                                 'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
-                                 'ld-path'    : '$LIB-PATH',
-                                 'includes'     : [ 'ape/ape_list.h' ],
-                                 'libraries'    : { 'default' : { 'apeLibs' : [ 'ape', 'readline', 'termcap' ] },
-                                                    'win32'   : { 'apeLibs' : [ 'apelib' ] }
-                                                  }
+    'ape'      : { '2.3-gl1' : { 'default' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                               'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                               'ld-path'      : '$LIB-PATH',
+                                               'includes'     : [ 'ape/ape_list.h' ],
+                                               'libraries'    : { 'apeLibs' : [ 'ape', 'readline', 'termcap' ] }
+                                             },
+                                 'win32'   : { 'libraries'    : { 'apeLibs' : [ 'apelib' ] } }
                                }
                  },
     
-    'ROOT'     : { 'v5.18.00b' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
-                                   'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
-                                   'ld-path'    : '$LIB-PATH',
-                                   'includes'     : ['RVersion.h' ],
-                                   'libraries'    : { 'default' : { 'rootLibs'    : ['Tree', 'Net', 'Gpad', 'Graf', 'RIO', 'Hist', 'Physics', 'Matrix', 'Core', 'Cint', 'pthread', 'm', 'dl' ],
+    'ROOT'     : { 'v5.18.00b' : { 'default' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                                 'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                                 'ld-path'      : '$LIB-PATH',
+                                                 'includes'     : ['RVersion.h' ],
+                                                 'libraries'    : { 'rootLibs'    : ['Tree', 'Net', 'Gpad', 'Graf', 'RIO', 'Hist', 'Physics', 'Matrix', 'Core', 'Cint', 'pthread', 'm', 'dl' ],
                                                                     'rootGuiLibs' : [ 'Rint', 'Postscript', 'TreePlayer', 'Tree', 'Net', 'Graf3d', 'Gui', 'HistPainter', 'Gpad' ],
                                                                     'minuitLibs'  : [ 'Minuit2', 'Minuit', 'Graf', 'RIO', 'Hist', 'Matrix', 'Core', 'Cint' ]
-                                                                  },
-                                                      'win32' : { 'rootLibs'    : [ 'libCore', 'libCint', 'libRIO', 'libNet', 'libTree', 'libHist', 'libGraf', 'libGpad', 'libMatrix', 'libPhysics' ],
-                                                                  'rootGuiLibs' : [ 'libHist', 'libGraf', 'libGraf3d', 'libGpad', 'libRint', 'libPostscript', 'libTreePlayer', 'libGui', 'libHistPainter' ],
-                                                                  'minuitLibs'  : [ 'libMinuit2' ]
-                                                                }
-                                                    }
+                                                                  }
+                                               },
+                                   'win32' : { 'libraries'      : { 'rootLibs'    : [ 'libCore', 'libCint', 'libRIO', 'libNet', 'libTree', 'libHist', 'libGraf', 'libGpad', 'libMatrix', 'libPhysics' ],
+                                                                    'rootGuiLibs' : [ 'libHist', 'libGraf', 'libGraf3d', 'libGpad', 'libRint', 'libPostscript', 'libTreePlayer', 'libGui', 'libHistPainter' ],
+                                                                    'minuitLibs'  : [ 'libMinuit2' ]
+                                                                  }
+                                             }
                                  },
                    
-                   'v5.18.00c-gl1' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
-                                       'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
-                                       'ld-path'    : '$LIB-PATH',
-                                       'includes'     : [ 'RVersion.h' ],
-                                       'libraries'    : { 'default' : { 'rootLibs'    : [ 'Tree', 'Net', 'Gpad', 'Graf', 'RIO', 'Hist', 'Physics', 'Matrix', 'Core', 'Cint', 'pthread', 'm', 'dl' ],
+                   'v5.18.00c-gl1' : { 'default' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                                     'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                                     'ld-path'      : '$LIB-PATH',
+                                                     'includes'     : [ 'RVersion.h' ],
+                                                     'libraries'    : { 'rootLibs'    : [ 'Tree', 'Net', 'Gpad', 'Graf', 'RIO', 'Hist', 'Physics', 'Matrix', 'Core', 'Cint', 'pthread', 'm', 'dl' ],
                                                                         'rootGuiLibs' : [ 'Rint', 'Postscript', 'TreePlayer', 'Tree', 'Net', 'Graf3d', 'Gui', 'HistPainter', 'Gpad' ],
                                                                         'minuitLibs'  : [ 'Minuit2', 'Minuit', 'Graf', 'RIO', 'Hist', 'Matrix', 'Core', 'Cint' ]
                                                                       }
-                                                          'win32' : { 'rootLibs'    : [ 'libCore', 'libCint', 'libRIO', 'libNet', 'libTree', 'libHist', 'libGraf', 'libGpad', 'libMatrix', 'libPhysics' ],
-                                                                      'rootGuiLibs' : [ 'libHist', 'libGraf', 'libGraf3d', 'libGpad', 'libRint', 'libPostscript', 'libTreePlayer', 'libGui', 'libHistPainter' ],
-                                                                      'minuitLibs'  : [ 'libMinuit2' ]
-                                                                    }
-                                                        }
+                                                   },
+                                       'win32'   : { 'libraries'    : { 'rootLibs'    : [ 'libCore', 'libCint', 'libRIO', 'libNet', 'libTree', 'libHist', 'libGraf', 'libGpad', 'libMatrix', 'libPhysics' ],
+                                                                        'rootGuiLibs' : [ 'libHist', 'libGraf', 'libGraf3d', 'libGpad', 'libRint', 'libPostscript', 'libTreePlayer', 'libGui', 'libHistPainter' ],
+                                                                        'minuitLibs'  : [ 'libMinuit2' ]
+                                                                      }
+                                                   }
                                      }
                  },
 
-    'swig'     : { '1.3.31' : { 'bin-path'   : os.path.join('$GLAST_EXT','$NAME','$VERSION','$COMPILER', 'bin'),
-                                'share-path' : { 'default' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'share', 'swig', '$VERSION'),
-                                                 'win32'   : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'share', 'swig')
-                                               },
-                                'ld-path'    : '$LIB-PATH',
-                                'binaries' : [ 'swig' ]
+    'swig'     : { '1.3.31' : { 'default' : { 'bin-path'   : os.path.join('$GLAST_EXT','$NAME','$VERSION','$COMPILER', 'bin'),
+                                              'share-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'share', 'swig', '$VERSION'),
+                                              'ld-path'    : '$LIB-PATH',
+                                              'binaries'   : [ 'swig' ]
+                                            },
+                                'win32'   : { 'share-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'share', 'swig') }
                               }
                  },
     
-    'xerces'   : { '2.7.0' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
-                               'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
-                               'bin-path'     : os.path.join('$GLAST_EXT', '$NAME','$VERSION','$COMPILER', 'bin'),
-                               'ld-path'      : { 'default' : '$LIB-PATH',
-                                                  'win32'   : '$BIN-PATH'
-                                                },
-                               'includes'     : [ 'xercesc/util/XercesVersion.hpp' ],
-                               'libraries'    : { 'xercesLibs'  : [ 'xerces-c', 'pthread' ] }
+    'xerces'   : { '2.7.0' : { 'default' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                             'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                             'bin-path'     : os.path.join('$GLAST_EXT', '$NAME','$VERSION','$COMPILER', 'bin'),
+                                             'ld-path'      : '$LIB-PATH',
+                                             'includes'     : [ 'xercesc/util/XercesVersion.hpp' ],
+                                             'libraries'    : { 'xercesLibs'  : [ 'xerces-c', 'pthread' ] }
+                                           },
+                               'win32'   : { 'ld-path'      : '$BIN-PATH' }
                              }
                  },
                    
-    'cppunit'  : { '1.10.2' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
-                                'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
-                                'ld-path'      : '$LIB-PATH',
-                                'includes'     : [ 'cppunit/ui/text/TextTestRunner.h' ],
-                                'libraries'    : { 'default' : { 'cppunitLibs' : [ 'cppunit', 'dl' ] },
-                                                   'win32'   : { 'cppunitLibs' : [ 'CPPUNIT' ] }
-                                                 }
+    'cppunit'  : { '1.10.2' : { 'default' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                              'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                              'ld-path'      : '$LIB-PATH',
+                                              'includes'     : [ 'cppunit/ui/text/TextTestRunner.h' ],
+                                              'libraries'    : { 'cppunitLibs' : [ 'cppunit', 'dl' ] }
+                                            }
+                                'win32'   : { 'libraries'    : { 'cppunitLibs' : [ 'CPPUNIT' ] } }
                               }
                  },
                    
-    'python'   : { '2.5.1' : { 'include-path' : { 'default' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include', 'python2.5'),
-                                                  'win32'   : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include')
-                                                }
-                               'lib-path'     : { 'default' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib', 'python2.5', 'config'),
-                                                  'win32'   : os.path.join('$GLAST_EXT','$NAME','$VERSION','$COMPILER', 'libs')
-                                                }
-                               'ld-path'      : '$LIB-PATH',
-                               'includes'     : [ 'Python.h' ],
-                               'libraries'    : { 'posix'  : { 'pythonLibs' : [ 'pthread', 'dl', 'util', 'm', 'python2.5' ] },
-                                                  'win32'  : { 'pythonLibs' : [ 'python25' ] },
-                                                  'darwin' : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.5' ] }
-                                                }
+    'python'   : { '2.5.1' : { 'default' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include', 'python2.5'),
+                                             'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib', 'python2.5', 'config'),
+                                             'ld-path'      : '$LIB-PATH',
+                                             'includes'     : [ 'Python.h' ]
+                                           },
+                               'win32'   : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                             'lib-path'     : os.path.join('$GLAST_EXT','$NAME','$VERSION','$COMPILER', 'libs'),
+                                             'libraries'    : { 'pythonLibs' : [ 'python25' ] }
+                                           },
+                               'posix'   : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'util', 'm', 'python2.5' ] } }
+                               'darwin'  : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.5' ] } }
                              }
-                 },
+                 }
                    
-    'f2c'      : { '3.4' : { 'lib-path'  : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
-                             'ld-path'   : '$LIB-PATH',
-                             'libraries' : { 'f2cLibs' : [ 'g2c' ] }
+    'f2c'      : { '3.4' : { 'default' : { 'lib-path'  : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                           'ld-path'   : '$LIB-PATH',
+                                           'libraries' : { 'f2cLibs' : [ 'g2c' ] }
+                                         }
                            }
 
-                   '3.4.6' : { 'libraries'    : { 'default' : { 'f2cLibs' : [ 'g2c' ] }
-                                                  'win32'   : { 'f2cLibs' : [ 'libf77mt.lib', 'libi77mt.lib', 'oldnames.lib' ] }
-                                                }
+                   '3.4.6' : { 'default' : { 'libraries'    : { 'f2cLibs' : [ 'g2c' ] } },
+                               'win32'   : { 'libraries'    : { 'f2cLibs' : [ 'libf77mt.lib', 'libi77mt.lib', 'oldnames.lib' ] } }
                              }
                  },
 
