@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Wed May 13 19:09:51 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+Merge some of Joanne's changes. Set os/gcc conditions at top level after version number
+    *
+------------------------------------------------------------
 User: glastrm  Fri May  8 17:23:36 PDT 2009
 SConsFiles
 
