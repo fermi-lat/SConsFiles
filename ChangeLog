@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Thu May 14 13:29:29 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+Added some of the function utilities
+    *
+------------------------------------------------------------
 User: glastrm  Wed May 13 19:09:51 PDT 2009
 SConsFiles
 
