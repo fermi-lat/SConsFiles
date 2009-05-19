@@ -52,15 +52,15 @@ def substituteVars(name, version, configuredExternal):
     #Substitue variables
     for section in configuredExternal:
         if type(configuredExternal[section]) == type(""):
-            configuredExternal[section] = configuredExternal[section].replace('$COMPILER', compilerName)
-            configuredExternal[section] = configuredExternal[section].replace('$VERSION', version)
-            configuredExternal[section] = configuredExternal[section].replace('$NAME', name)
             if 'lib-path' in configuredExternal:
                 configuredExternal[section] = configuredExternal[section].replace('$LIB-PATH', configuredExternal['lib-path'])
             if 'bin-path' in configuredExternal:
                 configuredExternal[section] = configuredExternal[section].replace('$BIN-PATH', configuredExternal['bin-path'])
             if baseEnv.GetOption('GLAST-EXT'):
                 configuredExternal[section] = configuredExternal[section].replace('$GLAST_EXT', baseEnv.GetOption('GLAST-EXT'))
+            configuredExternal[section] = configuredExternal[section].replace('$COMPILER', compilerName)
+            configuredExternal[section] = configuredExternal[section].replace('$VERSION', version)
+            configuredExternal[section] = configuredExternal[section].replace('$NAME', name)
     return configuredExternal
 
 def setupEnvironment(configuredExternal):
@@ -145,12 +145,17 @@ def setupSwig(version, configuredExternal):
 
     baseEnv.AppendUnique(SWIGPATH = [baseEnv['CPPPATH'], os.path.join(configuredExternal['share-path'], 'python'), configuredExternal['share-path'], baseEnv['INCDIR'], '.'])
     baseEnv.AppendUnique(SWIGFLAGS = ['-w401', '-w402', '-w503', '-w362', '-w389', '-w509', '-python', '-c++'])
-    
+
+#determine the compiler name to use
 if baseEnv['PLATFORM'] == "win32":
     compilerName = 'vc' + ''.join(baseEnv['MSVS']['VERSION'].split('.')[0:2])
 else:
     compilerName = 'gcc' + ''.join(baseEnv['CXXVERSION'].split('.')[0:2])
 
+#This variable holds are external library hashes once they are fully configured
+configuredExternals = []
+
+#Set everything up
 for external in usedExternals:
     configuredExternal = getExternal(external['name'], external['version'], compilerName)
     configuredExternal = setupOptions(external['name'], external['version'], configuredExternal)
@@ -160,5 +165,20 @@ for external in usedExternals:
         setupRoot(external['version'], configuredExternal)
     if external['name'] == 'swig':
         setupSwig(external['version'], configuredExternal)
+    configuredExternal['name'] = external['name']
+    configuredExternal['version'] = external['version']
+    configuredExternals.append(configuredExternal)
+
+#Check if all external libraries exist
+for configuredExternal in configuredExternals:
     if not baseEnv.GetOption('help') and not baseEnv.GetOption('clean'):
-        checkEnvironment(external['name'], external['version'], configuredExternal)
+        checkEnvironment(configuredExternal['name'], configuredExternal['version'], configuredExternal)
+
+#If in RM mode print out all the external library ld paths
+if baseEnv.GetOption('rm'):
+    print "scons: printing external libraries"
+    for configuredExternal in configuredExternals:
+        if 'ld-path' in configuredExternal:
+            print configuredExternal['name']+' '+configuredExternal['version']+' '+configuredExternal['ld-path'].replace(baseEnv.GetOption('GLAST-EXT'), '$GLAST_EXT')
+    print "scons: done printing external libraries"
+    
