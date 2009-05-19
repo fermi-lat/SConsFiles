@@ -78,7 +78,6 @@ allExternalLibraries = {
 
     'swig'     : { '1.3.31' : { 'default' : { 'bin-path'   : os.path.join('$GLAST_EXT','$NAME','$VERSION','$COMPILER', 'bin'),
                                               'share-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'share', 'swig', '$VERSION'),
-                                              'ld-path'    : '$LIB-PATH',
                                               'binaries'   : [ 'swig' ]
                                             },
                                 'win32'   : { 'share-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'share', 'swig') }
