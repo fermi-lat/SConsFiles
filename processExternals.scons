@@ -1,0 +1,164 @@
+# -*- python -*-                                                                                                                                                                                         
+import os
+
+Import('usedExternals')
+Import('allExternalLibraries')
+Import('baseEnv')
+
+AddOption('--with-GLAST-EXT', dest = 'GLAST-EXT', nargs=1, type='string', action='store', metavar='DIR', help='location of GLAST_EXT type directory layout for external libraries')
+
+def getExternal(name, version, compiler):
+    configuredExternal = allExternalLibraries[name][version]['default']
+    #Check for default overrides for OS
+    if baseEnv['PLATFORM'] in allExternalLibraries[name][version]:
+        for section in allExternalLibraries[name][version][baseEnv['PLATFORM']]:
+            configuredExternal[section] = allExternalLibraries[name][version][baseEnv['PLATFORM']][section]
+
+    #Check for default overrides for compiler    
+    if compiler in allExternalLibraries[name][version]:
+        for section in allExternalLibraries[name][version][compiler]:
+            configuredExternal[section] = allExternalLibraries[name][version][compiler][section]
+
+    return configuredExternal
+
+def setupOptions(name, version, configuredExternal):
+    #Setup scons options and check for them
+    AddOption('--with-'+name, dest = name, nargs=1, type='string', action='store', metavar='DIR', help='location of '+name+' '+version+' headers/libraries')
+
+    if 'include-path' in configuredExternal:
+        AddOption('--with-'+name+'-includes', dest = name+'-includes', nargs=1, type='string', action='store', metavar='DIR', help='location of '+name+' '+version+' headers')
+    if 'lib-path' in configuredExternal:
+        AddOption('--with-'+name+'-libraries', dest = name+'-libraries', nargs=1, type='string', action='store', metavar='DIR', help='location of '+name+' '+version+' libraries')
+    if 'bin-path' in configuredExternal:
+        AddOption('--with-'+name+'-binaries', dest = name+'-binaries', nargs=1, type='string', action='store', metavar='DIR', help='location of '+name+' '+version+' binaries')
+
+    if baseEnv.GetOption(external['name']):
+        if 'include-path' in configuredExternal:
+            configuredExternal['include-path'] = os.path.join(env.GetOption(external['name']), 'include')
+        if 'lib-path' in configuredExternal:
+            configuredExternal['lib-path'] = os.path.join(env.GetOption(external['name']), 'lib')
+        if 'bin-path' in configuredExternal:
+            configuredExternal['bin-path'] = os.path.join(env.GetOption(external['name']), 'bin')
+    else:
+        if 'include-path' in configuredExternal and baseEnv.GetOption(external['name']+'-includes'):
+            configuredExternal['include-path'] = baseEnv.GetOption(external['name']+'-includes')
+        if 'lib-path' in configuredExternal and baseEnv.GetOption(external['name']+'-libraries'):
+            configuredExternal['lib-path'] = baseEnv.GetOption(external['name']+'-libraries')
+        if 'bin-path' in configuredExternal and baseEnv.GetOption(external['name']+'-binaries'):
+            configuredExternal['bin-path'] = baseEnv.GetOption(external['name']+'-binaries')
+    return configuredExternal
+
+def substituteVars(name, version, configuredExternal):
+    #Substitue variables
+    for section in configuredExternal:
+        if type(configuredExternal[section]) == type(""):
+            configuredExternal[section] = configuredExternal[section].replace('$COMPILER', compilerName)
+            configuredExternal[section] = configuredExternal[section].replace('$VERSION', version)
+            configuredExternal[section] = configuredExternal[section].replace('$NAME', name)
+            if 'lib-path' in configuredExternal:
+                configuredExternal[section] = configuredExternal[section].replace('$LIB-PATH', configuredExternal['lib-path'])
+            if 'bin-path' in configuredExternal:
+                configuredExternal[section] = configuredExternal[section].replace('$BIN-PATH', configuredExternal['bin-path'])
+            if baseEnv.GetOption('GLAST-EXT'):
+                configuredExternal[section] = configuredExternal[section].replace('$GLAST_EXT', baseEnv.GetOption('GLAST-EXT'))
+    return configuredExternal
+
+def setupEnvironment(configuredExternal):
+    #Add Paths to base environment
+    if 'include-path' in configuredExternal:
+        baseEnv.AppendUnique(CPPPATH = [configuredExternal['include-path']])
+    if 'lib-path' in configuredExternal:
+        baseEnv.AppendUnique(LIBPATH = [configuredExternal['lib-path']])
+    if 'bin-path' in configuredExternal:
+        baseEnv.PrependUnique(PATH = [configuredExternal['bin-path']])
+    if 'ld-path' in configuredExternal:
+        baseEnv.AppendUnique(WRAPPERLIBS = [configuredExternal['ld-path']])
+
+    #Add library groups to base environment
+    if 'libraries' in configuredExternal:
+        for libGroup in configuredExternal['libraries']:
+            baseEnv[libGroup] = configuredExternal['libraries'][libGroup]
+
+    #Add CPP defines to base environment
+    if 'cpp-defines' in configuredExternal:
+        for define in configuredExternal['cpp-defines']:
+            baseEnv.AppendUnique(CPPDEFINES = [define])
+                        
+def checkEnvironment(name, version, configuredExternal):
+    conf = baseEnv.Clone().Configure()
+    if 'includes' in configuredExternal:
+        for include in configuredExternal['includes']:
+            if not conf.CheckCXXHeader(include):
+                print 'Unable to find a header file for '+name+'. See config.log for more details.'
+                Exit(1)
+    if 'libraries' in configuredExternal:
+        for libGroup in configuredExternal['libraries']:
+            for library in configuredExternal['libraries'][libGroup][::-1]:
+                if not conf.CheckLib(library, language='C++'):
+                    print 'Unable to find a library for '+name+'. See config.log for more details.'
+                    Exit(1)
+    conf.Finish()
+    
+def setupRoot(version, configuredExternal):
+    if 'lib-path' in configuredExternal:
+        baseEnv.AppendENVPath('LD_LIBRARY_PATH', [configuredExternal['lib-path']])
+    if 'dylib-path' in configuredExternal:
+        baseEnv.AppendENVPath('DYLD_LIBRARY_PATH', [configuredExternal['dylib-path']])
+    baseEnv.AppendENVPath('ROOTSYS', [os.path.normpath(os.path.join(configuredExternal['include-path'], '..'))])
+    baseEnv.AppendENVPath('PATH', [configuredExternal['bin-path']])
+
+    def rootcintEmitter(target, source, env):
+        target.append(str(target[0]).replace('.cxx','')+".h")
+        return target, source
+    def rootcintGenerator(source,target,env,for_signature):
+        buildlocation = Dir(str(target[0].dir)+'/..')
+        root_headers = ''
+        for header in env['includes']:
+            root_headers += ' -I'+str(Dir(header))
+        sources = ''
+        for file in source:
+            sources += ' '+str(buildlocation.rel_path(file))
+        execute = 'cd '+os.path.join("${TARGET.dir}","..")+ ' && '
+        execute += os.path.join(configuredExternal['bin-path'], 'rootcint')
+        execute += ' -f '
+        execute += str(buildlocation.rel_path(target[0]))
+        execute += ' -c'
+        execute += root_headers
+        execute += sources
+        return execute
+    rootBuilder = Builder(generator = rootcintGenerator, emitter = rootcintEmitter, suffix = '.cxx')
+    baseEnv.Append(BUILDERS = { 'Rootcint' : rootBuilder })
+    if baseEnv['PLATFORM'] == "win32":
+        def defGenerator(target, source, env, for_signature):
+            return "/def:"+os.path.splitext(str(target[0]))[0]+".def"
+        baseEnv['DEFGENERATOR'] = defGenerator
+        baseEnv['SHLINKCOM'] = [os.path.join(externalLibraries['ROOT']['bin-path'], "bindexplib.exe") + " -o ${TARGET.base}.def ${TARGET.file} $SOURCES"] + baseEnv['SHLINKCOM']
+        baseEnv['SHLINKCOM'].list[1].cmd_list = baseEnv['SHLINKCOM'].list[1].cmd_list.rstrip('" )}')
+        baseEnv['SHLINKCOM'].list[1].cmd_list += " $DEFGENERATOR\")}"
+
+def setupSwig(version, configuredExternal):
+    baseEnv.PrependENVPath('PATH', [configuredExternal['bin-path']])
+    baseEnv.Tool('swig')
+    if baseEnv['PLATFORM'] == 'win32':
+        baseEnv['SWIGEXEPATH'] = externalLibraries['swig']['bin-path']
+        baseEnv['SWIG_LIB'] = externalLibraries['swig']['share-path']
+
+    baseEnv.AppendUnique(SWIGPATH = [baseEnv['CPPPATH'], os.path.join(configuredExternal['share-path'], 'python'), configuredExternal['share-path'], baseEnv['INCDIR'], '.'])
+    baseEnv.AppendUnique(SWIGFLAGS = ['-w401', '-w402', '-w503', '-w362', '-w389', '-w509', '-python', '-c++'])
+    
+if baseEnv['PLATFORM'] == "win32":
+    compilerName = 'vc' + ''.join(baseEnv['MSVS']['VERSION'].split('.')[0:2])
+else:
+    compilerName = 'gcc' + ''.join(baseEnv['CXXVERSION'].split('.')[0:2])
+
+for external in usedExternals:
+    configuredExternal = getExternal(external['name'], external['version'], compilerName)
+    configuredExternal = setupOptions(external['name'], external['version'], configuredExternal)
+    configuredExternal = substituteVars(external['name'], external['version'], configuredExternal)
+    setupEnvironment(configuredExternal)
+    if external['name'] == 'ROOT':
+        setupRoot(external['version'], configuredExternal)
+    if external['name'] == 'swig':
+        setupSwig(external['version'], configuredExternal)
+    if not baseEnv.GetOption('help') and not baseEnv.GetOption('clean'):
+        checkEnvironment(external['name'], external['version'], configuredExternal)
