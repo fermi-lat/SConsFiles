@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Tue May 19 11:50:59 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons processExternals.scons 
+Log Message:
+Added option to print out external libraries when using --rm
+    *
+------------------------------------------------------------
 User: glastrm  Tue May 19 11:08:11 PDT 2009
 SConsFiles
 
