@@ -1,4 +1,15 @@
 ------------------------------------------------------------
+User: glastrm  Tue May 19 11:08:11 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Added Files:
+	processExternals.scons 
+Log Message:
+Working version of global external library code
+    *
+------------------------------------------------------------
 User: glastrm  Thu May 14 13:29:29 PDT 2009
 SConsFiles
 
