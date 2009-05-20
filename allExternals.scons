@@ -73,7 +73,25 @@ allExternalLibraries = {
                                                                         'minuitLibs'  : [ 'libMinuit2' ]
                                                                       }
                                                    }
+                                     },
+
+                   'v5.20.00-gl3' : { 'default' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                                    'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                                    'ld-path'      : '$LIB-PATH',
+                                                    'bin-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'bin'),
+                                                    'includes'     : [ 'RVersion.h' ],
+                                                    'libraries'    : { 'rootLibs'    : [ 'Tree', 'Net', 'Gpad', 'Graf', 'RIO', 'Hist', 'Physics', 'Matrix', 'Core', 'Cint', 'pthread', 'm', 'dl' ],
+                                                                       'rootGuiLibs' : [ 'Rint', 'Postscript', 'TreePlayer', 'Tree', 'Net', 'Graf3d', 'Gui', 'HistPainter', 'Gpad' ],
+                                                                       'minuitLibs'  : [ 'Minuit2', 'Minuit', 'Graf', 'RIO', 'Hist', 'Matrix', 'Core', 'Cint', 'dl' ]
+                                                                     }
+                                                  },
+                                      'win32'   : { 'libraries'    : { 'rootLibs'    : [ 'libCore', 'libCint', 'libRIO', 'libNet', 'libTree', 'libHist', 'libGraf', 'libGpad', 'libMatrix', 'libPhysics' ],
+                                                                       'rootGuiLibs' : [ 'libHist', 'libGraf', 'libGraf3d', 'libGpad', 'libRint', 'libPostscript', 'libTreePlayer', 'libGui', 'libHistPainter' ],
+                                                                       'minuitLibs'  : [ 'libMinuit2' ]
+                                                                     }
+                                                  }
                                      }
+                   
                  },
 
     'swig'     : { '1.3.31' : { 'default' : { 'bin-path'   : os.path.join('$GLAST_EXT','$NAME','$VERSION','$COMPILER', 'bin'),
