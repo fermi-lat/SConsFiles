@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Thu May 21 14:06:20 PDT 2009
+SConsFiles
+
+Modified Files:
+	processExternals.scons 
+Log Message:
+allow for lists in path variables
+    *
+------------------------------------------------------------
 User: glastrm  Thu May 21 08:32:53 PDT 2009
 SConsFiles
 
