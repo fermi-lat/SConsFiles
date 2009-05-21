@@ -2,7 +2,8 @@
 import os
 
 allExternalLibraries = {
-    'CLHEP'    : { '1.9.2.2' : { 'default' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+    'CLHEP'    : { '1.9.2.2' : { 'default' : { 'version'      : '1.9.2.2',
+                                               'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
                                                'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
                                                'ld-path'      : '$LIB-PATH',
                                                'includes'     : [ 'CLHEP/config/CLHEP.h' ],
@@ -11,7 +12,8 @@ allExternalLibraries = {
                                }
                  },
 
-    'fftw'     : { '3.1.2' : { 'default' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+    'fftw'     : { '3.1.2' : { 'default' : { 'version'      : '3.1.2',
+                                             'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
                                              'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
                                              'ld-path'      : '$LIB-PATH',
                                              'includes'     : [ 'fftw/fftw3.h' ],
@@ -21,7 +23,8 @@ allExternalLibraries = {
                              }
                  },
 
-    'cfitsio'  : { 'v3060' : { 'default' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+    'cfitsio'  : { 'v3060' : { 'default' : { 'version'      : 'v3060',
+                                             'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
                                              'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
                                              'ld-path'      : '$LIB-PATH',
                                              'includes'     : [ 'fitsio.h' ],
@@ -31,7 +34,8 @@ allExternalLibraries = {
                              }
                  },
     
-    'ape'      : { '2.3-gl1' : { 'default' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+    'ape'      : { '2.3-gl1' : { 'default' : { 'version'      : '2.3-gl1',
+                                               'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
                                                'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
                                                'ld-path'      : '$LIB-PATH',
                                                'includes'     : [ 'ape/ape_list.h' ],
@@ -41,7 +45,8 @@ allExternalLibraries = {
                                }
                  },
     
-    'ROOT'     : { 'v5.18.00b' : { 'default' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+    'ROOT'     : { 'v5.18.00b' : { 'default' : { 'version'      : 'v5.18.00b',
+                                                 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
                                                  'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
                                                  'ld-path'      : '$LIB-PATH',
                                                  'bin-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'bin'),
@@ -57,8 +62,8 @@ allExternalLibraries = {
                                                                   }
                                              }
                                  },
-                   
-                   'v5.18.00c-gl1' : { 'default' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                   'v5.18.00c-gl1' : { 'default' : { 'version'      : 'v5.18.00c-gl1',
+                                                     'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
                                                      'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
                                                      'ld-path'      : '$LIB-PATH',
                                                      'bin-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'bin'),
@@ -74,8 +79,8 @@ allExternalLibraries = {
                                                                       }
                                                    }
                                      },
-
-                   'v5.20.00-gl3' : { 'default' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                   'v5.20.00-gl3' : { 'default' : { 'version'      : 'v5.20.00-gl3',
+                                                    'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
                                                     'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
                                                     'ld-path'      : '$LIB-PATH',
                                                     'bin-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'bin'),
@@ -83,18 +88,18 @@ allExternalLibraries = {
                                                     'libraries'    : { 'rootLibs'    : [ 'Tree', 'Net', 'Gpad', 'Graf', 'RIO', 'Hist', 'Physics', 'Matrix', 'Core', 'Cint', 'pthread', 'm', 'dl' ],
                                                                        'rootGuiLibs' : [ 'Rint', 'Postscript', 'TreePlayer', 'Tree', 'Net', 'Graf3d', 'Gui', 'HistPainter', 'Gpad' ],
                                                                        'minuitLibs'  : [ 'Minuit2', 'Minuit', 'Graf', 'RIO', 'Hist', 'Matrix', 'Core', 'Cint', 'dl' ]
-                                                                     }
-                                                  },
+                                                                                                                                            }
+                                                                                                      },
                                       'win32'   : { 'libraries'    : { 'rootLibs'    : [ 'libCore', 'libCint', 'libRIO', 'libNet', 'libTree', 'libHist', 'libGraf', 'libGpad', 'libMatrix', 'libPhysics' ],
                                                                        'rootGuiLibs' : [ 'libHist', 'libGraf', 'libGraf3d', 'libGpad', 'libRint', 'libPostscript', 'libTreePlayer', 'libGui', 'libHistPainter' ],
                                                                        'minuitLibs'  : [ 'libMinuit2' ]
                                                                      }
                                                   }
-                                     }
-                   
+                                    }
                  },
 
-    'swig'     : { '1.3.31' : { 'default' : { 'bin-path'   : os.path.join('$GLAST_EXT','$NAME','$VERSION','$COMPILER', 'bin'),
+    'swig'     : { '1.3.31' : { 'default' : { 'version'    : '1.3.31',
+                                              'bin-path'   : os.path.join('$GLAST_EXT','$NAME','$VERSION','$COMPILER', 'bin'),
                                               'share-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'share', 'swig', '$VERSION'),
                                               'binaries'   : [ 'swig' ]
                                             },
@@ -102,7 +107,8 @@ allExternalLibraries = {
                               }
                  },
     
-    'xerces'   : { '2.7.0' : { 'default' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+    'xerces'   : { '2.7.0' : { 'default' : { 'version'      : '2.7.0',
+                                             'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
                                              'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
                                              'bin-path'     : os.path.join('$GLAST_EXT', '$NAME','$VERSION','$COMPILER', 'bin'),
                                              'ld-path'      : '$LIB-PATH',
@@ -113,7 +119,8 @@ allExternalLibraries = {
                              }
                  },
                    
-    'cppunit'  : { '1.10.2' : { 'default' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+    'cppunit'  : { '1.10.2' : { 'default' : { 'version'      : '1.10.2',
+                                              'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
                                               'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
                                               'ld-path'      : '$LIB-PATH',
                                               'includes'     : [ 'cppunit/ui/text/TextTestRunner.h' ],
@@ -123,7 +130,8 @@ allExternalLibraries = {
                               }
                  },
                    
-    'python'   : { '2.5.1' : { 'default' : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include', 'python2.5'),
+    'python'   : { '2.5.1' : { 'default' : { 'version'      : '2.5.1',
+                                             'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include', 'python2.5'),
                                              'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib', 'python2.5', 'config'),
                                              'ld-path'      : '$LIB-PATH',
                                              'includes'     : [ 'Python.h' ]
@@ -137,17 +145,25 @@ allExternalLibraries = {
                              }
                  },
                    
-    'f2c'      : { '3.4' : { 'default' : { 'lib-path'  : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
-                                           'ld-path'   : '$LIB-PATH',
-                                           'libraries' : { 'f2cLibs' : [ 'g2c' ] }
-                                         }
-                           },
-                   '3.4.6' : { 'default' : { 'libraries'    : { 'f2cLibs' : [ 'g2c' ] } },
-                               'win32'   : { 'libraries'    : { 'f2cLibs' : [ 'libf77mt.lib', 'libi77mt.lib', 'oldnames.lib' ] } }
+    'f2c'      : { '3.4.6' : { 'default' : { 'version'   : '3.4.6',
+                                             'libraries' : { 'f2cLibs' : [ 'g2c' ] }
+                                           },
+                               'win32'   : { 'lib-path'  : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib') ,
+                                             'ld-path'   : '$LIB-PATH',
+                                             'libraries' : { 'f2cLibs' : [ 'libf77mt.lib', 'libi77mt.lib', 'oldnames.lib' ] }
+                                           },
+                               'darwin'  : { 'lib-path'  : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER','lib') ,
+                                             'ld-path'   : '$LIB-PATH',
+                                             'libraries' : { 'f2cLibs' : [ 'g2c' ] }
+                                           }
                              }
                  },
 
-    'extFiles' : { 'v0r7' : { 'default' : { 'cpp-defines' : [ 'extFiles=\\"$VERSION\\"' ] } } }
+    'extFiles' : { 'v0r7' : { 'default' : { 'version'     : 'v0r7',
+                                            'cpp-defines' : [ 'extFiles=\\"$VERSION\\"' ]
+                                          }
+                            }
+                 }
 }
 
 Return("allExternalLibraries")

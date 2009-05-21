@@ -21,16 +21,16 @@ def getExternal(name, version, compiler):
 
     return configuredExternal
 
-def setupOptions(name, version, configuredExternal):
+def setupOptions(name, configuredExternal):
     #Setup scons options and check for them
-    AddOption('--with-'+name, dest = name, nargs=1, type='string', action='store', metavar='DIR', help='location of '+name+' '+version+' headers/libraries')
+    AddOption('--with-'+name, dest = name, nargs=1, type='string', action='store', metavar='DIR', help='location of '+name+' '+configuredExternal['version']+' headers/libraries')
 
     if 'include-path' in configuredExternal:
-        AddOption('--with-'+name+'-includes', dest = name+'-includes', nargs=1, type='string', action='store', metavar='DIR', help='location of '+name+' '+version+' headers')
+        AddOption('--with-'+name+'-includes', dest = name+'-includes', nargs=1, type='string', action='store', metavar='DIR', help='location of '+name+' '+configuredExternal['version']+' headers')
     if 'lib-path' in configuredExternal:
-        AddOption('--with-'+name+'-libraries', dest = name+'-libraries', nargs=1, type='string', action='store', metavar='DIR', help='location of '+name+' '+version+' libraries')
+        AddOption('--with-'+name+'-libraries', dest = name+'-libraries', nargs=1, type='string', action='store', metavar='DIR', help='location of '+name+' '+configuredExternal['version']+' libraries')
     if 'bin-path' in configuredExternal:
-        AddOption('--with-'+name+'-binaries', dest = name+'-binaries', nargs=1, type='string', action='store', metavar='DIR', help='location of '+name+' '+version+' binaries')
+        AddOption('--with-'+name+'-binaries', dest = name+'-binaries', nargs=1, type='string', action='store', metavar='DIR', help='location of '+name+' '+configuredExternal['version']+' binaries')
 
     if baseEnv.GetOption(external['name']):
         if 'include-path' in configuredExternal:
@@ -48,7 +48,7 @@ def setupOptions(name, version, configuredExternal):
             configuredExternal['bin-path'] = baseEnv.GetOption(external['name']+'-binaries')
     return configuredExternal
 
-def substituteVars(name, version, configuredExternal):
+def substituteVars(name, configuredExternal):
     #Substitue variables
     for section in configuredExternal:
         if type(configuredExternal[section]) == type(""):
@@ -59,7 +59,7 @@ def substituteVars(name, version, configuredExternal):
             if baseEnv.GetOption('GLAST-EXT'):
                 configuredExternal[section] = configuredExternal[section].replace('$GLAST_EXT', baseEnv.GetOption('GLAST-EXT'))
             configuredExternal[section] = configuredExternal[section].replace('$COMPILER', compilerName)
-            configuredExternal[section] = configuredExternal[section].replace('$VERSION', version)
+            configuredExternal[section] = configuredExternal[section].replace('$VERSION', configuredExternal['version'])
             configuredExternal[section] = configuredExternal[section].replace('$NAME', name)
     return configuredExternal
 
@@ -84,22 +84,22 @@ def setupEnvironment(configuredExternal):
         for define in configuredExternal['cpp-defines']:
             baseEnv.AppendUnique(CPPDEFINES = [define])
                         
-def checkEnvironment(name, version, configuredExternal):
+def checkEnvironment(configuredExternal):
     conf = baseEnv.Clone().Configure()
     if 'includes' in configuredExternal:
         for include in configuredExternal['includes']:
             if not conf.CheckCXXHeader(include):
-                print 'Unable to find a header file for '+name+'. See config.log for more details.'
+                print 'Unable to find a header file for '+configuredExternal['name']+'. See config.log for more details.'
                 Exit(1)
     if 'libraries' in configuredExternal:
         for libGroup in configuredExternal['libraries']:
             for library in configuredExternal['libraries'][libGroup][::-1]:
                 if not conf.CheckLib(library, language='C++'):
-                    print 'Unable to find a library for '+name+'. See config.log for more details.'
+                    print 'Unable to find a library for '+configuredExternal['name']+'. See config.log for more details.'
                     Exit(1)
     conf.Finish()
     
-def setupRoot(version, configuredExternal):
+def setupRoot(configuredExternal):
     if 'lib-path' in configuredExternal:
         baseEnv.AppendENVPath('LD_LIBRARY_PATH', [configuredExternal['lib-path']])
     if 'dylib-path' in configuredExternal:
@@ -136,7 +136,7 @@ def setupRoot(version, configuredExternal):
         baseEnv['SHLINKCOM'].list[1].cmd_list = baseEnv['SHLINKCOM'].list[1].cmd_list.rstrip('" )}')
         baseEnv['SHLINKCOM'].list[1].cmd_list += " $DEFGENERATOR\")}"
 
-def setupSwig(version, configuredExternal):
+def setupSwig(configuredExternal):
     baseEnv.PrependENVPath('PATH', [configuredExternal['bin-path']])
     baseEnv.Tool('swig')
     if baseEnv['PLATFORM'] == 'win32':
@@ -158,21 +158,20 @@ configuredExternals = []
 #Set everything up
 for external in usedExternals:
     configuredExternal = getExternal(external['name'], external['version'], compilerName)
-    configuredExternal = setupOptions(external['name'], external['version'], configuredExternal)
-    configuredExternal = substituteVars(external['name'], external['version'], configuredExternal)
+    configuredExternal = setupOptions(external['name'], configuredExternal)
+    configuredExternal = substituteVars(external['name'], configuredExternal)
     setupEnvironment(configuredExternal)
     if external['name'] == 'ROOT':
-        setupRoot(external['version'], configuredExternal)
+        setupRoot(configuredExternal)
     if external['name'] == 'swig':
-        setupSwig(external['version'], configuredExternal)
+        setupSwig(configuredExternal)
     configuredExternal['name'] = external['name']
-    configuredExternal['version'] = external['version']
     configuredExternals.append(configuredExternal)
 
 #Check if all external libraries exist
 for configuredExternal in configuredExternals:
     if not baseEnv.GetOption('help') and not baseEnv.GetOption('clean'):
-        checkEnvironment(configuredExternal['name'], configuredExternal['version'], configuredExternal)
+        checkEnvironment(configuredExternal)
 
 #If in RM mode print out all the external library ld paths
 if baseEnv.GetOption('rm'):
