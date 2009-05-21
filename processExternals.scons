@@ -48,19 +48,25 @@ def setupOptions(name, configuredExternal):
             configuredExternal['bin-path'] = baseEnv.GetOption(external['name']+'-binaries')
     return configuredExternal
 
-def substituteVars(name, configuredExternal):
+def replace(string, variable, substitute):
+    if isinstance(string, str):
+        return string.replace(variable, substitute)
+    if isinstance(string, list):
+        return [ x.replace(variable, substitute) for x in string]
+    return string
+
+def substituteVars(name, version, configuredExternal):
     #Substitue variables
     for section in configuredExternal:
-        if type(configuredExternal[section]) == type(""):
-            if 'lib-path' in configuredExternal:
-                configuredExternal[section] = configuredExternal[section].replace('$LIB-PATH', configuredExternal['lib-path'])
-            if 'bin-path' in configuredExternal:
-                configuredExternal[section] = configuredExternal[section].replace('$BIN-PATH', configuredExternal['bin-path'])
-            if baseEnv.GetOption('GLAST-EXT'):
-                configuredExternal[section] = configuredExternal[section].replace('$GLAST_EXT', baseEnv.GetOption('GLAST-EXT'))
-            configuredExternal[section] = configuredExternal[section].replace('$COMPILER', compilerName)
-            configuredExternal[section] = configuredExternal[section].replace('$VERSION', configuredExternal['version'])
-            configuredExternal[section] = configuredExternal[section].replace('$NAME', name)
+        if 'lib-path' in configuredExternal:
+            configuredExternal[section] = replace(configuredExternal[section], '$LIB-PATH', configuredExternal['lib-path'])
+        if 'bin-path' in configuredExternal:
+            configuredExternal[section] = replace(configuredExternal[section], '$BIN-PATH', configuredExternal['bin-path'])
+        if baseEnv.GetOption('GLAST-EXT'):
+            configuredExternal[section] = replace(configuredExternal[section], '$GLAST_EXT', baseEnv.GetOption('GLAST-EXT'))
+        configuredExternal[section] = replace(configuredExternal[section], '$COMPILER', compilerName)
+        configuredExternal[section] = replace(configuredExternal[section], '$VERSION', version)
+        configuredExternal[section] = replace(configuredExternal[section], '$NAME', name)
     return configuredExternal
 
 def setupEnvironment(configuredExternal):
@@ -159,7 +165,7 @@ configuredExternals = []
 for external in usedExternals:
     configuredExternal = getExternal(external['name'], external['version'], compilerName)
     configuredExternal = setupOptions(external['name'], configuredExternal)
-    configuredExternal = substituteVars(external['name'], configuredExternal)
+    configuredExternal = substituteVars(external['name'], configuredExternal['version'], configuredExternal)
     setupEnvironment(configuredExternal)
     if external['name'] == 'ROOT':
         setupRoot(configuredExternal)
