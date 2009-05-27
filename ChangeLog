@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: glastrm  Wed May 27 12:01:21 PDT 2009
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	generateScript.py 
+Log Message:
+on mac pass option to linker not to append path of library. wrapper scripts need DYLD_LIBRARY_PATH defined
+    *
+------------------------------------------------------------
+User: glastrm  Wed May 27 12:01:21 PDT 2009
 SConsFiles
 
 Modified Files:
