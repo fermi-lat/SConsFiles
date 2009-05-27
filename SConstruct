@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.6 2009/04/24 17:52:12 glastrm Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.7 2009/04/25 02:00:34 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands
@@ -137,6 +137,9 @@ if baseEnv['PLATFORM'] == "posix":
         baseEnv.AppendUnique(CCFLAGS = "-fPIC")
     baseEnv.AppendUnique(CPPDEFINES = ['TRAP_FPE'])
 
+if baseEnv['PLATFORM'] == "darwin":
+    baseEnv.AppendUnique(SHLINKFLAGS = ["-Wl,-install_name", "-Wl,${TARGET.file}"])
+        
 #########################
 #  Project Environment  #
 #########################

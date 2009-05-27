@@ -13,6 +13,10 @@ def generateShellScript(scriptFile, env, wrapper):
     for lib in env['WRAPPERLIBS']:
         scriptFile.write(':'+lib)
     scriptFile.write(':$LD_LIBRARY_PATH\n')
+    scriptFile.write('export DYLD_LIBRARY_PATH=$INST_DIR/'+str(env['LIBDIR']))
+    for lib in env['WRAPPERLIBS']:
+        scriptFile.write(':'+lib)
+    scriptFile.write(':$DYLD_LIBRARY_PATH\n')
     scriptFile.write('export PATH=$INST_DIR/'+str(env['SCRIPTDIR'])+':$PATH\n')
     scriptFile.write('if [ ! -w $HOME/pfiles/. ]; then\n')
     scriptFile.write('  mkdir $HOME/pfiles\n')
