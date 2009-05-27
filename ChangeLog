@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Wed May 27 12:01:21 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+on mac pass option to linker not to append path of library. wrapper scripts need DYLD_LIBRARY_PATH defined
+    *
+------------------------------------------------------------
 User: glastrm  Thu May 21 14:06:20 PDT 2009
 SConsFiles
 
