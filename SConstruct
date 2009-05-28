@@ -1,19 +1,21 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.7 2009/04/25 02:00:34 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/users/jrb/minimalDev/SConstruct,v 1.9 2009/05/27 23:45:46 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands
 #########################
 #   Global Environment  #
 #########################
-EnsureSConsVersion(0, 98, 3)
+
+EnsureSConsVersion(1, 2, 0)
 baseEnv=Environment()
 baseEnv.Tool('generateScript')
-baseEnv.Alias("NoTarget")
+baseEnv.Alias('NoTarget')
 baseEnv.SourceCode(".", None)
 variant = "Unknown"
 if baseEnv['PLATFORM'] == "posix":
     variant = platform.dist()[0]+platform.dist()[1]+"-"+platform.machine()+"-"+platform.architecture()[0]
+
 if baseEnv['PLATFORM'] == "darwin":
     version = commands.getoutput("sw_vers -productVersion")
     cpu = commands.getoutput("arch")
@@ -29,7 +31,7 @@ if baseEnv['PLATFORM'] == "darwin":
 if baseEnv['PLATFORM'] == "win32":
     variant = platform.release()+"-"+"i386"+"-"+platform.architecture()[0]
     baseEnv['WINDOWS_INSERT_MANIFEST'] = 'true'
-
+	
 baseEnv.AppendUnique(CPPDEFINES = ['SCons'])
 
 AddOption('--compile-debug', dest='debug', action='store_true', help='Compile with debug flags')
@@ -52,19 +54,6 @@ else:
     AddOption('--vc8', dest='vc', action='store_const', const='8.0', help='Use the Visual C++ 8.0 compiler')
     AddOption('--vc9', dest='vc', action='store_const', const='9.0', help='Use the Visual C++ 9.0 compiler')
 
-if baseEnv.GetOption('debug'):
-    if baseEnv['PLATFORM'] == 'win32':
-        baseEnv.AppendUnique(CCFLAGS = '/Od /Z7', CPPDEFINES = ['_DEBUG'])
-    else:
-        baseEnv.AppendUnique(CCFLAGS = '-g')
-    variant+="-Debug"
-
-if baseEnv.GetOption('opt'):
-    if baseEnv['PLATFORM'] == 'win32':
-        baseEnv.AppendUnique(CCFLAGS = '/O2 /Z7')
-    else:
-        baseEnv.AppendUnique(CCFLAGS = '-O2')
-    variant+='-Optimized'
 
 if baseEnv['PLATFORM'] != 'win32':
     if baseEnv.GetOption('cc'):
@@ -79,10 +68,42 @@ if baseEnv['PLATFORM'] != 'win32':
         baseEnv.AppendUnique(LINKFLAGS = ['-m64'])
 else:
     if baseEnv.GetOption('vc'):
-        baseEnv['MSVS'] = {'VERSION' : baseEnv.GetOption('vc')}
         baseEnv['MSVS_VERSION'] = baseEnv.GetOption('vc')
+        baseEnv.Tool('msvs')
         Tool('msvc')(baseEnv)
 
+if baseEnv['PLATFORM'] == "win32":
+    ### Uncomment next line when local msvs is installed
+    ### import msvs
+    ### For now..
+    import SCons.Tool.msvs as msvs
+    num,suite = msvs.msvs_parse_version(baseEnv['MSVS_VERSION'])
+    compiler = 'vc'+''.join(str(num).split('.')[0:2])
+    # visual_variant will be used as working directory in VS project files
+    visual_variant = "Visual-" + compiler
+else:
+    compiler = 'gcc'+''.join(baseEnv['CXXVERSION'].split('.')[0:2])
+
+baseEnv['COMPILERNAME'] = compiler
+### variant += "-" + compiler       Maybe for next round of updates
+
+if baseEnv.GetOption('debug'):
+    if baseEnv['PLATFORM'] == 'win32':
+        baseEnv.AppendUnique(CPPDEFINES = ['_DEBUG'])
+        baseEnv.AppendUnique(CCFLAGS = '/Od')
+        visual_variant +=  "-Debug"
+    else:
+        baseEnv.AppendUnique(CCFLAGS = '-g')
+    variant+="-Debug"
+    
+if baseEnv.GetOption('opt'):
+    if baseEnv['PLATFORM'] == 'win32':
+        baseEnv.AppendUnique(CCFLAGS = "/O2")
+        visual_variant += "-Optimized"
+    else:
+        baseEnv.AppendUnique(CCFLAGS = '-O2')
+    variant+='-Optimized'
+    
 if baseEnv.GetOption('ccflags'):
     baseEnv.AppendUnique(CCFLAGS = baseEnv.GetOption('ccflags'))
 if baseEnv.GetOption('cxxflags'):
@@ -99,14 +120,17 @@ Export('baseEnv')
 #########################
 if baseEnv['PLATFORM'] == "win32":
     baseEnv.AppendUnique(CPPDEFINES = ['WIN32','_USE_MATH_DEFINES'])
+
     baseEnv.AppendUnique(CCFLAGS = "/EHsc")
+    baseEnv.AppendUnique(CCFLAGS = "/FC")    # helps with debugging
     baseEnv.AppendUnique(CCFLAGS = "/W3") # warning level 3
     baseEnv.AppendUnique(CCFLAGS = "/wd4068")
     baseEnv.AppendUnique(CCFLAGS = "/wd4244") # disable warning C4244: 'initializing' : conversion from 'const double' to 'float'
     baseEnv.AppendUnique(CCFLAGS = "/wd4305") # disable warning C4305: 'initializing' : truncation from double to float
     baseEnv.AppendUnique(CCFLAGS = "/wd4290") # disable warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
     baseEnv.AppendUnique(CCFLAGS = "/wd4800") # disable warning C4800: 'type' : forcing value to bool 'tru' or 'false' (performance warning)
-    # baseEnv.AppendUnique(CCFLAGS = "/Zm500") probably not necessary
+    ## baseEnv.AppendUnique(CCFLAGS = "/Zm500") probably not necessary
+    baseEnv.AppendUnique(CCFLAGS = "/Z7")
     baseEnv.AppendUnique(CCFLAGS = "/GR")
     baseEnv.AppendUnique(LINKFLAGS = "/SUBSYSTEM:CONSOLE")
     baseEnv.AppendUnique(LINKFLAGS = "/NODEFAULTLIB:LIBCMT")
@@ -121,25 +145,26 @@ if baseEnv['PLATFORM'] == "win32":
         baseEnv.AppendUnique(CCFLAGS = "/LD")
         baseEnv.AppendUnique(CCFLAGS = "/Ob2")
 
-    if (baseEnv['MSVS_VERSION']=="8.0") or (baseEnv['MSVS_VERSION']=="8.0") :
-        libEnv.AppendUnique(CPPFLAGS = "/wd4812")
-        # Eliminate warnings for sscanf, getenv, etc. versus secure versions
+    # Disable compiler warning number 4812 having to do with
+    # obsolete form of explicit constructor specialization
+    if (baseEnv['MSVS_VERSION'] == "8.0") or (baseEnv['MSVS_VERSION']=="9.0") :
         baseEnv.AppendUnique(CPPDEFINES = ['_CRT_SECURE_NO_WARNINGS'])
+        baseEnv.AppendUnique(CPPFLAGS = "/wd4812")
         if baseEnv.GetOption('debug'):
             baseEnv.AppendUnique(LINKFLAGS = "/DEBUG")
             baseEnv.AppendUnique(LINKFLAGS = "/ASSEMBLYDEBUG")
 
+    # Used as Studio working directory
+    baseEnv['VISUAL_VARIANT'] = visual_variant
+    
+            
 else:
     baseEnv.AppendUnique(CXXFLAGS = "-fpermissive")
-
 if baseEnv['PLATFORM'] == "posix":
     if platform.machine() == "x86_64":
         baseEnv.AppendUnique(CCFLAGS = "-fPIC")
     baseEnv.AppendUnique(CPPDEFINES = ['TRAP_FPE'])
 
-if baseEnv['PLATFORM'] == "darwin":
-    baseEnv.AppendUnique(SHLINKFLAGS = ["-Wl,-install_name", "-Wl,${TARGET.file}"])
-        
 #########################
 #  Project Environment  #
 #########################
@@ -162,7 +187,10 @@ baseEnv.Append(CPPPATH = [baseEnv['INCDIR']])
 baseEnv.Append(LIBPATH = [baseEnv['LIBDIR']])
 baseEnv.AppendUnique(CPPPATH = os.path.join(os.path.abspath('.'),'include'))
 baseEnv.AppendUnique(LIBPATH = os.path.join(os.path.abspath('.'),'lib',variant))
-
+## STUDIODIR is where project and solution files will go
+if baseEnv['PLATFORM'] == 'win32':
+    baseEnv.Append(STUDIODIR = Dir(override).Dir('studio').Dir(variant))
+                   
 ##################
 # Create release #
 ##################
@@ -211,10 +239,10 @@ def listFiles(files, **kw):
         globFiles = Glob(file)
         newFiles = []
         for globFile in globFiles:
-            if 'recursive' in kw and kw.get('recursive') and os.path.isdir(globFile.srcnode().abspath) and os.path.basename(globFile.srcnode().abspath) != 'CVS':
-                allFiles+=listFiles([str(Dir('.').srcnode().rel_path(globFile.srcnode()))+"/*"], recursive = True)
-            if os.path.isfile(globFile.srcnode().abspath):
-                allFiles.append(globFile)
+	    if 'recursive' in kw and kw.get('recursive') and os.path.isdir(globFile.srcnode().abspath) and os.path.basename(globFile.srcnode().abspath) != 'CVS':
+	        allFiles+=listFiles([str(Dir('.').srcnode().rel_path(globFile.srcnode()))+"/*"], recursive = True)
+	    if os.path.isfile(globFile.srcnode().abspath):
+	        allFiles.append(globFile)
     return allFiles
 
 Export('listFiles')
@@ -222,24 +250,28 @@ Export('listFiles')
 if not baseEnv.GetOption('help'):
     directories = [override]
     packages = []
-    # Add packages to package list and add packages to tool path if they have one
+    # Add pkgs to package list and add pkgs to tool path if they have one
     while len(directories)>0:
         directory = directories.pop(0)
-        listed = os.listdir(directory)
+        members = os.listdir(directory)
+        # filter out non-directories
+        listed = [e for e in members if os.path.isdir(os.path.join(directory,e))]
         listed.sort()
         pruned = []
         # Remove excluded directories
         if not baseEnv.GetOption('exclude') == None:
-            for excluded in baseEnv.GetOption('exclude'):
-                if excluded in listed:
-                    listed.remove(excluded)
-        # Remove duplicate packages
-        while len(listed)>0:
-            curDir = listed.pop(0)
-            package = re.compile('-.*$').sub('', curDir)
-            while len(listed)>0 and re.match(package+'-.*', listed[0]):
-                curDir = listed.pop(0)
-            pruned.append(curDir)
+	    for excluded in baseEnv.GetOption('exclude'):
+	        if excluded in listed:
+		    listed.remove(excluded)
+
+	# Remove duplicate packages
+	while len(listed)>0:
+	    curDir = listed.pop(0)
+	    package = re.compile('-.*$').sub('', curDir)
+	    while len(listed)>0 and re.match(package+'-.*', listed[0]):
+	        curDir = listed.pop(0)
+	    pruned.append(curDir)
+
         # Check if they contain SConscript and tools
         for name in pruned:
             package = re.compile('-.*$').sub('',name)
@@ -259,10 +291,12 @@ if not baseEnv.GetOption('help'):
 
     for pkg in packages:
         try:
-            baseEnv.SConscript(os.path.join(pkg,"SConscript"), build_dir = os.path.join(pkg, 'build', variant))
-        except Exception, inst:
-            print "scons: Skipped "+pkg.lstrip(override+os.sep)+" because of exceptions: "+str(inst)
-            traceback.print_tb(sys.exc_info()[2])
+	    baseEnv.SConscript(os.path.join(pkg,"SConscript"),
+                               build_dir = os.path.join(pkg, 'build', variant))
+	except Exception, inst:
+	    print "scons: Skipped "+pkg.lstrip(override+os.sep)+" because of exceptions: "+str(inst)
+	    traceback.print_tb(sys.exc_info()[2])
+
     if baseEnv.GetOption('clean'):
         baseEnv.Default('test')
 
@@ -271,7 +305,7 @@ def print_build_failures():
     print "scons: printing failed nodes"
     for bf in GetBuildFailures():
         if str(bf.action) != "installFunc(target, source, env)":
-            print bf.node
+	    print bf.node
     print "scons: done printing failed nodes"
 
 atexit.register(print_build_failures)
