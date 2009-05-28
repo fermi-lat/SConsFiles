@@ -1,4 +1,17 @@
 ------------------------------------------------------------
+User: jrb  Wed May 27 17:41:09 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+* Fix Windows options
+* Establish COMPILERNAME env var.
+* Don't look for packages among non-dir files
+* Cosmetic stuff
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-09-13-00, operation: mov
 Package: SConsFiles
