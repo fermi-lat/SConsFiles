@@ -1,4 +1,18 @@
 ------------------------------------------------------------
+User: jrb  Thu Jun 11 12:55:44 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons processExternals.scons 
+Log Message:
+processExternals.scons : Use allExternals (not allExternalLibraries) everywhere
+allExternals.scons     : Add some entries which will be needed for GR or
+                         for ScienceTools on Windows
+                         Quick fix for geant4: add CLHEP library to its list
+both                   : Make lines shorter so there is less wrapping
+
+    *
+------------------------------------------------------------
 User: jrb  Wed May 27 17:41:09 PDT 2009
 SConsFiles
 
