@@ -2,35 +2,41 @@
 import os
 
 Import('usedExternals')
-Import('allExternalLibraries')
+###Import('allExternalLibraries')
+Import('allExternals')
 Import('baseEnv')
 
-AddOption('--with-GLAST-EXT', dest = 'GLAST-EXT', nargs=1, type='string', action='store', metavar='DIR', help='location of GLAST_EXT type directory layout for external libraries')
+AddOption('--with-GLAST-EXT', dest = 'GLAST-EXT', nargs=1, type='string', action='store', metavar='DIR',
+          help='location of GLAST_EXT type directory layout for external libraries')
 
 def getExternal(name, version, compiler):
-    configuredExternal = allExternalLibraries[name][version]['default']
+    configuredExternal = allExternals[name][version]['default']
     #Check for default overrides for OS
-    if baseEnv['PLATFORM'] in allExternalLibraries[name][version]:
-        for section in allExternalLibraries[name][version][baseEnv['PLATFORM']]:
-            configuredExternal[section] = allExternalLibraries[name][version][baseEnv['PLATFORM']][section]
+    if baseEnv['PLATFORM'] in allExternals[name][version]:
+        for section in allExternals[name][version][baseEnv['PLATFORM']]:
+            configuredExternal[section] = allExternals[name][version][baseEnv['PLATFORM']][section]
 
     #Check for default overrides for compiler    
-    if compiler in allExternalLibraries[name][version]:
-        for section in allExternalLibraries[name][version][compiler]:
-            configuredExternal[section] = allExternalLibraries[name][version][compiler][section]
+    if compiler in allExternals[name][version]:
+        for section in allExternals[name][version][compiler]:
+            configuredExternal[section] = allExternals[name][version][compiler][section]
 
     return configuredExternal
 
 def setupOptions(name, configuredExternal):
     #Setup scons options and check for them
-    AddOption('--with-'+name, dest = name, nargs=1, type='string', action='store', metavar='DIR', help='location of '+name+' '+configuredExternal['version']+' headers/libraries')
+    AddOption('--with-'+name, dest = name, nargs=1, type='string', action='store', metavar='DIR',
+              help='location of '+name+' '+configuredExternal['version']+' headers/libraries')
 
     if 'include-path' in configuredExternal:
-        AddOption('--with-'+name+'-includes', dest = name+'-includes', nargs=1, type='string', action='store', metavar='DIR', help='location of '+name+' '+configuredExternal['version']+' headers')
+        AddOption('--with-'+name+'-includes', dest = name+'-includes', nargs=1, type='string', action='store',
+                  metavar='DIR', help='location of '+name+' '+configuredExternal['version']+' headers')
     if 'lib-path' in configuredExternal:
-        AddOption('--with-'+name+'-libraries', dest = name+'-libraries', nargs=1, type='string', action='store', metavar='DIR', help='location of '+name+' '+configuredExternal['version']+' libraries')
+        AddOption('--with-'+name+'-libraries', dest = name+'-libraries', nargs=1, type='string', action='store',
+                  metavar='DIR', help='location of '+name+' '+configuredExternal['version']+' libraries')
     if 'bin-path' in configuredExternal:
-        AddOption('--with-'+name+'-binaries', dest = name+'-binaries', nargs=1, type='string', action='store', metavar='DIR', help='location of '+name+' '+configuredExternal['version']+' binaries')
+        AddOption('--with-'+name+'-binaries', dest = name+'-binaries', nargs=1, type='string', action='store',
+                  metavar='DIR', help='location of '+name+' '+configuredExternal['version']+' binaries')
 
     if baseEnv.GetOption(external['name']):
         if 'include-path' in configuredExternal:
@@ -71,6 +77,8 @@ def substituteVars(name, version, configuredExternal):
 
 def setupEnvironment(configuredExternal):
     #Add Paths to base environment
+    #Also for Windows only fill extlibSet data structure  (jrb addition)
+    extlibSet = set()
     if 'include-path' in configuredExternal:
         baseEnv.AppendUnique(CPPPATH = [configuredExternal['include-path']])
     if 'lib-path' in configuredExternal:
@@ -84,11 +92,19 @@ def setupEnvironment(configuredExternal):
     if 'libraries' in configuredExternal:
         for libGroup in configuredExternal['libraries']:
             baseEnv[libGroup] = configuredExternal['libraries'][libGroup]
+            # (jrb) Used to figure out dependencies in project/sln files
+            if baseEnv['PLATFORM'] == 'win32':
+                for xlib in baseEnv[libGroup]:
+                    extlibSet.add(xlib)
 
     #Add CPP defines to base environment
     if 'cpp-defines' in configuredExternal:
         for define in configuredExternal['cpp-defines']:
             baseEnv.AppendUnique(CPPDEFINES = [define])
+
+    if baseEnv['PLATFORM'] == 'win32':
+        baseEnv['extlibSet'] = extlibSet
+
                         
 def checkEnvironment(configuredExternal):
     conf = baseEnv.Clone().Configure()
@@ -149,21 +165,19 @@ def setupSwig(configuredExternal):
         baseEnv['SWIGEXEPATH'] = externalLibraries['swig']['bin-path']
         baseEnv['SWIG_LIB'] = externalLibraries['swig']['share-path']
 
-    baseEnv.AppendUnique(SWIGPATH = [baseEnv['CPPPATH'], os.path.join(configuredExternal['share-path'], 'python'), configuredExternal['share-path'], baseEnv['INCDIR'], '.'])
+    baseEnv.AppendUnique(SWIGPATH = [baseEnv['CPPPATH'], os.path.join(configuredExternal['share-path'], 'python'),
+                                     configuredExternal['share-path'], baseEnv['INCDIR'], '.'])
     baseEnv.AppendUnique(SWIGFLAGS = ['-w401', '-w402', '-w503', '-w362', '-w389', '-w509', '-python', '-c++'])
 
 #determine the compiler name to use
-if baseEnv['PLATFORM'] == "win32":
-    compilerName = 'vc' + ''.join(baseEnv['MSVS']['VERSION'].split('.')[0:2])
-else:
-    compilerName = 'gcc' + ''.join(baseEnv['CXXVERSION'].split('.')[0:2])
+compilerName = baseEnv['COMPILERNAME']
 
 #This variable holds are external library hashes once they are fully configured
 configuredExternals = []
 
 #Set everything up
 for external in usedExternals:
-    configuredExternal = getExternal(external['name'], external['version'], compilerName)
+    configuredExternal = getExternal(external['name'], external['iversion'], compilerName)
     configuredExternal = setupOptions(external['name'], configuredExternal)
     configuredExternal = substituteVars(external['name'], configuredExternal['version'], configuredExternal)
     setupEnvironment(configuredExternal)
