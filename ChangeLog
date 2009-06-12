@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Fri Jun 12 11:47:15 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct allExternals.scons processExternals.scons 
+Log Message:
+use the new externals.scons anf fix f2c verison and use compiler set in environment
+    *
+------------------------------------------------------------
 User: glastrm  Fri Jun 12 11:24:22 PDT 2009
 SConsFiles
 
