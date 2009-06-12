@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/users/jrb/minimalDev/SConstruct,v 1.9 2009/05/27 23:45:46 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.9 2009/05/28 00:41:09 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands
@@ -226,7 +226,9 @@ if baseEnv.GetOption('userRelease'):
 #########################
 #  External Libraries   #
 #########################
-SConscript('externals.scons')
+allExternals = SConscript('allExternals.scons')
+usedExternals = SConscript('externals.scons', exports = 'allExternals')
+SConscript('processExternals.scons', exports = 'allExternals usedExternals')
 
 ############################
 # Package Specific Options #
