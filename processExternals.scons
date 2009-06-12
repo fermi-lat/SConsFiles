@@ -9,7 +9,7 @@ Import('baseEnv')
 AddOption('--with-GLAST-EXT', dest = 'GLAST-EXT', nargs=1, type='string', action='store', metavar='DIR',
           help='location of GLAST_EXT type directory layout for external libraries')
 
-def getExternal(name, version, compiler):
+def getExternal(name, version):
     configuredExternal = allExternals[name][version]['default']
     #Check for default overrides for OS
     if baseEnv['PLATFORM'] in allExternals[name][version]:
@@ -17,9 +17,9 @@ def getExternal(name, version, compiler):
             configuredExternal[section] = allExternals[name][version][baseEnv['PLATFORM']][section]
 
     #Check for default overrides for compiler    
-    if compiler in allExternals[name][version]:
-        for section in allExternals[name][version][compiler]:
-            configuredExternal[section] = allExternals[name][version][compiler][section]
+    if baseEnv['COMPILERNAME'] in allExternals[name][version]:
+        for section in allExternals[name][version][baseEnv['COMPILERNAME']]:
+            configuredExternal[section] = allExternals[name][version][baseEnv['COMPILERNAME']][section]
 
     return configuredExternal
 
@@ -70,7 +70,7 @@ def substituteVars(name, version, configuredExternal):
             configuredExternal[section] = replace(configuredExternal[section], '$BIN-PATH', configuredExternal['bin-path'])
         if baseEnv.GetOption('GLAST-EXT'):
             configuredExternal[section] = replace(configuredExternal[section], '$GLAST_EXT', baseEnv.GetOption('GLAST-EXT'))
-        configuredExternal[section] = replace(configuredExternal[section], '$COMPILER', compilerName)
+        configuredExternal[section] = replace(configuredExternal[section], '$COMPILER', baseEnv['COMPILERNAME'])
         configuredExternal[section] = replace(configuredExternal[section], '$VERSION', version)
         configuredExternal[section] = replace(configuredExternal[section], '$NAME', name)
     return configuredExternal
@@ -169,15 +169,12 @@ def setupSwig(configuredExternal):
                                      configuredExternal['share-path'], baseEnv['INCDIR'], '.'])
     baseEnv.AppendUnique(SWIGFLAGS = ['-w401', '-w402', '-w503', '-w362', '-w389', '-w509', '-python', '-c++'])
 
-#determine the compiler name to use
-compilerName = baseEnv['COMPILERNAME']
-
 #This variable holds are external library hashes once they are fully configured
 configuredExternals = []
 
 #Set everything up
 for external in usedExternals:
-    configuredExternal = getExternal(external['name'], external['iversion'], compilerName)
+    configuredExternal = getExternal(external['name'], external['iversion'])
     configuredExternal = setupOptions(external['name'], configuredExternal)
     configuredExternal = substituteVars(external['name'], configuredExternal['version'], configuredExternal)
     setupEnvironment(configuredExternal)
