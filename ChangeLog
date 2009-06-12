@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Fri Jun 12 11:24:22 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+Use f2c for rhel5
+    *
+------------------------------------------------------------
 User: jrb  Thu Jun 11 12:55:44 PDT 2009
 SConsFiles
 
