@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Mon Jun 15 18:43:01 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+use default g2c for rhel4
+    *
+------------------------------------------------------------
 User: glastrm  Fri Jun 12 11:47:15 PDT 2009
 SConsFiles
 
