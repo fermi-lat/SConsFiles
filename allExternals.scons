@@ -280,8 +280,13 @@ allExternalLibraries = {
     'extFiles' : { 'v0r7' :
                    { 'default' : { 'version'     : 'v0r7',
                                    'cpp-defines' : [ 'extFiles=\\"$VERSION\\"']
-                                          }
-                            }
+                                 }
+                   },
+                   'v0r9' :
+                   { 'default' : { 'version'     : 'v0r9',
+                                   'cpp-defines  : [ 'extFiles=\\"$VERSION\\"' ]
+                                 }
+                   }
                  },
 
     'gaudi' : { 'v18r1-gl4' :
