@@ -185,7 +185,7 @@ allExternalLibraries = {
                                    'ld-path'      : '$LIB-PATH',
                                    'includes'     : [ 'xercesc/util/XercesVersion.hpp' ],
                                    'libraries'    : { 'xercesLibs'  : ['xerces-c', 'pthread'] }
-                                 }
+                                 },
                      'win32'   : { 'ld-path'      : '$BIN-PATH',
                                    'libraries'    : { 'xercesLibs' : ['xerces-c_2'] }
                                  }
@@ -235,7 +235,9 @@ allExternalLibraries = {
                      'posix'   :
                      { 'libraries'    : { 'pythonLibs' :
                                           [ 'pthread', 'dl', 'util', 'm',
-                                            'python2.5' ] } },
+                                            'python2.5' ]
+                                        }
+                     },
                      'darwin'  :
                      { 'libraries'    : { 'pythonLibs' :
                                           [ 'pthread', 'dl', 'm', 'python2.5' ]
