@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Tue Jun 16 07:22:12 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+added 2.7.0-gl1 version of xerces for the macs
+    *
+------------------------------------------------------------
 User: glastrm  Mon Jun 15 18:43:01 PDT 2009
 SConsFiles
 
