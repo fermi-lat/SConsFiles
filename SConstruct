@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.9 2009/05/28 00:41:09 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.10 2009/06/12 18:47:15 glastrm Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands
@@ -13,24 +13,38 @@ baseEnv.Tool('generateScript')
 baseEnv.Alias('NoTarget')
 baseEnv.SourceCode(".", None)
 variant = "Unknown"
+baseEnv['OSNAME'] = "Unknown"
+baseEnv['MACHINENAME'] = "Unknown"
+baseEnv['ARCHNAME'] = "Unknown"
 if baseEnv['PLATFORM'] == "posix":
     variant = platform.dist()[0]+platform.dist()[1]+"-"+platform.machine()+"-"+platform.architecture()[0]
+    baseEnv['OSNAME'] = platform.dist()[0]+platform.dist()[1]
+    baseEnv['MACHINENAME'] = patform.machine()
+    baseEnv['ARCHNAME'] = platform.architecture()[0]
 
 if baseEnv['PLATFORM'] == "darwin":
     version = commands.getoutput("sw_vers -productVersion")
     cpu = commands.getoutput("arch")
+    baseEnv['MACHINENAME'] = cpu
     if version.startswith("10.5"):
         variant="leopard-"
+        baseEnv['OSNAME'] = "leopard"
     if version.startswith("10.4"):
         variant="tiger-"
+        baseEnv['OSNAME'] = "tiger"
     variant+=cpu+"-"
     if cpu.endswith("64"):
         variant+="64bit"
+        baseEnv['ARCHNAME'] = '64bit'
     else:
         variant+="32bit"
+        baseEnv['ARCHNAME'] = '32bit'
 if baseEnv['PLATFORM'] == "win32":
     variant = platform.release()+"-"+"i386"+"-"+platform.architecture()[0]
     baseEnv['WINDOWS_INSERT_MANIFEST'] = 'true'
+    baseEnv['OSNAME'] = platform.release()
+    baseEnv['MACHINENAME'] = 'i386'
+    baseEnv['ARCHNAME'] = platform.architecture()[0]
 	
 baseEnv.AppendUnique(CPPDEFINES = ['SCons'])
 
@@ -85,7 +99,7 @@ else:
     compiler = 'gcc'+''.join(baseEnv['CXXVERSION'].split('.')[0:2])
 
 baseEnv['COMPILERNAME'] = compiler
-### variant += "-" + compiler       Maybe for next round of updates
+variant += "-" + compiler
 
 if baseEnv.GetOption('debug'):
     if baseEnv['PLATFORM'] == 'win32':
