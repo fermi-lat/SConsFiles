@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Tue Jun 16 08:27:21 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+OS and CPU information now stored in environment
+    *
+------------------------------------------------------------
 User: glastrm  Tue Jun 16 07:22:12 PDT 2009
 SConsFiles
 
