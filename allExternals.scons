@@ -243,7 +243,10 @@ allExternalLibraries = {
                    '3.4-gl1' : 
                    { 'default':
                      { 'version'   : '3.4-gl1',
-                       'lib-path'  : os.path.join('$GLAST_EXT', '$NAME',
+                       'libraries' : { 'f2cLibs' : ['g2c'] }
+                     }
+                     'gcc41':
+                     { 'lib-path'  : os.path.join('$GLAST_EXT', '$NAME',
                                                   '$VERSION', '$COMPILER', 'lib'),
                        'ld-path'   : '$LIB-PATH',
                        'libraries' : { 'f2cLibs' : [ 'f2c' ] }
