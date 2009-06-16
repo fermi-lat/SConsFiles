@@ -176,7 +176,7 @@ allExternalLibraries = {
                                                 '$VERSION','$COMPILER', 'bin')
                                  },
                      'vc90'    : { 'version'      : '2.8.0' }
-                   }
+                   },
                    '2.7.0-gl1' :
                    { 'default' : { 'version'      : '2.7.0-gl1',
                                    'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
@@ -207,7 +207,7 @@ allExternalLibraries = {
                        },
                      'win32'   :
                      { 'libraries'    : { 'cppunitLibs' : [ 'CPPUNIT' ] }
-                       }
+                     }
                    }
                  },
                    
@@ -255,7 +255,7 @@ allExternalLibraries = {
                        'libraries' : { 'f2cLibs' :
                                        [ 'libf77mt.lib',
                                          'libi77mt.lib', 'oldnames.lib' ] }
-                       },
+                     },
                      'darwin'  :
                      { 'lib-path'  : os.path.join('$GLAST_EXT', '$NAME',
                                                   '$VERSION','$COMPILER','lib'),
