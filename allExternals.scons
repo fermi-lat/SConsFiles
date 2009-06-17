@@ -256,7 +256,7 @@ allExternalLibraries = {
                      { 'include-path' : os.path.join('$GLAST_EXT', '$NAME','$VERSION', '$COMPILER','include'),
                        'lib-path'     : os.path.join('$GLAST_EXT','$NAME','$VERSION','$COMPILER', 'libs'),
                        'libraries'    : { 'pythonLibs' : [ 'python25' ] }
-                     }
+                     },
                      'posix' : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'util', 'm', 'python2.5' ] } },
                      'darwin' : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.5' ] } }
                    }
