@@ -286,7 +286,7 @@ allExternalLibraries = {
                    },
                    'v0r9' :
                    { 'default' : { 'version'     : 'v0r9',
-                                   'cpp-defines  : [ 'extFiles=\\"$VERSION\\"' ]
+                                   'cpp-defines' : [ 'extFiles=\\"$VERSION\\"' ]
                                  }
                    }
                  },
