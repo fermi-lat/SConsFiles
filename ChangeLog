@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Tue Jun 16 18:53:25 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add python 2.5.1-gl1
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-09-15-02, operation: mov
 Package: SConsFiles
