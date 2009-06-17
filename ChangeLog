@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Tue Jun 16 19:11:41 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+remove minor revision number of os name
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-09-15-02, operation: mov
 Package: SConsFiles
