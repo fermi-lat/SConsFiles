@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.11 2009/06/16 15:27:21 glastrm Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.12 2009/06/16 16:08:40 glastrm Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands
@@ -18,7 +18,7 @@ baseEnv['MACHINENAME'] = "Unknown"
 baseEnv['ARCHNAME'] = "Unknown"
 if baseEnv['PLATFORM'] == "posix":
     variant = platform.dist()[0]+platform.dist()[1]+"-"+platform.machine()+"-"+platform.architecture()[0]
-    baseEnv['OSNAME'] = platform.dist()[0]+platform.dist()[1]
+    baseEnv['OSNAME'] = platform.dist()[0]+re.sub('\.\d+', '', platform.dist()[1])
     baseEnv['MACHINENAME'] = platform.machine()
     baseEnv['ARCHNAME'] = platform.architecture()[0]
 
