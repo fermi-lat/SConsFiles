@@ -274,7 +274,7 @@ allExternalLibraries = {
                        'libraries'    : { 'pythonLibs' : [ 'python25' ] }
                                             },
                      'posix' : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'util', 'm', 'python2.5' ] } },
-                     'darwin' : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.5' ] } }
+                     'darwin' : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.5', 'tcl', 'tk' ] } }
                    }
                  },
                    
