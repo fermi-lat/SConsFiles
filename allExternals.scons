@@ -292,7 +292,8 @@ allExternalLibraries = {
                                          'libi77mt.lib', 'oldnames.lib' ] }
                      },
                      'darwin'  :
-                     { 'lib-path'  : os.path.join('$GLAST_EXT', '$NAME',
+                     { 'version'   : '3.4',
+                       'lib-path'  : os.path.join('$GLAST_EXT', '$NAME',
                                                   '$VERSION','$COMPILER','lib'),
                        'ld-path'   : '$LIB-PATH',
                        'libraries' : { 'f2cLibs' : [ 'g2c' ] }
