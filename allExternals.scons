@@ -241,8 +241,25 @@ allExternalLibraries = {
                      'darwin'  :
                      { 'libraries'    : { 'pythonLibs' :
                                           [ 'pthread', 'dl', 'm', 'python2.5' ]
-                                          } }
+                                        }
                      }
+                   },
+                   '2.5.1-gl1' :
+                   { 'default' :
+                     { 'version'      : '2.5.1-gl1',
+                       'include-path' : os.path.join('$GLAST_EXT', '$NAME','$VERSION', '$COMPILER','include', 'python2.5'),
+                       'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION','$COMPILER', 'lib', 'python2.5', 'config'),
+                       'ld-path'      : '$LIB-PATH',
+                       'includes'     : [ 'Python.h']
+                     },
+                     'win32' :
+                     { 'include-path' : os.path.join('$GLAST_EXT', '$NAME','$VERSION', '$COMPILER','include'),
+                       'lib-path'     : os.path.join('$GLAST_EXT','$NAME','$VERSION','$COMPILER', 'libs'),
+                       'libraries'    : { 'pythonLibs' : [ 'python25' ] }
+                     }
+                     'posix' : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'util', 'm', 'python2.5' ] } },
+                     'darwin' : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.5' ] } }
+                   }
                  },
                    
     'f2c'      : { '3.4.6' :
