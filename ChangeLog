@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Wed Jun 17 13:31:03 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+python requires tcl/tk on mac
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-09-15-02, operation: mov
 Package: SConsFiles
