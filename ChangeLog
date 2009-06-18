@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+TAG
+Tag name: ScienceTools-09-15-02, operation: mov
+Package: SConsFiles
+User: glastrm  Thu Jun 18 11:44:23 2009
+Files:
+  SConsFiles/allExternals.scons  1.28
+
+    *
+------------------------------------------------------------
 User: glastrm  Thu Jun 18 11:44:09 PDT 2009
 SConsFiles
 
