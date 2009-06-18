@@ -72,17 +72,18 @@ allExternalLibraries = {
                                                                         'Graf3d', 'Gui', 'HistPainter', 'Gpad' ],
                                                       'minuitLibs'  : [ 'Minuit2', 'Minuit', 'Graf', 'RIO', 'Hist', 'Matrix',
                                                                         'Core', 'Cint', 'dl' ]
-                                                      }
-                                   },
+                                                    }
+                                 },
                      'win32' : { 'libraries'      :
                                  { 'rootLibs'    : [ 'libCore', 'libCint', 'libRIO', 'libNet', 'libTree', 'libHist', 'libGraf',
                                                      'libGpad', 'libMatrix', 'libPhysics' ],
                                    'rootGuiLibs' : [ 'libHist', 'libGraf', 'libGraf3d', 'libGpad', 'libRint', 'libPostscript',
                                                      'libTreePlayer', 'libGui', 'libHistPainter' ],
                                    'minuitLibs'  : [ 'libMinuit2' ]
-                                   }
                                  }
-                     },
+                               },
+                     'darwin' : { 'dylib-path'   : '$LIB-PATH' }
+                   },
                    'v5.18.00c-gl1' :
                    { 'default' : { 'version'      : 'v5.18.00c-gl1',
                                    'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
@@ -105,9 +106,10 @@ allExternalLibraries = {
                                      'rootGuiLibs' : [ 'libHist', 'libGraf', 'libGraf3d', 'libGpad', 'libRint',
                                                        'libPostscript', 'libTreePlayer', 'libGui', 'libHistPainter' ],
                                      'minuitLibs'  : [ 'libMinuit2' ]
-                                     }
                                    }
-                     },
+                                 },
+                     'darwin' : { 'dylib-path' : '$LIB-PATH' }
+                   },
                    'v5.20.00-gl1' :
                    { 'default' : { 'version'      : 'v5.20.00-gl1',
                                    'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
@@ -124,7 +126,8 @@ allExternalLibraries = {
                                                       'rootGuiLibs' : [ 'libHist', 'libGraf', 'libGraf3d', 'libGpad','libRint', 'libPostscript', 'libTreePlayer', 'libGui', 'libHistPainter' ],
                                                       'minuitLibs'  : [ 'libMinuit2' ]
                                                     }
-                                 }
+                                 },
+                     'darwin' : { 'dylib-path' : '$LIB-PATH' }
                    },
                    'v5.20.00-gl3' :
                    { 'default' : { 'version'      : 'v5.20.00-gl3',
@@ -150,6 +153,7 @@ allExternalLibraries = {
                                      'minuitLibs'  : [ 'libMinuit2' ]
                                    }
                                  }
+                     'darwin' : { 'dylib-path' : '$LIB-PATH' }
                    }
                  },
 
