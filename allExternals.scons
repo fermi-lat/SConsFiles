@@ -152,7 +152,7 @@ allExternalLibraries = {
                                                        'libPostscript', 'libTreePlayer', 'libGui', 'libHistPainter' ],
                                      'minuitLibs'  : [ 'libMinuit2' ]
                                    }
-                                 }
+                                 },
                      'darwin' : { 'dylib-path' : '$LIB-PATH' }
                    }
                  },
