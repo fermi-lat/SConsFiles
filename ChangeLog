@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Thu Jun 18 17:50:28 PDT 2009
+SConsFiles
+
+Modified Files:
+	processExternals.scons 
+Log Message:
+set ROOTSYS in base environment
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-09-15-02, operation: mov
 Package: SConsFiles
