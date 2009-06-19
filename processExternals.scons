@@ -127,6 +127,7 @@ def setupRoot(configuredExternal):
     if 'dylib-path' in configuredExternal:
         baseEnv.AppendENVPath('DYLD_LIBRARY_PATH', [configuredExternal['dylib-path']])
     baseEnv.AppendENVPath('ROOTSYS', [os.path.normpath(os.path.join(configuredExternal['include-path'], '..'))])
+    baseEnv['ROOTSYS'] = os.path.normpath(os.path.join(configuredExternal['include-path'], '..'))
     baseEnv.AppendENVPath('PATH', [configuredExternal['bin-path']])
 
     def rootcintEmitter(target, source, env):
