@@ -1,4 +1,17 @@
 ------------------------------------------------------------
+User: jrb  Tue Jun 23 16:38:03 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Added Files:
+	setupTarget.scons 
+Log Message:
+_setup.sh (Linux, mac) or _setup.vbs (Windows) are now their own target,
+not a side-effect of building wrapper scripts.
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-09-15-02, operation: mov
 Package: SConsFiles
