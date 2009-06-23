@@ -1,5 +1,16 @@
 ------------------------------------------------------------
 User: jrb  Tue Jun 23 16:38:03 PDT 2009
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	generateScript.py 
+Log Message:
+_setup.sh (Linux, mac) or _setup.vbs (Windows) are now their own target,
+not a side-effect of building wrapper scripts.
+
+    *
+------------------------------------------------------------
+User: jrb  Tue Jun 23 16:38:03 PDT 2009
 SConsFiles
 
 Modified Files:
