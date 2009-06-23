@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.12 2009/06/16 16:08:40 glastrm Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.13 2009/06/17 02:11:41 glastrm Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands
@@ -315,6 +315,8 @@ if not baseEnv.GetOption('help'):
 
     if baseEnv.GetOption('clean'):
         baseEnv.Default('test')
+
+baseEnv.SConscript('setupTarget.scons')
 
 def print_build_failures():
     from SCons.Script import GetBuildFailures
