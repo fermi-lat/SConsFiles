@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Wed Jun 24 10:27:42 PDT 2009
+SConsFiles/site_scons/site_tools
+
+Added Files:
+	registerTargets.py 
+Log Message:
+Replacement for registerObjects
+
+    *
+------------------------------------------------------------
 User: jrb  Tue Jun 23 16:38:03 PDT 2009
 SConsFiles/site_scons/site_tools
 
