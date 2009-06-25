@@ -34,8 +34,18 @@ allExternalLibraries = {
                                    'libraries'    : { 'cfitsioLibs' : [ 'cfitsio', 'm' ] }
                                    },
                      'win32'   : { 'libraries'    : { 'cfitsioLibs' : [ 'cfitsio' ] } }
-                     }
                    },
+                   'v3060A' :
+                   { 'default' : { 'version'      : 'v3060A',
+                                   'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                   'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                   'ld-path'      : '$LIB-PATH',
+                                   'includes'     : [ 'fitsio.h' ],
+                                   'libraries'    : { 'cfitsioLibs' : [ 'cfitsio', 'm' ] }
+                                                                      },
+                     'win32'   : { 'libraries'    : { 'cfitsioLibs' : [ 'cfitsio' ] } }
+                   }
+                 },
     
     'ape'      : { '2.3-gl1' :
                    { 'default' : { 'version'      : '2.3-gl1',
