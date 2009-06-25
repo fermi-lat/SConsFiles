@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Thu Jun 25 12:19:26 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+Add xerces 2.8.0
+    *
+------------------------------------------------------------
 User: glastrm  Thu Jun 25 09:57:31 PDT 2009
 SConsFiles
 
