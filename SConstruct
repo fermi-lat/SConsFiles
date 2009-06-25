@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.14 2009/06/23 23:38:03 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.15 2009/06/25 21:22:47 glastrm Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands
@@ -242,15 +242,15 @@ if baseEnv.GetOption('sourceRelease'):
         baseEnv['TARFLAGS']+=' -z'
         for exclude in (baseEnv['BINDIR'].path, baseEnv['SCRIPTDIR'].path, baseEnv['INCDIR'].path, baseEnv['PFILESDIR'].path,
                         baseEnv['DATADIR'].path, baseEnv['XMLDIR'].path, baseEnv['TOOLDIR'].path, baseEnv['TESTDIR'].path,
-                        baseEnv['TESTSCRIPTDIR'].path, baseEnv['PYTHONDIR'].path, 'build'):
+                        baseEnv['TESTSCRIPTDIR'].path, baseEnv['PYTHONDIR'].path, baseEnv['LIBDIR'].path, 'build'):
             baseEnv['TARFLAGS']+='--exclude '+exclude
-        baseEnv.Tar(baseEnv.GetOption('sourceRelease'), glob.glob('*'))
+        baseEnv.Default(baseEnv.Tar(baseEnv.GetOption('sourceRelease'), glob.glob('*')))
     else:
         for exclude in (baseEnv['BINDIR'].path, baseEnv['SCRIPTDIR'].path, baseEnv['INCDIR'].path, baseEnv['PFILESDIR'].path,
                                                 baseEnv['DATADIR'].path, baseEnv['XMLDIR'].path, baseEnv['TOOLDIR'].path, baseEnv['TESTDIR'].path,
-                        baseEnv['TESTSCRIPTDIR'].path, baseEnv['PYTHONDIR'].path, 'build'):
+                        baseEnv['TESTSCRIPTDIR'].path, baseEnv['PYTHONDIR'].path, baseEnv['LIBDIR'].path, 'build'):
             baseEnv['TARFLAGS']+='-x '+exclude
-        baseEnv.Zip(baseEnv.GetOption('sourceRelease'), glob.glob('*'))
+        baseEnv.Default(baseEnv.Zip(baseEnv.GetOption('sourceRelease'), glob.glob('*')))
     Return()
 
 #########################
