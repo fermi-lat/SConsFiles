@@ -32,7 +32,7 @@ allExternalLibraries = {
                                    'ld-path'      : '$LIB-PATH',
                                    'includes'     : [ 'fitsio.h' ],
                                    'libraries'    : { 'cfitsioLibs' : [ 'cfitsio', 'm' ] }
-                                   },
+                                 },
                      'win32'   : { 'libraries'    : { 'cfitsioLibs' : [ 'cfitsio' ] } }
                    },
                    'v3060A' :
@@ -42,7 +42,7 @@ allExternalLibraries = {
                                    'ld-path'      : '$LIB-PATH',
                                    'includes'     : [ 'fitsio.h' ],
                                    'libraries'    : { 'cfitsioLibs' : [ 'cfitsio', 'm' ] }
-                                                                      },
+                                 },
                      'win32'   : { 'libraries'    : { 'cfitsioLibs' : [ 'cfitsio' ] } }
                    }
                  },
@@ -54,7 +54,7 @@ allExternalLibraries = {
                                    'ld-path'      : '$LIB-PATH',
                                    'includes'     : [ 'ape/ape_list.h' ],
                                    'libraries'    : { 'apeLibs' : [ 'ape', 'readline', 'termcap' ] }
-                                   },
+                                 },
                      'win32'   : { 'libraries'    : { 'apeLibs' : [ 'apelib' ] } }
                    },
                    '2.4' :
@@ -64,7 +64,7 @@ allExternalLibraries = {
                                    'ld-path'      : '$LIB-PATH',
                                    'includes'     : [ 'ape/ape_list.h' ],
                                    'libraries'    : { 'apeLibs' : [ 'ape', 'readline', 'termcap' ] }
-                                                                      },
+                                 },
                      'win32'   : { 'libraries'    : { 'apeLibs' : [ 'apelib' ] } }
                    }
                  },
@@ -219,6 +219,20 @@ allExternalLibraries = {
                                    'libraries'    : { 'xercesLibs'  : ['xerces-c', 'pthread'] }
                                  },
                      'win32'   : { 'ld-path'      : '$BIN-PATH',
+                                   'libraries'    : { 'xercesLibs' : ['xerces-c_2'] }
+                                 }
+                   },
+                   '2.8.0-gl1' :
+                   { 'default' : { 'version'      : '2.8.0-gl1',
+                                   'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                   'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                   'bin-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'bin'),
+                                   'ld-path'      : '$LIB-PATH',
+                                   'includes'     : [ 'xercesc/util/XercesVersion.hpp' ],
+                                   'libraries'    : { 'xercesLibs'  : ['xerces-c', 'pthread'] }
+                                 },
+                     'win32'   : { 'version'      : '2.8.0'
+                                   'ld-path'      : '$BIN-PATH',
                                    'libraries'    : { 'xercesLibs' : ['xerces-c_2'] }
                                  }
                    }
