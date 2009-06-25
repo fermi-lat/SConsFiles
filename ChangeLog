@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Wed Jun 24 17:29:41 PDT 2009
+SConsFiles
+
+Modified Files:
+	processExternals.scons 
+Log Message:
+Change  references to obsolete externalLibraries data structre
+
+    *
+------------------------------------------------------------
 User: jrb  Wed Jun 24 10:27:42 PDT 2009
 SConsFiles/site_scons/site_tools
 
