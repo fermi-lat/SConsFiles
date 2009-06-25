@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.13 2009/06/17 02:11:41 glastrm Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.14 2009/06/23 23:38:03 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands
@@ -57,6 +57,7 @@ AddOption('--variant', dest='variant', action='store', nargs=1, type='string', h
 AddOption('--supersede', dest='supersede', action='store', nargs=1, type='string', default='.', metavar='DIR', help='Directory containing packages superseding installed ones. Relative paths not supported!')
 AddOption('--exclude', dest='exclude', action='append', nargs=1, type='string', metavar='DIR', help='Directory containing a SConscript file that should be ignored.')
 AddOption('--user-release', dest='userRelease', nargs=1, type='string', action='store', metavar='FILE', help='Creates a compressed user release and stores it in FILE')
+AddOption('--source-release', dest='sourceRelease', nargs=1, type='string', action='store', metavar='FILE', help='Creates a compressed source release and stores it in FILE')
 
 if baseEnv['PLATFORM'] != 'win32':
     AddOption('--with-cc', dest='cc', action='store', nargs=1, type='string', metavar='COMPILER', help='Compiler to use for compiling C files')
@@ -208,7 +209,6 @@ if baseEnv['PLATFORM'] == 'win32':
 ##################
 # Create release #
 ##################
-
 if baseEnv.GetOption('userRelease'):
     if baseEnv['PLATFORM'] != 'win32':
         baseEnv['TARFLAGS']+=' -z'
@@ -235,6 +235,22 @@ if baseEnv.GetOption('userRelease'):
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['TESTDIR'])
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['TESTSCRIPTDIR'])
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['PYTHONDIR'])
+    Return()
+
+if baseEnv.GetOption('sourceRelease'):
+    if baseEnv['PLATFORM'] != 'win32':
+        baseEnv['TARFLAGS']+=' -z'
+        for exclude in (baseEnv['BINDIR'].path, baseEnv['SCRIPTDIR'].path, baseEnv['INCDIR'].path, baseEnv['PFILESDIR'].path,
+                        baseEnv['DATADIR'].path, baseEnv['XMLDIR'].path, baseEnv['TOOLDIR'].path, baseEnv['TESTDIR'].path,
+                        baseEnv['TESTSCRIPTDIR'].path, baseEnv['PYTHONDIR'].path, 'build'):
+            baseEnv['TARFLAGS']+='--exclude '+exclude
+        baseEnv.Tar(baseEnv.GetOption('sourceRelease'), glob.glob('*'))
+    else:
+        for exclude in (baseEnv['BINDIR'].path, baseEnv['SCRIPTDIR'].path, baseEnv['INCDIR'].path, baseEnv['PFILESDIR'].path,
+                                                baseEnv['DATADIR'].path, baseEnv['XMLDIR'].path, baseEnv['TOOLDIR'].path, baseEnv['TESTDIR'].path,
+                        baseEnv['TESTSCRIPTDIR'].path, baseEnv['PYTHONDIR'].path, 'build'):
+            baseEnv['TARFLAGS']+='-x '+exclude
+        baseEnv.Zip(baseEnv.GetOption('sourceRelease'), glob.glob('*'))
     Return()
 
 #########################
