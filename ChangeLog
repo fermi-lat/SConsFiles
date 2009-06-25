@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Thu Jun 25 09:57:31 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add cfitsio v3060A
+    *
+------------------------------------------------------------
 User: jrb  Wed Jun 24 17:29:41 PDT 2009
 SConsFiles
 
