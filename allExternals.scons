@@ -231,7 +231,7 @@ allExternalLibraries = {
                                    'includes'     : [ 'xercesc/util/XercesVersion.hpp' ],
                                    'libraries'    : { 'xercesLibs'  : ['xerces-c', 'pthread'] }
                                  },
-                     'win32'   : { 'version'      : '2.8.0'
+                     'win32'   : { 'version'      : '2.8.0',
                                    'ld-path'      : '$BIN-PATH',
                                    'libraries'    : { 'xercesLibs' : ['xerces-c_2'] }
                                  }
