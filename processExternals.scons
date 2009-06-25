@@ -155,7 +155,7 @@ def setupRoot(configuredExternal):
         def defGenerator(target, source, env, for_signature):
             return "/def:"+os.path.splitext(str(target[0]))[0]+".def"
         baseEnv['DEFGENERATOR'] = defGenerator
-        baseEnv['SHLINKCOM'] = [os.path.join(externalLibraries['ROOT']['bin-path'], "bindexplib.exe") + " -o ${TARGET.base}.def ${TARGET.file} $SOURCES"] + baseEnv['SHLINKCOM']
+        baseEnv['SHLINKCOM'] = [os.path.join(configuredExternal['bin-path'], "bindexplib.exe") + " -o ${TARGET.base}.def ${TARGET.file} $SOURCES"] + baseEnv['SHLINKCOM']
         baseEnv['SHLINKCOM'].list[1].cmd_list = baseEnv['SHLINKCOM'].list[1].cmd_list.rstrip('" )}')
         baseEnv['SHLINKCOM'].list[1].cmd_list += " $DEFGENERATOR\")}"
 
@@ -163,8 +163,8 @@ def setupSwig(configuredExternal):
     baseEnv.PrependENVPath('PATH', [configuredExternal['bin-path']])
     baseEnv.Tool('swig')
     if baseEnv['PLATFORM'] == 'win32':
-        baseEnv['SWIGEXEPATH'] = externalLibraries['swig']['bin-path']
-        baseEnv['SWIG_LIB'] = externalLibraries['swig']['share-path']
+        baseEnv['SWIGEXEPATH'] = configuredExternal['bin-path']
+        baseEnv['SWIG_LIB'] = configuredExternal['share-path']
 
     baseEnv.AppendUnique(SWIGPATH = [baseEnv['CPPPATH'], os.path.join(configuredExternal['share-path'], 'python'),
                                      configuredExternal['share-path'], baseEnv['INCDIR'], '.'])
