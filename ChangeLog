@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Thu Jun 25 14:22:47 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Added ability to create source tar and zip files
+    *
+------------------------------------------------------------
 User: glastrm  Thu Jun 25 14:22:33 PDT 2009
 SConsFiles
 
