@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Thu Jun 25 15:08:57 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Fixed bug in source distribution creation where lib directory was still being included
+    *
+------------------------------------------------------------
 User: glastrm  Thu Jun 25 14:22:47 PDT 2009
 SConsFiles
 
