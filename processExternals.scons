@@ -86,7 +86,7 @@ def setupEnvironment(configuredExternal):
     if 'bin-path' in configuredExternal:
         baseEnv.PrependUnique(PATH = [configuredExternal['bin-path']])
     if 'ld-path' in configuredExternal:
-        baseEnv.AppendUnique(WRAPPERLIBS = [configuredExternal['ld-path']])
+        baseEnv.AppendUnique(WRAPPERLIBS = [configuredExternal['ld-path'].replace(baseEnv.GetOption('GLAST-EXT'), '$GLAST_EXT')])
 
     #Add library groups to base environment
     if 'libraries' in configuredExternal:
