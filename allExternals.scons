@@ -66,6 +66,16 @@ allExternalLibraries = {
                                    'libraries'    : { 'apeLibs' : [ 'ape', 'readline', 'termcap' ] }
                                  },
                      'win32'   : { 'libraries'    : { 'apeLibs' : [ 'apelib' ] } }
+                   },
+                   '2.5.1' :
+                   { 'default' : { 'version'      : '2.5.1',
+                                   'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                   'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                   'ld-path'      : '$LIB-PATH',
+                                   'includes'     : [ 'ape/ape_list.h' ],
+                                   'libraries'    : { 'apeLibs' : [ 'ape', 'readline', 'termcap' ] }
+                                                                    },
+                     'win32'   : { 'libraries'    : { 'apeLibs' : [ 'apelib' ] } }
                    }
                  },
     
