@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Tue Jun 30 10:02:27 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+added ape 2.5.1
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-09-15-02, operation: mov
 Package: SConsFiles
