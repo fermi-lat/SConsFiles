@@ -277,6 +277,7 @@ allExternalLibraries = {
                        os.path.join('$GLAST_EXT', '$NAME', '$VERSION',
                                     '$COMPILER', 'lib', 'python2.5', 'config'),
                        'ld-path'      : '$LIB-PATH',
+                       'bin-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'bin'),
                        'includes'     : [ 'Python.h' ]
                        },
                      'win32'   :
@@ -306,6 +307,7 @@ allExternalLibraries = {
                        'include-path' : os.path.join('$GLAST_EXT', '$NAME','$VERSION', '$COMPILER','include', 'python2.5'),
                        'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION','$COMPILER', 'lib', 'python2.5', 'config'),
                        'ld-path'      : '$LIB-PATH',
+                       'bin-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'bin'),
                        'includes'     : [ 'Python.h']
                      },
                      'win32' :
@@ -322,6 +324,7 @@ allExternalLibraries = {
                        'include-path' : os.path.join('$GLAST_EXT', '$NAME','$VERSION', '$COMPILER','include', 'python2.5'),
                        'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION','$COMPILER', 'lib', 'python2.5', 'config'),
                        'ld-path'      : '$LIB-PATH',
+                       'bin-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'bin'),
                        'includes'     : [ 'Python.h']
                                             },
                      'win32' :
@@ -330,7 +333,10 @@ allExternalLibraries = {
                        'libraries'    : { 'pythonLibs' : [ 'python25' ] }
                                             },
                      'posix' : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'util', 'm', 'python2.5' ] } },
-                     'darwin' : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.5', 'tcl', 'tk' ] } }
+                     'darwin' : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.5',
+                                                                      #os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER',
+                                                                      #'lib', 'python2.5', 'config', 'libpython2.5.a'),
+                                                                      'tcl', 'tk' ] } }
                    }
                  },
                    
