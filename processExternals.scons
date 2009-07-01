@@ -170,6 +170,8 @@ def setupSwig(configuredExternal):
     baseEnv.AppendUnique(SWIGPATH = [baseEnv['CPPPATH'], os.path.join(configuredExternal['share-path'], 'python'),
                                      configuredExternal['share-path'], baseEnv['INCDIR'], '.'])
     baseEnv.AppendUnique(SWIGFLAGS = ['-w401', '-w402', '-w503', '-w362', '-w389', '-w509', '-python', '-c++'])
+    if baseEnv['PLATFORM'] != 'win32':
+        baseEnv['LDMODULESUFFIX'] = '.so'
 
 #This variable holds are external library hashes once they are fully configured
 configuredExternals = []
