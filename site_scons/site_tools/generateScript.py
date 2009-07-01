@@ -17,7 +17,10 @@ def fillShellScript(scriptFile, env, wrapper):
     for lib in env['WRAPPERLIBS']:
         scriptFile.write(':'+lib)
     scriptFile.write(':$DYLD_LIBRARY_PATH\n')
-    scriptFile.write('export PATH=$INST_DIR/'+str(env['SCRIPTDIR'])+':$PATH\n')
+    scriptFile.write('export PATH=$INST_DIR/'+str(env['SCRIPTDIR']))
+    for bin in env['WRAPPERBINS']:
+        scriptFile.write(':'+bin)
+    scriptFile.write(':${PATH}\n')
     scriptFile.write('if [ ! -w $HOME/pfiles/. ]; then\n')
     scriptFile.write('  mkdir $HOME/pfiles\n')
     scriptFile.write('  if [ $? -ne 0 ]; then\n')
@@ -42,7 +45,7 @@ def fillShellScript(scriptFile, env, wrapper):
     scriptFile.write('  syspfiles="$INST_DIR/syspfiles$syspfiles"\n')
     scriptFile.write('fi\n')
     scriptFile.write('export PFILES="$locpfiles;$syspfiles"\n')
-    scriptFile.write('export PYTHONPATH=$INST_DIR/python:$PYTHON_PATH\n')
+    scriptFile.write('export PYTHONPATH=$INST_DIR/python:$INST_DIR/'+str(env['LIBDIR'])+':$PYTHON_PATH\n')
     if env.has_key('ROOTSYS'):
         scriptFile.write('export ROOTSYS='+env['ROOTSYS']+'\n')
 
