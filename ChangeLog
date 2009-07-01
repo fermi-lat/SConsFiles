@@ -2,6 +2,15 @@
 TAG
 Tag name: ScienceTools-09-15-02, operation: mov
 Package: SConsFiles
+User: glastrm  Wed Jul  1 12:01:14 2009
+Files:
+  SConsFiles/SConstruct  1.16
+
+    *
+------------------------------------------------------------
+TAG
+Tag name: ScienceTools-09-15-02, operation: mov
+Package: SConsFiles
 User: glastrm  Wed Jul  1 11:24:38 2009
 Files:
   SConsFiles/allExternals.scons  1.34
