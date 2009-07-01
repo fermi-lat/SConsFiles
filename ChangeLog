@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Wed Jul  1 08:14:03 PDT 2009
+SConsFiles
+
+Modified Files:
+	processExternals.scons 
+Log Message:
+wrapper scripts now set external libraries in path and pythonpath includes lib directory
+    *
+------------------------------------------------------------
 User: glastrm  Tue Jun 30 10:02:27 PDT 2009
 SConsFiles
 
