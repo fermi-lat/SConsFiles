@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.15 2009/06/25 21:22:47 glastrm Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.16 2009/06/25 22:08:57 glastrm Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands
@@ -175,11 +175,15 @@ if baseEnv['PLATFORM'] == "win32":
             
 else:
     baseEnv.AppendUnique(CXXFLAGS = "-fpermissive")
+
 if baseEnv['PLATFORM'] == "posix":
     if platform.machine() == "x86_64":
         baseEnv.AppendUnique(CCFLAGS = "-fPIC")
     baseEnv.AppendUnique(CPPDEFINES = ['TRAP_FPE'])
 
+if baseEnv['PLATFORM'] == "darwin":
+    baseEnv.AppendUnique(SHLINKFLAGS = ["-Wl,-install_name", "-Wl,${TARGET.file}"])
+        
 #########################
 #  Project Environment  #
 #########################
