@@ -172,8 +172,10 @@ def setupSwig(configuredExternal):
     baseEnv.AppendUnique(SWIGFLAGS = ['-w401', '-w402', '-w503', '-w362', '-w389', '-w509', '-python', '-c++'])
     if baseEnv['PLATFORM'] != 'win32':
         baseEnv['LDMODULESUFFIX'] = '.so'
-        if baseEnv['PLATFORM'] == 'darwin':
-            baseEnv.AppendUnique(LDMODULEFLAGS = ['-bundle_loader', os.path.join(configuredExternal['bin-path'], 'python')])
+
+def setupPython(configuredExternal):
+    if baseEnv['PLATFORM'] == 'darwin':
+        baseEnv.AppendUnique(LDMODULEFLAGS = ['-bundle_loader', os.path.join(configuredExternal['bin-path'], 'python')])
 
 #This variable holds are external library hashes once they are fully configured
 configuredExternals = []
@@ -188,6 +190,8 @@ for external in usedExternals:
         setupRoot(configuredExternal)
     if external['name'] == 'swig':
         setupSwig(configuredExternal)
+    if external['name'] == 'python':
+        setupPython(configuredExternal)
     configuredExternal['name'] = external['name']
     configuredExternals.append(configuredExternal)
 
