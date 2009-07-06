@@ -172,6 +172,7 @@ def setupSwig(configuredExternal):
     baseEnv.AppendUnique(SWIGFLAGS = ['-w401', '-w402', '-w503', '-w362', '-w389', '-w509', '-python', '-c++'])
     if baseEnv['PLATFORM'] != 'win32':
         baseEnv['LDMODULESUFFIX'] = '.so'
+        baseEnv['LDMODULEPREFIX'] = ''
 
 def setupPython(configuredExternal):
     if baseEnv['PLATFORM'] == 'darwin':
