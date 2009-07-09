@@ -37,6 +37,10 @@ def generate(env, **kw):
             env.Alias('tools', tools)
             env.Alias('all', tools)
 
+        doxyFiles = env.CreateDoxygen(target = env['DOCDIR'].File(pkgname))
+        env.Default(doxyFiles)
+        env.Alias('all', doxyFiles)
+
         def getCxtList(argname):
             val = kw.get(argname, '')
             if val == '': return []
