@@ -2,6 +2,16 @@
 TAG
 Tag name: ScienceTools-09-15-02, operation: mov
 Package: SConsFiles
+User: glastrm  Tue Jul 14 09:23:29 2009
+Files:
+  SConsFiles/site_scons/site_tools/registerObjects.py  1.4
+  SConsFiles/site_scons/site_tools/registerTargets.py  1.2
+
+    *
+------------------------------------------------------------
+TAG
+Tag name: ScienceTools-09-15-02, operation: mov
+Package: SConsFiles
 User: glastrm  Tue Jul 14 09:23:08 2009
 Files:
   SConsFiles/site_scons/site_tools/doxygen.py  1.1
