@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+TAG
+Tag name: ScienceTools-09-15-02, operation: mov
+Package: SConsFiles
+User: glastrm  Tue Jul 14 12:40:21 2009
+Files:
+  SConsFiles/setupTarget.scons  1.2
+
+    *
+------------------------------------------------------------
 User: glastrm  Tue Jul 14 12:39:58 PDT 2009
 SConsFiles
 
