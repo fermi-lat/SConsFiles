@@ -268,75 +268,22 @@ allExternalLibraries = {
                  },
                    
     'python'   : { '2.5.1' :
-                   { 'default' :
-                     { 'version'      : '2.5.1',
-                       'include-path' : os.path.join('$GLAST_EXT', '$NAME',
-                                                     '$VERSION', '$COMPILER',
-                                                     'include', 'python2.5'),
-                       'lib-path'     :
-                       os.path.join('$GLAST_EXT', '$NAME', '$VERSION',
-                                    '$COMPILER', 'lib', 'python2.5', 'config'),
-                       'ld-path'      : '$LIB-PATH',
-                       'bin-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'bin'),
-                       'includes'     : [ 'Python.h' ]
-                       },
-                     'win32'   :
-                     { 'include-path' : os.path.join('$GLAST_EXT', '$NAME',
-                                                     '$VERSION', '$COMPILER',
-                                                     'include'),
-                       'lib-path'     :
-                       os.path.join('$GLAST_EXT','$NAME','$VERSION',
-                                    '$COMPILER', 'libs'),
-                       'libraries'    : { 'pythonLibs' : [ 'python25' ] }
-                       },
-                     'posix'   :
-                     { 'libraries'    : { 'pythonLibs' :
-                                          [ 'pthread', 'dl', 'util', 'm',
-                                            'python2.5' ]
-                                        }
-                     },
-                     'darwin'  :
-                     { 'libraries'    : { 'pythonLibs' :
-                                          [ 'pthread', 'dl', 'm', 'python2.5' ]
-                                        }
-                     }
-                   },
-                   '2.5.1-gl1' :
-                   { 'default' :
-                     { 'version'      : '2.5.1-gl1',
-                       'include-path' : os.path.join('$GLAST_EXT', '$NAME','$VERSION', '$COMPILER','include', 'python2.5'),
-                       'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION','$COMPILER', 'lib', 'python2.5', 'config'),
-                       'ld-path'      : '$LIB-PATH',
-                       'bin-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'bin'),
-                       'includes'     : [ 'Python.h']
-                     },
-                     'win32' :
-                     { 'include-path' : os.path.join('$GLAST_EXT', '$NAME','$VERSION', '$COMPILER','include'),
-                       'lib-path'     : os.path.join('$GLAST_EXT','$NAME','$VERSION','$COMPILER', 'libs'),
-                       'libraries'    : { 'pythonLibs' : [ 'python25' ] }
-                     },
-                     'posix' : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'util', 'm', 'python2.5' ] } },
-                     'darwin' : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.5' ] } }
-                   },
-                   '2.5.1-gl2' :
-                   { 'default' :
-                     { 'version'      : '2.5.1-gl2',
-                       'include-path' : os.path.join('$GLAST_EXT', '$NAME','$VERSION', '$COMPILER','include', 'python2.5'),
-                       'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION','$COMPILER', 'lib', 'python2.5', 'config'),
-                       'ld-path'      : '$LIB-PATH',
-                       'bin-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'bin'),
-                       'includes'     : [ 'Python.h']
-                                            },
-                     'win32' :
-                     { 'include-path' : os.path.join('$GLAST_EXT', '$NAME','$VERSION', '$COMPILER','include'),
-                       'lib-path'     : os.path.join('$GLAST_EXT','$NAME','$VERSION','$COMPILER', 'libs'),
-                       'libraries'    : { 'pythonLibs' : [ 'python25' ] }
-                                            },
-                     'posix' : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'util', 'm', 'python2.5' ] } },
-                     'darwin' : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.5',
-                                                                      #os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER',
-                                                                      #'lib', 'python2.5', 'config', 'libpython2.5.a'),
-                                                                      'tcl', 'tk' ] } }
+                   { 'default' : { 'version'      : '2.5.1-gl1',
+                                   'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include', 'python2.5'),
+                                   'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib', 'python2.5', 'config'),
+                                   'ld-path'      : '$LIB-PATH',
+                                   'bin-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'bin'),
+                                   'includes'     : [ 'Python.h' ]
+                                 },
+                     'win32'   : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                   'lib-path'     : os.path.join('$GLAST_EXT','$NAME','$VERSION', '$COMPILER', 'libs'),
+                                   'libraries'    : { 'pythonLibs' : [ 'python25' ] }
+                                 },
+                     'posix'   : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'util', 'm', 'python2.5' ] }
+                                 },
+                     'darwin'  : { 'version'      : '2.5.1-gl3',
+                                   'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.5' ] }
+                                 }
                    }
                  },
                    
