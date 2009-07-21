@@ -9,8 +9,17 @@ allExternalLibraries = {
                                    'ld-path'      : '$LIB-PATH',
                                    'includes'     : [ 'CLHEP/config/CLHEP.h' ],
                                    'libraries'    : { 'clhepLibs' : [ 'CLHEP'] }
-                                   }
-                     }
+                                 }
+                   },
+                   '1.9.4.2' :
+                   { 'default' : { 'version'      : '1.9.4.2',
+                                   'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                   'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                   'ld-path'      : '$LIB-PATH',
+                                   'includes'     : [ 'CLHEP/config/CLHEP.h' ],
+                                   'libraries'    : { 'clhepLibs' : [ 'CLHEP'] }
+                                 }
+                   }
                  },
 
     'fftw'     : { '3.1.2' :
