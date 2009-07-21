@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Tue Jul 21 11:48:16 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+Added CLHEP version 1.9.4.2
+    *
+------------------------------------------------------------
 User: glastrm  Wed Jul 15 13:08:51 PDT 2009
 SConsFiles
 
