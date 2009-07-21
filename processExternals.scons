@@ -120,6 +120,15 @@ def checkEnvironment(configuredExternal):
                 if not conf.CheckLib(library, language='C++'):
                     print 'Unable to find a library for '+configuredExternal['name']+'. See config.log for more details.'
                     Exit(1)
+    if 'binaries' in configuredExternal:
+        for binary in configuredExternal['binaries']:
+            print 'Checking for application '+binary+'... ',
+            if not os.path.isfile(os.path.join(configuredExternal['bin-path'], binary)):
+                print 'no'
+                print 'Unable to find binary for '+configuredExternal['name']+'.'
+                Exit(1);
+            else:
+                print 'yes'
     conf.Finish()
     
 def setupRoot(configuredExternal):
