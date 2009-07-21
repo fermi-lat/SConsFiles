@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Tue Jul 21 13:33:22 PDT 2009
+SConsFiles
+
+Modified Files:
+	processExternals.scons 
+Log Message:
+Added code to check for existance of binaries
+    *
+------------------------------------------------------------
 User: glastrm  Tue Jul 21 11:48:16 PDT 2009
 SConsFiles
 
