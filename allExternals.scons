@@ -196,11 +196,10 @@ allExternalLibraries = {
                                                    'share', 'swig', '$VERSION'),
                        'binaries'   : [ 'swig' ]
                        },
-                     'win32'   :
-                     { 'share-path' : os.path.join('$GLAST_EXT', '$NAME',
-                                                   '$VERSION', '$COMPILER',
-                                                   'share', 'swig') }
-                              }
+                     'win32'   : { 'share-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'share', 'swig'),
+                                   'binaries'   : [ 'swig.exe' ]
+                                 }
+                   }
                  },
     
     'xerces'   : { '2.7.0' :
