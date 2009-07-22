@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Wed Jul 22 15:29:06 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+use swig.exe for windows rather than swig
+    *
+------------------------------------------------------------
 User: glastrm  Tue Jul 21 13:33:22 PDT 2009
 SConsFiles
 
