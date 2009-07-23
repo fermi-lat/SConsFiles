@@ -187,16 +187,13 @@ allExternalLibraries = {
                  },
 
     'swig'     : { '1.3.31' :
-                   { 'default' :
-                     { 'version'    : '1.3.31',
-                       'bin-path'   : os.path.join('$GLAST_EXT','$NAME',
-                                                   '$VERSION','$COMPILER','bin'),
-                       'share-path' : os.path.join('$GLAST_EXT', '$NAME',
-                                                   '$VERSION', '$COMPILER',
-                                                   'share', 'swig', '$VERSION'),
-                       'binaries'   : [ 'swig' ]
-                       },
-                     'win32'   : { 'share-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'share', 'swig'),
+                   { 'default' : { 'version'    : '1.3.31',
+                                   'bin-path'   : os.path.join('$GLAST_EXT','$NAME','$VERSION','$COMPILER','bin'),
+                                   'share-path' : os.path.join('$GLAST_EXT', '$NAME','$VERSION', '$COMPILER','share', 'swig', '$VERSION'),
+                                   'binaries'   : [ 'swig' ]
+                                 },
+                     'win32'   : { 'share-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                   'bin-path'   : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
                                    'binaries'   : [ 'swig.exe' ]
                                  }
                    }
