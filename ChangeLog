@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Fri Jul 24 12:48:48 PDT 2009
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	registerTargets.py 
+Log Message:
+Add more aliases for doygen configuration file and doxygen configuration files now have .config extension
+    *
+------------------------------------------------------------
 User: glastrm  Thu Jul 23 09:59:55 PDT 2009
 SConsFiles
 
