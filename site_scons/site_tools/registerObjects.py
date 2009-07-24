@@ -20,9 +20,11 @@ import SCons.Node.FS
 
 def generate(env, **kw):
     if kw.get('package', '') != '':
-        doxyFiles = env.CreateDoxygen(target = env['DOCDIR'].File(kw.get('package')))
+        doxyFiles = env.CreateDoxygen(target = env['DOCDIR'].File(kw.get('package')+".config"))
         env.Default(doxyFiles)
         env.Alias('all', doxyFiles)
+        env.Alias(kw.get('package'), doxyFiles)
+        env.Alias("doxygen", doxyFiles)
         if os.path.exists(os.path.join(str(env.Dir('.').srcnode()),kw.get('package')+"Lib.py")):
             tools = env.Install(env['TOOLDIR'], os.path.join(str(env.Dir('.').srcnode()),kw.get('package')+"Lib.py"))
             env.Default(tools)
