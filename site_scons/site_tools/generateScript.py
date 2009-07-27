@@ -182,7 +182,7 @@ def generateSetup(target, source, env):
     setupFile.close()
 
 def generate(env):
-    setupSuffix = 'sh'
+    setupSuffix = '.sh'
     if env['PLATFORM'] != 'win32':
         GenerateScriptAction = SCons.Action.Action(generatePosixScript,
                                                    "Creating wrapper script for '$TARGET'")
@@ -191,7 +191,7 @@ def generate(env):
                                                       emitter = generateScriptEmitter,
                                                       single_source = 1)
     else:
-        setupSuffix = 'vbs'
+        setupSuffix = '.vbs'
         GenerateScriptAction= SCons.Action.Action(generateWindowsScript,
                                                   "Creating wrapper script for '$TARGET'")
 	GenerateScriptBuilder=SCons.Builder.Builder(action = [GenerateScriptAction],
