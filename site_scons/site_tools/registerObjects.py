@@ -20,7 +20,7 @@ import SCons.Node.FS
 
 def generate(env, **kw):
     if kw.get('package', '') != '':
-        doxyFiles = env.CreateDoxygen(target = env['DOCDIR'].File(kw.get('package')+".config"))
+        doxyFiles = env.CreateDoxygen(target = env['DOCDIR'].File(kw.get('package')))
         env.Default(doxyFiles)
         env.Alias('all', doxyFiles)
         env.Alias(kw.get('package'), doxyFiles)
