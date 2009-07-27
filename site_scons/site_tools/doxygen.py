@@ -25,7 +25,7 @@ def generate(env, **kw):
             source += [env.Dir('.').Dir('doc').File('Doxyfile')]
         return (target, source)
 
-    builder = env.Builder(action = env.Action(createDoxygen, varlist=['DOXYGENOUTPUT']), emitter = createDoxygenEmitter, source_factory = SCons.Node.FS.Dir)
+    builder = env.Builder(action = env.Action(createDoxygen, varlist=['DOXYGENOUTPUT']), emitter = createDoxygenEmitter, source_factory = SCons.Node.FS.Dir, suffix = '.config', ensure_suffix = 1)
     env.Append(BUILDERS = {'CreateDoxygen' : builder })
 
 def exists(env):
