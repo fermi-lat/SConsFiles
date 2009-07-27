@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/setupTarget.scons,v 1.1 2009/06/23 23:38:03 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/setupTarget.scons,v 1.2 2009/07/14 19:39:57 glastrm Exp $
 # setupTarget.scons defines a target to make a setup file (_setup.sh) which
 # will define environment variables needed to use SCons-generated executables
 # or, for Windows, a file _setup.vbs, which, when run locally by end-user,
@@ -14,7 +14,7 @@ Import('baseEnv')
 # externals, the generateScript.py tool and on the collection of
 # SConscripts in the container because these also modify the environment
 
-setupScript = baseEnv.GenerateSetupScript(target=[baseEnv['SCRIPTDIR'].File('_setup')],
+setupScript = baseEnv.GenerateSetupScript(target=[baseEnv['SCRIPTDIR'].File('_setup.sh')],
                                           source=[File('./externals.scons')])
 
 baseEnv.Default(setupScript)
