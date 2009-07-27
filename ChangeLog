@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Mon Jul 27 10:06:35 PDT 2009
+SConsFiles
+
+Modified Files:
+	processExternals.scons setupTarget.scons 
+Log Message:
+Add .sh to _setup script and don't use hardcoded ROOTSYS path
+    *
+------------------------------------------------------------
 User: glastrm  Fri Jul 24 12:49:26 PDT 2009
 SConsFiles/site_scons/site_tools
 
