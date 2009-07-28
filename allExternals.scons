@@ -318,6 +318,14 @@ allExternalLibraries = {
                      { 'version'   : '3.4-gl1',
                        'libraries' : { 'f2cLibs' : ['g2c'] }
                      },
+                     'win32'   :
+                     { 'lib-path'  : os.path.join('$GLAST_EXT', '$NAME',
+                                                  '$VERSION','$COMPILER','lib'),
+                       'ld-path'   : '$LIB-PATH',
+                       'libraries' : { 'f2cLibs' :
+                                       [ 'libf77mt.lib',
+                                         'libi77mt.lib', 'oldnames.lib' ] }
+                     },
                      'gcc41':
                      { 'lib-path'  : os.path.join('$GLAST_EXT', '$NAME',
                                                   '$VERSION', '$COMPILER', 'lib'),
