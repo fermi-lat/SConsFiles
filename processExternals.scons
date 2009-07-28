@@ -6,6 +6,10 @@ Import('usedExternals')
 Import('allExternals')
 Import('baseEnv')
 
+# Needed on Windows when creating project and solution files.  Filled in
+# setupEnvironment below
+extlibSet = set()
+
 AddOption('--with-GLAST-EXT', dest = 'GLAST-EXT', nargs=1, type='string', action='store', metavar='DIR',
           help='location of GLAST_EXT type directory layout for external libraries')
 
@@ -78,7 +82,6 @@ def substituteVars(name, version, configuredExternal):
 def setupEnvironment(configuredExternal):
     #Add Paths to base environment
     #Also for Windows only fill extlibSet data structure  (jrb addition)
-    extlibSet = set()
     if 'include-path' in configuredExternal:
         baseEnv.AppendUnique(CPPPATH = [configuredExternal['include-path']])
     if 'lib-path' in configuredExternal:
