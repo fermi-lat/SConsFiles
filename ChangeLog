@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Tue Jul 28 14:18:18 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+Add win32 branch for f2c 3.4-gl1
+
+    *
+------------------------------------------------------------
 User: jrb  Tue Jul 28 14:12:33 PDT 2009
 SConsFiles
 
