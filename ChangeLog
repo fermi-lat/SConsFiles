@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Thu Jul 30 14:55:02 PDT 2009
+SConsFiles
+
+Modified Files:
+	processExternals.scons 
+Log Message:
+Add ROOT_w32pragma to CPPDEFINES on Windows to allow rootcint to work
+
+    *
+------------------------------------------------------------
 User: jrb  Tue Jul 28 14:18:18 PDT 2009
 SConsFiles
 
