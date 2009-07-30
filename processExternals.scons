@@ -186,6 +186,21 @@ def setupSwig(configuredExternal):
         baseEnv['LDMODULESUFFIX'] = '.so'
         baseEnv['LDMODULEPREFIX'] = ''
 
+    def SwigLibrary(env, program, sources):
+        if env['PLATFORM'] == 'win32':
+            flags = str(env['CCFLAGS'])
+            flags = flags.replace('/0d','').replace('/MDd','/MD').replace('/LDd', '/LD')
+            env['CCFLAGS'] = flags
+            flags = str(env['LINKFLAGS'])
+            flags = flags.replace('/ASSEMBLYDEBUG','').replace('/DEBUG','')
+            env['LINKFLAGS'] = flags
+            while env['CPPDEFINES'].count('_DEBUG') > 0:
+                env['CPPDEFINES'].remove('_DEBUG')
+        return env.LoadableModule(program, sources)
+
+    baseEnv.AddMethod(SwigLibrary)
+                                                                                                                    
+
 def setupPython(configuredExternal):
     if baseEnv['PLATFORM'] == 'darwin':
         baseEnv.AppendUnique(LDMODULEFLAGS = ['-bundle_loader', os.path.join(configuredExternal['bin-path'], 'python')])
