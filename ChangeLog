@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Thu Jul 30 17:39:40 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+Add fsw to allExternals
+
+    *
+------------------------------------------------------------
 User: jrb  Thu Jul 30 14:55:02 PDT 2009
 SConsFiles
 
