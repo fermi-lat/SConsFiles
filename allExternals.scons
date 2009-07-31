@@ -411,20 +411,62 @@ allExternalLibraries = {
                                 os.path.join('$GLAST_EXT','$NAME','$VERSION',
                                                 '$COMPILER', 'lib', 'opt'),
                                 'ld-path'  : '$LIB-PATH'}
-                   
-                  
                   }
                  },
+
+    'fsw'     : {'B2-0-0_20090121' :
+                 {'default' :
+                  {'version'       : 'B2-0-0_20090121',
+                   'includes' : ['fsw/DFI/DfiEvent-Context.hh'],
+                   'libraries' : { 'dfiLibs' : ['ccsds_pkt', 'msg_mt', 'dfi_ccsds',
+                                                'dfi', 'qsec', 'eds', 'qsep', 'qse',
+                                                'lsfutils', 'encdec', 'qssp', 'qsp',
+                                                'qspprint', 'qsu', 'qsdprint',
+                                                'lseprint', 'lser', 'ccsds', 
+                                                'fmxshr','msg_print','msg_st',
+                                                'cpu_db_server',
+                                                'pbs', 'cdm', 
+                                                'fbs_rtos', 'mdb',
+                                                'zlib_inflate', 'fbs_swap',
+                                                'cmx_asBuilt'],
+                                   'fswDecipherLibs' : ['cdm',
+                                                        'fbs_rtos','mdb',
+                                                        'zlib_inflate',
+                                                        'fbs_swap',
+                                                        'cmx_asBuilt'],
+                                   'fswMOOTLibs' : ['qcfg', 'rim_ground', 'rim',
+                                                    'lsfutils','dump','parser',
+                                                    'fbs_rtos','msg_st',
+                                                    'cpu_db_server',
+                                                    'pbs', 'cdm', 'fbs_rtos',
+                                                    'mdb', 'zlib_inflate',
+                                                    'fbs_swap','cmx_asBuilt',
+                                                    'qsdccsds','qseprint','qsu',
+                                                    'expat','fbs_swap',
+                                                    'zlib_inflate','cdm',
+                                                    'cpu_db_server','msg_print',
+                                                    'qsdprint','qse', 'encdec',
+                                                    'qsedgm', 'lser','fmxshr',
+                                                    'lseprint', 'encdec']},
+                   'linkflags' : ['-Wl,-rpath-link,'+os.path.join( '$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib' )],
+                   'include-path' : [os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                     os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include', 'fsw')],
+                   'lib-path' : os.path.join('$GLAST_EXT', '$NAME',
+                                             '$VERSION', '$COMPILER', 'lib'),
+                   'ld-path' : '$LIB-PATH'},
+                  }
+                 },
+
     'zlib'    : {'1.1.4' :
                  {'default' :
                   {'version'     : '1.1.4',
-                  'includes'     : ['zlib.h'],
-                  'libraries'    : {'zlibLibs' : ['z']},
-                  'include-path' : os.path.join('$GLAST_EXT','$NAME','$VERSION',
-                                                '$COMPILER', 'include'),
-                  'lib-path'     : os.path.join('$GLAST_EXT','$NAME',
-                                                '$VERSION','$COMPILER', 'lib'),
-                  'lvcd-path' : '$LIB-PATH'}
+                   'includes'     : ['zlib.h'],
+                   'libraries'    : {'zlibLibs' : ['z']},
+                   'include-path' : os.path.join('$GLAST_EXT','$NAME','$VERSION',
+                                                 '$COMPILER', 'include'),
+                   'lib-path'     : os.path.join('$GLAST_EXT','$NAME',
+                                                 '$VERSION','$COMPILER', 'lib'),
+                   'lvcd-path' : '$LIB-PATH'}
                   },
                  'win32' : {'libraries'  : {'zlibLibs' : ['zlib']}}
                  },
