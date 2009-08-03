@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Mon Aug  3 11:49:26 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Added Joanne as author. Added versioning information for SConsFiles package
+    *
+------------------------------------------------------------
 User: jrb  Thu Jul 30 17:39:40 PDT 2009
 SConsFiles
 
