@@ -183,7 +183,34 @@ allExternalLibraries = {
                                    }
                                  },
                      'darwin' : { 'dylib-path' : '$LIB-PATH' }
+                   },
+                   'v5.20.00-gl4' :
+                   { 'default' : { 'version'      : 'v5.20.00-gl4',
+                                   'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                   'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                   'ld-path'      : '$LIB-PATH',
+                                   'bin-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'bin'),
+                                   'includes'     : [ 'RVersion.h' ],
+                                   'libraries'    :
+                                   { 'rootLibs'    : [ 'Tree', 'Net', 'Gpad', 'Graf', 'RIO', 'Hist', 'Physics',
+                                                       'Matrix', 'Core', 'Cint', 'pthread', 'm', 'dl' ],
+                                     'rootGuiLibs' : [ 'Rint', 'Postscript', 'TreePlayer', 'Tree', 'Net',
+                                                       'Graf3d', 'Gui', 'HistPainter', 'Gpad' ],
+                                     'minuitLibs'  : [ 'Minuit2', 'Minuit', 'Graf', 'RIO', 'Hist', 'Matrix',
+                                                       'Core', 'Cint', 'dl' ]
+                                     }
+                                   },
+                     'win32'   : { 'libraries'    :
+                                   { 'rootLibs'    : [ 'libCore', 'libCint', 'libRIO', 'libNet', 'libTree',
+                                                       'libHist','libGraf','libGpad','libMatrix','libPhysics'],
+                                     'rootGuiLibs' : [ 'libHist', 'libGraf', 'libGraf3d', 'libGpad','libRint',
+                                                       'libPostscript', 'libTreePlayer', 'libGui', 'libHistPainter' ],
+                                     'minuitLibs'  : [ 'libMinuit2' ]
+                                   }
+                                 },
+                     'darwin' : { 'dylib-path' : '$LIB-PATH' }
                    }
+
                  },
 
     'swig'     : { '1.3.31' :
@@ -395,7 +422,20 @@ allExternalLibraries = {
                   'lib-path'     : os.path.join('$GLAST_EXT','$NAME','$VERSION',
                                                 '$COMPILER', 'lib'),
                   'ld-path' : '$LIB-PATH'}
+                 },
+                'v07-01-01' :
+                {'default' :
+                 {'version'      : 'v07-01-01',
+                  'includes'     : ['LDFversion.h', 'EBFeventIterator.h'],
+                  'libraries'    : {'ldfLibs' : ['ldf']},
+                  'include-path' : os.path.join('$GLAST_EXT', '$NAME',
+                                                '$VERSION','$COMPILER','include'),
+                  'lib-path'     : os.path.join('$GLAST_EXT','$NAME','$VERSION',
+                                                '$COMPILER', 'lib'),
+                  'ld-path' : '$LIB-PATH'}
                  }
+
+                
                 },
     'mysql'   : {'4.1.18' :
                  {'default' :
@@ -456,6 +496,44 @@ allExternalLibraries = {
                    'ld-path' : '$LIB-PATH'},
                   }
                  },
+    # NOTE:  Do not change ordering of libraries within obfLibs frivolously
+    # If library X depends on library Y, Y must follow X in the list
+    # below or linking will fail on Linux.
+    'obf'     : {'B1-1-3' :
+                 {'default' :
+                  {'version'   : 'B1-1-3',
+                   'includes'  : ['CAB/CAB_asBuiltPub.h','EFC_DB/EFC_DB_mode.h'],
+                   'libraries' : {'obfLibs' : ['lser', 'efc', 'asc', 'eds',
+                                               'imm', 'itc', 'ccsds_pkt',
+                                               'ths', 'lem_lists', 'lem',
+                                               'msg_mt', 'trace','msg_st',
+                                               'ccsds_swap', 'lcbd',
+                                               'cpu_db_server','lem_db_server',
+                                               'ebfio', 'pbs', 'cdm',
+                                               'fbs_rtos', 'fbs_swap', 'mdb',
+                                               'zlib_inflate', 'zlib_compress',
+                                               'cmx_asBuilt']},
+                   'include-path' : os.path.join('$GLAST_EXT', '$NAME',
+                                                 '$VERSION', '$COMPILER', 'include'),
+                   'lib-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION',
+                                             '$COMPILER', 'lib'),
+                   'ld-path'  : '$LIB-PATH'}
+                  }
+                 },
+    'OmniOrb'  : {'4.1.2' :
+                  {'default' :
+                   {'version' : '4.1.2',
+                    'includes' : ['omniconfig.h'],
+                    'libraries' : {'OmniOrbLibs' : ['']},
+                    'include-path' : os.path.join('$GLAST_EXT', '$NAME',
+                                                  '$VERSION', '$COMPILER',
+                                                  'include'),
+                    'lib-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION',
+                                              '$COMPILER', 'lib'),
+                    'ld-path' : '$LIB-PATH'}
+                   }
+                  },
+
 
     'zlib'    : {'1.1.4' :
                  {'default' :
