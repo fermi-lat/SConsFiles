@@ -1,4 +1,15 @@
 ------------------------------------------------------------
+User: jrb  Wed Aug  5 15:54:55 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+Add entries for obf (B1-1-3) and OminiOrb (4.1.2). 
+ Also add ROOT 5.20.00-gl4, ldf 07-01-01
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-00-01, operation: add
 Package: SConsFiles
