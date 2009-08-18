@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Mon Aug 17 20:32:21 PDT 2009
+SConsFiles
+
+Modified Files:
+	processExternals.scons 
+Log Message:
+Bugfix so processExternals doesn't rely on --with-GLAST-EXT to be defined
+    *
+------------------------------------------------------------
 User: glastrm  Mon Aug 17 17:33:25 PDT 2009
 SConsFiles
 
