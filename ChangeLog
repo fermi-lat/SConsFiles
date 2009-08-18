@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Mon Aug 17 17:33:25 PDT 2009
+SConsFiles
+
+Modified Files:
+	processExternals.scons 
+Log Message:
+Fix bug when user specifies --with-<library> options
+    *
+------------------------------------------------------------
 User: jrb  Wed Aug  5 15:54:55 PDT 2009
 SConsFiles
 
