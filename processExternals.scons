@@ -88,9 +88,15 @@ def setupEnvironment(configuredExternal):
         baseEnv.AppendUnique(LIBPATH = [configuredExternal['lib-path']])
     if 'bin-path' in configuredExternal:
         baseEnv.PrependUnique(PATH = [configuredExternal['bin-path']])
-        baseEnv.AppendUnique(WRAPPERBINS = [configuredExternal['bin-path'].replace(baseEnv.GetOption('GLAST-EXT'), '$GLAST_EXT')])
+        wrapperbin = configuredExternal['bin-path']
+        if(baseEnv.GetOption('GLAST-EXT')):
+            wrapperbin = wrapperbin.replace(baseEnv.GetOption('GLAST_EXT'), '$GLAST_EXT')
+        baseEnv.AppendUnique(WRAPPERBINS = [wrapperbin])
     if 'ld-path' in configuredExternal:
-        baseEnv.AppendUnique(WRAPPERLIBS = [configuredExternal['ld-path'].replace(baseEnv.GetOption('GLAST-EXT'), '$GLAST_EXT')])
+        wrapperlib = configuredExternal['ld-path']
+        if(baseEnv.GetOption('GLAST-EXT')):
+            wrapperlib = wrapperlib.replace(baseEnv.GetOption('GLAST-EXT'), '$GLAST_EXT')
+        baseEnv.AppendUnique(WRAPPERLIBS = [wrapperlib])
 
     #Add library groups to base environment
     if 'libraries' in configuredExternal:
@@ -140,7 +146,10 @@ def setupRoot(configuredExternal):
     if 'dylib-path' in configuredExternal:
         baseEnv.AppendENVPath('DYLD_LIBRARY_PATH', [configuredExternal['dylib-path']])
     baseEnv.AppendENVPath('ROOTSYS', [os.path.normpath(os.path.join(configuredExternal['include-path'], '..'))])
-    baseEnv['ROOTSYS'] = os.path.normpath(os.path.join(configuredExternal['include-path'], '..')).replace(baseEnv.GetOption('GLAST-EXT'), '$GLAST_EXT')
+    rootsys = os.path.normpath(os.path.join(configuredExternal['include-path'], '..'))
+    if(baseEnv.GetOption('GLAST-EXT')):
+        rootsys = rootsys.replace(baseEnv.GetOption('GLAST-EXT'), '$GLAST_EXT')
+    baseEnv['ROOTSYS'] = rootsys
     baseEnv.AppendENVPath('PATH', [configuredExternal['bin-path']])
 
     def rootcintEmitter(target, source, env):
