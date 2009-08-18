@@ -44,11 +44,11 @@ def setupOptions(name, configuredExternal):
 
     if baseEnv.GetOption(external['name']):
         if 'include-path' in configuredExternal:
-            configuredExternal['include-path'] = os.path.join(env.GetOption(external['name']), 'include')
+            configuredExternal['include-path'] = os.path.join(baseEnv.GetOption(external['name']), 'include')
         if 'lib-path' in configuredExternal:
-            configuredExternal['lib-path'] = os.path.join(env.GetOption(external['name']), 'lib')
+            configuredExternal['lib-path'] = os.path.join(baseEnv.GetOption(external['name']), 'lib')
         if 'bin-path' in configuredExternal:
-            configuredExternal['bin-path'] = os.path.join(env.GetOption(external['name']), 'bin')
+            configuredExternal['bin-path'] = os.path.join(baseEnv.GetOption(external['name']), 'bin')
     else:
         if 'include-path' in configuredExternal and baseEnv.GetOption(external['name']+'-includes'):
             configuredExternal['include-path'] = baseEnv.GetOption(external['name']+'-includes')
