@@ -90,7 +90,7 @@ def setupEnvironment(configuredExternal):
         baseEnv.PrependUnique(PATH = [configuredExternal['bin-path']])
         wrapperbin = configuredExternal['bin-path']
         if(baseEnv.GetOption('GLAST-EXT')):
-            wrapperbin = wrapperbin.replace(baseEnv.GetOption('GLAST_EXT'), '$GLAST_EXT')
+            wrapperbin = wrapperbin.replace(baseEnv.GetOption('GLAST-EXT'), '$GLAST_EXT')
         baseEnv.AppendUnique(WRAPPERBINS = [wrapperbin])
     if 'ld-path' in configuredExternal:
         wrapperlib = configuredExternal['ld-path']

@@ -1,9 +1,9 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.19 2009/08/03 18:49:26 glastrm Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.20 2009/08/21 20:15:11 glastrm Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
-# Version: SConsFiles-00-00-02
+# Version: SConsFiles-00-00-03
 
-import os,platform,SCons,glob,re,atexit,sys,traceback,commands
+import os,platform,SCons,glob,re,atexit,sys,traceback,commands,subprocess
 #########################
 #   Global Environment  #
 #########################
@@ -76,8 +76,16 @@ else:
 if baseEnv['PLATFORM'] != 'win32':
     if baseEnv.GetOption('cc'):
         baseEnv.Replace(CC = baseEnv.GetOption('cc'))
+        pipe = SCons.Action._subproc(baseEnv, [baseEnv['CC'], '-dumpversion'], stdin = 'devnull', stderr = 'devnull', stdout = subprocess.PIPE)
+        line = pipe.stdout.read().strip()
+        if line:
+            baseEnv['CCVERSION'] = line
     if baseEnv.GetOption('cxx'):
         baseEnv.Replace(CXX = baseEnv.GetOption('cxx'))
+        pipe = SCons.Action._subproc(baseEnv, [baseEnv['CXX'], '-dumpversion'],stdin = 'devnull', stderr = 'devnull', stdout = subprocess.PIPE)
+        line = pipe.stdout.read().strip()
+        if line:
+            baseEnv['CXXVERSION'] = line
     if baseEnv.GetOption('bits') == '32':
         baseEnv.AppendUnique(CCFLAGS = ['-m32'])
         baseEnv.AppendUnique(LINKFLAGS = ['-m32'])
