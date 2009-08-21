@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Fri Aug 21 13:38:19 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct processExternals.scons 
+Log Message:
+Fixed small typo in processExternals causing SCons to fail. Fixed bug where if you specify compiler, the default compiler version is still picked up. Tagging as SConsFiles-00-00-03
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-00-02, operation: add
 Package: SConsFiles
