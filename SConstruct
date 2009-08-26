@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.20 2009/08/21 20:15:11 glastrm Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/ScienceTools-scons/SConstruct,v 1.21 2009/08/21 20:38:19 glastrm Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
 # Version: SConsFiles-00-00-03
 
@@ -60,6 +60,7 @@ AddOption('--supersede', dest='supersede', action='store', nargs=1, type='string
 AddOption('--exclude', dest='exclude', action='append', nargs=1, type='string', metavar='DIR', help='Directory containing a SConscript file that should be ignored.')
 AddOption('--user-release', dest='userRelease', nargs=1, type='string', action='store', metavar='FILE', help='Creates a compressed user release and stores it in FILE')
 AddOption('--source-release', dest='sourceRelease', nargs=1, type='string', action='store', metavar='FILE', help='Creates a compressed source release and stores it in FILE')
+AddOption('--devel-release', dest='develRelease', nargs=1, type='string', action='store', metavar='FILE', help='Creates a compressed developer release and stires it in FILE')
 AddOption('--doxygen', dest='doxygenOutput', nargs=1, type='string', default='${HTML-OUTPUT}', action='store', metavar='DIRECTORY', help='Sets up Doxygen configuration to write html in DIRECTORY')
 
 if baseEnv['PLATFORM'] != 'win32':
@@ -266,8 +267,18 @@ if baseEnv.GetOption('sourceRelease'):
         for exclude in (baseEnv['BINDIR'].path, baseEnv['SCRIPTDIR'].path, baseEnv['INCDIR'].path, baseEnv['PFILESDIR'].path,
                                                 baseEnv['DATADIR'].path, baseEnv['XMLDIR'].path, baseEnv['TOOLDIR'].path, baseEnv['TESTDIR'].path,
                         baseEnv['TESTSCRIPTDIR'].path, baseEnv['PYTHONDIR'].path, baseEnv['LIBDIR'].path, 'build'):
-            baseEnv['TARFLAGS']+='-x '+exclude
+            baseEnv['ZIPFLAGS']+='-x '+exclude
         baseEnv.Default(baseEnv.Zip(baseEnv.GetOption('sourceRelease'), glob.glob('*')))
+    Return()
+
+if baseEnv.GetOption('develRelease'):
+    if baseEnv['PLATFORM'] != 'win32':
+       baseEnv['TARFLAGS'] += ' -z'
+       baseEnv['TARFLAGS'] += ' --exclude build'
+       baseEnv.Default(baseEnv.Tar(baseEnv.GetOption('develRelease'), glob.glob('*')))
+    else:
+        baseEnv['ZIPFLAGS'] += '-x build'
+        baseEnv.Default(baseEnv.Zip(baseEnv.GetOption('develRelease'), glob.glob('*')))
     Return()
 
 #########################
