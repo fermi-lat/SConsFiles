@@ -544,6 +544,19 @@ allExternalLibraries = {
                    }
                   },
 
+    'fox'      : {'1.4.34' :
+                  {'default' :
+                   {'version' : '1.4.34-gl1',
+                    'includes' : ['fx.h'],
+                    'libraries' : {'foxLibs' : ['FOX-1.4']},
+                    'include-path' : os.path.join('$GLAST_EXT', '$NAME',
+                                                  '$VERSION', '$COMPILER',
+                                                  'include', 'fox-1.4'),
+                    'lib-path' : os.path.join('$GLAST_EXT', '$NAME','$VERSION',
+                                              '$COMPILER', 'lib'),
+                    'ld-path'  : '$LIB-PATH'}
+                    }
+                   },
 
     'zlib'    : {'1.1.4' :
                  {'default' :
