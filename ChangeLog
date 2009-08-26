@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Wed Aug 26 12:32:01 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+added developer release option
+    *
+------------------------------------------------------------
 User: jrb  Wed Aug 26 11:58:39 PDT 2009
 SConsFiles
 
