@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Fri Aug 28 10:53:27 PDT 2009
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	registerTargets.py 
+Log Message:
+By default install the tool when a package is specified as the target
+    *
+------------------------------------------------------------
 User: glastrm  Wed Aug 26 12:32:01 PDT 2009
 SConsFiles
 
