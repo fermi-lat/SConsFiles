@@ -19,7 +19,7 @@ def generate(env, **kw):
         return 0
 
     def createDoxygenEmitter(target, source, env):
-        source = [env['DOCDIR'].File('Default')]
+        source = [env['DEFAULTDOCFILE']]
         source += [env.Dir('.').File("SConscript")]
         if os.path.exists(env.Dir('.').srcnode().Dir('doc').File('Doxyfile').abspath):
             source += [env.Dir('.').Dir('doc').File('Doxyfile')]
