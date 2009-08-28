@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: glastrm  Fri Aug 28 12:21:30 PDT 2009
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	doxygen.py 
+Log Message:
+Fix for doxygen error when dealing with supersede directories
+    *
+------------------------------------------------------------
+User: glastrm  Fri Aug 28 12:21:30 PDT 2009
 SConsFiles
 
 Modified Files:
