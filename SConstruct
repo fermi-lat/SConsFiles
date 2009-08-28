@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/ScienceTools-scons/SConstruct,v 1.21 2009/08/21 20:38:19 glastrm Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/ScienceTools-scons/SConstruct,v 1.22 2009/08/26 19:32:01 glastrm Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
 # Version: SConsFiles-00-00-03
 
@@ -199,21 +199,22 @@ if baseEnv['PLATFORM'] == "darwin":
 #########################
 #  Project Environment  #
 #########################
-baseEnv.Append(LIBDIR        = Dir(override).Dir('lib').Dir(variant))
-baseEnv.Append(BINDIR        = Dir(override).Dir('exe').Dir(variant))
-baseEnv.Append(SCRIPTDIR     = Dir(override).Dir('bin').Dir(variant))
-baseEnv.Append(INCDIR        = Dir(override).Dir('include'))
-baseEnv.Append(PFILESDIR     = Dir(override).Dir('syspfiles'))
-baseEnv.Append(DATADIR       = Dir(override).Dir('data'))
-baseEnv.Append(XMLDIR        = Dir(override).Dir('xml'))
-baseEnv.Append(TOOLDIR       = Dir(override).Dir('sconsTools'))
-baseEnv.Append(TESTDIR       = baseEnv['BINDIR'])
-baseEnv.Append(TESTSCRIPTDIR = baseEnv['SCRIPTDIR'])
-baseEnv.Append(PYTHONDIR     = Dir(override).Dir('python'))
-baseEnv.Append(DOCDIR        = Dir(override).Dir('Doxygen'))
-baseEnv.Append(DOXYGENOUTPUT = baseEnv.GetOption('doxygenOutput'))
-baseEnv['CONFIGURELOG']      = str(Dir(override).File("config.log"))
-baseEnv['CONFIGUREDIR']      = str(Dir(override).Dir(".sconf_temp"))
+baseEnv.Append(LIBDIR         = Dir(override).Dir('lib').Dir(variant))
+baseEnv.Append(BINDIR         = Dir(override).Dir('exe').Dir(variant))
+baseEnv.Append(SCRIPTDIR      = Dir(override).Dir('bin').Dir(variant))
+baseEnv.Append(INCDIR         = Dir(override).Dir('include'))
+baseEnv.Append(PFILESDIR      = Dir(override).Dir('syspfiles'))
+baseEnv.Append(DATADIR        = Dir(override).Dir('data'))
+baseEnv.Append(XMLDIR         = Dir(override).Dir('xml'))
+baseEnv.Append(TOOLDIR        = Dir(override).Dir('sconsTools'))
+baseEnv.Append(TESTDIR        = baseEnv['BINDIR'])
+baseEnv.Append(TESTSCRIPTDIR  = baseEnv['SCRIPTDIR'])
+baseEnv.Append(PYTHONDIR      = Dir(override).Dir('python'))
+baseEnv.Append(DOCDIR         = Dir(override).Dir('Doxygen'))
+baseEnv.Append(DEFAULTDOCFILE = Dir('.').Dir('Doxygen').File('Default'))
+baseEnv.Append(DOXYGENOUTPUT  = baseEnv.GetOption('doxygenOutput'))
+baseEnv['CONFIGURELOG']       = str(Dir(override).File("config.log"))
+baseEnv['CONFIGUREDIR']       = str(Dir(override).Dir(".sconf_temp"))
 baseEnv.Append(CPPPATH = ['.'])
 baseEnv.Append(CPPPATH = ['src'])
 baseEnv.Append(CPPPATH = [baseEnv['INCDIR']])
