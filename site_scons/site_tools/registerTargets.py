@@ -36,6 +36,7 @@ def generate(env, **kw):
             env.Default(tools)
             env.Alias('tools', tools)
             env.Alias('all', tools)
+            env.Alias(pkgname, tools)
 
         doxyFiles = env.CreateDoxygen(target = env['DOCDIR'].Entry(pkgname))
         env.Default(doxyFiles)
