@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Mon Aug 31 12:31:49 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons processExternals.scons 
+Log Message:
+Changes needed for building against ldf external
+
+    *
+------------------------------------------------------------
 User: glastrm  Fri Aug 28 12:21:30 PDT 2009
 SConsFiles/site_scons/site_tools
 
