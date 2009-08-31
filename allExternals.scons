@@ -431,6 +431,8 @@ allExternalLibraries = {
                                                 '$VERSION','$COMPILER','include'),
                   'lib-path'     : os.path.join('$GLAST_EXT','$NAME','$VERSION',
                                                 '$COMPILER', 'lib'),
+                  'test-path'     : os.path.join('$GLAST_EXT','$NAME','$VERSION',
+                                                '$COMPILER', 'test'),
                   'ld-path' : '$LIB-PATH'}
                  },
                 'v07-01-01' :
@@ -442,6 +444,8 @@ allExternalLibraries = {
                                                 '$VERSION','$COMPILER','include'),
                   'lib-path'     : os.path.join('$GLAST_EXT','$NAME','$VERSION',
                                                 '$COMPILER', 'lib'),
+                  'test-path'     : os.path.join('$GLAST_EXT','$NAME','$VERSION',
+                                                '$COMPILER', 'test'),
                   'ld-path' : '$LIB-PATH'}
                  }
 
