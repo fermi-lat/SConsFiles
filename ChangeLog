@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: glastrm  Fri Sep  4 11:01:00 PDT 2009
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	generateScript.py 
+Log Message:
+rewriting the generate wrapper functions
+    *
+------------------------------------------------------------
+User: glastrm  Fri Sep  4 11:01:00 PDT 2009
 SConsFiles
 
 Modified Files:
