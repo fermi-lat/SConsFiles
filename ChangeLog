@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Fri Sep  4 11:01:00 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+rewriting the generate wrapper functions
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-00-04, operation: add
 Package: SConsFiles
