@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.23 2009/08/28 19:21:30 glastrm Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/ScienceTools-scons/SConstruct,v 1.23 2009/08/28 19:21:30 glastrm Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
 # Version: SConsFiles-00-00-04
 
@@ -139,6 +139,7 @@ if baseEnv.GetOption('variant'):
     variant = baseEnv.GetOption('variant')
 override = baseEnv.GetOption('supersede')
 SConsignFile(os.path.join(override,'.sconsign.dblite'))
+baseEnv['VARIANT'] = variant
 
 Export('baseEnv')
 
@@ -361,7 +362,10 @@ if not baseEnv.GetOption('help'):
     if baseEnv.GetOption('clean'):
         baseEnv.Default('test')
 
-baseEnv.SConscript('setupTarget.scons')
+setupScript = baseEnv.GenerateSetupScript()
+baseEnv.Default(setupScript)
+baseEnv.Alias('all', setupScript)
+baseEnv.Alias('setup', setupScript)
 
 def print_build_failures():
     from SCons.Script import GetBuildFailures
