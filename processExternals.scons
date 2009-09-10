@@ -206,7 +206,10 @@ def setupSwig(configuredExternal):
             env['LINKFLAGS'] = flags
             while env['CPPDEFINES'].count('_DEBUG') > 0:
                 env['CPPDEFINES'].remove('_DEBUG')
-        return env.LoadableModule(program, sources)
+        if env['PLATFORM'] == 'win32':
+            return env.SharedLibrary(program, sources)
+        else:
+            return env.LoadableModule(program, sources)
 
     baseEnv.AddMethod(SwigLibrary)
                                                                                                                     
