@@ -154,7 +154,6 @@ else{
 procEnv("PFILES") = locpfiles + ";" + syspfiles;
 procEnv("ROOTSYS") = ${REPLACE-ROOTSYS}
 procEnv("PYTHONPATH") = ${REPLACE-PYTHONPATHS} + ";" + procEnv.item("PYTHONPATH")
-WScript.Echo(locpfiles);
 
 ${REPLACE-WRAPPER-EXECUTE}
 '''
@@ -180,6 +179,14 @@ def relpath(p1, p2):
 ## Fill contents of wrapper scripts and setup script for an SCons installation
 def fillScript(scriptFile, env, wrapper, script, executable):
     finalScript = script.get_contents()
+    
+    if env['PLATFORM'] == 'win32':
+        separator = ' + ";" + '
+        def replaceBackslash(a): return a.replace('\\', '\\\\')
+        def replaceGlastExt(a): return a.replace('$GLAST_EXT', '" + procEnv("GLAST_EXT") + "')
+        def quoteEncapsulate(a): return '"'+a+'"'
+    else:
+        separator = ':'
 
     if env.GetOption('supersede') != '.':
         finalScript = finalScript.replace('${REPLACE-BASEDIR}', '"' + env.Dir('.').abspath + '"')
@@ -191,47 +198,44 @@ def fillScript(scriptFile, env, wrapper, script, executable):
 
     #Set up LD_LIBRARY_PATH and DYLD_LIBRARY_PATH
     if env['PLATFORM'] == 'win32':
-        ldLibraryPath = 'procEnv("INST_DIR") + "\\' + relpath(env.Dir(env.GetOption('supersede')).abspath, env['LIBDIR'].abspath)
-        ldLibraryPath += os.pathsep + '"' + ' + procEnv("BASE_DIR") + "\\' + os.path.join('lib', env['VARIANT'])
-        for lib in env['WRAPPERLIBS']:
-            ldLibraryPath += os.pathsep + lib
-        ldLibraryPath = ldLibraryPath.replace('$GLAST_EXT', '" + procEnv("GLAST_EXT") + "')
-        ldLibraryPath = ldLibraryPath.replace('\\', '\\\\')
-        ldLibraryPath += '"'
+        ldLibraryPath = ['procEnv.item("INST_DIR") + "\\' + relpath(env.Dir(env.GetOption('supersede')).abspath, env['LIBDIR'].abspath) + '"']
+        ldLibraryPath.append('procEnv.item("BASE_DIR") + "\\lib\\' + env['VARIANT'] + '"')
+        ldLibraryPath.extend(map(quoteEncapsulate, env['WRAPPERLIBS']))
+        ldLibraryPath = map(replaceGlastExt, ldLibraryPath)
+        ldLibraryPath = map(replaceBackslash, ldLibraryPath)
     else:
-        ldLibraryPath = os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, env['LIBDIR'].abspath))
-        ldLibraryPath += os.pathsep + os.path.join('$BASE_DIR', 'lib', env['VARIANT'])
-        for lib in env['WRAPPERLIBS']:
-            ldLibraryPath += os.pathsep + lib
-    finalScript = finalScript.replace('${REPLACE-LIBDIRS}', ldLibraryPath)
+        ldLibraryPath = [ os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, env['LIBDIR'].abspath))]
+        ldLibraryPath.append(os.path.join('$BASE_DIR', 'lib', env['VARIANT']))
+        ldLibraryPath.extend(env['WRAPPERLIBS'])
+    finalScript = finalScript.replace('${REPLACE-LIBDIRS}', separator.join(ldLibraryPath))
 
     #Setup PATH
     if env['PLATFORM'] == 'win32':
-        path = 'procEnv.item("INST_DIR") + "\\' + relpath(env.Dir(env.GetOption('supersede')).abspath, env['SCRIPTDIR'].abspath)
-        path += os.pathsep + '" + procEnv.item("BASE_DIR") + "\\' + os.path.join('bin', env['VARIANT'])
-        for bin in env['WRAPPERBINS']:
-          path += os.pathsep + bin
-        path = path.replace('$GLAST_EXT', '" + procEnv("GLAST_EXT") + "')
-        path = path.replace('\\', '\\\\')
-        path += '"'
+        path = ['procEnv.item("INST_DIR") + "\\' + relpath(env.Dir(env.GetOption('supersede')).abspath, env['SCRIPTDIR'].abspath) + '"']
+        path.append('procEnv.item("BASE_DIR") + "\\bin\\' + env['VARIANT'] + '"')
+        path.extend(map(quoteEncapsulate, env['WRAPPERBINS']))
+        path = map(replaceGlastExt, path)
+        path = map(replaceBackslash, path)
     else:
-        path = os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, env['SCRIPTDIR'].abspath))
-        path += os.pathsep + os.path.join('$BASE_DIR', 'bin', env['VARIANT'])
-        for bin in env['WRAPPERBINS']:
-            path += os.pathsep + bin
-    finalScript = finalScript.replace('${REPLACE-PATHS}', path)
+        path = [os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, env['SCRIPTDIR'].abspath))]
+        path.append(os.path.join('$BASE_DIR', 'bin', env['VARIANT']))
+        path.append(env['WRAPPERBINS'])
+    finalScript = finalScript.replace('${REPLACE-PATHS}', separator.join(path))
 
     #Setup PYTHONPATH
     if env['PLATFORM'] == 'win32':
-        pythonPath = 'procEnv.item("INST_DIR") + "\\python" + procEnv.item("INST_DIR") + "\\' + relpath(env.Dir(env.GetOption('supersede')).abspath, env['LIBDIR'].abspath)
-        pythonPath += os.pathsep + '" + procEnv.item("BASE_DIR") + "\\' + os.path.join('lib', env['VARIANT'])
-        pythonPath = pythonPath.replace('\\', '\\\\')
-        pythonPath += '"'
+        pythonPath = ['procEnv.item("INST_DIR") + "\\\\python"']
+        pythonPath.append('procEnv.item("INST_DIR") + "\\\\' + relpath(env.Dir(env.GetOption('supersede')).abspath, env['LIBDIR'].abspath).replace('\\','\\\\') + '"')
+        pythonPath.append('procEnv.item("BASE_DIR") + "\\\\python"')
+        pythonPath.append('procEnv.item("BASE_DIR") + "\\\\lib\\\\' + env['VARIANT'] + '"')
     else:
-        pythonPath = os.path.join('$INST_DIR','python') + os.pathsep + os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, env['LIBDIR'].abspath))
-        pythonPath += os.pathsep + os.path.join('$BASE_DIR', 'pyhon') + os.pathsep + os.path.join('$BASE_DIR', 'lib', env['VARIANT'])
-    finalScript = finalScript.replace('${REPLACE-PYTHONPATHS}', pythonPath)
-                                      
+        pythonPath = [os.path.join('$INST_DIR','python')]
+        pythonPath.append(os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, env['LIBDIR'].abspath)))
+        pythonPath.append(os.path.join('$BASE_DIR', 'pyhon'))
+        pythonPath.append(os.path.join('$BASE_DIR', 'lib', env['VARIANT']))
+        separator = ':'
+    finalScript = finalScript.replace('${REPLACE-PYTHONPATHS}', separator.join(pythonPath))
+    
     #Setup ROOTSYS
     rootSys = env['ROOTSYS']
     if env['PLATFORM'] == 'win32':
@@ -250,140 +254,13 @@ def fillScript(scriptFile, env, wrapper, script, executable):
             wrapperScriptExecute = wrapperScriptExecute.replace('\\', '\\\\')
             finalScript = finalScript.replace('${REPLACE-WRAPPER-EXECUTE}', wrapperScriptExecute)
     else:
-        finalScript = finalScript.replace('${REPLACE-WRAPPER-EXECUTE}', '')
-        finalScript = finalScript.replace('${REPLACE-WRAPPER-SCRIPT}', '')
+        if env['PLATFORM'] == 'win32':
+            finalScript = finalScript.replace('${REPLACE-WRAPPER-EXECUTE}', 'shell.Run("cmd.exe")')
+            finalScript = finalScript.replace('${REPLACE-WRAPPER-SCRIPT}', 'INST_DIR = WScript.ScriptFullName;\nINST_DIR = INST_DIR.substr(0, INST_DIR.lastIndexOf("\\\\"));\nINST_DIR = INST_DIR.substr(0, INST_DIR.lastIndexOf("\\\\"));\nINST_DIR = INST_DIR.substr(0, INST_DIR.lastIndexOf("\\\\"));\nprocEnv("INST_DIR") = INST_DIR;\n')
+        else:
+            finalScript = finalScript.replace('${REPLACE-WRAPPER-EXECUTE}', '')
+            finalScript = finalScript.replace('${REPLACE-WRAPPER-SCRIPT}', '')
     scriptFile.write(finalScript)
-
-#def fillWindowsScript(scriptFile, env, wrapper):
-#    scriptFile.write("' Autogenerated by SCons; do not edit!\n")
-#    scriptFile.write('set shell = CreateObject("WScript.Shell")\n')
-#    scriptFile.write('set env = shell.Environment("Process")\n')
-
-#    if wrapper > 0:
-#        scriptFile.write('INST_DIR = WScript.ScriptFullName\n')
-#        scriptFile.write('INST_DIR = Left(INST_DIR,InStrRev(INST_DIR,"\\")-1)\n')
-#        scriptFile.write('INST_DIR = Left(INST_DIR,InStrRev(INST_DIR,"\\")-1)\n')
-#        scriptFile.write('INST_DIR = Left(INST_DIR,InStrRev(INST_DIR,"\\")-1)\n')
-#        scriptFile.write('env("INST_DIR")=INST_DIR\n')
-#    else:
-#        scriptFile.write('INST_DIR = env.item("INST_DIR")\n')
-        
-#    scriptFile.write('GLAST_EXT = env.item("GLAST_EXT")\n')
-#    scriptFile.write('If GLAST_EXT = "" Then\n')
-#    scriptFile.write('  WScript.Echo("What is the location of the External libraries?")\n')
-#    scriptFile.write('  WScript.Echo("If you set %GLAST_EXT% to this location this script will no longer ask")\n')
-#    scriptFile.write('  GLAST_EXT = WScript.StdIn.ReadLine()\n')
-#    scriptFile.write('  env("GLAST_EXT")=GLAST_EXT\n')
-#    scriptFile.write('End If\n')
-#    scriptFile.write('env("PATH") = env.Item("PATH") & ";" & INST_DIR & "\\' + str(env['LIBDIR'])+'"\n')
-#    scriptFile.write('If GLAST_EXT = "" or INST_DIR = "" Then\n')
-#    scriptFile.write('  WScript.Echo("GLAST_EXT not set or unable to determine installation directory")\n')
-#    scriptFile.write('  WScript.Quit(1)\n')
-#    scriptFile.write('End If\n')
-
-#    scriptFile.write('set filesystemObject = CreateObject("Scripting.FileSystemObject")\n')
-
-#    if wrapper == 0:  # when run _setup.vbs will write a file _setup.bat
-#        scriptFile.write('set batFile = filesystemObject.OpentextFile("_setup.bat", 2, True)\n')
-        
-    # Compute PATH
-#    scriptFile.write('env("PATH") = env.Item("PATH") ')
-#    for lib in env['WRAPPERLIBS']:
-#        lib = lib.replace("$GLAST_EXT", "GLAST_EXT & \"") + "\""
-#        scriptFile.write('& ";" & '+lib)
-#    scriptFile.write('\n')
-#    if wrapper == 0:
-#        scriptFile.write('pathstring = env.item("PATH")\n')
-#        scriptFile.write('setpathstring = "set PATH=" & pathstring\n')
-#        scriptFile.write('batFile.WriteLine(setpathstring)\n')
-
-    # Compute PFILES, creating dirs if needed
-#    scriptFile.write('If filesystemObject.FolderExists(env.item("HOMEDRIVE") & env.item("HOMEPATH") & "\\pfiles") Then\n')
-#    scriptFile.write('  shell.Exec("cmd.exe /C md """ & env.item("HOMEDRIVE") & env.item("HOMEPATH") & "\\pfiles")\n')
-#    scriptFile.write('End If\n')
-#    scriptFile.write('If env.item("PFILES") <> "" Then\n')
-#    scriptFile.write('  locpfiles = Left(env.item("PFILES"), InStr(env.item("PFILES"), "|"))\n')
-#    scriptFile.write('  If locpfiles = "" Then\n')
-#    scriptFile.write('    locpfiles = env.item("PFILES")\n')
-#    scriptFile.write('  End If\n')
-#    scriptFile.write('  sypfiles = Replace(env.item("PFILES"), locpfiles, "")\n')
-#    scriptFile.write('  syspfiles = Replace(syspfiles, "|", "")\n')
-#    scriptFile.write('End If\n')
-#    scriptFile.write('If locpfiles = "" Then\n')
-#    scriptFile.write('  locpfiles = env.item("HOMEDRIVE") & env.item("HOMEPATH") & "\\pfiles"\n')
-#    scriptFile.write('Else\n')
-#    scriptFile.write('  locpfiles = Replace(";" & locpfiles & ";", ";" & env.item("HOMEDRIVE") & env.item("HOMEPATH"), ";")\n')
-#    scriptFile.write('  locpfiles = Replace(locpfiles, ";;", "")\n')
-#    scriptFile.write('  locpfiles = env.item("HOMEDRIVE") & env.item("HOMEPATH") & "\\pfiles" & locpfiles\n')
-#    scriptFile.write('End If\n')
-#    scriptFile.write('if syspfiles = "" Then\n')
-#    scriptFile.write('  syspfiles = INST_DIR & "\\syspfiles"\n')
-#    scriptFile.write('Else\n')
-#    scriptFile.write('  syspfiles = Replace(";" & syspfiles & ";", ";" & INST_DIR & "\\syspfiles", ";")\n')
-#    scriptFile.write('  syspfiles = Replace(syspfiles, ";;", "")\n')
-#    scriptFile.write('  syspfiles = INST_DIR & "\\syspfiles"\n')
-#    scriptFile.write('End If\n')
-#    scriptFile.write('env("PFILES") = locpfiles & ";" & syspfiles\n')
-#    scriptFile.write('For i=0 to WScript.Arguments.Count-1\n')
-#    scriptFile.write('  arguments = arguments & WScript.Arguments.Item(i) & " "\n')
-#    scriptFile.write('Next\n')
-
-    # Handle ROOTSYS
-#    if env.has_key('ROOTSYS'):
-#        rootsys = env['ROOTSYS'].replace("$GLAST_EXT", "")
-#        scriptFile.write('env("ROOTSYS") = env("GLAST_EXT") & "'+rootsys+'"\n')
-#        if wrapper == 0:
-#            scriptFile.write('rootstring = env.item("ROOTSYS")\n')
-#            scriptFile.write('setrootstring = "set ROOTSYS=" & rootstring\n')
-#            scriptFile.write('batFile.WriteLine(setrootstring)\n')
-
-#    scriptFile.write('env("PYTHONPATH") = INST_DIR & "\\python" & env("PYTHONPATH")\n')
-#    if wrapper == 0:
-#        scriptFile.write('pfilesstring = env.item("PFILES")\n')
-#        scriptFile.write('setpfilesstring = "set PFILES=" & pfilesstring\n')
-#        scriptFile.write('batFile.WriteLine(setpfilesstring)\n')
-
-#        scriptFile.write('pythonstring = env.item("PYTHONPATH")\n')
-#        scriptFile.write('setpythonstring = "set PYTHONPATH=" & pythonstring\n')
-#        scriptFile.write('batFile.WriteLine(setpythonstring)\n')
-#        scriptFile.write('batFile.Close\n')
-#    return
-
-
-
-#def generatePosixScript(target, source, env):
-#    for executable in source:
-#        scriptFile = open(str(env['SCRIPTDIR'].File(os.path.basename(str(executable)))), 'w')
-#        fillShellScript(scriptFile, env, 1, shellScript, executable)
-#        scriptFile.close()
-#    return 0
-
-#def generateWindowsScript(target, source, env):
-#    for executable in source:
-#        scriptFile = open(str(env['SCRIPTDIR'].File(os.path.splitext(os.path.basename(str(executable)))[0]+".vbs")), 'w')
-#        fillWindowsScript(scriptFile, env, 1)
-#        scriptFile.write('shell.Run "cmd.exe /k """ & INST_DIR & "\\'+str(executable)+'"" " & arguments, 1, true')
-#        scriptFile.close()
-
-
-#def generateScriptEmitter(target, source, env):
-#    target = []
-#    for src in source:
-#        target.append(env['SCRIPTDIR'].File(os.path.basename(src.abspath)))
-#    return (target, source)
-
-# Don't use sources explicitly in generateSetup, but want them there so that
-# _setup will be rebuilt when they change.  
-# All information going into the output file comes from environment
-#def generateSetup(target, source, env):
-#    # General builder machinery should have added on appropriate suffix if necessary
-#    # open file for writing
-#    setupFile = open(str(target[0]), 'w')
-#    if env['PLATFORM'] == 'win32':
-#        fillWindowsScript(setupFile, env, 0)
-#    else:
-#        fillShellScript(setupFile, env, 0, shellScript, '')
-#    setupFile.close()
 
 def generate(env):
     def createWrapper(target = None, source = None, env = None):
@@ -423,8 +300,13 @@ def generate(env):
         return 0
 
     def createSetupEmitter(target, source, env):
-        target = [env['SCRIPTDIR'].File('_setup.sh'), env['SCRIPTDIR'].File('_setup.csh')]
-        source = [env.Value(shellScript), env.Value(cshellScript)]
+        if env['PLATFORM'] == 'win32':
+            print "Generating windows setup scripts"
+            target = [env['SCRIPTDIR'].File('_setup.js')]
+            source = [env.Value(jsScript)]
+        else:
+            target = [env['SCRIPTDIR'].File('_setup.sh'), env['SCRIPTDIR'].File('_setup.csh')]
+            source = [env.Value(shellScript), env.Value(cshellScript)]
         return (target, source)
 
     def createSetupGenerator(source, target, env, for_signature):
@@ -439,28 +321,6 @@ def generate(env):
 
     env.Append(BUILDERS = {'GenerateSetupScript' : env.Builder(generator = createSetupGenerator,
                                                                emitter = createSetupEmitter)})
-
-#    setupSuffix = '.sh'
-#    if env['PLATFORM'] != 'win32':
-#        GenerateScriptAction = SCons.Action.Action(generatePosixScript,
-#                                                   "Creating wrapper script for '$TARGET'")
-#        GenerateScriptBuilder = SCons.Builder.Builder(action = [GenerateScriptAction,
-#                                                                SCons.Defaults.Chmod('$TARGET', 0755)],
-#                                                      emitter = generateScriptEmitter,
-#                                                      single_source = 1)
-#    else:
-#        setupSuffix = '.vbs'
-#        GenerateScriptAction= SCons.Action.Action(generateWindowsScript,
-#                                                  "Creating wrapper script for '$TARGET'")
-#	GenerateScriptBuilder=SCons.Builder.Builder(action = [GenerateScriptAction],
-#                                                    emitter = generateScriptEmitter,
-#                                                    single_source = 1)
-
-#    env['BUILDERS']['GenerateWrapperScript'] = GenerateScriptBuilder
-
-#    GenerateSetupBuilder = SCons.Builder.Builder(action = generateSetup,
-#                                                 suffix=setupSuffix)
-#    env['BUILDERS']['GenerateSetupScript'] = GenerateSetupBuilder
 
 def exists(env):
     return 1;
