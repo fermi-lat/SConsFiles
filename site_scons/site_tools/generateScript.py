@@ -219,7 +219,7 @@ def fillScript(scriptFile, env, wrapper, script, executable):
     else:
         path = [os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, env['SCRIPTDIR'].abspath))]
         path.append(os.path.join('$BASE_DIR', 'bin', env['VARIANT']))
-        path.append(env['WRAPPERBINS'])
+        path.extend(env['WRAPPERBINS'])
     finalScript = finalScript.replace('${REPLACE-PATHS}', separator.join(path))
 
     #Setup PYTHONPATH
