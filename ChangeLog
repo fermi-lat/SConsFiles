@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Wed Sep 16 16:08:17 PDT 2009
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	registerTargets.py 
+Log Message:
+Add option allowing caller to install includes in directory name != pkg name
+
+    *
+------------------------------------------------------------
 User: glastrm  Fri Sep  4 11:01:00 PDT 2009
 SConsFiles/site_scons/site_tools
 
