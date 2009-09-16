@@ -18,6 +18,8 @@ from SCons.Script import *
 ##        testAppCxts  - list of 2-item lists [program nodes,env]
 ##        binaryCxts  - list of  2-item lists [program nodes,env]
 ##        includes - list of file paths
+##        topInclude - put includes under $INST_DIR"/include/"topInclude
+##                     defaults to package
 ##        data     - list of file paths
 ##        xml      - list of file paths
 ##        pfiles
@@ -101,7 +103,9 @@ def generate(env, **kw):
                     splitFile = parts[0]
                     installPath = os.path.normpath(os.path.join(parts[1], installPath))
                 installPath = os.path.dirname(installPath)
-                includes = env.Install(env['INCDIR'].Dir(kw.get('package')).Dir(installPath), header)
+                topInc = kw.get('topInclude', pkgname)
+                includes = env.Install(env['INCDIR'].Dir(topInc).Dir(installPath), header)
+                #includes = env.Install(env['INCDIR'].Dir(kw.get('package')).Dir(installPath), header)
                 env.Alias(kw.get('package'), includes)
                 env.Default(includes)
                 env.Alias('to_install', includes)
