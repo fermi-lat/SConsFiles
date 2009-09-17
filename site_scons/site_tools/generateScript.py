@@ -81,26 +81,26 @@ if ($?PFILES) then
   set locpfiles `echo $PFILES | sed "s%;*$syspfiles$%%"`
 endif
 
-if ( !$?locpfiles) then
-  set locpfiles "$HOME/pfiles"
+if ( $?locpfiles == 0) then
+  set locpfiles="$HOME/pfiles"
 else
-  set locpfiles `echo ":$locpfiles:" | sed "s%:$HOME/pfiles:%:%g" | sed "s%::*$%%"`
-  set locpfiles "$HOME/pfiles$locpfiles"
+  set locpfiles=`echo ":$locpfiles:" | sed "s%:$HOME/pfiles:%:%g" | sed "s%::*$%%"`
+  set locpfiles="$HOME/pfiles$locpfiles"
 endif
 
-if (!$?syspfiles) then
-  set syspfiles "$INST_DIR/syspfiles:$BASE_DIR/syspfiles"
+if ($?syspfiles == 0) then
+  set syspfiles="$INST_DIR/syspfiles:$BASE_DIR/syspfiles"
 else
-  set syspfiles `echo ":$syspfiles:" | sed "s%:$INST_DIR/syspfiles:%:%g" | sed "s%::*$%%"`
-  set syspfiles `echo ":$syspfiles:" | sed "s%:$BASE_DIR/syspfiles:%:%g" | sed "s%::*$%%"`
-  set syspfiles "$INST_DIR/syspfiles:$BASE_DIR/syspfiles$syspfiles"
+  set syspfiles=`echo ":$syspfiles:" | sed "s%:$INST_DIR/syspfiles:%:%g" | sed "s%::*$%%"`
+  set syspfiles=`echo ":$syspfiles:" | sed "s%:$BASE_DIR/syspfiles:%:%g" | sed "s%::*$%%"`
+  set syspfiles="$INST_DIR/syspfiles:$BASE_DIR/syspfiles$syspfiles"
 endif
 setenv PFILES "$locpfiles;$syspfiles"
 
 if ($?PYTHONPATH) then
   setenv PYTHONPATH ${REPLACE-PYTHONPATHS}:${PYTHONPATH}
 else
-  etenv PYTHONPATH ${REPLACE-PYTHONPATHS}
+  setenv PYTHONPATH ${REPLACE-PYTHONPATHS}
 endif
 
 setenv ROOTSYS ${REPLACE-ROOTSYS}
