@@ -222,6 +222,14 @@ def fillScript(scriptFile, env, wrapper, script, executable):
         path.extend(env['WRAPPERBINS'])
     finalScript = finalScript.replace('${REPLACE-PATHS}', separator.join(path))
 
+    #Setup ROOTSYS
+    rootSys = env['ROOTSYS']
+    if env['PLATFORM'] == 'win32':
+        rootSys = rootSys.replace('$GLAST_EXT', 'procEnv.item("GLAST_EXT") + "')
+        rootSys = rootSys.replace('\\', '\\\\')
+        rootSys += '"'
+    finalScript = finalScript.replace('${REPLACE-ROOTSYS}', rootSys)
+
     #Setup PYTHONPATH
     if env['PLATFORM'] == 'win32':
         pythonPath = ['procEnv.item("INST_DIR") + "\\\\python"']
@@ -233,16 +241,9 @@ def fillScript(scriptFile, env, wrapper, script, executable):
         pythonPath.append(os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, env['LIBDIR'].abspath)))
         pythonPath.append(os.path.join('$BASE_DIR', 'pyhon'))
         pythonPath.append(os.path.join('$BASE_DIR', 'lib', env['VARIANT']))
-        separator = ':'
+    pythonPath.append(os.path.join(rootSys, 'lib'))
     finalScript = finalScript.replace('${REPLACE-PYTHONPATHS}', separator.join(pythonPath))
     
-    #Setup ROOTSYS
-    rootSys = env['ROOTSYS']
-    if env['PLATFORM'] == 'win32':
-        rootSys = rootSys.replace('$GLAST_EXT', 'procEnv.item("GLAST_EXT") + "')
-        rootSys = rootSys.replace('\\', '\\\\')
-        rootSys += '"'
-    finalScript = finalScript.replace('${REPLACE-ROOTSYS}', rootSys)
 
     if wrapper > 0:
         if env['PLATFORM'] != 'win32':
