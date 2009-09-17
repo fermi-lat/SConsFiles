@@ -183,7 +183,21 @@ def fillScript(scriptFile, env, wrapper, script, executable):
     if env['PLATFORM'] == 'win32':
         separator = ' + ";" + '
         def replaceBackslash(a): return a.replace('\\', '\\\\')
-        def replaceGlastExt(a): return a.replace('$GLAST_EXT', '" + procEnv("GLAST_EXT") + "')
+        def replaceGlastExt(a):
+            a = a.replace('"$GLAST_EXT', 'procEnv.item("GLAST_EXT") + "')
+            a = a.replace('$GLAST_EXT"', '" + procEnv.item("GLAST_EXT")')
+            a = a.replace('$GLAST_EXT', '" + procEnv.item("GLAST_EXT") + "')
+            return a
+        def replaceInstDir(a):
+            a = a.replace('"$INST_DIR', 'procEnv.item("INST_DIR") + "')
+            a = a.replace('$INST_DIR"', '" + procEnv.item("INST_DIR")')
+            a = a.replace('$INST_DIR', '" + procEnv.item("INST_DIR") + "')
+            return a
+        def replaceBaseDir(a):
+            a = a.replace('"$BASE_DIR', 'procEnv.item("BASE_DIR") + "')
+            a = a.replace('$BASE_DIR"', '" + procEnv.item("BASE_DIR")')
+            a = a.replace('$BASE_DIR', '" + procEnv.item("BASE_DIR") + "')
+            return a
         def quoteEncapsulate(a): return '"'+a+'"'
     else:
         separator = ':'
@@ -197,51 +211,49 @@ def fillScript(scriptFile, env, wrapper, script, executable):
             finalScript = finalScript.replace('${REPLACE-BASEDIR}', '$INST_DIR')
 
     #Set up LD_LIBRARY_PATH and DYLD_LIBRARY_PATH
+    ldLibraryPath = [ os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, env['LIBDIR'].abspath))]
+    ldLibraryPath.append(os.path.join('$BASE_DIR', 'lib', env['VARIANT']))
+    ldLibraryPath.extend(env['WRAPPERLIBS'])
     if env['PLATFORM'] == 'win32':
-        ldLibraryPath = ['procEnv.item("INST_DIR") + "\\' + relpath(env.Dir(env.GetOption('supersede')).abspath, env['LIBDIR'].abspath) + '"']
-        ldLibraryPath.append('procEnv.item("BASE_DIR") + "\\lib\\' + env['VARIANT'] + '"')
-        ldLibraryPath.extend(map(quoteEncapsulate, env['WRAPPERLIBS']))
+        ldLibraryPath = map(quoteEncapsulate, ldLibraryPath)
         ldLibraryPath = map(replaceGlastExt, ldLibraryPath)
+        ldLibraryPath = map(replaceInstDir, ldLibraryPath)
+        ldLibraryPath = map(replaceBaseDir, ldLibraryPath)
         ldLibraryPath = map(replaceBackslash, ldLibraryPath)
-    else:
-        ldLibraryPath = [ os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, env['LIBDIR'].abspath))]
-        ldLibraryPath.append(os.path.join('$BASE_DIR', 'lib', env['VARIANT']))
-        ldLibraryPath.extend(env['WRAPPERLIBS'])
     finalScript = finalScript.replace('${REPLACE-LIBDIRS}', separator.join(ldLibraryPath))
 
     #Setup PATH
+    path = [os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, env['SCRIPTDIR'].abspath))]
+    path.append(os.path.join('$BASE_DIR', 'bin', env['VARIANT']))
+    path.extend(env['WRAPPERBINS'])
     if env['PLATFORM'] == 'win32':
-        path = ['procEnv.item("INST_DIR") + "\\' + relpath(env.Dir(env.GetOption('supersede')).abspath, env['SCRIPTDIR'].abspath) + '"']
-        path.append('procEnv.item("BASE_DIR") + "\\bin\\' + env['VARIANT'] + '"')
-        path.extend(map(quoteEncapsulate, env['WRAPPERBINS']))
+        path = map(quoteEncapsulate, path)
         path = map(replaceGlastExt, path)
+        path = map(replaceInstDir, path)
+        path = map(replaceBaseDir, path)
         path = map(replaceBackslash, path)
-    else:
-        path = [os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, env['SCRIPTDIR'].abspath))]
-        path.append(os.path.join('$BASE_DIR', 'bin', env['VARIANT']))
-        path.extend(env['WRAPPERBINS'])
     finalScript = finalScript.replace('${REPLACE-PATHS}', separator.join(path))
 
     #Setup ROOTSYS
     rootSys = env['ROOTSYS']
     if env['PLATFORM'] == 'win32':
-        rootSys = rootSys.replace('$GLAST_EXT', 'procEnv.item("GLAST_EXT") + "')
-        rootSys = rootSys.replace('\\', '\\\\')
-        rootSys += '"'
+        rootSys = quoteEncapsulate(rootSys)
+        rootSys = replaceGlastExt(rootSys)
+        rootSys = replaceBackslash(rootSys)
     finalScript = finalScript.replace('${REPLACE-ROOTSYS}', rootSys)
 
     #Setup PYTHONPATH
+    pythonPath = [os.path.join('$INST_DIR','python')]
+    pythonPath.append(os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, env['LIBDIR'].abspath)))
+    pythonPath.append(os.path.join('$BASE_DIR', 'pyhon'))
+    pythonPath.append(os.path.join('$BASE_DIR', 'lib', env['VARIANT']))
+    pythonPath.append(os.path.join(env['ROOTSYS'], 'lib'))
     if env['PLATFORM'] == 'win32':
-        pythonPath = ['procEnv.item("INST_DIR") + "\\\\python"']
-        pythonPath.append('procEnv.item("INST_DIR") + "\\\\' + relpath(env.Dir(env.GetOption('supersede')).abspath, env['LIBDIR'].abspath).replace('\\','\\\\') + '"')
-        pythonPath.append('procEnv.item("BASE_DIR") + "\\\\python"')
-        pythonPath.append('procEnv.item("BASE_DIR") + "\\\\lib\\\\' + env['VARIANT'] + '"')
-    else:
-        pythonPath = [os.path.join('$INST_DIR','python')]
-        pythonPath.append(os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, env['LIBDIR'].abspath)))
-        pythonPath.append(os.path.join('$BASE_DIR', 'pyhon'))
-        pythonPath.append(os.path.join('$BASE_DIR', 'lib', env['VARIANT']))
-    pythonPath.append(os.path.join(rootSys, 'lib'))
+        pythonPath = map(quoteEncapsulate, pythonPath)
+        pythonPath = map(replaceGlastExt, pythonPath)
+        pythonPath = map(replaceInstDir, pythonPath)
+        pythonPath = map(replaceBaseDir, pythonPath)
+        pythonPath = map(replaceBackslash, pythonPath)
     finalScript = finalScript.replace('${REPLACE-PYTHONPATHS}', separator.join(pythonPath))
     
 
