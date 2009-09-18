@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Fri Sep 18 10:52:35 PDT 2009
+SConsFiles
+
+Removed Files:
+	setupTarget.scons 
+Log Message:
+Removing uncessary setupTargets due to rewrite of wrapper/setup scripts
+    *
+------------------------------------------------------------
 User: glastrm  Fri Sep 18 10:52:05 PDT 2009
 SConsFiles
 
