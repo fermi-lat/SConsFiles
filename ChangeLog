@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Fri Sep 18 10:52:05 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Adding new register target include directories and wrapper/setup scripts rewrite to LATEST
+    *
+------------------------------------------------------------
 User: jrb  Wed Sep 16 16:08:17 PDT 2009
 SConsFiles/site_scons/site_tools
 
