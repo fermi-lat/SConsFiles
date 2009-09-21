@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Mon Sep 21 11:34:39 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Tagging to include new f2c external
+    *
+------------------------------------------------------------
 User: glastrm  Mon Sep 21 09:27:25 PDT 2009
 SConsFiles
 
