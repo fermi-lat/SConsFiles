@@ -329,50 +329,15 @@ allExternalLibraries = {
                    }
                  },
                    
-    'f2c'      : { '3.4.6' :
-                   { 'default' :
-                     { 'version'   : '3.4.6',
-                       'libraries' : { 'f2cLibs' : [ 'g2c' ] }
-                     },
-                     'win32'   :
-                     { 'lib-path'  : os.path.join('$GLAST_EXT', '$NAME',
-                                                  '$VERSION','$COMPILER','lib'),
-                       'ld-path'   : '$LIB-PATH',
-                       'libraries' : { 'f2cLibs' :
-                                       [ 'libf77mt.lib',
-                                         'libi77mt.lib', 'oldnames.lib' ] }
-                     },
-                     'darwin'  :
-                     { 'version'   : '3.4',
-                       'lib-path'  : os.path.join('$GLAST_EXT', '$NAME',
-                                                  '$VERSION','$COMPILER','lib'),
-                       'ld-path'   : '$LIB-PATH',
-                       'libraries' : { 'f2cLibs' : [ 'g2c' ] }
-                     }
-                   },
-                   '3.4-gl1' : 
+    'f2c'      : { '3.4-gl2' : 
                    { 'default':
-                     { 'version'   : '3.4-gl1',
-                       'libraries' : { 'f2cLibs' : ['g2c'] }
+                     { 'version'   : '3.4-gl2',
+                       'libraries' : { 'f2cLibs' : ['f2c'] },
+                       'lib-path'  : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                       'ld-path'   : '$LIB-PATH'
                      },
                      'win32'   :
-                     { 'lib-path'  : os.path.join('$GLAST_EXT', '$NAME',
-                                                  '$VERSION','$COMPILER','lib'),
-                       'ld-path'   : '$LIB-PATH',
-                       'libraries' : { 'f2cLibs' :
-                                       [ 'libf77mt.lib',
-                                         'libi77mt.lib', 'oldnames.lib' ] }
-                     },
-                     'gcc41':
-                     { 'lib-path'  : os.path.join('$GLAST_EXT', '$NAME',
-                                                  '$VERSION', '$COMPILER', 'lib'),
-                       'ld-path'   : '$LIB-PATH',
-                       'libraries' : { 'f2cLibs' : [ 'f2c' ] }
-                     },
-                     'darwin':
-                     { 'lib-path'  : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
-                       'ld-path'   : '$LIB-PATH',
-                       'libraries' : { 'f2cLibs' : [ 'f2c' ] }
+                     { 'libraries' : { 'f2cLibs' : [ 'libf77mt.lib', 'libi77mt.lib', 'oldnames.lib' ] }
                      }
                    }
                  },
