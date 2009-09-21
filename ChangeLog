@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Mon Sep 21 09:27:25 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+Start using f2c as a real external library
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-01-00, operation: add
 Package: SConsFiles
