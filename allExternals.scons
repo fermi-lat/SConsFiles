@@ -331,10 +331,11 @@ allExternalLibraries = {
                    
     'f2c'      : { '3.4-gl2' : 
                    { 'default':
-                     { 'version'   : '3.4-gl2',
-                       'libraries' : { 'f2cLibs' : ['f2c'] },
-                       'lib-path'  : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
-                       'ld-path'   : '$LIB-PATH'
+                     { 'version'      : '3.4-gl2',
+                       'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                       'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                       'ld-path'      : '$LIB-PATH'
+                       'libraries'    : { 'f2cLibs' : ['f2c'] },
                      },
                      'win32'   :
                      { 'libraries' : { 'f2cLibs' : [ 'libf77mt.lib', 'libi77mt.lib', 'oldnames.lib' ] }
