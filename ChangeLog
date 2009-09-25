@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Fri Sep 25 08:55:46 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct allExternals.scons 
+Log Message:
+f2c library is missing include directory. Tagging as SConsFiles-00-01-02
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-01-01, operation: add
 Package: SConsFiles
