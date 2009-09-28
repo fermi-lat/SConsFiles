@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: panetta  Mon Sep 28 16:22:05 PDT 2009
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+Missing a comma inside definition dict for f2c
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-01-02, operation: add
 Package: SConsFiles
