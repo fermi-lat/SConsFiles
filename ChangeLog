@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Tue Sep 29 09:26:40 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct allExternals.scons 
+Log Message:
+Added -gl4 version of python. Tagging as SConsFiles-00-01-03
+    *
+------------------------------------------------------------
 User: panetta  Mon Sep 28 16:22:05 PDT 2009
 SConsFiles
 
