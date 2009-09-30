@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Wed Sep 30 11:17:09 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct allExternals.scons 
+Log Message:
+Added -gl5 version of ROOT
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-09-15-05, operation: mov
 Package: SConsFiles
