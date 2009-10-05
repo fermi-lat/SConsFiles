@@ -1,13 +1,4 @@
 ------------------------------------------------------------
-User: glastrm  Mon Oct  5 11:11:38 PDT 2009
-SConsFiles
-
-Modified Files:
-	allExternals.scons SConstruct 
-Log Message:
-Added MathCore and Thread to root library for -gl5 version. Tagging SConsFiles-00-01-05
-    *
-------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-01-04, operation: add
 Package: SConsFiles
