@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Mon Oct 19 09:59:45 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct allExternals.scons 
+Log Message:
+Fixed f2c on windows. Tagging as SConsFiles-00-01-06
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-09-15-05, operation: mov
 Package: SConsFiles
