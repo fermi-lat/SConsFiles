@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Tue Oct 27 12:44:37 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct allExternals.scons 
+Log Message:
+Fixed bug in pyton ld path for windows. Tagging SConsFiles-00-01-07
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-01-06, operation: add
 Package: SConsFiles
