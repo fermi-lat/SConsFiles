@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.32 2009/10/19 16:59:45 glastrm Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.33 2009/10/27 19:44:37 glastrm Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu
 # Version: SConsFiles-00-01-07
 
@@ -293,7 +293,13 @@ SConscript('processExternals.scons', exports = 'allExternals usedExternals')
 ############################
 # Package Specific Options #
 ############################
-SConscript('package.scons')
+pkgScons = os.path.join(override, 'package.scons')
+if os.path.exists(pkgScons):
+    SConscript(os.path.join(override, 'package.scons'))
+else:
+    if override != '.':
+        SConscript('package.scons')
+
 
 def listFiles(files, **kw):
     allFiles = []
