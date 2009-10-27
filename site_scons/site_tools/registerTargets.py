@@ -22,8 +22,9 @@ from SCons.Script import *
 ##                     defaults to package
 ##        data     - list of file paths
 ##        xml      - list of file paths
-##        pfiles
-##        python
+##        pfiles   - lift of file paths
+##        python   - list of file paths. Will be installed in python subdir
+##        wrappedPython - list of python programs to be installed and wrapped
 ##        wrapper_env
 ##
 
@@ -175,6 +176,20 @@ def generate(env, **kw):
             env.Default(python)
             env.Alias('to_install', python)
             env.Alias('all', python)
+
+        if kw.get('wrappedPython', '') != '':
+            print "Non-null set of python scripts to be wrapped"
+            pythonPrg = env.Install(env['PYTHONDIR'], kw.get('wrappedPython'))
+            pyWrappers = env.GeneratePythonWrapper(pythonPrg)
+            env.Alias(kw.get('package'), pythonPrg)
+            env.Alias(kw.get('package'), pyWrappers)
+            env.Depends(pyWrappers, pythonPrg)
+            env.Default(pythonPrg)
+            env.Default(pyWrappers)
+            env.Alias('to_install', pythonPrg)
+            env.Alias('all', pythonPrg)
+            env.Alias('all', pyWrappers)
+            
         if 'wrapper_env' in kw:
             # user has passed in a list of (exename, envdict) tuples
             # to be registered in the construction environment and eventually
