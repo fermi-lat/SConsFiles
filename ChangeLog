@@ -1,4 +1,15 @@
 ------------------------------------------------------------
+User: jrb  Tue Oct 27 16:38:00 PDT 2009
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	registerTargets.py 
+Log Message:
+Add 'wrappedPython' argument for python files which must be installed
+and also need shell script wrappers (e.g. for ASP)
+
+    *
+------------------------------------------------------------
 User: jrb  Tue Oct 27 16:29:27 PDT 2009
 SConsFiles/site_scons/site_tools
 
