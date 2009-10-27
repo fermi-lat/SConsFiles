@@ -1,4 +1,15 @@
 ------------------------------------------------------------
+User: jrb  Tue Oct 27 16:29:27 PDT 2009
+SConsFiles/site_scons/site_tools
+
+Added Files:
+	generatePythonWrapper.py 
+Log Message:
+SConstruct:  look for override package.scons before base package.scons
+generatePythonWrapper.py:  Needed for ASP and probably RSP
+
+    *
+------------------------------------------------------------
 User: jrb  Tue Oct 27 16:29:26 PDT 2009
 SConsFiles
 
