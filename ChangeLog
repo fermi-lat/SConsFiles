@@ -1,4 +1,15 @@
 ------------------------------------------------------------
+User: jrb  Tue Oct 27 16:29:26 PDT 2009
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+SConstruct:  look for override package.scons before base package.scons
+generatePythonWrapper.py:  Needed for ASP and probably RSP
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-01-07, operation: add
 Package: SConsFiles
