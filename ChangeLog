@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: glastrm  Fri Oct 30 10:42:11 PDT 2009
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	generateScript.py 
+Log Message:
+Fixed csh script bugs. Tagging SConsFiles-00-01-08
+    *
+------------------------------------------------------------
+User: glastrm  Fri Oct 30 10:42:11 PDT 2009
 SConsFiles
 
 Modified Files:
