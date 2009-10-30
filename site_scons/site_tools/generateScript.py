@@ -77,22 +77,22 @@ if ( ! -d $HOME/pfiles ) then
 endif
 
 if ($?PFILES) then
-  set syspfiles `echo $PFILES | sex "s%.*;%%"`
-  set locpfiles `echo $PFILES | sed "s%;*$syspfiles$%%"`
+  set syspfiles=`echo $PFILES | sed "s%.*;%%"`
+  set locpfiles=`echo $PFILES | sed "s%;*$syspfiles"'$'"%%"`
 endif
 
 if ( $?locpfiles == 0) then
   set locpfiles="$HOME/pfiles"
 else
-  set locpfiles=`echo ":$locpfiles:" | sed "s%:$HOME/pfiles:%:%g" | sed "s%::*$%%"`
+  set locpfiles=`echo ":${locpfiles}:" | sed "s%:$HOME/pfiles:%:%g" | sed "s%::*"'$'"%%"`
   set locpfiles="$HOME/pfiles$locpfiles"
 endif
 
 if ($?syspfiles == 0) then
   set syspfiles="$INST_DIR/syspfiles:$BASE_DIR/syspfiles"
 else
-  set syspfiles=`echo ":$syspfiles:" | sed "s%:$INST_DIR/syspfiles:%:%g" | sed "s%::*$%%"`
-  set syspfiles=`echo ":$syspfiles:" | sed "s%:$BASE_DIR/syspfiles:%:%g" | sed "s%::*$%%"`
+  set syspfiles=`echo ":${syspfiles}:" | sed "s%:$INST_DIR/syspfiles:%:%g" | sed "s%::*"'$'"%%"`
+  set syspfiles=`echo ":${syspfiles}:" | sed "s%:$BASE_DIR/syspfiles:%:%g" | sed "s%::*"'$'"%%"`
   set syspfiles="$INST_DIR/syspfiles:$BASE_DIR/syspfiles$syspfiles"
 endif
 setenv PFILES "$locpfiles;$syspfiles"
@@ -223,8 +223,8 @@ def fillScript(scriptFile, env, wrapper, script, executable):
     finalScript = finalScript.replace('${REPLACE-LIBDIRS}', separator.join(ldLibraryPath))
 
     #Setup PATH
-    path = [os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, env['SCRIPTDIR'].abspath))]
-    path.append(os.path.join('$BASE_DIR', 'bin', env['VARIANT']))
+    path = [os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, env['BINDIR'].abspath))]
+    path.append(os.path.join('$BASE_DIR', 'exe', env['VARIANT']))
     path.extend(env['WRAPPERBINS'])
     if env['PLATFORM'] == 'win32':
         path = map(quoteEncapsulate, path)
@@ -245,7 +245,7 @@ def fillScript(scriptFile, env, wrapper, script, executable):
     #Setup PYTHONPATH
     pythonPath = [os.path.join('$INST_DIR','python')]
     pythonPath.append(os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, env['LIBDIR'].abspath)))
-    pythonPath.append(os.path.join('$BASE_DIR', 'pyhon'))
+    pythonPath.append(os.path.join('$BASE_DIR', 'python'))
     pythonPath.append(os.path.join('$BASE_DIR', 'lib', env['VARIANT']))
     pythonPath.append(os.path.join(env['ROOTSYS'], 'lib'))
     if env['PLATFORM'] == 'win32':
