@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Wed Nov  4 10:46:52 PST 2009
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Add /NODEFAULTLIB:LIBC   to win32 link flags
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-01-08, operation: add
 Package: SConsFiles
