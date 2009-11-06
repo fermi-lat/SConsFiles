@@ -1,5 +1,18 @@
 ------------------------------------------------------------
 User: jrb  Thu Nov  5 16:35:56 PST 2009
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	registerTargets.py 
+Log Message:
+Latest Windows fixes:
+SConstruct - initialize Windows tools explicitly to make sure SCOns uses VS stuff
+registerTargets - add dependency of installed .lib on installed (.dll,.def, etc.)
+     where library target builds a dll
+
+    *
+------------------------------------------------------------
+User: jrb  Thu Nov  5 16:35:56 PST 2009
 SConsFiles
 
 Modified Files:
