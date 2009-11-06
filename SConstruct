@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.35 2009/10/30 17:42:11 glastrm Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.36 2009/11/04 18:46:51 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu
 # Version: SConsFiles-00-01-08
 
@@ -107,6 +107,11 @@ if baseEnv['PLATFORM'] == "win32":
     num,suite = msvs.msvs_parse_version(baseEnv['MSVS_VERSION'])
     compiler = 'vc'+''.join(str(num).split('.')[0:2])
     # visual_variant will be used as working directory in VS project files
+    baseEnv.Tool('mssdk')
+    baseEnv.Tool('mslib')
+    baseEnv.Tool('msvs')
+    baseEnv.Tool('msvc')
+    baseEnv.Tool('mslink')
     visual_variant = "Visual-" + compiler
 else:
     compiler = 'gcc'+''.join(baseEnv['CXXVERSION'].split('.')[0:2])
