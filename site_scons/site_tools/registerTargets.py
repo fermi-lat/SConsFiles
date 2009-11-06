@@ -53,13 +53,15 @@ def generate(env, **kw):
             #print "getCxtList(", argname, ") found list of length ", len(val)
             return val
 
-        # All kinds of libraries are handled identically here
-        # Only makeStudio has to distinguish
+        # Libraries are handled in two ways depending on whether they
+        # build just a .lib or .lib, .dll, etc.
+        # Only makeStudio has to distinguish all categories
         cx = []
-        cx += getCxtList('libraryCxts')
+        if env['PLATFORM'] != "win32":
+            cx += getCxtList('libraryCxts')
+            cx += getCxtList('rootcintSharedCxts')
+            cx += getCxtList('swigLibraryCxts')
         cx += getCxtList('staticLibraryCxts')
-        cx += getCxtList('swigLibraryCxts')
-        cx += getCxtList('rootcintSharedCxts')
         cx += getCxtList('rootcintStaticCxts')
         if cx != []:
             nodes = []
@@ -72,6 +74,39 @@ def generate(env, **kw):
             env.Alias('libraries', libraries)
             env.Alias('all', libraries)
 
+        # On windows, shared libraries are handled specially.
+        # .lib installed target depends on install of the rest
+        if env['PLATFORM'] == "win32":
+            cx = []
+            cx += getCxtList('libraryCxts')
+            cx += getCxtList('rootcintSharedCxts')
+            cx += getCxtList('swigLibraryCxts')
+            winlibs = []
+
+            for c in cx:                # find .lib node
+                nondotlib = []
+                dotlib = []
+                for libentry in c[0]:
+                    fname = (os.path.split(libentry.path))[1]
+                    cmps = fname.split(".")
+                    if (len(cmps) == 2) and (cmps[1] == "lib"):
+                        dotlib.append(libentry)
+                    else:
+                        nondotlib.append(libentry)
+
+                nondotinst = env.Install(env['LIBDIR'], nondotlib)
+                dotlibinst = env.Install(env['LIBDIR'], dotlib)
+                env.Depends(dotlibinst, nondotinst)
+                winlibs.append(nondotinst)
+                winlibs.append(dotlibinst)
+                
+            if winlibs != []:    
+                env.Alias(pkgname, winlibs)
+                env.Alias(pkgname+'-libraries', winlibs)
+                env.Default(winlibs)
+                env.Alias('libraries', winlibs)
+                env.Alias('all', winlibs)
+                    
         cxts = kw.get('binaryCxts','')
         if cxts != '':
             #print 'found ', len(cxts), ' binaries for pkg ', pkgname
@@ -106,7 +141,6 @@ def generate(env, **kw):
                 installPath = os.path.dirname(installPath)
                 topInc = kw.get('topInclude', pkgname)
                 includes = env.Install(env['INCDIR'].Dir(topInc).Dir(installPath), header)
-                #includes = env.Install(env['INCDIR'].Dir(kw.get('package')).Dir(installPath), header)
                 env.Alias(kw.get('package'), includes)
                 env.Default(includes)
                 env.Alias('to_install', includes)
@@ -150,7 +184,6 @@ def generate(env, **kw):
                     installPath = os.path.normpath(os.path.join(parts[1], installPath))
                 installPath = os.path.dirname(installPath)
                 data = env.Install(env['DATADIR'].Dir(kw.get('package')).Dir(installPath), file)
-                #env.Alias(kw.get('package'), data)
                 env.Alias(pkgname, data)
                 env.Default(data)
                 env.Alias('to_install', data)
