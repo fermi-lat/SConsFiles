@@ -156,14 +156,20 @@ def setupRoot(configuredExternal):
         target.append(str(target[0]).replace('.cxx','')+".h")
         return target, source
     def rootcintGenerator(source,target,env,for_signature):
-        buildlocation = Dir(str(target[0].dir)+'/..')
-        root_headers = ''
+        buildlocation = Dir(str(target[0].dir)+'/..') 
+        
+        root_headers = ' -I../../../include'
+        supersede = baseEnv.GetOption('supersede')
+        if supersede != '.':
+            root_headers = ' -I' + supersede + root_headers
+
         for header in env['includes']:
-            root_headers += ' -I'+str(Dir(header))
+            if header != '':
+                root_headers += ' -I'+str(buildlocation.rel_path(Dir(header)))
         sources = ''
         for file in source:
             sources += ' '+str(buildlocation.rel_path(file))
-        execute = 'cd '+os.path.join("${TARGET.dir}","..")+ ' && '
+        execute = 'cd '+os.path.join("${TARGET.dir}","..")+ ' && ' 
         execute += os.path.join(configuredExternal['bin-path'], 'rootcint')
         execute += ' -f '
         execute += str(buildlocation.rel_path(target[0]))

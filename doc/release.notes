@@ -1,0 +1,8 @@
+/** @file release.notes
+ * Package xmlBase
+ * Coordinators: N. Golyapegani, J. Bogart
+ *
+ *                  EOH
+
+ SConsFiles-00-01-08   ng,jrb Add generatePythonWrapper; other minor fixes   
+ */
