@@ -1,5 +1,15 @@
 ------------------------------------------------------------
 User: jrb  Wed Nov 11 15:35:42 PST 2009
+SConsFiles/doc
+
+Added Files:
+	release.notes 
+Log Message:
+processExternals: bug fix for rootcint
+
+    *
+------------------------------------------------------------
+User: jrb  Wed Nov 11 15:35:42 PST 2009
 SConsFiles
 
 Modified Files:
