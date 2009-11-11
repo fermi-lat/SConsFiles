@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Wed Nov 11 15:35:42 PST 2009
+SConsFiles
+
+Modified Files:
+	processExternals.scons 
+Log Message:
+processExternals: bug fix for rootcint
+
+    *
+------------------------------------------------------------
 User: jrb  Wed Nov 11 15:28:05 PST 2009
 SConsFiles/doc
 
