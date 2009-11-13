@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Fri Nov 13 09:47:11 PST 2009
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Using containerSettings package now. Tagging SConsFiles-00-02-00
+    *
+------------------------------------------------------------
 User: jrb  Wed Nov 11 15:35:42 PST 2009
 SConsFiles/doc
 
