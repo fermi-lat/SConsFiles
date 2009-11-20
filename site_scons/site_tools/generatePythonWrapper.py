@@ -44,7 +44,7 @@ def fillOurScript(scriptFile, env, scriptTemplate, executable):
                                       'python '+os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, executable.abspath)+' "$@"\n'))
     scriptDir = os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, env['SCRIPTDIR'].abspath))
     finalScript = finalScript.replace('${REPLACE-SCRIPTDIR}', scriptDir)
-    print "OUR_SETUP_NAME is:  ", env['OUR_SETUP_NAME']
+    #print "OUR_SETUP_NAME is:  ", env['OUR_SETUP_NAME']
     if env['OUR_SETUP_NAME'] != '':
         finalScript = finalScript.replace('${REPLACE-OUR-SETUP}',
                                           'source ' + env['OUR_SETUP_NAME'] + '.sh')
@@ -56,7 +56,7 @@ def fillOurScript(scriptFile, env, scriptTemplate, executable):
 def generate(env, **kw):
     # maybe complain if no keyword arg called 'ourSetupName' or if it's empty ?
     env['OUR_SETUP_NAME'] = kw.get('ourSetupName', '')
-    print "kw.get yields ourSetupName = ", kw.get('ourSetupName', '')
+    #print "kw.get yields ourSetupName = ", kw.get('ourSetupName', '')
 
     def createWrapper(target = None, source = None, env = None):
 
@@ -83,7 +83,7 @@ def generate(env, **kw):
             actions.append(SCons.Defaults.Chmod(trgt, 0755))
         return actions
 
-    print "Inside generatePythonWrapper::generate"
+    #print "Inside generatePythonWrapper::generate"
     env.Append(BUILDERS = {'GeneratePythonWrapper' : env.Builder(generator = createWrapperGenerator,
                                                                  emitter = createWrapperEmitter)})
 
