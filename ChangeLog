@@ -1,4 +1,15 @@
 ------------------------------------------------------------
+User: jrb  Thu Nov 19 16:09:02 PST 2009
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+SConstruct:  allow for differently-named container settings files
+generatePythonWrapper.py:  comment out debug statements
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-02-00, operation: add
 Package: SConsFiles
