@@ -1,5 +1,18 @@
 ------------------------------------------------------------
 User: jrb  Thu Nov 19 16:09:02 PST 2009
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	generatePythonWrapper.py 
+Added Files:
+	.cvsignore 
+Log Message:
+SConstruct:  allow for differently-named container settings files
+generatePythonWrapper.py:  comment out debug statements
+
+    *
+------------------------------------------------------------
+User: jrb  Thu Nov 19 16:09:02 PST 2009
 SConsFiles
 
 Modified Files:
