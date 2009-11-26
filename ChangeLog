@@ -1,4 +1,15 @@
 ------------------------------------------------------------
+User: jrb  Wed Nov 25 18:46:57 PST 2009
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	generateScript.py 
+Log Message:
+Fix possible problem with nfs path in value of base dir, using
+Jim's helper routine
+
+    *
+------------------------------------------------------------
 User: jrb  Thu Nov 19 16:09:02 PST 2009
 SConsFiles/site_scons/site_tools
 
