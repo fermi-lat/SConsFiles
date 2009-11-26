@@ -176,6 +176,15 @@ def relpath(p1, p2):
     p = p + l2
     return os.path.join( *p )
 
+## Another helper to restore /nfs/slac... type paths
+def resolve_nfs_path(path):
+    tokens = path.split(":")
+    for i in range(len(tokens)):
+        if tokens[i].find('g.glast.'):
+            tokens[i] = os.path.join('/nfs/farm/g/glast',
+                                     tokens[i].split('g.glast.')[-1])
+    return ":".join(tokens)
+
 ## Fill contents of wrapper scripts and setup script for an SCons installation
 def fillScript(scriptFile, env, wrapper, script, executable):
     finalScript = script.get_contents()
@@ -203,7 +212,10 @@ def fillScript(scriptFile, env, wrapper, script, executable):
         separator = ':'
 
     if env.GetOption('supersede') != '.':
-        finalScript = finalScript.replace('${REPLACE-BASEDIR}', '"' + env.Dir('.').abspath + '"')
+	basedirAbs = env.Dir('.').abspath
+	if env['PLATFORM'] == "posix":  # might be nfs path
+            basedirAbs = resolve_nfs_path(basedirAbs)
+	finalScript = finalScript.replace('${REPLACE-BASEDIR}', '"' + basedirAbs+ '"')
     else:
         if env['PLATFORM'] == 'win32':
             finalScript = finalScript.replace('${REPLACE-BASEDIR}', 'procEnv.item("INST_DIR")')
