@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Mon Nov 30 16:34:19 PST 2009
+SConsFiles
+
+Modified Files:
+	processExternals.scons 
+Log Message:
+If GLAST-EXT option was specified with trailing slash, strip it off
+
+    *
+------------------------------------------------------------
 User: jrb  Wed Nov 25 18:46:57 PST 2009
 SConsFiles/site_scons/site_tools
 
