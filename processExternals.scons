@@ -2,7 +2,6 @@
 import os
 
 Import('usedExternals')
-###Import('allExternalLibraries')
 Import('allExternals')
 Import('baseEnv')
 
@@ -73,7 +72,13 @@ def substituteVars(name, version, configuredExternal):
         if 'bin-path' in configuredExternal:
             configuredExternal[section] = replace(configuredExternal[section], '$BIN-PATH', configuredExternal['bin-path'])
         if baseEnv.GetOption('GLAST-EXT'):
-            configuredExternal[section] = replace(configuredExternal[section], '$GLAST_EXT', baseEnv.GetOption('GLAST-EXT'))
+            # If GLAST-EXT value has trailing slash, strip it off
+            geval = baseEnv.GetOption('GLAST-EXT')
+            extSplit = os.path.split(geval)
+            if extSplit[1] == "":
+                geval = extSplit[0]
+            baseEnv['GLASTEXTvalue'] = geval
+            configuredExternal[section] = replace(configuredExternal[section], '$GLAST_EXT', geval)
         configuredExternal[section] = replace(configuredExternal[section], '$COMPILER', baseEnv['COMPILERNAME'])
         configuredExternal[section] = replace(configuredExternal[section], '$VERSION', version)
         configuredExternal[section] = replace(configuredExternal[section], '$NAME', name)
@@ -90,12 +95,12 @@ def setupEnvironment(configuredExternal):
         baseEnv.PrependUnique(PATH = [configuredExternal['bin-path']])
         wrapperbin = configuredExternal['bin-path']
         if(baseEnv.GetOption('GLAST-EXT')):
-            wrapperbin = wrapperbin.replace(baseEnv.GetOption('GLAST-EXT'), '$GLAST_EXT')
+            wrapperbin = wrapperbin.replace(baseEnv['GLASTEXTvalue'], '$GLAST_EXT')
         baseEnv.AppendUnique(WRAPPERBINS = [wrapperbin])
     if 'ld-path' in configuredExternal:
         wrapperlib = configuredExternal['ld-path']
         if(baseEnv.GetOption('GLAST-EXT')):
-            wrapperlib = wrapperlib.replace(baseEnv.GetOption('GLAST-EXT'), '$GLAST_EXT')
+            wrapperlib = wrapperlib.replace(baseEnv['GLASTEXTvalue'], '$GLAST_EXT')
         baseEnv.AppendUnique(WRAPPERLIBS = [wrapperlib])
 
     #Add library groups to base environment
@@ -148,8 +153,9 @@ def setupRoot(configuredExternal):
     baseEnv.AppendENVPath('ROOTSYS', [os.path.normpath(os.path.join(configuredExternal['include-path'], '..'))])
     rootsys = os.path.normpath(os.path.join(configuredExternal['include-path'], '..'))
     if(baseEnv.GetOption('GLAST-EXT')):
-        rootsys = rootsys.replace(baseEnv.GetOption('GLAST-EXT'), '$GLAST_EXT')
+        rootsys = rootsys.replace(baseEnv['GLASTEXTvalue'], '$GLAST_EXT')
     baseEnv['ROOTSYS'] = rootsys
+
     baseEnv.AppendENVPath('PATH', [configuredExternal['bin-path']])
 
     def rootcintEmitter(target, source, env):
@@ -256,6 +262,6 @@ if baseEnv.GetOption('rm'):
     print "scons: printing external libraries"
     for configuredExternal in configuredExternals:
         if 'ld-path' in configuredExternal:
-            print configuredExternal['name']+' '+configuredExternal['version']+' '+configuredExternal['ld-path'].replace(baseEnv.GetOption('GLAST-EXT'), '$GLAST_EXT')
+            print configuredExternal['name']+' '+configuredExternal['version']+' '+configuredExternal['ld-path'].replace(baseEnv['GLASTEXTvalue'], '$GLAST_EXT')
     print "scons: done printing external libraries"
     
