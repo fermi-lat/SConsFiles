@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-02-01 02-Dec-2009    jrb New PFILES policy for _setup.* in batch
                        jrb allow for alt. name of containerSettings dir;
                            bug fixes to processExternals, generateScript
  SConsFiles-00-02-00   ng Use containerSettings package
