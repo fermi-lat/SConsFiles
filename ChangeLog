@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Wed Dec  2 10:54:07 PST 2009
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	generateScript.py 
+Log Message:
+New policy for PFILES when _setup.* is run in batch
+
+    *
+------------------------------------------------------------
 User: jrb  Mon Nov 30 16:34:19 PST 2009
 SConsFiles
 
