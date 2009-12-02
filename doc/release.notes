@@ -2,7 +2,13 @@
  * Package xmlBase
  * Coordinators: N. Golyapegani, J. Bogart
  *
- *                  EOH
+ *                * EOH *
 
+                       jrb allow for alt. name of containerSettings dir;
+                           bug fixes to processExternals, generateScript
+ SConsFiles-00-02-00   ng Use containerSettings package
+                       jrb add doc/release.notes; processExternals bug fix;
+                           SConstruct, registerTargets bug fixes for
+                           Windows library dependencies
  SConsFiles-00-01-08   ng,jrb Add generatePythonWrapper; other minor fixes   
  */
