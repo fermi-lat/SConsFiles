@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Wed Dec  2 11:06:18 PST 2009
+SConsFiles/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+add entries for 00-20-00, next tag
+
+    *
+------------------------------------------------------------
 User: jrb  Wed Dec  2 10:54:07 PST 2009
 SConsFiles/site_scons/site_tools
 
