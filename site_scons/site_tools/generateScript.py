@@ -149,7 +149,7 @@ endif
 setenv PFILES "$locpfiles;$syspfiles"
 '''
 # .csh PFILES, setup
-cshellSetupPfiles = '''if ("${interactive}" == "Y" ) then
+cshellSetupPfiles = '''if ("$?prompt") then
 ''' + cshellWrapperPfiles + '''else
   if ($?PFILES) then
     set syspfiles=`echo $PFILES | sed "s%.*;%%"`
