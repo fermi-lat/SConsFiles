@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Fri Dec  4 09:47:51 PST 2009
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	generateScript.py 
+Log Message:
+Use proper cshell test for interactive/non-interactive
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-02-01, operation: add
 Package: SConsFiles
