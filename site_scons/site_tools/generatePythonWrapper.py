@@ -9,8 +9,9 @@ ${REPLACE-PY-WRAPPER}
 
 export OUR_BINDIR=${REPLACE-SCRIPTDIR}
 
+${REPLACE-OUR-PRESETUP}
 source ${OUR_BINDIR}/_setup.sh
-${REPLACE-OUR-SETUP}
+${REPLACE-OUR-POSTSETUP}
 
 ${REPLACE-PY-EXECUTE}
 '''
@@ -44,19 +45,29 @@ def fillOurScript(scriptFile, env, scriptTemplate, executable):
                                       'python '+os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, executable.abspath)+' "$@"\n'))
     scriptDir = os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, env['SCRIPTDIR'].abspath))
     finalScript = finalScript.replace('${REPLACE-SCRIPTDIR}', scriptDir)
-    #print "OUR_SETUP_NAME is:  ", env['OUR_SETUP_NAME']
-    if env['OUR_SETUP_NAME'] != '':
-        finalScript = finalScript.replace('${REPLACE-OUR-SETUP}',
-                                          'source ' + env['OUR_SETUP_NAME'] + '.sh')
+
+    if env['OUR_PRESETUP_NAME'] != '':
+        finalScript = finalScript.replace('${REPLACE-OUR-PRESETUP}',
+                                          'source ' + env['OUR_PRESETUP_NAME'] + '.sh')
     else:
-        finalScript = finalScript.replace('${REPLACE-OUR-SETUP}', ' ')
-        
+        finalScript = finalScript.replace('${REPLACE-OUR-PRESETUP}', ' ')
+
+    if env['OUR_POSTSETUP_NAME'] != '':
+        finalScript = finalScript.replace('${REPLACE-OUR-POSTSETUP}',
+                                          'source ' + env['OUR_POSTSETUP_NAME'] + '.sh')
+    else:
+        finalScript = finalScript.replace('${REPLACE-OUR-POSTSETUP}', ' ')
+
+     
+       
     scriptFile.write(finalScript)
 
 def generate(env, **kw):
-    # maybe complain if no keyword arg called 'ourSetupName' or if it's empty ?
-    env['OUR_SETUP_NAME'] = kw.get('ourSetupName', '')
-    #print "kw.get yields ourSetupName = ", kw.get('ourSetupName', '')
+    env['OUR_PRESETUP_NAME'] = kw.get('ourPresetupName', '')
+    #print "kw.get yields ourPresetupName = ", kw.get('ourPresetupName', '')
+
+    env['OUR_POSTSETUP_NAME'] = kw.get('ourPostsetupName', '')
+    #print "kw.get yields ourPostsetupName = ", kw.get('ourPostsetupName', '')
 
     def createWrapper(target = None, source = None, env = None):
 
