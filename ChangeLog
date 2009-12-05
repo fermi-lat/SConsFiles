@@ -1,4 +1,15 @@
 ------------------------------------------------------------
+User: jrb  Fri Dec  4 17:17:49 PST 2009
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	generatePythonWrapper.py 
+Log Message:
+App may specify script to be run before standard SCons _setup or after
+or both
+
+    *
+------------------------------------------------------------
 User: jrb  Fri Dec  4 09:47:51 PST 2009
 SConsFiles/site_scons/site_tools
 
