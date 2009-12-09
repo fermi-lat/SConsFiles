@@ -1,4 +1,18 @@
 ------------------------------------------------------------
+User: jrb  Wed Dec  9 15:21:27 PST 2009
+SConsFiles
+
+Modified Files:
+	SConstruct allExternals.scons 
+Log Message:
+allExternals:  patch for vc90 python
+remainder: add Windows stuff into production SConsFiles. Liberal use
+  of sys.platform ensures that it doesn't affect Linux or Mac builds.
+  SCons checkpoint release 20090919 or better is required for Windows;
+  1.2.0 should be ok for other platforms
+
+    *
+------------------------------------------------------------
 User: jrb  Fri Dec  4 17:17:49 PST 2009
 SConsFiles/site_scons/site_tools
 
