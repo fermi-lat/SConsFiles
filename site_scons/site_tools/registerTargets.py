@@ -1,6 +1,8 @@
-import os, pprint
+import os, pprint, sys
 from SCons.Script import *
-#from makeStudio import *
+if sys.platform == 'win32':
+    from makeStudio import *
+    
 ## * Install various specified objects (includes, libraries, etc.) and
 ##   xxLib.py
 ## * Add to the list of default targets and to definition of 'all'
@@ -230,22 +232,21 @@ def generate(env, **kw):
             #print 'registerTargets: registering env dicts for %s' % list(x[0] for x in kw.get('wrapper_env'))
             env.Append( WRAPPER_ENV = kw.get('wrapper_env') )
 
-        ##   COMMENT OUT  FOR PRODUCTION (requires SCons 1.2.0.d20090223
-        ##   Windows Project files
-        #if env['PLATFORM'] == "win32" and env['COMPILERNAME'] == "vc90":
-        #    env.Tool('makeStudio', package=kw.get('package',''),
-        #             libraryCxts=kw.get('libraryCxts',''),
-        #             staticLibraryCxts=kw.get('staticLibraryCxts',''),
-        #             swigLibraryCxts=kw.get('swigLibraryCxts',''),
-        #             rootcintSharedCxts=kw.get('rootcintSharedCxts',''),
-        #             rootcintStaticCxts=kw.get('rootcintStaticCxts',''),
-        #             testAppCxts=kw.get('testAppCxts',''),
-        #             binaryCxts=kw.get('binaryCxts',''),
-        #             includes = kw.get('includes',''),
-        #             data = kw.get('data',''),
-        #             xml = kw.get('xml',''),
-        #             pfiles = kw.get('pfiles',''),
-        #             python = kw.get('python',''))
+        if sys.platform=='win32':
+            if env['PLATFORM'] == "win32" and env['COMPILERNAME'] == "vc90":
+                env.Tool('makeStudio', package=kw.get('package',''),
+                         libraryCxts=kw.get('libraryCxts',''),
+                         staticLibraryCxts=kw.get('staticLibraryCxts',''),
+                         swigLibraryCxts=kw.get('swigLibraryCxts',''),
+                         rootcintSharedCxts=kw.get('rootcintSharedCxts',''),
+                         rootcintStaticCxts=kw.get('rootcintStaticCxts',''),
+                         testAppCxts=kw.get('testAppCxts',''),
+                         binaryCxts=kw.get('binaryCxts',''),
+                         includes = kw.get('includes',''),
+                         data = kw.get('data',''),
+                         xml = kw.get('xml',''),
+                         pfiles = kw.get('pfiles',''),
+                         python = kw.get('python',''))
 
             
 def exists(env):

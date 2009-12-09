@@ -361,6 +361,7 @@ allExternalLibraries = {
                                    'libraries'    : { 'pythonLibs' : [ 'python25' ] },
                                    'ld-path'      : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER')
                                  },
+                     'vc90'    : { 'version'      : '2.5.1-gl1' },
                      'darwin'  : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.5' ] } }
                    }
                  },

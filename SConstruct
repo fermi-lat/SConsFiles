@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.40 2009/11/20 00:09:02 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/GlastRelease-scons/SConstruct,v 1.41 2009/12/02 19:12:14 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu
 # Version: SConsFiles-00-02-01
 
@@ -41,6 +41,7 @@ if baseEnv['PLATFORM'] == "darwin":
     else:
         variant+="32bit"
         baseEnv['ARCHNAME'] = '32bit'
+
 if baseEnv['PLATFORM'] == "win32":
     variant = platform.release()+"-"+"i386"+"-"+platform.architecture()[0]
     baseEnv['WINDOWS_INSERT_MANIFEST'] = 'true'
@@ -94,16 +95,18 @@ if baseEnv['PLATFORM'] != 'win32':
         baseEnv.AppendUnique(CCFLAGS = ['-m64'])
         baseEnv.AppendUnique(LINKFLAGS = ['-m64'])
 else:
-    if baseEnv.GetOption('vc'):
-        baseEnv['MSVS_VERSION'] = baseEnv.GetOption('vc')
-        baseEnv.Tool('msvs')
-        Tool('msvc')(baseEnv)
+    if sys.platform == 'win32':
+        if baseEnv.GetOption('vc'):
+            baseEnv['MSVS_VERSION'] = baseEnv.GetOption('vc')
+            baseEnv.Tool('msvs')
+            Tool('msvc')(baseEnv)
 
-if baseEnv['PLATFORM'] == "win32":
-    ### Uncomment next line when local msvs is installed
-    ### import msvs
-    ### For now..
-    import SCons.Tool.msvs as msvs
+#if baseEnv['PLATFORM'] == "win32":
+if sys.platform == "win32":
+    #Uncomment next line when local msvs is installed
+    import msvs
+    ### in older SConsFiles versions
+    #import SCons.Tool.msvs as msvs
     num,suite = msvs.msvs_parse_version(baseEnv['MSVS_VERSION'])
     compiler = 'vc'+''.join(str(num).split('.')[0:2])
     # visual_variant will be used as working directory in VS project files
