@@ -89,6 +89,8 @@ def setupEnvironment(configuredExternal):
     #Also for Windows only fill extlibSet data structure  (jrb addition)
     if 'include-path' in configuredExternal:
         baseEnv.AppendUnique(CPPPATH = [configuredExternal['include-path']])
+    if 'include-path2' in configuredExternal:
+        baseEnv.AppendUnique(CPPPATH = [configuredExternal['include-path2']])
     if 'lib-path' in configuredExternal:
         baseEnv.AppendUnique(LIBPATH = [configuredExternal['lib-path']])
     if 'bin-path' in configuredExternal:
