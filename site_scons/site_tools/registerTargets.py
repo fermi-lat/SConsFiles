@@ -24,6 +24,7 @@ if sys.platform == 'win32':
 ##                     defaults to package
 ##        data     - list of file paths
 ##        xml      - list of file paths
+##        jo       - list of file paths (applies only to GlastRelease)
 ##        pfiles   - lift of file paths
 ##        python   - list of file paths. Will be installed in python subdir
 ##        wrappedPython - list of python programs to be installed and wrapped
@@ -205,6 +206,28 @@ def generate(env, **kw):
                 env.Default(xml)
                 env.Alias('to_install', xml)
                 env.Alias('all', xml)
+
+        if kw.get('jo', '') != '':
+            for file in kw.get('jo'):
+                file = env.File(str(file))
+                splitFile = str(env.Dir('.').srcnode().rel_path(file.srcnode()))
+                installPath = ''
+                while os.path.split(splitFile)[0] != '':
+                    parts = os.path.split(splitFile)
+                    splitFile = parts[0]
+                    installPath = os.path.normpath(os.path.join(parts[1], installPath))
+		# Assumption is that all jo paths start with 'src', and
+		# that this should not be propagated to install area
+                # Uncomment to  *not* strip off first path component
+                #installPath = os.path.normpath(os.path.join(parts[1],
+                #                                            installPath))
+                installPath = os.path.dirname(installPath)
+                jobOptions = env.Install(env['JODIR'].Dir(kw.get('package')).Dir(installPath), file)
+                env.Alias(kw.get('package'), jobOptions)
+                env.Default(jobOptions)
+                env.Alias('to_install', jobOptions)
+                env.Alias('all', jobOptions)
+
         if kw.get('python', '') != '':
             python = env.Install(env['PYTHONDIR'], kw.get('python'))
             env.Alias(kw.get('package'), python)
@@ -231,7 +254,7 @@ def generate(env, **kw):
             # emitted into the wrapper scripts
             #print 'registerTargets: registering env dicts for %s' % list(x[0] for x in kw.get('wrapper_env'))
             env.Append( WRAPPER_ENV = kw.get('wrapper_env') )
-
+### NOTE!!! Need to add something to makeStudio for job options
         if sys.platform=='win32':
             if env['PLATFORM'] == "win32" and env['COMPILERNAME'] == "vc90":
                 env.Tool('makeStudio', package=kw.get('package',''),
