@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Wed Jan 13 12:02:58 PST 2010
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Define job options dir
+
+    *
+------------------------------------------------------------
 User: jrb  Tue Jan  5 15:21:58 PST 2010
 SConsFiles
 
