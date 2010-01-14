@@ -26,7 +26,8 @@ if sys.platform == 'win32':
 ##        xml      - list of file paths
 ##        jo       - list of file paths (applies only to GlastRelease)
 ##        pfiles   - lift of file paths
-##        python   - list of file paths. Will be installed in python subdir
+##        python   - list of file paths. Will be installed in python subdir,
+##                   preserving directory organization
 ##        wrappedPython - list of python programs to be installed and wrapped
 ##        wrapper_env
 ##
@@ -149,6 +150,7 @@ def generate(env, **kw):
                 env.Alias('to_install', includes)
                 env.Alias('includes', includes)
                 env.Alias('all', includes)
+            
         cxts = kw.get('testAppCxts', '')
         if cxts != '':
             nodes = []
@@ -191,6 +193,7 @@ def generate(env, **kw):
                 env.Default(data)
                 env.Alias('to_install', data)
                 env.Alias('all', data)
+            
         if kw.get('xml', '') != '':
             for file in kw.get('xml'):
                 file = env.File(str(file))
@@ -229,11 +232,21 @@ def generate(env, **kw):
                 env.Alias('all', jobOptions)
 
         if kw.get('python', '') != '':
-            python = env.Install(env['PYTHONDIR'], kw.get('python'))
-            env.Alias(kw.get('package'), python)
-            env.Default(python)
-            env.Alias('to_install', python)
-            env.Alias('all', python)
+            #python = env.Install(env['PYTHONDIR'], kw.get('python'))
+            for file in kw.get('python'):
+                file = env.File(str(file))
+                splitFile = str(env.Dir('.').srcnode().rel_path(file.srcnode()))
+                installPath = ''
+                while os.path.split(splitFile)[0] != '':
+                    parts = os.path.split(splitFile)
+                    splitFile = parts[0]
+                    installPath = os.path.normpath(os.path.join(parts[1], installPath))
+                installPath = os.path.dirname(installPath)
+                python = env.Install(env['PYTHONDIR'].Dir(installPath), file)
+                env.Alias(kw.get('package'), python)
+                env.Default(python)
+                env.Alias('to_install', python)
+                env.Alias('all', python)
 
         if kw.get('wrappedPython', '') != '':
             print "Non-null set of python scripts to be wrapped"
