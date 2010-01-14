@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Thu Jan 14 11:22:15 PST 2010
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	registerTargets.py 
+Log Message:
+Preserve directory structure when installing python files
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-03-01, operation: add
 Package: SConsFiles
