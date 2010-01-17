@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.44 2010/01/13 20:02:58 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.45 2010/01/14 18:26:20 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu
 # Version: SConsFiles-00-03-01
 
@@ -289,6 +289,9 @@ if baseEnv.GetOption('develRelease'):
     if baseEnv['PLATFORM'] != 'win32':
        baseEnv['TARFLAGS'] += ' -z'
        baseEnv['TARFLAGS'] += ' --exclude build'
+       gzs = ''
+       for x in glob.glob('*.tar.gz'): gzs += ' --exclude ' + str(x)
+       baseEnv['TARFLAGS'] +=  gzs
        baseEnv.Default(baseEnv.Tar(baseEnv.GetOption('develRelease'), glob.glob('*')))
     else:
         baseEnv['ZIPFLAGS'] += '-x build'
