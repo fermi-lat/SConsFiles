@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-03-02 04-Feb-2010    jrb respect python modules; exclude .gz from developer build
  SConsFiles-00-03-01 14-Jan-2010    jrb 1. Support 2nd include in externals. 2. Get ready for job options
  SConsFiles-00-03-00 09-Dec-2009    jrb 1. Put project-file building code into production. 2. patches for ASP support
  SConsFiles-00-02-01 02-Dec-2009    jrb New PFILES policy for _setup.* in batch
