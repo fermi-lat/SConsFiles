@@ -185,6 +185,7 @@ def setupRoot(configuredExternal):
         execute += root_headers
         execute += sources
         return execute
+
     rootBuilder = Builder(generator = rootcintGenerator, emitter = rootcintEmitter, suffix = '.cxx')
     baseEnv.Append(BUILDERS = { 'Rootcint' : rootBuilder })
     if baseEnv['PLATFORM'] == "win32":
@@ -195,7 +196,16 @@ def setupRoot(configuredExternal):
         baseEnv['SHLINKCOM'] = [os.path.join(configuredExternal['bin-path'], "bindexplib.exe") + " -o ${TARGET.base}.def ${TARGET.file} $SOURCES"] + baseEnv['SHLINKCOM']
         baseEnv['SHLINKCOM'].list[1].cmd_list = baseEnv['SHLINKCOM'].list[1].cmd_list.rstrip('" )}')
         baseEnv['SHLINKCOM'].list[1].cmd_list += " $DEFGENERATOR\")}"
+        
+    def RootDynamicLibrary(env, program, sources):
+        if env['PLATFORM'] == 'win32':
+            return env.SharedLibrary(program, sources)
+        elif env['PLATFORM'] == 'posix':
+            env.AppendUnique(SHLINKFLAGS = ['-rdynamic'])
+        return env.LoadableModule('lib' + program, sources)
 
+    baseEnv.AddMethod(RootDynamicLibrary)
+    
 def setupSwig(configuredExternal):
     baseEnv.PrependENVPath('PATH', [configuredExternal['bin-path']])
     baseEnv.Tool('swig')
@@ -222,6 +232,7 @@ def setupSwig(configuredExternal):
                 env['CPPDEFINES'].remove('_DEBUG')
             return env.SharedLibrary(program, sources)
         else:
+            env.AppendUnique(SHLINKFLAGS = ['-rdynamic'])
             return env.LoadableModule(program, sources)
 
     baseEnv.AddMethod(SwigLibrary)
