@@ -1,4 +1,17 @@
 ------------------------------------------------------------
+User: jrb  Wed Feb 17 16:43:22 PST 2010
+SConsFiles
+
+Modified Files:
+	SConstruct processExternals.scons 
+Log Message:
+SConstruct:  leave TRAP_FPE option to individual packages;
+              add fPIC to CCFLAGS and SHLINKFLAGS uniformly
+processExternals.scons: add RootDynamicLibrary method; 
+               add -rdynamic to link flags for swig wrapper libs
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-03-04, operation: add
 Package: SConsFiles
