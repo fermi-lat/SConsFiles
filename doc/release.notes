@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-04-00 22-Feb-2010    jrb support linking on Linux properly
  SConsFiles-00-03-04 16-Feb-2010    jrb Print node name in output
  SConsFiles-00-03-03 05-Feb-2010    jrb updates to allExternals for ape, obf
  SConsFiles-00-03-02 04-Feb-2010    jrb respect python modules; exclude .gz from developer build
