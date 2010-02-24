@@ -1,4 +1,15 @@
 ------------------------------------------------------------
+User: jrb  Wed Feb 24 10:20:05 PST 2010
+SConsFiles/site_scons/site_tools
+
+Added Files:
+	addLinkDeps.py 
+Log Message:
+Isolate platform-dependent settings for building specific types of objects,
+especially non-loadable shareables
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-04-00, operation: add
 Package: SConsFiles
