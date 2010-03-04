@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu Mar  4 11:47:16 PST 2010
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Better way to compute default variant on Linux
+    *
+------------------------------------------------------------
 TAG
 Tag name: CHS-11-00-00, operation: add
 Package: SConsFiles
