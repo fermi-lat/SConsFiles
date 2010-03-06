@@ -20,8 +20,9 @@ if sys.platform == 'win32':
 ##        testAppCxts  - list of 2-item lists [program nodes,env]
 ##        binaryCxts  - list of  2-item lists [program nodes,env]
 ##        includes - list of file paths
-##        topInclude - put includes under $INST_DIR"/include/"topInclude
-##                     defaults to package
+##        topInclude - put includes under $INST_DIR/include/topInclude
+##                     or just $INST_DIR/include if special value "*NONE*" is supplied
+##                     defaults to package.  
 ##        data     - list of file paths
 ##        xml      - list of file paths
 ##        jo       - list of file paths (applies only to GlastRelease)
@@ -144,7 +145,11 @@ def generate(env, **kw):
                     installPath = os.path.normpath(os.path.join(parts[1], installPath))
                 installPath = os.path.dirname(installPath)
                 topInc = kw.get('topInclude', pkgname)
-                includes = env.Install(env['INCDIR'].Dir(topInc).Dir(installPath), header)
+                if topInc == '*NONE*':
+                    includes = env.Install(env['INCDIR'].Dir(installPath), header)
+                else:
+                    includes = env.Install(env['INCDIR'].Dir(topInc).Dir(installPath),
+                                           header)
                 env.Alias(kw.get('package'), includes)
                 env.Default(includes)
                 env.Alias('to_install', includes)
