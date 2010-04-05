@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: tstephen  Mon Apr  5 12:43:05 PDT 2010
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+- Added check so that the jobOptions directory is only added for GlastRelease and not ScienceTools
+    *
+------------------------------------------------------------
 TAG
 Tag name: CHS-10-02-01, operation: add
 Package: SConsFiles
