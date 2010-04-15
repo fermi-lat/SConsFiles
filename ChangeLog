@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Wed Apr 14 21:30:52 PDT 2010
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+Add ROOT 5.26.00a 
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-04-04, operation: add
 Package: SConsFiles
