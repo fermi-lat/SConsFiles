@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-04-05 14-Apr-2010    jrb Add ROOT 5.26.00a to allExternals.scons
  SConsFiles-00-04-04 05-Apr-2010 tstephen Added check so that jobOptions file is only included in the user release of GlastRelease and not the ScienceTools
  SConsFiles-00-04-03 05-Mar-2010    jrb Allow install of includes without intervening named directory; intended only for special cases, such as building an external library
  SConsFiles-00-04-02 04-Mar-2010    jrb Better way to compute default variant on Linux. Use only integer part of redhat release
