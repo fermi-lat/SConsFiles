@@ -55,7 +55,10 @@ from   SCons.Script import *
 
 #from SCons.Tool.MSCommon import detect_msvs, merge_default_version
 if sys.platform == 'win32':
-    from SCons.Tool.MSCommon import msvs_exists, merge_default_version
+    # for 1.3.0
+    from SCons.Tool.MSCommon import msvc_exists, msvc_setup_env_once
+    # don't think we need processDefines for our version
+    #from SCons.Defaults import processDefines 
 
 ##############################################################################
 # Below here are the classes and functions for generation of
@@ -1460,7 +1463,8 @@ def generate(env):
     env['MSVSENCODING'] = 'Windows-1252'
 
     # Set-up ms tools paths for default version
-    merge_default_version(env)
+    # merge_default_version(env)
+    msvc_setup_env_once(env)
 
     version_num, suite = msvs_parse_version(env['MSVS_VERSION'])
     if (version_num < 7.0):
@@ -1477,5 +1481,6 @@ def generate(env):
     env['SCONS_HOME'] = os.environ.get('SCONS_HOME')
 
 def exists(env):
-    if sys.platform == 'msvs' : return msvs_exists()    # for 1.2.0.d20090919
+    #if sys.platform == 'msvs' : return msvs_exists()    # for 1.2.0.d20090919
     #return detect_msvs()   # for 1.2.0.d20090223
+    return msvc_exists()    # for 1.3.0

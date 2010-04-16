@@ -1,7 +1,7 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.58 2010/04/05 22:44:19 tstephen Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/ScienceTools-scons/SConstruct,v 1.58 2010/04/05 22:44:19 tstephen Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu
-# Version: SConsFiles-00-04-05
+# Version: SConsFiles-00-05-00
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands,subprocess
 #########################
@@ -10,8 +10,38 @@ import os,platform,SCons,glob,re,atexit,sys,traceback,commands,subprocess
 
 print "\nThis build is running on: ", platform.node(), "\n"
 
-EnsureSConsVersion(1, 2, 0)
-baseEnv=Environment()
+if sys.platform == 'win32':
+    EnsureSConsVersion(1, 3, 0)
+else:
+    EnsureSConsVersion(1, 2, 0)
+
+#  Define compiler options *before* creating baseEnv
+if sys.platform != 'win32':
+    AddOption('--with-cc', dest='cc', action='store', nargs=1, type='string', metavar='COMPILER', help='Compiler to use for compiling C files')
+    AddOption('--with-cxx', dest='cxx', action='store', nargs=1, type='string', metavar='COMPILER', help='Compiler to user for compiling C++ files')
+    AddOption('--32bit', dest='bits', action='store_const', const='32', help='Force 32bit compiles even on 64bit machines')
+    AddOption('--64bit', dest='bits', action='store_const', const='64', help='Force 64bit compiles even on 32bit machines')
+else:
+    AddOption('--vc7', dest='vc', action='store_const', const='7.1', help='Use the Visual C++ 7.1 compiler')
+    AddOption('--vc8', dest='vc', action='store_const', const='8.0', help='Use the Visual C++ 8.0 compiler')
+    AddOption('--vc9', dest='vc', action='store_const', const='9.0', help='Use the Visual C++ 9.0 compiler')
+
+#..and for Windows also get --vc option value before creating baseEnv
+vccmp=''
+if sys.platform == 'win32':
+    if GetOption('vc'):
+        vccmp = GetOption('vc')
+        #baseEnv['MSVS_VERSION'] = baseEnv.GetOption('vc')
+        #    baseEnv.Tool('msvs')
+        #    Tool('msvc')(baseEnv)
+        baseEnv=Environment(MSVC_VERSION=vccmp)
+    else:
+        baseEnv=Environment( )
+        vccmp = str(baseEnv['MSVC_VERSION'])
+else:
+    baseEnv=Environment()
+
+    
 baseEnv.Tool('generateScript')
 baseEnv.Tool('doxygen')
 baseEnv.Alias('NoTarget')
@@ -44,7 +74,8 @@ if baseEnv['PLATFORM'] == "darwin":
         variant+="32bit"
         baseEnv['ARCHNAME'] = '32bit'
 
-if baseEnv['PLATFORM'] == "win32":
+#if baseEnv['PLATFORM'] == "win32":
+if sys.platform == "win32":
     variant = platform.release()+"-"+"i386"+"-"+platform.architecture()[0]
     baseEnv['WINDOWS_INSERT_MANIFEST'] = 'true'
     baseEnv['OSNAME'] = platform.release()
@@ -66,18 +97,9 @@ AddOption('--source-release', dest='sourceRelease', nargs=1, type='string', acti
 AddOption('--devel-release', dest='develRelease', nargs=1, type='string', action='store', metavar='FILE', help='Creates a compressed developer release and stires it in FILE')
 AddOption('--doxygen', dest='doxygenOutput', nargs=1, type='string', default='${HTML-OUTPUT}', action='store', metavar='DIRECTORY', help='Sets up Doxygen configuration to write html in DIRECTORY')
 
-if baseEnv['PLATFORM'] != 'win32':
-    AddOption('--with-cc', dest='cc', action='store', nargs=1, type='string', metavar='COMPILER', help='Compiler to use for compiling C files')
-    AddOption('--with-cxx', dest='cxx', action='store', nargs=1, type='string', metavar='COMPILER', help='Compiler to user for compiling C++ files')
-    AddOption('--32bit', dest='bits', action='store_const', const='32', help='Force 32bit compiles even on 64bit machines')
-    AddOption('--64bit', dest='bits', action='store_const', const='64', help='Force 64bit compiles even on 32bit machines')
-else:
-    AddOption('--vc7', dest='vc', action='store_const', const='7.1', help='Use the Visual C++ 7.1 compiler')
-    AddOption('--vc8', dest='vc', action='store_const', const='8.0', help='Use the Visual C++ 8.0 compiler')
-    AddOption('--vc9', dest='vc', action='store_const', const='9.0', help='Use the Visual C++ 9.0 compiler')
 
 
-if baseEnv['PLATFORM'] != 'win32':
+if sys.platform != 'win32':
     if baseEnv.GetOption('cc'):
         baseEnv.Replace(CC = baseEnv.GetOption('cc'))
         pipe = SCons.Action._subproc(baseEnv, [baseEnv['CC'], '-dumpversion'], stdin = 'devnull', stderr = 'devnull', stdout = subprocess.PIPE)
@@ -96,27 +118,23 @@ if baseEnv['PLATFORM'] != 'win32':
     if baseEnv.GetOption('bits') == '64':
         baseEnv.AppendUnique(CCFLAGS = ['-m64'])
         baseEnv.AppendUnique(LINKFLAGS = ['-m64'])
-else:
-    if sys.platform == 'win32':
-        if baseEnv.GetOption('vc'):
-            baseEnv['MSVS_VERSION'] = baseEnv.GetOption('vc')
-            baseEnv.Tool('msvs')
-            Tool('msvc')(baseEnv)
+
 
 #if baseEnv['PLATFORM'] == "win32":
 if sys.platform == "win32":
+    # Don't think this is needed anymore.  No use of msvs in SConstruct
     #Uncomment next line when local msvs is installed
-    import msvs
+    ###import msvs
     ### in older SConsFiles versions
     #import SCons.Tool.msvs as msvs
-    num,suite = msvs.msvs_parse_version(baseEnv['MSVS_VERSION'])
-    compiler = 'vc'+''.join(str(num).split('.')[0:2])
+    #num,suite = msvs.msvs_parse_version(baseEnv['MSVS_VERSION'])
+    compiler = 'vc'+''.join(str(vccmp).split('.')[0:2])
     # visual_variant will be used as working directory in VS project files
-    baseEnv.Tool('mssdk')
-    baseEnv.Tool('mslib')
-    baseEnv.Tool('msvs')
-    baseEnv.Tool('msvc')
-    baseEnv.Tool('mslink')
+    #baseEnv.Tool('mssdk')
+    #baseEnv.Tool('mslib')
+    #baseEnv.Tool('msvs')
+    #baseEnv.Tool('msvc')
+    #baseEnv.Tool('mslink')
     visual_variant = "Visual-" + compiler
 else:
     compiler = 'gcc'+''.join(baseEnv['CXXVERSION'].split('.')[0:2])
@@ -125,7 +143,8 @@ baseEnv['COMPILERNAME'] = compiler
 variant += "-" + compiler
 
 if baseEnv.GetOption('debug'):
-    if baseEnv['PLATFORM'] == 'win32':
+    #if baseEnv['PLATFORM'] == 'win32':
+    if sys.platform == 'win32':
         baseEnv.AppendUnique(CPPDEFINES = ['_DEBUG'])
         baseEnv.AppendUnique(CCFLAGS = '/Od')
         visual_variant +=  "-Debug"
@@ -134,7 +153,8 @@ if baseEnv.GetOption('debug'):
     variant+="-Debug"
     
 if baseEnv.GetOption('opt'):
-    if baseEnv['PLATFORM'] == 'win32':
+    if sys.platform == 'win32':
+    #if baseEnv['PLATFORM'] == 'win32':
         baseEnv.AppendUnique(CCFLAGS = "/O2")
         visual_variant += "-Optimized"
     else:
@@ -156,7 +176,8 @@ Export('baseEnv')
 #########################
 #OS Specific Compile Opt#
 #########################
-if baseEnv['PLATFORM'] == "win32":
+#if baseEnv['PLATFORM'] == "win32":
+if sys.platform == "win32":
     baseEnv.AppendUnique(CPPDEFINES = ['WIN32','_USE_MATH_DEFINES'])
 
     baseEnv.AppendUnique(CCFLAGS = "/EHsc")
@@ -186,7 +207,8 @@ if baseEnv['PLATFORM'] == "win32":
 
     # Disable compiler warning number 4812 having to do with
     # obsolete form of explicit constructor specialization
-    if (baseEnv['MSVS_VERSION'] == "8.0") or (baseEnv['MSVS_VERSION']=="9.0") :
+    #if (baseEnv['MSVS_VERSION'] == "8.0") or (baseEnv['MSVS_VERSION']=="9.0"):
+    if (vccmp == "8.0") or (vccmp=="9.0") :
         baseEnv.AppendUnique(CPPDEFINES = ['_CRT_SECURE_NO_WARNINGS'])
         baseEnv.AppendUnique(CPPFLAGS = "/wd4812")
         if baseEnv.GetOption('debug'):
@@ -236,14 +258,16 @@ baseEnv.Append(LIBPATH = [baseEnv['LIBDIR']])
 baseEnv.AppendUnique(CPPPATH = os.path.join(os.path.abspath('.'),'include'))
 baseEnv.AppendUnique(LIBPATH = os.path.join(os.path.abspath('.'),'lib',variant))
 ## STUDIODIR is where project and solution files will go
-if baseEnv['PLATFORM'] == 'win32':
+#if baseEnv['PLATFORM'] == 'win32':
+if sys.platform == 'win32':
     baseEnv.Append(STUDIODIR = Dir(override).Dir('studio').Dir(variant))
                    
 ##################
 # Create release #
 ##################
 if baseEnv.GetOption('userRelease'):
-    if baseEnv['PLATFORM'] != 'win32':
+    #if baseEnv['PLATFORM'] != 'win32':
+    if sys.platform != 'win32':
         baseEnv['TARFLAGS']+=' -z'
         baseEnv.Default(baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['LIBDIR']))
         baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['BINDIR'])
@@ -275,7 +299,8 @@ if baseEnv.GetOption('userRelease'):
     Return()
 
 if baseEnv.GetOption('sourceRelease'):
-    if baseEnv['PLATFORM'] != 'win32':
+    #if baseEnv['PLATFORM'] != 'win32':
+    if sys.platform != 'win32':
         baseEnv['TARFLAGS']+=' -z'
         for exclude in (baseEnv['BINDIR'].path, baseEnv['SCRIPTDIR'].path, baseEnv['INCDIR'].path, baseEnv['PFILESDIR'].path, baseEnv['JODIR'].path,
                         baseEnv['DATADIR'].path, baseEnv['XMLDIR'].path, baseEnv['TOOLDIR'].path, baseEnv['TESTDIR'].path,
@@ -291,7 +316,8 @@ if baseEnv.GetOption('sourceRelease'):
     Return()
 
 if baseEnv.GetOption('develRelease'):
-    if baseEnv['PLATFORM'] != 'win32':
+    #if baseEnv['PLATFORM'] != 'win32':
+    if sys.platform != 'win32':
        baseEnv['TARFLAGS'] += ' -z'
        baseEnv['TARFLAGS'] += ' --exclude build'
        gzs = ''
