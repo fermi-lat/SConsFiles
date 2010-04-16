@@ -1,4 +1,15 @@
 ------------------------------------------------------------
+User: jrb  Fri Apr 16 10:44:45 PDT 2010
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Modifications for SCons 1.3.0.
+On Windows must parse compiler options *before* creating baseEnv
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-04-05, operation: add
 Package: SConsFiles
