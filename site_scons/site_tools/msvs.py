@@ -1429,58 +1429,59 @@ def generate(env):
     """Add Builders and construction variables for Microsoft Visual
     Studio project files to an Environment."""
 
-    try:
-        env['BUILDERS']['MSVSProject']
-    except KeyError:
-        env['BUILDERS']['MSVSProject'] = projectBuilder
+    if sys.platform == 'win32':     # otherwise we don't do anything at all
+        try:
+            env['BUILDERS']['MSVSProject']
+        except KeyError:
+            env['BUILDERS']['MSVSProject'] = projectBuilder
 
-    try:
-        env['BUILDERS']['MSVSSolution']
-    except KeyError:
-        env['BUILDERS']['MSVSSolution'] = solutionBuilder
+        try:
+            env['BUILDERS']['MSVSSolution']
+        except KeyError:
+            env['BUILDERS']['MSVSSolution'] = solutionBuilder
 
-    env['MSVSPROJECTCOM'] = projectAction
-    env['MSVSSOLUTIONCOM'] = solutionAction
+        env['MSVSPROJECTCOM'] = projectAction
+        env['MSVSSOLUTIONCOM'] = solutionAction
 
-    if SCons.Script.call_stack:
-        # XXX Need to find a way to abstract this; the build engine
-        # shouldn't depend on anything in SCons.Script.
-        env['MSVSSCONSCRIPT'] = SCons.Script.call_stack[0].sconscript
-    else:
-        global default_MSVS_SConscript
-        if default_MSVS_SConscript is None:
-            default_MSVS_SConscript = env.File('SConstruct')
-        env['MSVSSCONSCRIPT'] = default_MSVS_SConscript
+        if SCons.Script.call_stack:
+            # XXX Need to find a way to abstract this; the build engine
+            # shouldn't depend on anything in SCons.Script.
+            env['MSVSSCONSCRIPT'] = SCons.Script.call_stack[0].sconscript
+        else:
+            global default_MSVS_SConscript
+            if default_MSVS_SConscript is None:
+                default_MSVS_SConscript = env.File('SConstruct')
+            env['MSVSSCONSCRIPT'] = default_MSVS_SConscript
 
-    # Probably don't need the following except maby MSVSENCODING
-    #env['MSVSSCONS'] = '"%s" -c "%s"' % (python_executable, getExecScriptMain(env))
-    #env['MSVSSCONSFLAGS'] = '-C "${MSVSSCONSCRIPT.dir.abspath}" -f ${MSVSSCONSCRIPT.name}'
-    #env['MSVSSCONSCOM'] = '$MSVSSCONS $MSVSSCONSFLAGS'
-    #env['MSVSBUILDCOM'] = '$MSVSSCONSCOM "$MSVSBUILDTARGET"'
-    #env['MSVSREBUILDCOM'] = '$MSVSSCONSCOM "$MSVSBUILDTARGET"'
-    #env['MSVSCLEANCOM'] = '$MSVSSCONSCOM -c "$MSVSBUILDTARGET"'
+        # Deleted a bunch of env. variable definitions used by
+        # original msvs.py to get Studio to invoke SCons
+        # keep only the one for MSVSENCODING
+        env['MSVSENCODING'] = 'Windows-1252'
 
-    env['MSVSENCODING'] = 'Windows-1252'
+        # Set-up ms tools paths for default version
+        # merge_default_version(env)
 
-    # Set-up ms tools paths for default version
-    # merge_default_version(env)
-    msvc_setup_env_once(env)
+        msvc_setup_env_once(env)
 
-    version_num, suite = msvs_parse_version(env['MSVS_VERSION'])
-    if (version_num < 7.0):
-        env['MSVS']['PROJECTSUFFIX']  = '.dsp'
-        env['MSVS']['SOLUTIONSUFFIX'] = '.dsw'
-    else:
-        env['MSVS']['PROJECTSUFFIX']  = '.vcproj'
-        env['MSVS']['SOLUTIONSUFFIX'] = '.sln'
+        version_num, suite = msvs_parse_version(env['MSVS_VERSION'])
+        if (version_num < 7.0):
+            env['MSVS']['PROJECTSUFFIX']  = '.dsp'
+            env['MSVS']['SOLUTIONSUFFIX'] = '.dsw'
+        else:
+            env['MSVS']['PROJECTSUFFIX']  = '.vcproj'
+            env['MSVS']['SOLUTIONSUFFIX'] = '.sln'
 
-    env['GET_MSVSPROJECTSUFFIX']  = GetMSVSProjectSuffix
-    env['GET_MSVSSOLUTIONSUFFIX']  = GetMSVSSolutionSuffix
-    env['MSVSPROJECTSUFFIX']  = '${GET_MSVSPROJECTSUFFIX}'
-    env['MSVSSOLUTIONSUFFIX']  = '${GET_MSVSSOLUTIONSUFFIX}'
-    env['SCONS_HOME'] = os.environ.get('SCONS_HOME')
+        env['GET_MSVSPROJECTSUFFIX']  = GetMSVSProjectSuffix
+        env['GET_MSVSSOLUTIONSUFFIX']  = GetMSVSSolutionSuffix
+        env['MSVSPROJECTSUFFIX']  = '${GET_MSVSPROJECTSUFFIX}'
+        env['MSVSSOLUTIONSUFFIX']  = '${GET_MSVSSOLUTIONSUFFIX}'
+        env['SCONS_HOME'] = os.environ.get('SCONS_HOME')
 
 def exists(env):
     #if sys.platform == 'msvs' : return msvs_exists()    # for 1.2.0.d20090919
     #return detect_msvs()   # for 1.2.0.d20090223
-    return msvc_exists()    # for 1.3.0
+    if sys.platform == 'win32':
+        return msvc_exists()    # for 1.3.0
+    else:
+        return 1
+    
