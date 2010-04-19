@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Mon Apr 19 16:23:45 PDT 2010
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	msvs.py 
+Log Message:
+Keep Windows-specific stuff from being parsed on non-Windows platforms
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-05-00, operation: add
 Package: SConsFiles
