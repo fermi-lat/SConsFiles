@@ -1,11 +1,10 @@
-## #1 First paring-down:  go through all the motions, but don't actually
-## invoke builders for project or solution files involving shared libs
-## or executables
-## #2  Get rid of all calls to project file builder
-## #3  Add initialization for libList to make sure changes to it don't
-##     affect environment it was derived from
 import os, pprint
 from SCons.Script import *
+from SCons.Tool.MSCommon.common import debug
+
+# to see debug messages, set env SCONS_MSCOMMON_DEBUG to something.
+# '-' for printing to console; other value for file
+#debug = common.debug
 
 # Generate project files for each library and executable,
 # and single solution file referencing them all (and also
@@ -72,6 +71,7 @@ def generate(env, **kw):
     
     ourLibSet = set([])
     #print "in makeStudio extlibSet from environement is: ", env['extlibSet']
+    debug("in makeStudio extlibSet from environement is: %s" % str(env['extlibSet']) )
     cxts = kw.get('libraryCxts','')
     libdirstring = env['LIBDIR']
 
@@ -83,6 +83,7 @@ def generate(env, **kw):
 
     for cxt in cxts:
         #print 'library list in cxt is: ', cxt[0]
+        debug('library list in cxt is: %s ' % cxt[0])
         
         for libentry in cxt[0]:
             myLibName = (os.path.split(libentry.path))[1]
@@ -447,18 +448,20 @@ def generate(env, **kw):
 
     # Note MSVSSolution has to extract filename (only; no dir, no extension)
     # to use to look up assoc. libs in libSets
-    print 'For package ',pkgname,  ' about to make solution file with target count = ', len(targetNames)
-    slnFile=env.MSVSSolution(target=slnTarget, projects=targetNames,
-                             variant=env['VISUAL_VARIANT'], libs=libSets,
-                             installDir=str(env['STUDIODIR']))
+    if len(targetNames) > 0:
+        #print 'For package ',pkgname, ' about to make solution file with target count = ', len(targetNames)
+        debug('For package %s  about to make solution file with target count = %s '  % (pkgname, len(targetNames)))
+        slnFile=env.MSVSSolution(target=slnTarget, projects=targetNames,
+                                 variant=env['VISUAL_VARIANT'], libs=libSets,
+                                 installDir=str(env['STUDIODIR']))
 
-    slnsrc = os.path.join(str(env['STUDIODIR']), slnTarget)
-    slnInstalled = env.Install(env['STUDIODIR'], slnTarget)
+        slnsrc = os.path.join(str(env['STUDIODIR']), slnTarget)
+        slnInstalled = env.Install(env['STUDIODIR'], slnTarget)
 
-    env.Alias(kw.get('package'), slnInstalled)
-    env.Alias('all', slnInstalled)
-    env.Alias('StudioFiles', slnInstalled)
-    env.Alias(pkgname+'-StudioFiles', slnInstalled)
+        env.Alias(kw.get('package'), slnInstalled)
+        env.Alias('all', slnInstalled)
+        env.Alias('StudioFiles', slnInstalled)
+        env.Alias(pkgname+'-StudioFiles', slnInstalled)
 
 def handleLib(libentry='', libtype=''):
     # Would be nice to factor out some of the common lib-handling code

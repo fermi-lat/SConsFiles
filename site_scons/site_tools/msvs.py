@@ -51,6 +51,7 @@ import SCons.Script.SConscript
 import SCons.Util
 import SCons.Warnings
 from   SCons.Script import *
+from   SCons.Tool.MSCommon.common import debug
 
 
 #from SCons.Tool.MSCommon import detect_msvs, merge_default_version
@@ -231,7 +232,7 @@ class _DSPGenerator:
         else:
             outdir = [env['outdir'].get_abspath()]
 
-        print 'from msvs.py; final value for string outdir is: ', outdir[0]
+        ##print 'from msvs.py; final value for string outdir is: ', outdir[0]
         self.finalout = outdir[0]
         self.bt = buildtarget[0]
 
@@ -327,7 +328,7 @@ class _DSPGenerator:
                 config.platform = 'Win32'
 
             self.configs[variant] = config
-            print "Adding '" + self.name + ' - ' + config.variant + '|' + config.platform + "' to '" + str(dspfile) + "'"
+            ##print "Adding '" + self.name + ' - ' + config.variant + '|' + config.platform + "' to '" + str(dspfile) + "'"
 
         for i in range(len(variants)):
             strOutdir = ''
@@ -613,9 +614,9 @@ class _GenerateV7DSP(_DSPGenerator):
 
         foundSources = env.FindSourceFiles(node=File(outfile))
 
-        print "Inside GetSources for buildtarget ", str(outfile), " found: "
-        for s in foundSources:
-            print str(s)
+        #print "Inside GetSources for buildtarget ", str(outfile), " found: "
+        #for s in foundSources:
+        #    print str(s)
             
         usedSources=[]
 
@@ -627,8 +628,21 @@ class _GenerateV7DSP(_DSPGenerator):
                 #if (_isSomething(vname,'i')):
                 cmps = vname.split(".")
                 if (len(cmps) == 2) and ((cmps[1] == 'i')):
-                    usedSources.append(str(v.abspath))
-            env['misc'] = usedSources
+                    # look for 'build' in path
+                    debug('Found .i file %s' % str(v) )
+                    vv = v
+                    avcmps = str(v.abspath).split("\\")
+                    if "build" in avcmps:
+                        debug('found "build" in avcmps')
+                        ix = avcmps.index("build")
+                        nxt = avcmps[ix+1]
+                        avcmps.remove("build")
+                        avcmps.remove(nxt)
+                        vv = '\\'.join(avcmps)
+
+                    debug('vv is %s' % str(vv))
+                    usedSources.append(str(vv))
+                    env['misc'] = usedSources
 
         else:
             # bindexplib.exe and link.exe are include in list
@@ -636,10 +650,27 @@ class _GenerateV7DSP(_DSPGenerator):
             for v in foundSources:
                 vname = (os.path.split(v.abspath))[1]
                 cmps = vname.split(".")
-                if (len(cmps) == 2) and ((cmps[1] == 'exe') or (cmps[1] == 'EXE')):
-                    usedSources.append(str(v.abspath))
+                if not ((len(cmps) == 2) and ((cmps[1] == 'exe') or (cmps[1] == 'EXE'))):
+                    # look for 'build' in path
+                    avcmps = str(v.abspath).split("\\")
+                    vv = vname
+                    if "build" in avcmps:
+                        ix = avcmps.index("build")
+                        nxt = avcmps[ix+1]
+                        avcmps.remove("build")
+                        avcmps.remove(nxt)
+                        vv = '\\'.join(avcmps)
+
+                    #print "from ", str(v), " created ", vv
+                    #usedSources.append(str(File(vv).abspath))
+                    usedSources.append(vv)
                     
             self.env['src'] = usedSources
+            for u in usedSources:
+                self.sources['Source Files'].append(u)
+            #print "GetSources:  'Source Files entry:"
+            #for i in self.sources['Source Files']:
+            #    print str(i)
 
         if self.linkfileext == "dll":
             shlink0 = self.env['SHLINKCOM'].list[0].cmd_list
@@ -647,7 +678,8 @@ class _GenerateV7DSP(_DSPGenerator):
             if self.targettype == "dll":
                 self.prelink = env.subst(shlink0,
                                          target=buildt,
-                                         source=self.sources['Source Files'])
+                                         source=usedSources)
+                #print self.prelink
 
             elif self.targettype == "swigdll":
                 # only source is .cc file created by swig step
@@ -660,7 +692,7 @@ class _GenerateV7DSP(_DSPGenerator):
                                          target=buildt,
                                          source=[derivedsrc])
 
-                self.swigcmd = 'swig -o ' + derivedsrc + ' '
+                self.swigcmd = 'swig.exe -o ' + derivedsrc + ' '
                 swigincs = ''
 
                 for p in Flatten(self.env['SWIGPATH']):
@@ -674,7 +706,7 @@ class _GenerateV7DSP(_DSPGenerator):
                 self.swigcmd += swigincs
                 self.swigcmd += ' '  + self.env['SWIGFLAGS']
                 self.swigcmd += ' ' + ifile 
-                #print 'swigcmd is: ', self.swigcmd
+                print 'swigcmd is: ', self.swigcmd
 
             elif self.targettype == "rootcintdll":
                 self.prelink = self.env.subst(shlink0,
@@ -686,14 +718,14 @@ class _GenerateV7DSP(_DSPGenerator):
                 self.DoRootcint()
 
             aftersub = cfile_re.sub(_toObj, self.prelink)
-            print 'after re _toObj sub: ', aftersub
+            # print 'after re _toObj sub: ', aftersub
             # ..and now use cfiledir_re to get proper directory
             vr = ' ' + env['variant'] + '\\'
             def _toVarDir(matchObj):
                 return  vr + matchObj.group('f')
 
             aftersub2 = cfiledir_re.sub(_toVarDir, aftersub)
-            print 'after re sub for  correct directory: ', aftersub2
+            #print 'after re sub for  correct directory: ', aftersub2
             self.prelink = aftersub2
 
         elif self.targettype == "rootcintlib":
@@ -1050,7 +1082,7 @@ class _GenerateV7DSW(_DSWGenerator):
                         self.file.write('\t\t%s = %s\n'
                                         % (usedGuid, usedGuid) )
                 else:
-                    print 'No key found in projectLibs for ', name
+                    debug('No key found in projectLibs for %s ' % name)
                     
                 # Finally end the project dependencies section
                 self.file.write('\tEndProjectSection\n')
