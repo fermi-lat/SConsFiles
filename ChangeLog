@@ -1,4 +1,17 @@
 ------------------------------------------------------------
+User: jrb  Fri Jun  4 17:59:21 PDT 2010
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	makeStudio.py msvs.py 
+Log Message:
+1. Fix errors in making project files introduced months ago when code was moved
+   from registerTargets to msvs
+2. Eliminate most debugging print statements.  Use formal debug-printing 
+   mechanism (set SCONS_MSCOMMON_DEBUG) for a few
+
+    *
+------------------------------------------------------------
 User: tstephen  Thu Jun  3 09:04:43 PDT 2010
 SConsFiles
 
