@@ -1,6 +1,7 @@
 import os
 import SCons.Action
 import SCons.Builder
+from   fermidebug import fdebug
 
 ### template for .sh script
 shellScript = '''#!/bin/sh
@@ -418,7 +419,7 @@ def generate(env):
 
     def createSetupEmitter(target, source, env):
         if env['PLATFORM'] == 'win32':
-            print "Generating windows setup scripts"
+            fdebug("Generating windows setup scripts")
             target = [env['SCRIPTDIR'].File('_setup.js')]
             source = [env.Value(jsScript)]
         else:

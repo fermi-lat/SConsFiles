@@ -1,3 +1,4 @@
+#  $Id: $
 """ Site-specific msvs, from SCons.Tool.msvs
 
     27 Feb  Get rid of some stuff which I don't think is being used
@@ -51,7 +52,7 @@ import SCons.Script.SConscript
 import SCons.Util
 import SCons.Warnings
 from   SCons.Script import *
-from   SCons.Tool.MSCommon.common import debug
+from   fermidebug import fdebug
 
 
 #from SCons.Tool.MSCommon import detect_msvs, merge_default_version
@@ -629,18 +630,18 @@ class _GenerateV7DSP(_DSPGenerator):
                 cmps = vname.split(".")
                 if (len(cmps) == 2) and ((cmps[1] == 'i')):
                     # look for 'build' in path
-                    debug('Found .i file %s' % str(v) )
+                    fdebug('Found .i file %s' % str(v) )
                     vv = v
                     avcmps = str(v.abspath).split("\\")
                     if "build" in avcmps:
-                        debug('found "build" in avcmps')
+                        fdebug('found "build" in avcmps')
                         ix = avcmps.index("build")
                         nxt = avcmps[ix+1]
                         avcmps.remove("build")
                         avcmps.remove(nxt)
                         vv = '\\'.join(avcmps)
 
-                    debug('vv is %s' % str(vv))
+                    fdebug('vv is %s' % str(vv))
                     usedSources.append(str(vv))
                     env['misc'] = usedSources
 
@@ -1082,7 +1083,7 @@ class _GenerateV7DSW(_DSWGenerator):
                         self.file.write('\t\t%s = %s\n'
                                         % (usedGuid, usedGuid) )
                 else:
-                    debug('No key found in projectLibs for %s ' % name)
+                    fdebug('No key found in projectLibs for %s ' % name)
                     
                 # Finally end the project dependencies section
                 self.file.write('\tEndProjectSection\n')
