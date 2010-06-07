@@ -1,5 +1,8 @@
+#  $Id: $
 import os, pprint, sys
 from SCons.Script import *
+from fermidebug import fdebug
+
 if sys.platform == 'win32':
     from makeStudio import *
     
@@ -38,7 +41,7 @@ def generate(env, **kw):
     if kw.get('package', '') != '':
         pkgname = kw.get('package')
         pkgtopdir = str(env.Dir('.').srcnode())
-        #print 'Entered registerTargets:generate for package ', pkgname
+        #fdebug('Entered registerTargets:generate for package %s' % pkgname)
         if os.path.exists(os.path.join(str(env.Dir('.').srcnode()),kw.get('package')+"Lib.py")):
             tools = env.Install(env['TOOLDIR'], os.path.join(str(env.Dir('.').srcnode()),kw.get('package')+"Lib.py"))
             env.Default(tools)
@@ -55,7 +58,7 @@ def generate(env, **kw):
         def getCxtList(argname):
             val = kw.get(argname, '')
             if val == '': return []
-            #print "getCxtList(", argname, ") found list of length ", len(val)
+            #fdebug("getCxtList(%s) found list of length %s" % (argname, len(val)) )
             return val
 
         # Libraries are handled in two ways depending on whether they
@@ -114,7 +117,7 @@ def generate(env, **kw):
                     
         cxts = kw.get('binaryCxts','')
         if cxts != '':
-            #print 'found ', len(cxts), ' binaries for pkg ', pkgname
+            #fdebug('found %s binaries for pkg %s' % (len(cxts),pkgname))
             nodes = []
             for x in cxts:
                 nodes.append(x[0])
@@ -254,7 +257,7 @@ def generate(env, **kw):
                 env.Alias('all', python)
 
         if kw.get('wrappedPython', '') != '':
-            print "Non-null set of python scripts to be wrapped"
+            fdebug("Non-null set of python scripts to be wrapped")
             pythonPrg = env.Install(env['PYTHONDIR'], kw.get('wrappedPython'))
             pyWrappers = env.GeneratePythonWrapper(pythonPrg)
             env.Alias(kw.get('package'), pythonPrg)

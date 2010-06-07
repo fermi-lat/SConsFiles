@@ -1,10 +1,10 @@
+#  $Id: $
 import os, pprint
 from SCons.Script import *
-from SCons.Tool.MSCommon.common import debug
+from fermidebug import fdebug
 
-# to see debug messages, set env SCONS_MSCOMMON_DEBUG to something.
+# to see debug messages, set env SCONS_FERMI_DEBUG to something.
 # '-' for printing to console; other value for file
-#debug = common.debug
 
 # Generate project files for each library and executable,
 # and single solution file referencing them all (and also
@@ -71,7 +71,7 @@ def generate(env, **kw):
     
     ourLibSet = set([])
     #print "in makeStudio extlibSet from environement is: ", env['extlibSet']
-    debug("in makeStudio extlibSet from environement is: %s" % str(env['extlibSet']) )
+    fdebug("in makeStudio extlibSet from environement is: %s" % str(env['extlibSet']) )
     cxts = kw.get('libraryCxts','')
     libdirstring = env['LIBDIR']
 
@@ -83,7 +83,7 @@ def generate(env, **kw):
 
     for cxt in cxts:
         #print 'library list in cxt is: ', cxt[0]
-        debug('library list in cxt is: %s ' % cxt[0])
+        fdebug('library list in cxt is: %s ' % cxt[0])
         
         for libentry in cxt[0]:
             myLibName = (os.path.split(libentry.path))[1]
@@ -450,7 +450,7 @@ def generate(env, **kw):
     # to use to look up assoc. libs in libSets
     if len(targetNames) > 0:
         #print 'For package ',pkgname, ' about to make solution file with target count = ', len(targetNames)
-        debug('For package %s  about to make solution file with target count = %s '  % (pkgname, len(targetNames)))
+        fdebug('For package %s  about to make solution file with target count = %s '  % (pkgname, len(targetNames)))
         slnFile=env.MSVSSolution(target=slnTarget, projects=targetNames,
                                  variant=env['VISUAL_VARIANT'], libs=libSets,
                                  installDir=str(env['STUDIODIR']))
@@ -470,5 +470,3 @@ def handleLib(libentry='', libtype=''):
 
 def exists(env):
     return 1;
-
-

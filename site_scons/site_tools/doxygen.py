@@ -2,10 +2,11 @@
 import os,re,commands
 import SCons.Builder
 import SCons.Action
+from fermidebug import fdebug
 
 def generate(env, **kw):
     def createDoxygen(target = None, source = None, env = None):
-        #print "Creating Doxygen configuration for '%s'" % (source[0])
+        fdebug("Creating Doxygen configuration for '%s'" % (source[0]))
         defaultDoxy = open(source[0].abspath).read()
         defaultDoxy = defaultDoxy.replace("${PROJECT-NAME}", os.path.splitext(os.path.split(target[0].abspath)[1])[0])
         sconscript = open(source[1].abspath).read();
