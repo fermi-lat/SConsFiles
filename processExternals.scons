@@ -1,9 +1,13 @@
 # -*- python -*-                                                                                                                                                                                         
 import os
+from fermidebug import fdebug
 
 Import('usedExternals')
 Import('allExternals')
 Import('baseEnv')
+
+# Need list of external include paths to append to rootcint commands
+extIncludes = []
 
 # Needed on Windows when creating project and solution files.  Filled in
 # setupEnvironment below
@@ -89,6 +93,8 @@ def setupEnvironment(configuredExternal):
     #Also for Windows only fill extlibSet data structure  (jrb addition)
     if 'include-path' in configuredExternal:
         baseEnv.AppendUnique(CPPPATH = [configuredExternal['include-path']])
+        fdebug('adding path for configuredExternal to extIncludes')
+        extIncludes.append(configuredExternal['include-path'])
     if 'include-path2' in configuredExternal:
         baseEnv.AppendUnique(CPPPATH = [configuredExternal['include-path2']])
     if 'lib-path' in configuredExternal:
@@ -174,6 +180,12 @@ def setupRoot(configuredExternal):
         for header in env['includes']:
             if header != '':
                 root_headers += ' -I'+str(buildlocation.rel_path(Dir(header)))
+
+        # Also add include paths for externals. They're abs. paths
+        for extpath in extIncludes:
+            if extpath != '':
+                root_headers += ' -I'+str(extpath)
+                
         sources = ''
         for file in source:
             sources += ' '+str(buildlocation.rel_path(file))
@@ -181,7 +193,8 @@ def setupRoot(configuredExternal):
         execute += os.path.join(configuredExternal['bin-path'], 'rootcint')
         execute += ' -f '
         execute += str(buildlocation.rel_path(target[0]))
-        execute += ' -c'
+        #execute += ' -c'
+        execute += ' -c -p'
         execute += root_headers
         execute += sources
         return execute
