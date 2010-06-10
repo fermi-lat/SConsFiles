@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-05-04 10-Jun-2010    jrb include external include paths in rootcint command
  SConsFiles-00-05-03 07-Jun-2010    jrb Better scheme for debug output; backwards compatible with SCons 1.2.0 on non-Windows platforms
  SConsFiles-00-05-02 04-Jun-2010    jrb Bug fixes for project file-generating code
  SConsFiles-00-05-01 19-Apr-2010    jrb Keep most of msvs.py from being parsed on non-Windows platforms
