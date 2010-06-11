@@ -172,7 +172,7 @@ def setupRoot(configuredExternal):
     def rootcintGenerator(source,target,env,for_signature):
         buildlocation = Dir(str(target[0].dir)+'/..') 
         
-        root_headers = ' -I../../../include'
+        root_headers = ' -I' + str(buildlocation.rel_path(Dir('#/include')))
         supersede = baseEnv.GetOption('supersede')
         if supersede != '.':
             root_headers = ' -I' + supersede + root_headers
