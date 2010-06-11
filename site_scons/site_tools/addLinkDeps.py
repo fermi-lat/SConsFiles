@@ -1,11 +1,11 @@
-#$Id: $
+#$Id: addLinkDeps.py,v 1.1 2010/02/24 18:20:05 jrb Exp $
 import os,platform
 ## Add library dependencies or not, as appropriate for item to be built
 ## Keyword args are
 ##   package
 ##   toolname  (one of package, toolname must be present)
 ##   toBuild   (recognized values include 'static', 'shared',
-##              'component', 'swig', 'rootLib', and 'program'.
+##              'component', 'swig', 'rootlib', and 'program'.
 ##              Defaults to 'program')
 ##   depsOnly   (only acknowledged if toBuild == 'swig')
 def generate(env, **kw):
