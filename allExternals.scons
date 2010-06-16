@@ -261,13 +261,15 @@ allExternalLibraries = {
                                    'libraries'    :
                                    { 'rootLibs'    : [ 'Tree', 'Net', 'Gpad', 'Graf', 'RIO', 'Hist', 'Physics', 'Matrix', 'Core', 'Cint', 'MathCore', 'Thread', 'pthread', 'm', 'dl' ],
                                      'rootGuiLibs' : [ 'Rint', 'Postscript', 'TreePlayer', 'Tree', 'Net', 'Graf3d', 'Gui', 'HistPainter', 'Gpad' ],
-                                     'minuitLibs'  : [ 'Minuit2', 'Minuit', 'Graf', 'RIO', 'Hist', 'Matrix', 'Core', 'Cint', 'dl' ]
+                                     'minuitLibs'  : [ 'Minuit2', 'Minuit', 'Graf', 'RIO', 'Hist', 'Matrix', 'Core', 'Cint', 'dl' ],
+                                     'rootTMineLibs' : [ 'TreePlayer', 'XMLIO', 'Ged', 'MLP', 'TMVA', 'Rint', 'Html']
                                    }
                                  },
                      'win32'   : { 'libraries'    :
                                    { 'rootLibs'    : [ 'libCore', 'libCint', 'libRIO', 'libNet', 'libTree', 'libHist','libGraf','libGpad','libMatrix','libPhysics', 'libMathCore', 'libThread'],
                                      'rootGuiLibs' : [ 'libHist', 'libGraf', 'libGraf3d', 'libGpad','libRint', 'libPostscript', 'libTreePlayer', 'libGui', 'libHistPainter' ],
-                                     'minuitLibs'  : [ 'libMinuit2' ]
+                                     'minuitLibs'  : [ 'libMinuit2' ],
+                                     'rootTMineLibs': [ 'libTreePlayer', 'libXMLIO', 'libGed', 'libMLP', 'libTMVA', 'libRint', 'libHtml']
                                    }
                                  },
                      'darwin' : { 'dylib-path' : '$LIB-PATH' }
