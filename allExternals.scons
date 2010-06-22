@@ -458,7 +458,23 @@ allExternalLibraries = {
                   'lib-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION',
                                             '$COMPILER', 'lib', 'Linux-g++'),
                    'ld-path' : '$LIB-PATH'}
-                  }
+                  },
+                '8.0.p01-gl4' :
+                { 'default' :
+                  {'version' : '8.0.p01-gl4',
+                  'includes' : ['G4Version.hh'],
+                  'libraries' :
+                   {'geant4Libs' : ['G4readout','G4run','G4event','G4tracking',
+                                    'G4processes', 'G4digits_hits', 'G4track',
+                                    'G4particles', 'G4geometry','G4materials',
+                                    'G4graphics_reps','G4intercoms','G4global',
+                                    'CLHEP-1.9.2.2']},
+                  'include-path' : os.path.join('$GLAST_EXT','$NAME','$VERSION',
+                                                '$COMPILER', 'include'),
+                  'lib-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION',
+                                            '$COMPILER', 'lib', 'Linux-g++'),
+                   'ld-path' : '$LIB-PATH'}
+                  },
                 },
     'ldf'    : {'v06-02-00' :
                 {'default' :
