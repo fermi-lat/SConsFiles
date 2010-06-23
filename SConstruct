@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.64 2010/06/07 18:53:52 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/GlastRelease-scons/SConstruct,v 1.65 2010/06/10 16:53:21 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu
 # Version: SConsFiles-00-05-04
 
@@ -79,7 +79,6 @@ if baseEnv['PLATFORM'] == "darwin":
         variant+="32bit"
         baseEnv['ARCHNAME'] = '32bit'
 
-#if baseEnv['PLATFORM'] == "win32":
 if sys.platform == "win32":
     variant = platform.release()+"-"+"i386"+"-"+platform.architecture()[0]
     baseEnv['WINDOWS_INSERT_MANIFEST'] = 'true'
@@ -125,21 +124,8 @@ if sys.platform != 'win32':
         baseEnv.AppendUnique(LINKFLAGS = ['-m64'])
 
 
-#if baseEnv['PLATFORM'] == "win32":
 if sys.platform == "win32":
-    # Don't think this is needed anymore.  No use of msvs in SConstruct
-    #Uncomment next line when local msvs is installed
-    ###import msvs
-    ### in older SConsFiles versions
-    #import SCons.Tool.msvs as msvs
-    #num,suite = msvs.msvs_parse_version(baseEnv['MSVS_VERSION'])
     compiler = 'vc'+''.join(str(vccmp).split('.')[0:2])
-    # visual_variant will be used as working directory in VS project files
-    #baseEnv.Tool('mssdk')
-    #baseEnv.Tool('mslib')
-    #baseEnv.Tool('msvs')
-    #baseEnv.Tool('msvc')
-    #baseEnv.Tool('mslink')
     visual_variant = "Visual-" + compiler
 else:
     compiler = 'gcc'+''.join(baseEnv['CXXVERSION'].split('.')[0:2])
@@ -148,7 +134,6 @@ baseEnv['COMPILERNAME'] = compiler
 variant += "-" + compiler
 
 if baseEnv.GetOption('debug'):
-    #if baseEnv['PLATFORM'] == 'win32':
     if sys.platform == 'win32':
         baseEnv.AppendUnique(CPPDEFINES = ['_DEBUG'])
         baseEnv.AppendUnique(CCFLAGS = '/Od')
@@ -159,7 +144,6 @@ if baseEnv.GetOption('debug'):
     
 if baseEnv.GetOption('opt'):
     if sys.platform == 'win32':
-    #if baseEnv['PLATFORM'] == 'win32':
         baseEnv.AppendUnique(CCFLAGS = "/O2")
         visual_variant += "-Optimized"
     else:
@@ -349,16 +333,6 @@ if override != '.':
         supersedePrefix = SConscript(os.path.join(override,
                                                   'containerPrefix.scons'))
         supersedeSettingsDir = supersedePrefix + supersedeSettingsDir
-    
-
-#########################
-#  External Libraries   #
-#########################
-allExternals = SConscript('allExternals.scons')
-    
-usedExternals = SConscript(os.path.join(baseSettingsDir, 'externals.scons'),
-                           exports = 'allExternals')
-SConscript('processExternals.scons', exports = 'allExternals usedExternals')
 
 ############################
 # Package Specific Options #
@@ -369,6 +343,17 @@ if os.path.exists(pkgScons):
 else:
     pkgScons = os.path.join(baseSettingsDir, 'package.scons')
     SConscript(pkgScons, exports='pkgScons')
+
+
+#########################
+#  External Libraries   #
+#########################
+allExternals = SConscript('allExternals.scons')
+    
+usedExternals = SConscript(os.path.join(baseSettingsDir, 'externals.scons'),
+                           exports = 'allExternals')
+SConscript('processExternals.scons', exports = 'allExternals usedExternals')
+
 
 
 def listFiles(files, **kw):
