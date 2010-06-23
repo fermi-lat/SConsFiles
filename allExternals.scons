@@ -583,7 +583,6 @@ allExternalLibraries = {
     'mysql'   : {'4.1.18' :
                  {'default' :
                   {'version'      : '4.1.18',
-                   #'includes'     : ['mysql/mysql.h'],
                    'libraries'    : {'mysqlLibs' : ['mysqlclient']},
                    'include-path' : os.path.join('$GLAST_EXT', '$NAME',
                                                 '$VERSION','$COMPILER','include'),
@@ -594,9 +593,9 @@ allExternalLibraries = {
                   {'libraries'    : {'mysqlLibs' : ['libmysql']},
                    'lib-path' : os.path.join('$GLAST_EXT','$NAME','$VERSION',
                                              '$COMPILER', 'lib', 'opt'),
-                   'ld-path'  : '$LIB-PATH'}
-                  },
+                   'ld-path'  : '$LIB-PATH'},
                  'posix' : {'includes' : ['mysql/mysql.h']}
+                  }
                  },
 
     'fsw'     : {'B2-0-0_20090121' :
