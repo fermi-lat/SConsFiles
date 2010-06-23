@@ -273,8 +273,30 @@ allExternalLibraries = {
                                    }
                                  },
                      'darwin' : { 'dylib-path' : '$LIB-PATH' }
+                   },
+                   'v5.26.00a-i1' :
+                   { 'default' : { 'version'      : 'v5.26.00a-gl2',
+                                   'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                   'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                   'ld-path'      : '$LIB-PATH',
+                                   'bin-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'bin'),
+                                   'includes'     : [ 'RVersion.h' ],
+                                   'libraries'    :
+                                   { 'rootLibs'    : [ 'Tree', 'Net', 'Gpad', 'Graf', 'RIO', 'Hist', 'Physics', 'Matrix', 'Core', 'Cint', 'MathCore', 'Thread', 'pthread', 'm', 'dl' ],
+                                     'rootGuiLibs' : [ 'Rint', 'Postscript', 'TreePlayer', 'Tree', 'Net', 'Graf3d', 'Gui', 'HistPainter', 'Gpad' ],
+                                     'minuitLibs'  : [ 'Minuit2', 'Minuit', 'Graf', 'RIO', 'Hist', 'Matrix', 'Core', 'Cint', 'dl' ],
+                                     'rootTMineLibs' : [ 'TreePlayer', 'XMLIO', 'Ged', 'MLP', 'TMVA', 'Rint', 'Html']
+                                   }
+                                 },
+                     'win32'   : { 'libraries'    :
+                                   { 'rootLibs'    : [ 'libCore', 'libCint', 'libRIO', 'libNet', 'libTree', 'libHist','libGraf','libGpad','libMatrix','libPhysics', 'libMathCore', 'libThread'],
+                                     'rootGuiLibs' : [ 'libHist', 'libGraf', 'libGraf3d', 'libGpad','libRint', 'libPostscript', 'libTreePlayer', 'libGui', 'libHistPainter' ],
+                                     'minuitLibs'  : [ 'libMinuit2' ],
+                                     'rootTMineLibs': [ 'libTreePlayer', 'libXMLIO', 'libGed', 'libMLP', 'libTMVA', 'libRint', 'libHtml']
+                                   }
+                                 },
+                     'darwin' : { 'dylib-path' : '$LIB-PATH' }
                    }
-
 
                  },
 
@@ -398,7 +420,23 @@ allExternalLibraries = {
                                  },
                      'vc90'    : { 'version'      : '2.5.1-gl1' },
                      'darwin'  : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.5' ] } }
-                   }
+                   },
+                  '2.6.5' :
+                   { 'default' : { 'version'      : '2.6.5',
+                                   'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include', 'python2.6'),
+                                   'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib', 'python2.6', 'config'),
+                                   'ld-path'      : '$LIB-PATH',
+                                   'bin-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'bin'),
+                                   'includes'     : [ 'Python.h' ],
+                                   'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'util', 'm', 'python2.6' ] }
+                                 },
+                     'win32'   : { 'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                   'lib-path'     : os.path.join('$GLAST_EXT','$NAME','$VERSION', '$COMPILER', 'libs'),
+                                   'libraries'    : { 'pythonLibs' : [ 'python26' ] },
+                                   'ld-path'      : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER')
+                                 },
+                     'darwin'  : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.6' ] } }
+                   } 
                  },
                    
     'f2c'      : { '3.4-gl2' : 
