@@ -478,7 +478,30 @@ allExternalLibraries = {
                                                   'include'),
                     'lib-path' : os.path.join('$GLAST_EXT', '$NAME',
                                               '$VERSION', '$COMPILER', 'lib'),
-                    'ld-path' : '$LIB-PATH'}
+                    'ld-path' : '$LIB-PATH'},
+                  'win32' :
+                  { 'libraries' : {'gaudiLibs' :
+                                   ['GaudiHistory', 'GaudiSvc',
+                                    'boost_filesystem-vc71-mt',
+                                    'boost_filesystem-vc71-mt-1_32',
+                                    'boost_filesystem-vc71-mt-gd',
+                                    'boost_filesystem-vc71-mt-gd-1_32',
+                                    'BoostReflection',
+                                    'libboost_filesystem-vc71-mt',
+                                    'libboost_filesystem-vc71-mt-1_32',
+                                    'libboost_filesystem-vc71-mt-gd',
+                                    'libboost_filesystem-vc71-mt-gd-1_32',
+                                    'libboost_filesystem-vc71-mt-s',
+                                    'libboost_filesystem-vc71-mt-s-1_32',
+                                    'libboost_filesystem-vc71-mt-sgd',
+                                    'libboost_filesystem-vc71-mt-sgd-1_32',
+                                    'libboost_filesystem-vc71-s',
+                                    'libboost_filesystem-vc71-sgd',
+                                    'libboost_filesystem-vc71-sgd-1_32',
+                                    'GaudiAud',
+                                    'GaudiAlg', 'GaudiAlgLib', 'GaudiKernel']},
+                    }
+                  
                 }
               },
     'geant4' : {'8.0.p01-gl2' :
@@ -495,8 +518,19 @@ allExternalLibraries = {
                                                 '$COMPILER', 'include'),
                   'lib-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION',
                                             '$COMPILER', 'lib', 'Linux-g++'),
-                   'ld-path' : '$LIB-PATH'}
-                  },
+                   'ld-path' : '$LIB-PATH'},
+                  'win32' :
+                  { 'libraries' :
+                   {'geant4Libs' :  ['libG4readout','libG4run','libG4event',
+                                     'libG4tracking', 'libG4processes',
+                                     'libG4digits_hits', 'libG4track',
+                                     'libG4particles', 'libG4geometry',
+                                     'libG4materials', 'libG4graphics_reps',
+                                     'libG4intercoms', 'libG4global']},
+                  'lib-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION',
+                                            '$COMPILER', 'lib', 'WIN32-VC')
+                  }
+                },
                 '8.0.p01-gl4' :
                 { 'default' :
                   {'version' : '8.0.p01-gl4',
@@ -538,7 +572,10 @@ allExternalLibraries = {
                                                 '$COMPILER', 'lib'),
                   'test-path'     : os.path.join('$GLAST_EXT','$NAME','$VERSION',
                                                 '$COMPILER', 'test'),
-                  'ld-path' : '$LIB-PATH'}
+                  'ld-path' : '$LIB-PATH'},
+                 'win32'  :
+                 {'cpp-defines' : ['__i386'] }
+                 
                  }
 
                 
@@ -546,18 +583,20 @@ allExternalLibraries = {
     'mysql'   : {'4.1.18' :
                  {'default' :
                   {'version'      : '4.1.18',
-                   'includes'     : ['mysql/mysql.h'],
+                   #'includes'     : ['mysql/mysql.h'],
                    'libraries'    : {'mysqlLibs' : ['mysqlclient']},
                    'include-path' : os.path.join('$GLAST_EXT', '$NAME',
                                                 '$VERSION','$COMPILER','include'),
                    'lib-path'     : os.path.join('$GLAST_EXT','$NAME','$VERSION',
                                                 '$COMPILER', 'lib', 'mysql'),
                    'ld-path' : '$LIB-PATH'},
-                  'win32'   : { 'lib-path' :
-                                os.path.join('$GLAST_EXT','$NAME','$VERSION',
-                                                '$COMPILER', 'lib', 'opt'),
-                                'ld-path'  : '$LIB-PATH'}
-                  }
+                  'win32'   :
+                  {'libraries'    : {'mysqlLibs' : ['libmysql']},
+                   'lib-path' : os.path.join('$GLAST_EXT','$NAME','$VERSION',
+                                             '$COMPILER', 'lib', 'opt'),
+                   'ld-path'  : '$LIB-PATH'}
+                  },
+                 'posix' : {'includes' : ['mysql/mysql.h']}
                  },
 
     'fsw'     : {'B2-0-0_20090121' :
@@ -644,8 +683,18 @@ allExternalLibraries = {
                    'lib-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION',
                                              '$COMPILER', 'lib'),
                    'ld-path'  : '$LIB-PATH'},
-                  },
-                 'win32' : {'version'  : 'B1-1-3' }
+                 'win32' :
+                  {'libraries' : {'obfLibs' : ['lser', 'efc', 'eds',
+                                               #'ths', 'lem_lists', 'lem',
+                                               #'msg_mt', 'trace','msg_st',
+                                               #'ccsds_swap', 'lcbd',
+                                               #'cpu_db_server','lem_db_server',
+                                               'ebfio', #'pbs', 'cdm',
+                                               #'fbs_rtos', 'fbs_swap', 'mdb',
+                                               #'zlib_inflate', 'zlib_compress',
+                                               'cmx_asBuilt']},
+                   }
+                 }
                  },
     'OmniOrb'  : {'4.1.2' :
                   {'default' :
@@ -671,7 +720,13 @@ allExternalLibraries = {
                                                   'include', 'fox-1.4'),
                     'lib-path' : os.path.join('$GLAST_EXT', '$NAME','$VERSION',
                                               '$COMPILER', 'lib'),
-                    'ld-path'  : '$LIB-PATH'}
+                    'ld-path'  : '$LIB-PATH'},
+                   'win32' :
+                   { 'include-path' : os.path.join('$GLAST_EXT', '$NAME',
+                                                   '$VERSION', '$COMPILER',
+                                                   'include'),
+                     'libraries' : {'foxLibs' : ['FOXDLL-1.4']},                     
+                     }
                     }
                    },
 
@@ -684,10 +739,10 @@ allExternalLibraries = {
                                                  '$COMPILER', 'include'),
                    'lib-path'     : os.path.join('$GLAST_EXT','$NAME',
                                                  '$VERSION','$COMPILER', 'lib'),
-                   'lvcd-path' : '$LIB-PATH'}
-                  },
+                   'lvcd-path' : '$LIB-PATH'},
                  'win32' : {'libraries'  : {'zlibLibs' : ['zlib']}}
-                 },
+                 }
+                },
     'x11'     : {'1.0.0' :
                  {'default' :
                   {'version' : '1.0.0',
