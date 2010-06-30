@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-05-06 30-Jun-2010    jrb add ROOT version 5.26.00a-gl3
  SConsFiles-00-05-05 23-Jun-2010    jrb addLinkDeps tool; updates to allExternals for new versions and for GR support; misc. minor changes elsewhere
  SConsFiles-00-05-04 10-Jun-2010    jrb include external include paths in rootcint command
  SConsFiles-00-05-03 07-Jun-2010    jrb Better scheme for debug output; backwards compatible with SCons 1.2.0 on non-Windows platforms
