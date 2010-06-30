@@ -506,26 +506,10 @@ allExternalLibraries = {
                   'win32' :
                   { 'libraries' : {'gaudiLibs' :
                                    ['GaudiHistory', 'GaudiSvc',
-                                    'boost_filesystem-vc71-mt',
                                     'boost_filesystem-vc71-mt-1_32',
-                                    'boost_filesystem-vc71-mt-gd',
-                                    'boost_filesystem-vc71-mt-gd-1_32',
-                                    'BoostReflection',
-                                    'libboost_filesystem-vc71-mt',
-                                    'libboost_filesystem-vc71-mt-1_32',
-                                    'libboost_filesystem-vc71-mt-gd',
-                                    'libboost_filesystem-vc71-mt-gd-1_32',
-                                    'libboost_filesystem-vc71-mt-s',
-                                    'libboost_filesystem-vc71-mt-s-1_32',
-                                    'libboost_filesystem-vc71-mt-sgd',
-                                    'libboost_filesystem-vc71-mt-sgd-1_32',
-                                    'libboost_filesystem-vc71-s',
-                                    'libboost_filesystem-vc71-sgd',
-                                    'libboost_filesystem-vc71-sgd-1_32',
                                     'GaudiAud',
                                     'GaudiAlg', 'GaudiAlgLib', 'GaudiKernel']},
                     }
-                  
                 }
               },
     'geant4' : {'8.0.p01-gl2' :
@@ -598,7 +582,9 @@ allExternalLibraries = {
                                                 '$COMPILER', 'test'),
                   'ld-path' : '$LIB-PATH'},
                  'win32'  :
-                 {'cpp-defines' : ['__i386'] }
+                 {'cpp-defines' : ['__i386'],
+                  'libraries'   : {'ldfLibs' : ['ldf', 'oldnames']} 
+                  }
                  
                  }
 
