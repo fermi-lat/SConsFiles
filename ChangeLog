@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: tstephen  Mon Jul 12 12:20:15 PDT 2010
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+Add ld-path attribute to swig so that the external library distribution package gets built.
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-05-06, operation: add
 Package: SConsFiles
