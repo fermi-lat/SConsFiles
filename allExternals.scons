@@ -699,7 +699,7 @@ allExternalLibraries = {
                                                #'msg_mt', 'trace','msg_st',
                                                #'ccsds_swap', 'lcbd',
                                                #'cpu_db_server','lem_db_server',
-                                               'ebfio', #'pbs', 'cdm',
+                                               'ebfio',  'flight_cdm', #'pbs',
                                                #'fbs_rtos', 'fbs_swap', 'mdb',
                                                #'zlib_inflate', 'zlib_compress',
                                                'cmx_asBuilt']},
