@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Tue Jul 20 17:55:03 PDT 2010
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+on windows must include obf library flight_cdm
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-05-07, operation: add
 Package: SConsFiles
