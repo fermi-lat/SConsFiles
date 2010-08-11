@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Wed Aug 11 10:34:07 PDT 2010
+SConsFiles
+
+Modified Files:
+	SConstruct allExternals.scons processExternals.scons 
+Log Message:
+No variant copies on Windows except by hand for Rootcint packages; set LDF_STATIC macro in allExternals.scons
+    *
+------------------------------------------------------------
 User: jrb  Tue Jul 20 17:55:03 PDT 2010
 SConsFiles
 
