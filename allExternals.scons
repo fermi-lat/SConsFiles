@@ -583,7 +583,7 @@ allExternalLibraries = {
                                                 '$COMPILER', 'test'),
                   'ld-path' : '$LIB-PATH'},
                  'win32'  :
-                 {'cpp-defines' : ['__i386'],
+                 {'cpp-defines' : ['__i386', '_WIN32_LDF_STATIC'],
                   'libraries'   : {'ldfLibs' : ['ldf', 'oldnames']} 
                   }
                  
