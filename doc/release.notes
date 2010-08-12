@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-06-01 11-Aug-2010    jrb Windows: set wrapper lib extension to .pyd; embed manifests; fix path separator for pfiles in _setup.js
  SConsFiles-00-06-00 11-Aug-2010    jrb Modify variant source copy strategy; add LDF_STATIC macro def to allExternals.scons
  SConsFiles-00-05-07 12-Jul-2010 glastrm Tagging version of allExternals.scons that will have the swig distribution package built.
  SConsFiles-00-05-06 30-Jun-2010    jrb add ROOT version 5.26.00a-gl3
