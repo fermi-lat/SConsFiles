@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Wed Aug 11 19:01:27 PDT 2010
+SConsFiles
+
+Modified Files:
+	processExternals.scons 
+Log Message:
+embed manifest; set swig library extension to .pyd on Windows
+    *
+------------------------------------------------------------
 User: jrb  Wed Aug 11 19:00:42 PDT 2010
 SConsFiles/site_scons/site_tools
 
