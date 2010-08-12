@@ -247,7 +247,13 @@ def setupRoot(configuredExternal):
         baseEnv['SHLINKCOM'] = [os.path.join(configuredExternal['bin-path'], "bindexplib.exe") + " -o ${TARGET.base}.def ${TARGET.file} $SOURCES"] + baseEnv['SHLINKCOM']
         baseEnv['SHLINKCOM'].list[1].cmd_list = baseEnv['SHLINKCOM'].list[1].cmd_list.rstrip('" )}')
         baseEnv['SHLINKCOM'].list[1].cmd_list += " $DEFGENERATOR\")}"
-        
+        if baseEnv['COMPILERNAME'] == 'vc80' or baseEnv['COMPILERNAME'] == 'vc90':
+            baseEnv['MT'] = 'mt'
+            baseEnv['MTFLAGS'] = '-hashupdate -makecdfs -manifest'
+            orig_link = baseEnv['LINKCOM']
+            baseEnv['LINKCOM'] = [orig_link, '$MT $MTFLAGS ${TARGET}.manifest -outputresource:$TARGET']
+            orig_shlink = baseEnv['SHLINKCOM']
+            baseEnv['SHLINKCOM'] = orig_shlink + ['$MT $MTFLAGS ${TARGET}.manifest -outputresource:$TARGET;#2']
     def RootDynamicLibrary(env, program, sources):
         if env['PLATFORM'] == 'win32':
             return env.SharedLibrary(program, sources)
@@ -281,7 +287,7 @@ def setupSwig(configuredExternal):
             env['LINKFLAGS'] = flags
             while env['CPPDEFINES'].count('_DEBUG') > 0:
                 env['CPPDEFINES'].remove('_DEBUG')
-            return env.SharedLibrary(program, sources)
+            return env.SharedLibrary(program, sources, SHLIBSUFFIX='.pyd')
         else:
             env.AppendUnique(SHLINKFLAGS = ['-rdynamic'])
             return env.LoadableModule(program, sources)
