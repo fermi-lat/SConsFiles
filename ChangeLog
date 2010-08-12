@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Wed Aug 11 19:00:42 PDT 2010
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	generateScript.py 
+Log Message:
+fix pfile path separator for Windows setup
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-06-00, operation: add
 Package: SConsFiles
