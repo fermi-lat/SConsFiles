@@ -193,8 +193,8 @@ procEnv("PATH") = ${REPLACE-PATHS} + ";" + procEnv.item("PATH");
 procEnv("PATH") = procEnv.item("PATH") + ";" + ${REPLACE-LIBDIRS};
 
 var fileSystem = WScript.CreateObject("Scripting.FileSystemObject");
-if(!fileSystem.FolderExists(procEnv.item("HOMEDRIVE") + procEnv.item("HOMEPATH") + "\\pfiles")){
-  fileSystem.CreateFolder(procEnv.item("HOMEDRIVE") + procEnv.item("HOMEPATH") + "\\pfiles");
+if(!fileSystem.FolderExists(procEnv.item("HOMEDRIVE") + procEnv.item("HOMEPATH") + "\\\\pfiles")){
+  fileSystem.CreateFolder(procEnv.item("HOMEDRIVE") + procEnv.item("HOMEPATH") + "\\\\pfiles");
 }
 locpfiles = ""
 syspfiles = ""
@@ -207,7 +207,7 @@ if(procEnv.item("PFILES") != ""){
   syspfiles = syspfiles.replace("|", "");
 }
 if(locpfiles == ""){
-  locpfiles = procEnv.item("HOMEDRIVE") + procEnv.item("HOMEPATH") + "\\pfiles";
+  locpfiles = procEnv.item("HOMEDRIVE") + procEnv.item("HOMEPATH") + "\\\\pfiles";
 }
 else{
   locpfiles = (";" + locpfiles + ";").replace(";" + procEnv.item("HOMEDRIVE") + procEnv.item("HOMEPATH"), ";");
