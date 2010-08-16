@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Mon Aug 16 11:25:09 PDT 2010
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	msvs.py 
+Log Message:
+1. Get rid of /TP compile option 2. Give build logs unique names
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-06-01, operation: add
 Package: SConsFiles
