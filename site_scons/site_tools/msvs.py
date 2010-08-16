@@ -1,4 +1,4 @@
-#  $Id: $
+#  $Id: msvs.py,v 1.5 2010/06/07 18:40:38 jrb Exp $
 """ Site-specific msvs, from SCons.Tool.msvs
 
     27 Feb  Get rid of some stuff which I don't think is being used
@@ -396,6 +396,8 @@ V8DSPConfiguration_header = """\
 \t\t<Configuration
 \t\t\tName="%(variant)s|Win32"
 \t\t\tConfigurationType="%(confType)s"
+\t\t\tIntermediateDirectory="$(ConfigurationName)"
+\t\t\tBuildLogFile="$(IntDir)\%(name)sBuildLog.htm"
 \t\t\tOutputDirectory="%(outdir)s"
 \t\t\tUseOfMFC="0"
 \t\t\tATLMinimizesCRunTimeLibraryUsage="false"
@@ -509,7 +511,10 @@ class _GenerateV7DSP(_DSPGenerator):
             self.vsOptimize               = "0"
             self.confType                 = 0    # init to unknown
 
-            self.moreCompileOptions = self.env.subst('$CXXFLAGS $CCFLAGS $_CCCOMCOM')
+            #self.moreCompileOptions = self.env.subst('$CXXFLAGS $CCFLAGS $_CCCOMCOM')
+            # Take out $CXXFLAGS since options accumulated here will be applied
+            # to all compiles and may not be appropriate for .c
+            self.moreCompileOptions = self.env.subst('$CCFLAGS $_CCCOMCOM')
             if env.has_key('buildtarget') and env['buildtarget'] != None:
                 buildt = [self.env.File(env['buildtarget'])]
                 cmps = (env['buildtarget']).split('.')
@@ -775,6 +780,7 @@ class _GenerateV7DSP(_DSPGenerator):
 
         confkeys = self.configs.keys()
         confkeys.sort()
+        name = self.name
         for kind in confkeys:
             variant = self.configs[kind].variant
             platform = self.configs[kind].platform
@@ -811,6 +817,7 @@ class _GenerateV7DSP(_DSPGenerator):
             elif self.linkfileext == "exe":
                 confType = 1
 
+            print "About to write V8DSPConfigure_header"
             self.file.write(self.dspconfiguration_header % locals())
 
 
