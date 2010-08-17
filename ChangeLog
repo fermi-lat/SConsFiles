@@ -1,4 +1,16 @@
 ------------------------------------------------------------
+User: jrb  Tue Aug 17 14:09:25 PDT 2010
+SConsFiles/scripts
+
+Added Files:
+	pfiles_setup.csh pfiles_setup.sh 
+Log Message:
+Add scripts directory for ancillary command-line scripts.  
+In this case, scripts do set-up of pfiles.  Will be installed
+as part of build when appropriate.
+
+    *
+------------------------------------------------------------
 User: jrb  Tue Aug 17 14:04:39 PDT 2010
 SConsFiles/scripts
 
