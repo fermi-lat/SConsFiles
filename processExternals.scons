@@ -204,9 +204,6 @@ def setupRoot(configuredExternal):
                             head = ""
                         cmps.append(tail)
                     cmps.reverse()
-                    if pkg == "calibTkrUtil":
-                        print "filestr is ", filestr
-                        print "cmps are: ", cmps
                     pindex = cmps.index(pkg)
                     dest = str(buildlocation)
                     (d, f) = os.path.split(dest)
