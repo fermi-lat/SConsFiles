@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Tue Aug 17 15:47:55 PDT 2010
+SConsFiles
+
+Modified Files:
+	processExternals.scons 
+Log Message:
+eliminate old debug prints
+    *
+------------------------------------------------------------
 User: jrb  Tue Aug 17 14:11:49 PDT 2010
 SConsFiles/scripts
 
