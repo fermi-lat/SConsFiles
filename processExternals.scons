@@ -328,7 +328,14 @@ for configuredExternal in configuredExternals:
 if baseEnv.GetOption('rm'):
     print "scons: printing external libraries"
     for configuredExternal in configuredExternals:
+        doprint = False
         if 'ld-path' in configuredExternal:
-            print configuredExternal['name']+' '+configuredExternal['version']+' '+configuredExternal['ld-path'].replace(baseEnv['GLASTEXTvalue'], '$GLAST_EXT')
+            doprint = True
+            pth = 'ld-path'
+        elif 'bin-path' in configuredExternal:
+            doprint = True
+            pth = 'bin-path'
+        if doprint == True:
+            print configuredExternal['name']+' '+configuredExternal['version']+' '+configuredExternal[pth].replace(baseEnv['GLASTEXTvalue'], '$GLAST_EXT')
     print "scons: done printing external libraries"
     
