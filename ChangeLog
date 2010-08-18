@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Tue Aug 17 17:28:37 PDT 2010
+SConsFiles
+
+Modified Files:
+	allExternals.scons processExternals.scons 
+Log Message:
+print externals if ld-path or bin-path defined; no more need for swig ld-path
+    *
+------------------------------------------------------------
 User: jrb  Tue Aug 17 15:47:55 PDT 2010
 SConsFiles
 
