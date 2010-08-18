@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Tue Aug 17 17:33:13 PDT 2010
+SConsFiles/shellscripts
+
+Added Files:
+	pfiles_setup.bat pfiles_setup.csh pfiles_setup.sh 
+Log Message:
+ shellscripts is a clearer name for subdirectory
+
+    *
+------------------------------------------------------------
 User: jrb  Tue Aug 17 17:33:12 PDT 2010
 SConsFiles/scripts
 
