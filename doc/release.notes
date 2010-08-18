@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-06-03 17-Aug-2010    jrb 1. eliminate ld-path in swig external; write out externals if ld-path or bin-path defined. 2. Add a place to keep os-dependent fixed scripts needed to create _setup
  SConsFiles-00-06-02 16-Aug-2010    jrb Fix a couple things in generated project files
  SConsFiles-00-06-01 11-Aug-2010    jrb Windows: set wrapper lib extension to .pyd; embed manifests; fix path separator for pfiles in _setup.js
  SConsFiles-00-06-00 11-Aug-2010    jrb Modify variant source copy strategy; add LDF_STATIC macro def to allExternals.scons
