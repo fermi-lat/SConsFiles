@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.73 2010/08/16 18:28:05 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.74 2010/08/18 00:35:24 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu
 # Version: SConsFiles-00-06-03
 
@@ -291,15 +291,17 @@ if baseEnv.GetOption('sourceRelease'):
     #if baseEnv['PLATFORM'] != 'win32':
     if sys.platform != 'win32':
         baseEnv['TARFLAGS']+=' -z'
-        for exclude in (baseEnv['BINDIR'].path, baseEnv['SCRIPTDIR'].path, baseEnv['INCDIR'].path, baseEnv['PFILESDIR'].path, baseEnv['JODIR'].path,
-                        baseEnv['DATADIR'].path, baseEnv['XMLDIR'].path, baseEnv['TOOLDIR'].path, baseEnv['TESTDIR'].path,
-                        baseEnv['TESTSCRIPTDIR'].path, baseEnv['PYTHONDIR'].path, baseEnv['LIBDIR'].path, 'build'):
+        for exclude in (baseEnv['BINDIR'].path, baseEnv['SCRIPTDIR'].path,
+                        baseEnv['TOOLDIR'].path, baseEnv['TESTDIR'].path,
+                        baseEnv['TESTSCRIPTDIR'].path,
+                        baseEnv['LIBDIR'].path, 'build','"*.tar.gz"'):
             baseEnv['TARFLAGS']+='--exclude '+exclude
         baseEnv.Default(baseEnv.Tar(baseEnv.GetOption('sourceRelease'), glob.glob('*')))
     else:
-        for exclude in (baseEnv['BINDIR'].path, baseEnv['SCRIPTDIR'].path, baseEnv['INCDIR'].path, baseEnv['PFILESDIR'].path, baseEnv['JODIR'].path,
-                                                baseEnv['DATADIR'].path, baseEnv['XMLDIR'].path, baseEnv['TOOLDIR'].path, baseEnv['TESTDIR'].path,
-                        baseEnv['TESTSCRIPTDIR'].path, baseEnv['PYTHONDIR'].path, baseEnv['LIBDIR'].path, 'build'):
+        for exclude in (baseEnv['BINDIR'].path, baseEnv['SCRIPTDIR'].path,
+                        baseEnv['TOOLDIR'].path, baseEnv['TESTDIR'].path,
+                        baseEnv['TESTSCRIPTDIR'].path, baseEnv['LIBDIR'].path,
+                        'build', '"*.zip"'):
             baseEnv['ZIPFLAGS']+='-x '+exclude
         baseEnv.Default(baseEnv.Zip(baseEnv.GetOption('sourceRelease'), glob.glob('*')))
     Return()
