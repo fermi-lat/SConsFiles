@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu Sep  2 13:32:42 PDT 2010
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+(for Eric Wallace) add extra include path for python to access numpy includes
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-06-03, operation: add
 Package: SConsFiles
