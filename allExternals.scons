@@ -447,7 +447,8 @@ allExternalLibraries = {
                    },
                   '2.6.5' :
                    { 'default' : { 'version'      : '2.6.5',
-                                   'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include', 'python2.6'),
+                                   'include-path' : [os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include', 'python2.6'),
+                                                     os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib', 'python2.6','site-packages','numpy','core','include')],
                                    'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib', 'python2.6', 'config'),
                                    'ld-path'      : '$LIB-PATH',
                                    'bin-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'bin'),
