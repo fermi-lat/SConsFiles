@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu Sep  2 13:34:13 PDT 2010
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Fix source dist creation bugs
+    *
+------------------------------------------------------------
 User: jrb  Thu Sep  2 13:32:42 PDT 2010
 SConsFiles
 
