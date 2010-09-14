@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Tue Sep 14 10:37:24 PDT 2010
+SConsFiles
+
+Modified Files:
+	processExternals.scons 
+Log Message:
+export obfLdPath so that facilities pkg can get to it
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-06-04, operation: add
 Package: SConsFiles
