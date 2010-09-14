@@ -298,6 +298,9 @@ def setupPython(configuredExternal):
 
 def setupLdf(configuredExternal):
     baseEnv['ldfTestPath'] = configuredExternal['test-path']
+
+def setupObf(configuredExternal):
+    baseEnv['obfLdPath'] = configuredExternal['ld-path']
     
 #This variable holds are external library hashes once they are fully configured
 configuredExternals = []
@@ -316,6 +319,8 @@ for external in usedExternals:
         setupPython(configuredExternal)
     if external['name'] == 'ldf':
         setupLdf(configuredExternal)
+    if external['name'] == 'obf':
+        setupObf(configuredExternal)
     configuredExternal['name'] = external['name']
     configuredExternals.append(configuredExternal)
 
