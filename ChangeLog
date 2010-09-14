@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Tue Sep 14 12:52:22 PDT 2010
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+include list in python external causes problems for rootcint
+    *
+------------------------------------------------------------
 User: jrb  Tue Sep 14 10:37:24 PDT 2010
 SConsFiles
 
