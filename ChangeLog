@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu Sep 23 15:50:16 PDT 2010
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add new entry for obf referring to gl6
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-06-05, operation: add
 Package: SConsFiles
