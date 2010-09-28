@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Tue Sep 28 10:54:37 PDT 2010
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	generateScript.py 
+Log Message:
+changes to _setup files
+    *
+------------------------------------------------------------
 User: jrb  Tue Sep 28 10:54:36 PDT 2010
 SConsFiles
 
