@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Tue Sep 28 10:54:36 PDT 2010
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+changes to _setup files
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-06-06, operation: add
 Package: SConsFiles
