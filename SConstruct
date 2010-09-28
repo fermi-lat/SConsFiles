@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.77 2010/09/14 19:55:52 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.73 2010/08/16 18:28:05 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu
 # Version: SConsFiles-00-06-06
 
@@ -288,19 +288,18 @@ if baseEnv.GetOption('userRelease'):
     Return()
 
 if baseEnv.GetOption('sourceRelease'):
-    #if baseEnv['PLATFORM'] != 'win32':
     if sys.platform != 'win32':
         baseEnv['TARFLAGS']+=' -z'
         for exclude in (baseEnv['BINDIR'].path, baseEnv['SCRIPTDIR'].path,
                         baseEnv['TOOLDIR'].path, baseEnv['TESTDIR'].path,
-                        baseEnv['TESTSCRIPTDIR'].path,
+                        baseEnv['TESTSCRIPTDIR'].path, 
                         baseEnv['LIBDIR'].path, 'build','"*.tar.gz"'):
             baseEnv['TARFLAGS']+='--exclude '+exclude
         baseEnv.Default(baseEnv.Tar(baseEnv.GetOption('sourceRelease'), glob.glob('*')))
     else:
-        for exclude in (baseEnv['BINDIR'].path, baseEnv['SCRIPTDIR'].path,
+        for exclude in (baseEnv['BINDIR'].path, baseEnv['SCRIPTDIR'].path, 
                         baseEnv['TOOLDIR'].path, baseEnv['TESTDIR'].path,
-                        baseEnv['TESTSCRIPTDIR'].path, baseEnv['LIBDIR'].path,
+                        baseEnv['TESTSCRIPTDIR'].path, baseEnv['LIBDIR'].path, 
                         'build', '"*.zip"'):
             baseEnv['ZIPFLAGS']+='-x '+exclude
         baseEnv.Default(baseEnv.Zip(baseEnv.GetOption('sourceRelease'), glob.glob('*')))
@@ -416,6 +415,31 @@ if not baseEnv.GetOption('help'):
 
     Export('packages')
 
+
+# To create _setup anad wrappers
+    if sys.platform == 'win32':
+        pfilesSetup = baseEnv.Install(baseEnv['SCRIPTDIR'],
+                                      [os.path.join('shellscripts',
+                                                    'pfiles_setup.bat')])
+    else:
+        pfilesSetup = baseEnv.Install(baseEnv['SCRIPTDIR'],
+                                      [os.path.join('shellscripts',
+                                                    'pfiles_setup.sh'),
+                                       os.path.join('shellscripts',
+                                                    'pfiles_setup.csh')])
+    
+        
+    setupScript = baseEnv.GenerateSetupScript(os.path.join(str(baseEnv['SCRIPTDIR']),
+                                                       "_setup"))
+    if  'usePfiles' in baseEnv:
+        baseEnv.Depends(setupScript, pfilesSetup)
+
+    baseEnv.Default(setupScript)
+    baseEnv.Alias('all', setupScript)
+    baseEnv.Alias('setup', setupScript)
+    baseEnv['setupTarget'] = setupScript
+
+
     if sys.platform == 'win32':        dup = 0
     else: dup = 1                          # using sym links 
     
@@ -432,10 +456,7 @@ if not baseEnv.GetOption('help'):
     if baseEnv.GetOption('clean'):
         baseEnv.Default('test')
 
-setupScript = baseEnv.GenerateSetupScript()
-baseEnv.Default(setupScript)
-baseEnv.Alias('all', setupScript)
-baseEnv.Alias('setup', setupScript)
+
 
 def print_build_failures():
     from SCons.Script import GetBuildFailures
