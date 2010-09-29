@@ -111,25 +111,17 @@ def resolve_nfs_path(path):
 ## Fill contents of wrapper scripts and setup script for an SCons installation
 def fillScript(scriptFile, env, wrapper, script, executable):
     finalScript = script.get_contents()
-    
+
     if env['PLATFORM'] == 'win32':
-
         separator= ';'
-
-        #none of the rest of this is used until the else:
-        def replaceBackslash(a): return a.replace('\\', '\\\\')
-        def replaceGlastExt(a):
-            a.replace('$GLAST_EXT', '%GLAST_EXT%')
-            return a
-        def replaceInstDir(a):
-            a.replace('$INST_DIR', '%INST_DIR%')
-            return a
-        def replaceBaseDir(a):
-            a.replace('$BASE_DIR', '%BASE_DIR%')
-            return a
-        def quoteEncapsulate(a): return '"'+a+'"'
+        bs = '%BASE_DIR%'
+        inst = '%INST_DIR%'
     else:
         separator = ':'
+        bs='$BASE_DIR'
+        inst='$INST_DIR'
+
+    scriptdir = os.path.join(inst, 'bin', env['VARIANT'])
 
     if env.GetOption('supersede') != '.':
 	basedirAbs = env.Dir('.').abspath
@@ -137,15 +129,8 @@ def fillScript(scriptFile, env, wrapper, script, executable):
             basedirAbs = resolve_nfs_path(basedirAbs)
 	finalScript = finalScript.replace('${REPLACE-BASEDIR}', '"' + basedirAbs+ '"')
     else:
-        if env['PLATFORM'] == 'win32':
-            finalScript = finalScript.replace('${REPLACE-BASEDIR}',
-                                              '%INST_DIR%')
-            scriptdir = os.path.join('%INST_DIR%', 'bin', env['VARIANT'])
-
-        else:
-            finalScript = finalScript.replace('${REPLACE-BASEDIR}', '$INST_DIR')
-            scriptdir = os.path.join('$INST_DIR', 'bin', env['VARIANT'])
-
+        finalScript - finalScript.replace('${REPLACE-BASEDIR}', inst)
+        
     # Handle pfiles setup
     if 'usePfiles' in env:
         if env['PLATFORM'] == 'win32':
@@ -166,12 +151,6 @@ def fillScript(scriptFile, env, wrapper, script, executable):
     # Handle SCRIPTDIR references
     finalScript = finalScript.replace('${REPLACE-SCRIPTDIR}', scriptdir)
 
-    if env['PLATFORM'] != 'win32':
-        bs='$BASE_DIR'
-        inst='$INST_DIR'
-    else:
-        bs = '%BASE_DIR%'
-        inst = '%INST_DIR%'
     #Set up LD_LIBRARY_PATH and DYLD_LIBRARY_PATH
     ldLibraryPath = [ os.path.join(inst, relpath(env.Dir(env.GetOption('supersede')).abspath, env['LIBDIR'].abspath))]
     ldLibraryPath.append(os.path.join(bs, 'lib', env['VARIANT']))
