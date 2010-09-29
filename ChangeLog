@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Wed Sep 29 16:33:16 PDT 2010
+SConsFiles/site_scons/site_tools
+
+Removed Files:
+	registerObjects.py 
+Log Message:
+remove obsolete tool
+    *
+------------------------------------------------------------
 User: jrb  Wed Sep 29 16:32:51 PDT 2010
 SConsFiles/site_scons/site_tools
 
