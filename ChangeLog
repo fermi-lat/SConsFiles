@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Wed Sep 29 16:32:51 PDT 2010
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	generateScript.py 
+Log Message:
+bug fix for use-pfiles/supersede; clean up
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-07-00, operation: add
 Package: SConsFiles
