@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-07-02 30-Sep-2010    jrb Fix typo in generateScript.py
  SConsFiles-00-07-01 29-Sep-2010    jrb bug fix, clean-up for generateScript; remove obs. tool registerObjects
  SConsFiles-00-07-00 28-Sep-2010    jrb New _setup arrangement: 1. Simplified pfiles 2. pfiles switch per container 3. use .bat on Windows
  SConsFiles-00-06-06 23-Sep-2010    jrb add new iversion of obf external
