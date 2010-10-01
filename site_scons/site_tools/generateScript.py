@@ -129,7 +129,7 @@ def fillScript(scriptFile, env, wrapper, script, executable):
             basedirAbs = resolve_nfs_path(basedirAbs)
 	finalScript = finalScript.replace('${REPLACE-BASEDIR}', '"' + basedirAbs+ '"')
     else:
-        finalScript - finalScript.replace('${REPLACE-BASEDIR}', inst)
+        finalScript = finalScript.replace('${REPLACE-BASEDIR}', inst)
         
     # Handle pfiles setup
     if 'usePfiles' in env:
