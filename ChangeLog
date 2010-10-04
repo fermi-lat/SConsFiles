@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Mon Oct  4 12:13:18 PDT 2010
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add win32-specific definition of geant4Libs to 8.0.p01-gl4
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-07-02, operation: add
 Package: SConsFiles
