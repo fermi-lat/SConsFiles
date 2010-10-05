@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Tue Oct  5 11:15:00 PDT 2010
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	generateScript.py 
+Log Message:
+Include ext. bin directories in path on Windows
+    *
+------------------------------------------------------------
 User: jrb  Mon Oct  4 12:13:18 PDT 2010
 SConsFiles
 
