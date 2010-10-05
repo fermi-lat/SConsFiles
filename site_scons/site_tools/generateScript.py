@@ -70,7 +70,7 @@ ${REPLACE-WRAPPER-SCRIPT}
 
 set BASE_DIR=${REPLACE-BASEDIR}
 
-set PATH=${REPLACE-LIBDIRS};%PATH%
+set PATH=${REPLACE-PATHS};%PATH%
 set PATH=%PATH%;${REPLACE-LIBDIRS}
 
 set ROOTSYS=${REPLACE-ROOTSYS}
@@ -112,6 +112,7 @@ def resolve_nfs_path(path):
 def fillScript(scriptFile, env, wrapper, script, executable):
     finalScript = script.get_contents()
 
+    inst = ''
     if env['PLATFORM'] == 'win32':
         separator= ';'
         bs = '%BASE_DIR%'
@@ -129,6 +130,7 @@ def fillScript(scriptFile, env, wrapper, script, executable):
             basedirAbs = resolve_nfs_path(basedirAbs)
 	finalScript = finalScript.replace('${REPLACE-BASEDIR}', '"' + basedirAbs+ '"')
     else:
+        print "inst is ", inst
         finalScript = finalScript.replace('${REPLACE-BASEDIR}', inst)
         
     # Handle pfiles setup
