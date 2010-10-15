@@ -328,8 +328,6 @@ def setupGaudi(configuredExternal):
 
             # env['LIBPATH'] should be list of dirs to search
             newpathlist = [str(p) for p in env['LIBPATH'] ]
-            
-            newpaths = (os.pathsep).join(newpathlist)
 
             if env['PLATFORM'] == 'win32': libpathname = 'PATH'
             elif env['PLATFORM'] == 'posix' : libpathname = 'LD_LIBRARY_PATH'
@@ -339,7 +337,17 @@ def setupGaudi(configuredExternal):
             if libpathname in env:
                 orig = str(env[libpathname])
                 
-            for p in env['LIBPATH']: env.PrependENVPath(libpathname, str(p))
+            for p in env['LIBPATH']: 
+                e = str(p)
+                # On windows also need xerces ld-path which is not the same as lib-path
+                # Do an ugly thing here:  look for xerces entry; replace 'lib' with 'bin'
+                if env['PLATFORM'] == 'win32':
+                    if e.find('xerces') > -1 : 
+                        print "found xerces"
+                        e = e.replace('lib', 'bin')
+                        print "result after replace: ", e
+
+                env.PrependENVPath(libpathname, e)
 
             rootmap = env.Rootmap(target=lb, source=cmplib)
 
