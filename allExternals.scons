@@ -539,8 +539,8 @@ allExternalLibraries = {
                                     'boost_system-$COMPILER-mt-1_39',
                                     'boost_filesystem-$COMPILER-mt-1_39',
                                     'boost_regex-$COMPILER-mt-1_39',
-                                    'boost_data_time-$COMPILER-mt-1_39',
-                                    'uuid', 'Reflex']},
+                                    'boost_date_time-$COMPILER-mt-1_39',
+                                    'uuid', 'libReflex']},
                     }
                   }
               },
