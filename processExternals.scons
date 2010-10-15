@@ -139,6 +139,7 @@ def checkEnvironment(configuredExternal):
     if 'libraries' in configuredExternal:
         for libGroup in configuredExternal['libraries']:
             for library in configuredExternal['libraries'][libGroup][::-1]:
+                library = replace(library, '$COMPILER', baseEnv['COMPILERNAME'])
                 if not conf.CheckLib(library, language='C++'):
                     print 'Unable to find a library for '+configuredExternal['name']+'. See config.log for more details.'
                     Exit(1)
@@ -290,7 +291,47 @@ def setupSwig(configuredExternal):
             return env.LoadableModule(program, sources)
 
     baseEnv.AddMethod(SwigLibrary)
-                                                                                                                    
+
+def setupGaudi(configuredExternal):
+    if configuredExternal['version'][0:3] == 'v18':
+        def ComponentLibrary(env, lb, sources, **args):
+            if env['PLATFORM'] == 'win32':
+                return env.SharedLibrary(lb, sources, **args)
+            else:
+                return env.LoadableModule('lib' + lb, sources, **args)
+        
+    else:
+        rootmapBuilder = Builder(action=['genmap -i ${SOURCE} -o ${TARGET}'],
+                                 suffix='rootmap', prefix='$SHLIBPREFIX',
+                                 src_suffix='$SHLIBSUFFIX')
+        baseEnv.Append(BUILDERS = {'Rootmap' : rootmapBuilder})
+
+        def ComponentLibrary(env, lb, sources, **args):
+            if env['PLATFORM'] == 'win32':
+                cmplib = env.SharedLibrary(lb, sources, **args)
+            else:
+                cmplib = env.LoadableModule('lib' + lb, sources, **args)
+
+            # env['LIBPATH'] should be list of dirs to search
+            newpathlist = [str(p) for p in env['LIBPATH'] ]
+            
+            newpaths = (os.pathsep).join(newpathlist)
+
+            if env['PLATFORM'] == 'win32': libpathname = 'PATH'
+            elif env['PLATFORM'] == 'posix' : libpathname = 'LD_LIBRARY_PATH'
+            else: libpathname = 'DYLD_LIBRARY_PATH'
+            
+            orig = ''
+            if libpathname in env:
+                orig = str(env[libpathname])
+                
+            for p in env['LIBPATH']: env.PrependENVPath(libpathname, str(p))
+
+            rootmap = env.Rootmap(target=lb, source=cmplib)
+
+            return Flatten([cmplib, rootmap])
+        
+    baseEnv.AddMethod(ComponentLibrary)
 
 def setupPython(configuredExternal):
     if baseEnv['PLATFORM'] == 'darwin':
@@ -321,6 +362,8 @@ for external in usedExternals:
         setupLdf(configuredExternal)
     if external['name'] == 'obf':
         setupObf(configuredExternal)
+    if external['name'] == 'gaudi':
+        setupGaudi(configuredExternal)
     configuredExternal['name'] = external['name']
     configuredExternals.append(configuredExternal)
 
