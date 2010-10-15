@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Fri Oct 15 10:13:34 PDT 2010
+SConsFiles
+
+Modified Files:
+	allExternals.scons processExternals.scons 
+Log Message:
+support for gaudi v21
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-07-03, operation: add
 Package: SConsFiles
