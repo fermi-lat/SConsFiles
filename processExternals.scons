@@ -64,17 +64,26 @@ def setupOptions(name, configuredExternal):
 def replace(string, variable, substitute):
     if isinstance(string, str):
         return string.replace(variable, substitute)
+    if isinstance(string, dict):
+        # Assume for now no replacements of dictionary keys
+        for key in string:
+            string[key] = replace(string[key], variable, substitute)
+        return string
     if isinstance(string, list):
-        return [ x.replace(variable, substitute) for x in string]
+        return [ replace(x, variable, substitute) for x in string]
     return string
 
 def substituteVars(name, version, configuredExternal):
     #Substitue variables
     for section in configuredExternal:
         if 'lib-path' in configuredExternal:
-            configuredExternal[section] = replace(configuredExternal[section], '$LIB-PATH', configuredExternal['lib-path'])
+            configuredExternal[section]=replace(configuredExternal[section], 
+                                                '$LIB-PATH',
+                                                configuredExternal['lib-path'])
         if 'bin-path' in configuredExternal:
-            configuredExternal[section] = replace(configuredExternal[section], '$BIN-PATH', configuredExternal['bin-path'])
+            configuredExternal[section]=replace(configuredExternal[section], 
+                                                '$BIN-PATH',
+                                                configuredExternal['bin-path'])
         if baseEnv.GetOption('GLAST-EXT'):
             # If GLAST-EXT value has trailing slash, strip it off
             geval = baseEnv.GetOption('GLAST-EXT')
@@ -82,10 +91,15 @@ def substituteVars(name, version, configuredExternal):
             if extSplit[1] == "":
                 geval = extSplit[0]
             baseEnv['GLASTEXTvalue'] = geval
-            configuredExternal[section] = replace(configuredExternal[section], '$GLAST_EXT', geval)
-        configuredExternal[section] = replace(configuredExternal[section], '$COMPILER', baseEnv['COMPILERNAME'])
-        configuredExternal[section] = replace(configuredExternal[section], '$VERSION', version)
-        configuredExternal[section] = replace(configuredExternal[section], '$NAME', name)
+            configuredExternal[section] = replace(configuredExternal[section], 
+                                                  '$GLAST_EXT', geval)
+        configuredExternal[section] = replace(configuredExternal[section], 
+                                              '$COMPILER', 
+                                              baseEnv['COMPILERNAME'])
+        configuredExternal[section] = replace(configuredExternal[section], 
+                                              '$VERSION', version)
+        configuredExternal[section] = replace(configuredExternal[section], 
+                                              '$NAME', name)
     return configuredExternal
 
 def setupEnvironment(configuredExternal):
