@@ -510,7 +510,39 @@ allExternalLibraries = {
                                     'GaudiAud',
                                     'GaudiAlg', 'GaudiAlgLib', 'GaudiKernel']},
                     }
-                }
+                  },
+                # Note Reflex is actually a ROOT library
+                'v21r7-gl1' :
+                { 'default' :
+                  { 'version' : 'v21r7-gl1',
+                    'includes' : ['GaudiAlg/GaudiAlg.h', 'GaudiKernel/Kernel.h'],
+                    'libraries' : {'gaudiLibs' :
+                                   ['GaudiAlg', 'GaudiAlgLib',
+                                    'GaudiUtilsLib', 'GaudiAud',
+                                    'GaudiSvc', 'GaudiKernel',
+                                    'boost_filesystem-gcc34-mt',
+                                    'boost_system-gcc34-mt',
+                                    'boost_regex-gcc34-mt',
+                                    'boost_thread-gcc34-mt',
+                                    'boost_date_time-gcc34-mt', 'uuid',
+                                    'Reflex']},
+                    'include-path' : os.path.join('$GLAST_EXT', '$NAME',
+                                                  '$VERSION', '$COMPILER',
+                                                  'include'),
+                    'cpp-defines' : ['GAUDI_V20_COMPAT'],
+                    'lib-path' : os.path.join('$GLAST_EXT', '$NAME',
+                                              '$VERSION', '$COMPILER', 'lib'),
+                    'ld-path' : '$LIB-PATH'},
+                  'win32' :
+                  { 'libraries' : {'gaudiLibs' :
+                                   ['GaudiKernel',
+                                    'boost_system-$COMPILER-mt-1_39',
+                                    'boost_filesystem-$COMPILER-mt-1_39',
+                                    'boost_regex-$COMPILER-mt-1_39',
+                                    'boost_data_time-$COMPILER-mt-1_39',
+                                    'uuid', 'Reflex']},
+                    }
+                  }
               },
     'geant4' : {'8.0.p01-gl2' :
                 { 'default' :
