@@ -11,6 +11,15 @@ allExternalLibraries = {
                                    'libraries'    : { 'clhepLibs' : [ 'CLHEP'] }
                                  }
                    },
+                   '1.9.2.3' :
+                   { 'default' : { 'version'      : '1.9.2.3',
+                                   'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
+                                   'lib-path'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'lib'),
+                                   'ld-path'      : '$LIB-PATH',
+                                   'includes'     : [ 'CLHEP/config/CLHEP.h' ],
+                                   'libraries'    : { 'clhepLibs' : [ 'CLHEP'] }
+                                 }
+                   },
                    '1.9.4.2' :
                    { 'default' : { 'version'      : '1.9.4.2',
                                    'include-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER', 'include'),
@@ -541,6 +550,15 @@ allExternalLibraries = {
                                     'boost_regex-$COMPILER-mt-1_39',
                                     'boost_date_time-$COMPILER-mt-1_39',
                                     'uuid', 'libReflex']},
+                    },
+                  'vc90' :
+                  { 'libraries' : {'gaudiLibs' :
+                                   ['GaudiKernel',
+                                    'boost_system-$COMPILER-mt-1_42',
+                                    'boost_filesystem-$COMPILER-mt-1_42',
+                                    'boost_regex-$COMPILER-mt-1_42',
+                                    'boost_date_time-$COMPILER-mt-1_42',
+                                    'uuid', 'libReflex']},
                     }
                   }
               },
@@ -588,15 +606,20 @@ allExternalLibraries = {
                    'ld-path' : '$LIB-PATH'},
                   'win32' :
                   { 'libraries' :
-                   {'geant4Libs' :  ['libG4readout','libG4run','libG4event',
-                                     'libG4tracking', 'libG4processes',
-                                     'libG4digits_hits', 'libG4track',
-                                     'libG4particles', 'libG4geometry',
-                                     'libG4materials', 'libG4graphics_reps',
-                                     'libG4intercoms', 'libG4global']},
-                  'lib-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION',
-                                            '$COMPILER', 'lib', 'WIN32-VC')
-                    }
+                    {'geant4Libs' :  ['libG4readout','libG4run','libG4event',
+                                      'libG4tracking', 'libG4processes',
+                                      'libG4digits_hits', 'libG4track',
+                                      'libG4particles', 'libG4geometry',
+                                      'libG4materials', 'libG4graphics_reps',
+                                      'libG4intercoms', 'libG4global']},
+                     'lib-path' : os.path.join('$GLAST_EXT', '$NAME', 
+                                               '$VERSION',
+                                               '$COMPILER', 'lib', 'WIN32-VC')
+                    },
+                  'vc90' :{
+                      'lib-path' : os.path.join('$GLAST_EXT', '$NAME', 
+                                                '$VERSION', '$COMPILER', 'lib')
+                      }
                   }
                 },
     'ldf'    : {'v06-02-00' :
@@ -636,6 +659,22 @@ allExternalLibraries = {
     'mysql'   : {'4.1.18' :
                  {'default' :
                   {'version'      : '4.1.18',
+                   'libraries'    : {'mysqlLibs' : ['mysqlclient']},
+                   'include-path' : os.path.join('$GLAST_EXT', '$NAME',
+                                                '$VERSION','$COMPILER','include'),
+                   'lib-path'     : os.path.join('$GLAST_EXT','$NAME','$VERSION',
+                                                '$COMPILER', 'lib', 'mysql'),
+                   'ld-path' : '$LIB-PATH'},
+                  'win32'   :
+                  {'libraries'    : {'mysqlLibs' : ['libmysql']},
+                   'lib-path' : os.path.join('$GLAST_EXT','$NAME','$VERSION',
+                                             '$COMPILER', 'lib', 'opt'),
+                   'ld-path'  : '$LIB-PATH'},
+                 'posix' : {'includes' : ['mysql/mysql.h']}
+                  },
+                 '5.1.39' :
+                 {'default' :
+                  {'version'      : '5.1.39',
                    'libraries'    : {'mysqlLibs' : ['mysqlclient']},
                    'include-path' : os.path.join('$GLAST_EXT', '$NAME',
                                                 '$VERSION','$COMPILER','include'),
@@ -777,6 +816,18 @@ allExternalLibraries = {
     'OmniOrb'  : {'4.1.2' :
                   {'default' :
                    {'version' : '4.1.2',
+                    'includes' : ['omniconfig.h'],
+                    'libraries' : {'OmniOrbLibs' : ['']},
+                    'include-path' : os.path.join('$GLAST_EXT', '$NAME',
+                                                  '$VERSION', '$COMPILER',
+                                                  'include'),
+                    'lib-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION',
+                                              '$COMPILER', 'lib'),
+                    'ld-path' : '$LIB-PATH'}
+                   },
+                  '4.1.4' :
+                  {'default' :
+                   {'version' : '4.1.4',
                     'includes' : ['omniconfig.h'],
                     'libraries' : {'OmniOrbLibs' : ['']},
                     'include-path' : os.path.join('$GLAST_EXT', '$NAME',
