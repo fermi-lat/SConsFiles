@@ -13,6 +13,17 @@ extIncludes = []
 # setupEnvironment below
 extlibSet = set()
 
+# Exclude system libraries as well as our externals
+extlibSet.add('kernel32')
+extlibSet.add('user32')
+extlibSet.add('ws2_32')
+extlibSet.add('advapi32')
+extlibSet.add('shell32')
+extlibSet.add('msvcrt')
+extlibSet.add('msvcprt')
+extlibSet.add('msvcrtd')
+extlibSet.add('msvcprtd')
+
 AddOption('--with-GLAST-EXT', dest = 'GLAST-EXT', nargs=1, type='string', action='store', metavar='DIR',
           help='location of GLAST_EXT type directory layout for external libraries')
 
@@ -206,7 +217,7 @@ def setupRoot(configuredExternal):
         if baseEnv['PLATFORM'] == 'win32' and 'localIncludes' in env and for_signature == False:
             if 'packageName' in env:
                 pkg = str(env['packageName'])
-                print 'Found localIncludes for packageName ', pkg
+                fdebug('Found localIncludes for packageName ' +  pkg)
                 for i in env['localIncludes']:
                     filestr = str(i)
                     fname = os.path.basename(filestr)
@@ -225,7 +236,7 @@ def setupRoot(configuredExternal):
                     while (f != str(baseEnv['VARIANT'])):
                         dest = d
                         (d, f) = os.path.split(dest)
-                    print "base for dest is: ", dest
+                    fdebug("base for dest is: " + dest)
                     j = pindex + 1
                     while j < len(cmps):
                         dest = os.path.join(dest, cmps[j])
@@ -343,9 +354,9 @@ def setupGaudi(configuredExternal):
                 # Do an ugly thing here:  look for xerces entry; replace 'lib' with 'bin'
                 if env['PLATFORM'] == 'win32':
                     if e.find('xerces') > -1 : 
-                        print "found xerces"
+                        #print "found xerces"
                         e = e.replace('lib', 'bin')
-                        print "result after replace: ", e
+                        #print "result after replace: ", e
 
                 env.PrependENVPath(libpathname, e)
 
