@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Tue Nov 30 14:10:57 PST 2010
+SConsFiles
+
+Modified Files:
+	allExternals.scons processExternals.scons 
+Log Message:
+more updates for new Gaudi, mostly specific to Windows, and some purely cosmetic clean-up
+    *
+------------------------------------------------------------
 User: jrb  Fri Oct 15 10:13:34 PDT 2010
 SConsFiles
 
