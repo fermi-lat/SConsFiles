@@ -13,6 +13,17 @@ extIncludes = []
 # setupEnvironment below
 extlibSet = set()
 
+# Exclude system libraries as well as our externals
+extlibSet.add('kernel32')
+extlibSet.add('user32')
+extlibSet.add('ws2_32')
+extlibSet.add('advapi32')
+extlibSet.add('shell32')
+extlibSet.add('msvcrt')
+extlibSet.add('msvcprt')
+extlibSet.add('msvcrtd')
+extlibSet.add('msvcprtd')
+
 AddOption('--with-GLAST-EXT', dest = 'GLAST-EXT', nargs=1, type='string', action='store', metavar='DIR',
           help='location of GLAST_EXT type directory layout for external libraries')
 
@@ -64,17 +75,26 @@ def setupOptions(name, configuredExternal):
 def replace(string, variable, substitute):
     if isinstance(string, str):
         return string.replace(variable, substitute)
+    if isinstance(string, dict):
+        # Assume for now no replacements of dictionary keys
+        for key in string:
+            string[key] = replace(string[key], variable, substitute)
+        return string
     if isinstance(string, list):
-        return [ x.replace(variable, substitute) for x in string]
+        return [ replace(x, variable, substitute) for x in string]
     return string
 
 def substituteVars(name, version, configuredExternal):
     #Substitue variables
     for section in configuredExternal:
         if 'lib-path' in configuredExternal:
-            configuredExternal[section] = replace(configuredExternal[section], '$LIB-PATH', configuredExternal['lib-path'])
+            configuredExternal[section]=replace(configuredExternal[section], 
+                                                '$LIB-PATH',
+                                                configuredExternal['lib-path'])
         if 'bin-path' in configuredExternal:
-            configuredExternal[section] = replace(configuredExternal[section], '$BIN-PATH', configuredExternal['bin-path'])
+            configuredExternal[section]=replace(configuredExternal[section], 
+                                                '$BIN-PATH',
+                                                configuredExternal['bin-path'])
         if baseEnv.GetOption('GLAST-EXT'):
             # If GLAST-EXT value has trailing slash, strip it off
             geval = baseEnv.GetOption('GLAST-EXT')
@@ -82,10 +102,15 @@ def substituteVars(name, version, configuredExternal):
             if extSplit[1] == "":
                 geval = extSplit[0]
             baseEnv['GLASTEXTvalue'] = geval
-            configuredExternal[section] = replace(configuredExternal[section], '$GLAST_EXT', geval)
-        configuredExternal[section] = replace(configuredExternal[section], '$COMPILER', baseEnv['COMPILERNAME'])
-        configuredExternal[section] = replace(configuredExternal[section], '$VERSION', version)
-        configuredExternal[section] = replace(configuredExternal[section], '$NAME', name)
+            configuredExternal[section] = replace(configuredExternal[section], 
+                                                  '$GLAST_EXT', geval)
+        configuredExternal[section] = replace(configuredExternal[section], 
+                                              '$COMPILER', 
+                                              baseEnv['COMPILERNAME'])
+        configuredExternal[section] = replace(configuredExternal[section], 
+                                              '$VERSION', version)
+        configuredExternal[section] = replace(configuredExternal[section], 
+                                              '$NAME', name)
     return configuredExternal
 
 def setupEnvironment(configuredExternal):
@@ -192,7 +217,7 @@ def setupRoot(configuredExternal):
         if baseEnv['PLATFORM'] == 'win32' and 'localIncludes' in env and for_signature == False:
             if 'packageName' in env:
                 pkg = str(env['packageName'])
-                print 'Found localIncludes for packageName ', pkg
+                fdebug('Found localIncludes for packageName ' +  pkg)
                 for i in env['localIncludes']:
                     filestr = str(i)
                     fname = os.path.basename(filestr)
@@ -211,7 +236,7 @@ def setupRoot(configuredExternal):
                     while (f != str(baseEnv['VARIANT'])):
                         dest = d
                         (d, f) = os.path.split(dest)
-                    print "base for dest is: ", dest
+                    fdebug("base for dest is: " + dest)
                     j = pindex + 1
                     while j < len(cmps):
                         dest = os.path.join(dest, cmps[j])
@@ -314,8 +339,6 @@ def setupGaudi(configuredExternal):
 
             # env['LIBPATH'] should be list of dirs to search
             newpathlist = [str(p) for p in env['LIBPATH'] ]
-            
-            newpaths = (os.pathsep).join(newpathlist)
 
             if env['PLATFORM'] == 'win32': libpathname = 'PATH'
             elif env['PLATFORM'] == 'posix' : libpathname = 'LD_LIBRARY_PATH'
@@ -325,7 +348,17 @@ def setupGaudi(configuredExternal):
             if libpathname in env:
                 orig = str(env[libpathname])
                 
-            for p in env['LIBPATH']: env.PrependENVPath(libpathname, str(p))
+            for p in env['LIBPATH']: 
+                e = str(p)
+                # On windows also need xerces ld-path which is not the same as lib-path
+                # Do an ugly thing here:  look for xerces entry; replace 'lib' with 'bin'
+                if env['PLATFORM'] == 'win32':
+                    if e.find('xerces') > -1 : 
+                        #print "found xerces"
+                        e = e.replace('lib', 'bin')
+                        #print "result after replace: ", e
+
+                env.PrependENVPath(libpathname, e)
 
             rootmap = env.Rootmap(target=lb, source=cmplib)
 
