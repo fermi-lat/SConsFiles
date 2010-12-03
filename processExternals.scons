@@ -27,17 +27,23 @@ extlibSet.add('msvcprtd')
 AddOption('--with-GLAST-EXT', dest = 'GLAST-EXT', nargs=1, type='string', action='store', metavar='DIR',
           help='location of GLAST_EXT type directory layout for external libraries')
 
-def getExternal(name, version):
-    configuredExternal = allExternals[name][version]['default']
+def getExternal(name, iversion):
+    configuredExternal = allExternals[name][iversion]['default']
     #Check for default overrides for OS
-    if baseEnv['PLATFORM'] in allExternals[name][version]:
-        for section in allExternals[name][version][baseEnv['PLATFORM']]:
-            configuredExternal[section] = allExternals[name][version][baseEnv['PLATFORM']][section]
+    if baseEnv['PLATFORM'] in allExternals[name][iversion]:
+        for section in allExternals[name][iversion][baseEnv['PLATFORM']]:
+            configuredExternal[section] = allExternals[name][iversion][baseEnv['PLATFORM']][section]
 
     #Check for default overrides for compiler    
-    if baseEnv['COMPILERNAME'] in allExternals[name][version]:
-        for section in allExternals[name][version][baseEnv['COMPILERNAME']]:
-            configuredExternal[section] = allExternals[name][version][baseEnv['COMPILERNAME']][section]
+    if baseEnv['COMPILERNAME'] in allExternals[name][iversion]:
+        for section in allExternals[name][iversion][baseEnv['COMPILERNAME']]:
+            configuredExternal[section] = allExternals[name][iversion][baseEnv['COMPILERNAME']][section]
+
+    if baseEnv.GetOption('debug'):
+        compiler_debug = baseEnv['COMPILERNAME'] + '-debug'
+        if compiler_debug in allExternals[name][iversion]:
+            for section in allExternals[name][iversion][compiler_debug]:
+                configuredExternal[section] = allExternals[name][iversion][compiler_debug][section]
 
     return configuredExternal
 
