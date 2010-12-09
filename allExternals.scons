@@ -328,6 +328,7 @@ allExternalLibraries = {
                                      'rootTMineLibs': [ 'libTreePlayer', 'libXMLIO', 'libGed', 'libMLP', 'libTMVA', 'libRint', 'libHtml']
                                    }
                                  },
+                     'vc90-debug' : { 'version' : 'v5.26.00-gl3-dbg'}, 
                      'darwin' : { 'dylib-path' : '$LIB-PATH' }
                    }                   
 
@@ -398,7 +399,11 @@ allExternalLibraries = {
                                    'libraries'    : { 'xercesLibs' : ['xerces-c_2'] }
                                  },
                      'vc90'    : {'version'       : '2.8.0-gl1'
+                                  },
+                     'vc90-debug'  : {'version'       : '2.8.0-gl1-dbg',
+                                      'libraries' : { 'xercesLibs' : ['xerces-c_2D']}
                                   }
+
                    }
                  },
                    
@@ -544,6 +549,8 @@ allExternalLibraries = {
                     'lib-path' : os.path.join('$GLAST_EXT', '$NAME',
                                               '$VERSION', '$COMPILER', 'lib'),
                     'ld-path' : '$LIB-PATH'},
+                  'gcc34-debug' : 
+                   {'version' : 'v21r7-gl1-dbg'},
                   'win32' :
                   { 'libraries' : {'gaudiLibs' :
                                    ['GaudiKernel',
@@ -561,6 +568,16 @@ allExternalLibraries = {
                                     'boost_regex-$COMPILER-mt-1_42',
                                     'boost_date_time-$COMPILER-mt-1_42',
                                     'uuid', 'libReflex']},
+                    },
+                  'vc90-debug' :
+                    {'version' : 'v21r7-gl1-dbg', 
+                     'libraries' : {'gaudiLibs' :
+                                        ['GaudiKernel',
+                                         'boost_system-$COMPILER-mt-gd-1_42',
+                                         'boost_filesystem-$COMPILER-mt-gd-1_42',
+                                         'boost_regex-$COMPILER-mt-gd-1_42',
+                                         'boost_date_time-$COMPILER-mt-gd-1_42',
+                                         'uuid', 'libReflex']},
                     }
                   }
               },
@@ -621,8 +638,10 @@ allExternalLibraries = {
                   'vc90' :{
                       'lib-path' : os.path.join('$GLAST_EXT', '$NAME', 
                                                 '$VERSION', '$COMPILER', 'lib')
-                      }
+                      },
+                  'vc90-debug' :{ 'version' : '8.0.p01-gl4-dbg' }
                   }
+                  
                 },
     'ldf'    : {'v06-02-00' :
                 {'default' :

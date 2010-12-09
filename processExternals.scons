@@ -28,22 +28,28 @@ AddOption('--with-GLAST-EXT', dest = 'GLAST-EXT', nargs=1, type='string', action
           help='location of GLAST_EXT type directory layout for external libraries')
 
 def getExternal(name, iversion):
+    fdebug('getting external ' + name)
     configuredExternal = allExternals[name][iversion]['default']
     #Check for default overrides for OS
     if baseEnv['PLATFORM'] in allExternals[name][iversion]:
+        fdebug('overriding for PLATFORM ' + str(baseEnv['PLATFORM']))
         for section in allExternals[name][iversion][baseEnv['PLATFORM']]:
             configuredExternal[section] = allExternals[name][iversion][baseEnv['PLATFORM']][section]
 
     #Check for default overrides for compiler    
     if baseEnv['COMPILERNAME'] in allExternals[name][iversion]:
+        fdebug('overriding for COMPILERNAME ' + str(baseEnv['COMPILERNAME']))
         for section in allExternals[name][iversion][baseEnv['COMPILERNAME']]:
             configuredExternal[section] = allExternals[name][iversion][baseEnv['COMPILERNAME']][section]
 
+    #Finally see if there is a special debug version for this compiler
     if baseEnv.GetOption('debug'):
         compiler_debug = baseEnv['COMPILERNAME'] + '-debug'
         if compiler_debug in allExternals[name][iversion]:
+            fdebug('overriding for compiler_debug ' + compiler_debug)
             for section in allExternals[name][iversion][compiler_debug]:
                 configuredExternal[section] = allExternals[name][iversion][compiler_debug][section]
+                #print "override for section ", str(section)
 
     return configuredExternal
 

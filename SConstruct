@@ -1,7 +1,7 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.82 2010/10/01 01:53:08 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.81 2010/09/29 23:34:28 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu
-# Version: SConsFiles-00-07-03
+# Version: SConsFiles-00-07-01
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands,subprocess
 #########################
@@ -80,7 +80,7 @@ if baseEnv['PLATFORM'] == "darwin":
         baseEnv['ARCHNAME'] = '32bit'
 
 if sys.platform == "win32":
-    variant = platform.release()+"-"+"i386"+"-"+platform.architecture()[0]
+    variant = "Windows" + "-"+"i386"+"-"+platform.architecture()[0]
     baseEnv['WINDOWS_INSERT_MANIFEST'] = 'true'
     baseEnv['OSNAME'] = platform.release()
     baseEnv['MACHINENAME'] = 'i386'
@@ -167,7 +167,11 @@ Export('baseEnv')
 #########################
 #if baseEnv['PLATFORM'] == "win32":
 if sys.platform == "win32":
-    baseEnv.AppendUnique(CPPDEFINES = ['WIN32','_USE_MATH_DEFINES'])
+    baseEnv.AppendUnique(CPPDEFINES = ['WIN32','_USE_MATH_DEFINES', '_MBCS'])
+    baseEnv.AppendUnique(SHCCFLAGS = ['/D_USRDLL'])
+
+    # For shared libraries CMT also has equivalent of 
+    #baseEnv.AppendUnique(CPPDEFINES = ['_USRDLL', 'pkgname_EXPORTS'])
 
     baseEnv.AppendUnique(CCFLAGS = "/EHsc")
     baseEnv.AppendUnique(CCFLAGS = "/FC")    # helps with debugging
@@ -180,19 +184,19 @@ if sys.platform == "win32":
     ## baseEnv.AppendUnique(CCFLAGS = "/Zm500") probably not necessary
     baseEnv.AppendUnique(CCFLAGS = "/Z7")
     baseEnv.AppendUnique(CCFLAGS = "/GR")
-    baseEnv.AppendUnique(LINKFLAGS = "/SUBSYSTEM:CONSOLE")
-    baseEnv.AppendUnique(LINKFLAGS = "/NODEFAULTLIB:LIBCMT")
-    baseEnv.AppendUnique(LINKFLAGS = "/NODEFAULTLIB:LIBC")
-
+    baseEnv.AppendUnique(CCFLAGS = "/MD")
+    baseEnv.AppendUnique(CCFLAGS = "/LD")
+    baseEnv.AppendUnique(CCFLAGS = "/Ob2")
+    baseEnv.AppendUnique(CCFLAGS = "/Gy")
     if baseEnv.GetOption('debug'):
-        baseEnv.AppendUnique(CCFLAGS = "/MDd")
-        baseEnv.AppendUnique(CCFLAGS = "/LDd")
-        baseEnv.AppendUnique(CCFLAGS = "/Ob0")
-
+        baseEnv.AppendUnique(CPPDEFINES = '_DEBUG')
     else:
-        baseEnv.AppendUnique(CCFLAGS = "/MD")
-        baseEnv.AppendUnique(CCFLAGS = "/LD")
-        baseEnv.AppendUnique(CCFLAGS = "/Ob2")
+        baseEnv.AppendUnique(CCFLAGS = "/O2")
+
+    #baseEnv.AppendUnique(LINKFLAGS = "/SUBSYSTEM:CONSOLE")
+    baseEnv.AppendUnique(LINKFLAGS = "/NODEFAULTLIB")
+    #baseEnv.AppendUnique(LINKFLAGS = "/NODEFAULTLIB:LIBCMT")
+    #baseEnv.AppendUnique(LINKFLAGS = "/NODEFAULTLIB:LIBC")
 
     # Disable compiler warning number 4812 having to do with
     # obsolete form of explicit constructor specialization
@@ -200,13 +204,20 @@ if sys.platform == "win32":
     if (vccmp == "8.0") or (vccmp=="9.0") :
         baseEnv.AppendUnique(CPPDEFINES = ['_CRT_SECURE_NO_WARNINGS'])
         baseEnv.AppendUnique(CPPFLAGS = "/wd4812")
+        #baseEnv.Tool('addLibrary', library = ['msvcr80'])
         if baseEnv.GetOption('debug'):
             baseEnv.AppendUnique(LINKFLAGS = "/DEBUG")
-            baseEnv.AppendUnique(LINKFLAGS = "/ASSEMBLYDEBUG")
-
+            baseEnv.Tool('addLibrary', library = ['msvcrtd', 'msvcprtd'])
+        #else:
+        #    baseEnv.Tool('addLibrary', library = ['msvcrt', 'msvcprt'])
+            #baseEnv.AppendUnique(LINKFLAGS = "/ASSEMBLYDEBUG")
+    #else:
+     
+    baseEnv.Tool('addLibrary', library = ['msvcrt', 'msvcprt'])
     # Used as Studio working directory
     baseEnv['VISUAL_VARIANT'] = visual_variant
-    
+    baseEnv.Tool('addLibrary', library = ['kernel32', 'user32', 'ws2_32', 'advapi32',
+                                          'shell32'])
             
 else:
     baseEnv.AppendUnique(CXXFLAGS = "-fpermissive")
