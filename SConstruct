@@ -1,7 +1,7 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.83 2010/10/05 19:32:35 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.84 2010/11/30 22:12:05 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu
-# Version: SConsFiles-00-07-04
+# Version: SConsFiles-00-07-05
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands,subprocess
 #########################
