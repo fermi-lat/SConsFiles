@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Mon Jan  3 11:18:13 PST 2011
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	generateScript.py 
+Log Message:
+Fix typo in generating Windows set-up script
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-07-04, operation: add
 Package: SConsFiles
