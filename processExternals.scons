@@ -338,7 +338,7 @@ def setupGaudi(configuredExternal):
                 return env.LoadableModule('lib' + lb, sources, **args)
         
     else:
-        rootmapBuilder = Builder(action=['genmap -i ${SOURCE} -o ${TARGET}'],
+        rootmapBuilder = Builder(action=['set PATH', 'genmap -i ${SOURCE} -o ${TARGET}'],
                                  suffix='rootmap', prefix='$SHLIBPREFIX',
                                  src_suffix='$SHLIBSUFFIX')
         baseEnv.Append(BUILDERS = {'Rootmap' : rootmapBuilder})
@@ -359,7 +359,7 @@ def setupGaudi(configuredExternal):
             orig = ''
             if libpathname in env:
                 orig = str(env[libpathname])
-                
+
             for p in env['LIBPATH']: 
                 e = str(p)
                 # On windows also need xerces ld-path which is not the same as lib-path
@@ -367,7 +367,8 @@ def setupGaudi(configuredExternal):
                 if env['PLATFORM'] == 'win32':
                     if e.find('xerces') > -1 : 
                         #print "found xerces"
-                        e = e.replace('lib', 'bin')
+                        ix = e.rfind('lib')
+                        e = e[:ix] + e[ix:].replace('lib', 'bin')
                         #print "result after replace: ", e
 
                 env.PrependENVPath(libpathname, e)
