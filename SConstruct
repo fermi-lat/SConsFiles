@@ -85,7 +85,6 @@ if sys.platform == "win32":
     baseEnv['OSNAME'] = platform.release()
     baseEnv['MACHINENAME'] = 'i386'
     baseEnv['ARCHNAME'] = platform.architecture()[0]
-
 	
 baseEnv.AppendUnique(CPPDEFINES = ['SCons'])
 
@@ -382,32 +381,6 @@ def listFiles(files, **kw):
     return allFiles
 
 Export('listFiles')
-
-
-class ourSpawn:
-    def ourspawn(self, sh, escape, cmd, args, env):
-        newargs = ' '.join(args[1:])
-        cmdline = cmd + " " + newargs
-        startupinfo = subprocess.STARTUPINFO()
-        startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-        proc = subprocess.Popen(cmdline, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE, startupinfo=startupinfo, shell = False, env = env)
-        data, err = proc.communicate()
-        rv = proc.wait()
-        if rv:
-            print "====="
-            print err
-            print "====="
-        return rv
-
-def SetupSpawn( env ):
-    if sys.platform == 'win32':
-        buf = ourSpawn()
-        buf.ourenv = env
-        env['SPAWN'] = buf.ourspawn
-
-#Export('SetupSpawn')
-#Export('ourSpawn')
 
 if not baseEnv.GetOption('help'):
     directories = [override]
