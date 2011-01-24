@@ -831,8 +831,29 @@ allExternalLibraries = {
                    'ld-path' : '$LIB-PATH'
                    }
                   }
-                 }
-}
+                 },
+    'TMineExt' : {'3.0.0' :
+                  {'default' :
+                   {'version' : '3.0.0',
+                    'include-path' : os.path.join('$GLAST_EXT', '$NAME',
+                                                  '$VERSION', '$COMPILER',
+                                                  'include'),
+                    'includes' : ['TMine/util/Translate.h'],
+                    'lib-path' : os.path.join('$GLAST_EXT', '$NAME',
+                                              '$VERSION', '$COMPILER', 'lib'),
+                    'bin-path' : os.path.join('$GLAST_EXT', '$NAME',
+                                              '$VERSION', '$COMPILER', 'bin'),
+                    'ld-path'   : '$LIB-PATH',
+                    'libraries' : {'TMineLibs' : ['TMine', 'TMine_IM_XML',
+                                                  'TMine_GUI', 'TMine_TMVA',
+                                                  'TMine_Engines','TMine_Xml',
+                                                  'TMine_Model', 'TMine_base',
+                                                  'TMine_util']}
+                    }
+                   }
+                    
+                  }
+    }
 Return("allExternalLibraries")
 
 # Need an analog of the following code from CMT requirements for ldf:
