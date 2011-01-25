@@ -1,4 +1,16 @@
 ------------------------------------------------------------
+User: jrb  Mon Jan 24 17:00:54 PST 2011
+SConsFiles
+
+Modified Files:
+	processExternals.scons 
+Log Message:
+1. Look for -debug versions of externals if compile is debug
+2. Bug fix for Xerces external path substitution on Windows
+3. Bug fix to support --variant=NONE on Windows
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-07-05, operation: add
 Package: SConsFiles
