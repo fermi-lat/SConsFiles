@@ -1,5 +1,5 @@
 # -*- python -*-                                                                                                                                                                                         
-import os, os.path
+import os, os.path, sys
 from fermidebug import fdebug
 
 Import('usedExternals')
@@ -23,21 +23,35 @@ extlibSet.add('msvcrt')
 extlibSet.add('msvcprt')
 extlibSet.add('msvcrtd')
 extlibSet.add('msvcprtd')
-
+extlibSet.add('gdi32')
+extlibSet.add('winspool')
+extlibSet.add('comdlg32')
 AddOption('--with-GLAST-EXT', dest = 'GLAST-EXT', nargs=1, type='string', action='store', metavar='DIR',
           help='location of GLAST_EXT type directory layout for external libraries')
 
-def getExternal(name, version):
-    configuredExternal = allExternals[name][version]['default']
+def getExternal(name, iversion):
+    fdebug('getting external ' + name)
+    configuredExternal = allExternals[name][iversion]['default']
     #Check for default overrides for OS
-    if baseEnv['PLATFORM'] in allExternals[name][version]:
-        for section in allExternals[name][version][baseEnv['PLATFORM']]:
-            configuredExternal[section] = allExternals[name][version][baseEnv['PLATFORM']][section]
+    if baseEnv['PLATFORM'] in allExternals[name][iversion]:
+        fdebug('overriding for PLATFORM ' + str(baseEnv['PLATFORM']))
+        for section in allExternals[name][iversion][baseEnv['PLATFORM']]:
+            configuredExternal[section] = allExternals[name][iversion][baseEnv['PLATFORM']][section]
 
     #Check for default overrides for compiler    
-    if baseEnv['COMPILERNAME'] in allExternals[name][version]:
-        for section in allExternals[name][version][baseEnv['COMPILERNAME']]:
-            configuredExternal[section] = allExternals[name][version][baseEnv['COMPILERNAME']][section]
+    if baseEnv['COMPILERNAME'] in allExternals[name][iversion]:
+        fdebug('overriding for COMPILERNAME ' + str(baseEnv['COMPILERNAME']))
+        for section in allExternals[name][iversion][baseEnv['COMPILERNAME']]:
+            configuredExternal[section] = allExternals[name][iversion][baseEnv['COMPILERNAME']][section]
+
+    #Finally see if there is a special debug version for this compiler
+    if baseEnv.GetOption('debug'):
+        compiler_debug = baseEnv['COMPILERNAME'] + '-debug'
+        if compiler_debug in allExternals[name][iversion]:
+            fdebug('overriding for compiler_debug ' + compiler_debug)
+            for section in allExternals[name][iversion][compiler_debug]:
+                configuredExternal[section] = allExternals[name][iversion][compiler_debug][section]
+                #print "override for section ", str(section)
 
     return configuredExternal
 
@@ -233,7 +247,9 @@ def setupRoot(configuredExternal):
                     pindex = cmps.index(pkg)
                     dest = str(buildlocation)
                     (d, f) = os.path.split(dest)
-                    while (f != str(baseEnv['VARIANT'])):
+                    searchFor = str(baseEnv['VARIANT'])
+                    if searchFor == 'NONE': searchFor = 'build'
+                    while (f != searchFor):
                         dest = d
                         (d, f) = os.path.split(dest)
                     fdebug("base for dest is: " + dest)
@@ -326,9 +342,16 @@ def setupGaudi(configuredExternal):
                 return env.LoadableModule('lib' + lb, sources, **args)
         
     else:
-        rootmapBuilder = Builder(action=['genmap -i ${SOURCE} -o ${TARGET}'],
-                                 suffix='rootmap', prefix='$SHLIBPREFIX',
-                                 src_suffix='$SHLIBSUFFIX')
+        #uncomment to see path used by rootmap
+        #if sys.platform == 'win32':
+        #    showpath = 'set PATH'
+        #else:
+        #    showpath = 'printenv LD_LIBRARY_PATH'
+
+        #rootmapBuilder = Builder(action=[showpath, 'genmap -i ${SOURCE} -o ${TARGET}'],
+        rootmapBuilder =Builder(action=['genmap -i ${SOURCE} -o ${TARGET}'],
+                                suffix='rootmap', prefix='$SHLIBPREFIX',
+                                src_suffix='$SHLIBSUFFIX')
         baseEnv.Append(BUILDERS = {'Rootmap' : rootmapBuilder})
 
         def ComponentLibrary(env, lb, sources, **args):
@@ -347,7 +370,7 @@ def setupGaudi(configuredExternal):
             orig = ''
             if libpathname in env:
                 orig = str(env[libpathname])
-                
+
             for p in env['LIBPATH']: 
                 e = str(p)
                 # On windows also need xerces ld-path which is not the same as lib-path
@@ -355,7 +378,8 @@ def setupGaudi(configuredExternal):
                 if env['PLATFORM'] == 'win32':
                     if e.find('xerces') > -1 : 
                         #print "found xerces"
-                        e = e.replace('lib', 'bin')
+                        ix = e.rfind('lib')
+                        e = e[:ix] + e[ix:].replace('lib', 'bin')
                         #print "result after replace: ", e
 
                 env.PrependENVPath(libpathname, e)
