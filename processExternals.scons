@@ -1,5 +1,5 @@
 # -*- python -*-                                                                                                                                                                                         
-import os, os.path
+import os, os.path, sys
 from fermidebug import fdebug
 
 Import('usedExternals')
@@ -23,7 +23,9 @@ extlibSet.add('msvcrt')
 extlibSet.add('msvcprt')
 extlibSet.add('msvcrtd')
 extlibSet.add('msvcprtd')
-
+extlibSet.add('gdi32')
+extlibSet.add('winspool')
+extlibSet.add('comdlg32')
 AddOption('--with-GLAST-EXT', dest = 'GLAST-EXT', nargs=1, type='string', action='store', metavar='DIR',
           help='location of GLAST_EXT type directory layout for external libraries')
 
@@ -245,7 +247,9 @@ def setupRoot(configuredExternal):
                     pindex = cmps.index(pkg)
                     dest = str(buildlocation)
                     (d, f) = os.path.split(dest)
-                    while (f != str(baseEnv['VARIANT'])):
+                    searchFor = str(baseEnv['VARIANT'])
+                    if searchFor == 'NONE': searchFor = 'build'
+                    while (f != searchFor):
                         dest = d
                         (d, f) = os.path.split(dest)
                     fdebug("base for dest is: " + dest)
@@ -338,9 +342,16 @@ def setupGaudi(configuredExternal):
                 return env.LoadableModule('lib' + lb, sources, **args)
         
     else:
-        rootmapBuilder = Builder(action=['set PATH', 'genmap -i ${SOURCE} -o ${TARGET}'],
-                                 suffix='rootmap', prefix='$SHLIBPREFIX',
-                                 src_suffix='$SHLIBSUFFIX')
+        #uncomment to see path used by rootmap
+        #if sys.platform == 'win32':
+        #    showpath = 'set PATH'
+        #else:
+        #    showpath = 'printenv LD_LIBRARY_PATH'
+
+        #rootmapBuilder = Builder(action=[showpath, 'genmap -i ${SOURCE} -o ${TARGET}'],
+        rootmapBuilder =Builder(action=['genmap -i ${SOURCE} -o ${TARGET}'],
+                                suffix='rootmap', prefix='$SHLIBPREFIX',
+                                src_suffix='$SHLIBSUFFIX')
         baseEnv.Append(BUILDERS = {'Rootmap' : rootmapBuilder})
 
         def ComponentLibrary(env, lb, sources, **args):
