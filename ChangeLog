@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu Jan 27 17:05:37 PST 2011
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	registerTargets.py 
+Log Message:
+fix bug preventing creation of wrappers for executables
+    *
+------------------------------------------------------------
 User: jrb  Mon Jan 24 17:00:54 PST 2011
 SConsFiles
 
