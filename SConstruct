@@ -1,7 +1,7 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/GlastRelease-scons/../SConsFiles/SConstruct,v 1.83.2.1 2010/12/09 18:37:11 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/users/jrb/TMineDiv/SConstruct,v 1.3 2011/01/20 22:33:01 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu
-# Version: SConsFiles-00-07-01
+# Version: SConsFiles-00-07-05
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands,subprocess
 #########################
@@ -36,9 +36,6 @@ vccmp=''
 if sys.platform == 'win32':
     if GetOption('vc'):
         vccmp = GetOption('vc')
-        #baseEnv['MSVS_VERSION'] = baseEnv.GetOption('vc')
-        #    baseEnv.Tool('msvs')
-        #    Tool('msvc')(baseEnv)
         baseEnv=Environment(MSVC_VERSION=vccmp)
     else:
         baseEnv=Environment( )
@@ -156,6 +153,7 @@ if baseEnv.GetOption('cxxflags'):
     baseEnv.AppendUnique(CXXFLAGS = baseEnv.GetOption('cxxflags'))
 if baseEnv.GetOption('variant'):
     variant = baseEnv.GetOption('variant')
+    if variant == "NONE": baseEnv['NO_VARIANT'] = True
 override = baseEnv.GetOption('supersede')
 SConsignFile(os.path.join(override,'.sconsign.dblite'))
 baseEnv['VARIANT'] = variant
@@ -193,25 +191,17 @@ if sys.platform == "win32":
     else:
         baseEnv.AppendUnique(CCFLAGS = "/O2")
 
-    #baseEnv.AppendUnique(LINKFLAGS = "/SUBSYSTEM:CONSOLE")
     baseEnv.AppendUnique(LINKFLAGS = "/NODEFAULTLIB")
-    #baseEnv.AppendUnique(LINKFLAGS = "/NODEFAULTLIB:LIBCMT")
-    #baseEnv.AppendUnique(LINKFLAGS = "/NODEFAULTLIB:LIBC")
 
     # Disable compiler warning number 4812 having to do with
     # obsolete form of explicit constructor specialization
-    #if (baseEnv['MSVS_VERSION'] == "8.0") or (baseEnv['MSVS_VERSION']=="9.0"):
     if (vccmp == "8.0") or (vccmp=="9.0") :
         baseEnv.AppendUnique(CPPDEFINES = ['_CRT_SECURE_NO_WARNINGS'])
         baseEnv.AppendUnique(CPPFLAGS = "/wd4812")
-        #baseEnv.Tool('addLibrary', library = ['msvcr80'])
+
         if baseEnv.GetOption('debug'):
             baseEnv.AppendUnique(LINKFLAGS = "/DEBUG")
             baseEnv.Tool('addLibrary', library = ['msvcrtd', 'msvcprtd'])
-        #else:
-        #    baseEnv.Tool('addLibrary', library = ['msvcrt', 'msvcprt'])
-            #baseEnv.AppendUnique(LINKFLAGS = "/ASSEMBLYDEBUG")
-    #else:
      
     baseEnv.Tool('addLibrary', library = ['msvcrt', 'msvcprt'])
     # Used as Studio working directory
@@ -223,10 +213,8 @@ else:
     baseEnv.AppendUnique(CXXFLAGS = "-fpermissive")
 
 if baseEnv['PLATFORM'] == "posix":
-    ##if platform.machine() == "x86_64":
     baseEnv.AppendUnique(CCFLAGS = "-fPIC")
     baseEnv.AppendUnique(SHLINKFLAGS = "-fPIC")
-    ##baseEnv.AppendUnique(CPPDEFINES = ['TRAP_FPE'])
 
 if baseEnv['PLATFORM'] == "darwin":
     baseEnv.AppendUnique(SHLINKFLAGS = ["-Wl,-install_name", "-Wl,${TARGET.file}"])
@@ -234,9 +222,15 @@ if baseEnv['PLATFORM'] == "darwin":
 #########################
 #  Project Environment  #
 #########################
-baseEnv.Append(LIBDIR         = Dir(override).Dir('lib').Dir(variant))
-baseEnv.Append(BINDIR         = Dir(override).Dir('exe').Dir(variant))
-baseEnv.Append(SCRIPTDIR      = Dir(override).Dir('bin').Dir(variant))
+if 'NO_VARIANT' in baseEnv:
+    baseEnv.Append(LIBDIR         = Dir(override).Dir('lib'))
+    baseEnv.Append(BINDIR         = Dir(override).Dir('exe'))
+    baseEnv.Append(SCRIPTDIR      = Dir(override).Dir('bin'))
+else:
+    baseEnv.Append(LIBDIR         = Dir(override).Dir('lib').Dir(variant))
+    baseEnv.Append(BINDIR         = Dir(override).Dir('exe').Dir(variant))
+    baseEnv.Append(SCRIPTDIR      = Dir(override).Dir('bin').Dir(variant))
+    
 baseEnv.Append(INCDIR         = Dir(override).Dir('include'))
 baseEnv.Append(PFILESDIR      = Dir(override).Dir('syspfiles'))
 baseEnv.Append(DATADIR        = Dir(override).Dir('data'))
@@ -256,17 +250,21 @@ baseEnv.Append(CPPPATH = ['src'])
 baseEnv.Append(CPPPATH = [baseEnv['INCDIR']])
 baseEnv.Append(LIBPATH = [baseEnv['LIBDIR']])
 baseEnv.AppendUnique(CPPPATH = os.path.join(os.path.abspath('.'),'include'))
-baseEnv.AppendUnique(LIBPATH = os.path.join(os.path.abspath('.'),'lib',variant))
+if 'NO_VARIANT' in baseEnv:
+    baseEnv.AppendUnique(LIBPATH = os.path.join(os.path.abspath('.'),'lib'))
+else:
+    baseEnv.AppendUnique(LIBPATH = os.path.join(os.path.abspath('.'),'lib',variant))
 ## STUDIODIR is where project and solution files will go
-#if baseEnv['PLATFORM'] == 'win32':
 if sys.platform == 'win32':
-    baseEnv.Append(STUDIODIR = Dir(override).Dir('studio').Dir(variant))
+    if 'NO_VARIANT' in baseEnv:
+        baseEnv.Append(STUDIODIR = Dir(override).Dir('studio'))
+    else:
+        baseEnv.Append(STUDIODIR = Dir(override).Dir('studio').Dir(variant))
                    
 ##################
 # Create release #
 ##################
 if baseEnv.GetOption('userRelease'):
-    #if baseEnv['PLATFORM'] != 'win32':
     if sys.platform != 'win32':
         baseEnv['TARFLAGS']+=' -z'
         baseEnv.Default(baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['LIBDIR']))
@@ -317,7 +315,6 @@ if baseEnv.GetOption('sourceRelease'):
     Return()
 
 if baseEnv.GetOption('develRelease'):
-    #if baseEnv['PLATFORM'] != 'win32':
     if sys.platform != 'win32':
        baseEnv['TARFLAGS'] += ' -z'
        baseEnv['TARFLAGS'] += ' --exclude build'
@@ -457,9 +454,16 @@ if not baseEnv.GetOption('help'):
     for pkg in packages:
         #print "Processing package ", str(pkg)
         try:
-	    baseEnv.SConscript(os.path.join(pkg,"SConscript"),
-                               variant_dir = os.path.join(pkg, 'build', variant),
-                               duplicate=dup)
+            if 'NO_VARIANT' in baseEnv:
+                baseEnv.SConscript(os.path.join(pkg,"SConscript"),
+                                   variant_dir = os.path.join(pkg, 'build'),
+                                   duplicate=dup)
+            else:
+                baseEnv.SConscript(os.path.join(pkg,"SConscript"),
+                                   variant_dir = os.path.join(pkg, 'build',
+                                                              variant),
+                                   duplicate=dup)
+
 	except Exception, inst:
 	    print "scons: Skipped "+pkg.lstrip(override+os.sep)+" because of exceptions: "+str(inst)
 	    traceback.print_tb(sys.exc_info()[2])
