@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Tue Feb  1 10:52:18 PST 2011
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	generateScript.py 
+Log Message:
+eliminate annoying debug print statement
+    *
+------------------------------------------------------------
 User: jrb  Thu Jan 27 17:05:37 PST 2011
 SConsFiles/site_scons/site_tools
 
