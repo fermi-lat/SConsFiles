@@ -846,7 +846,8 @@ allExternalLibraries = {
                     'ld-path'   : '$LIB-PATH',
                     'libraries' : {'TMineLibs' : ['TMine', 'TMine_IM_XML',
                                                   'TMine_GUI', 'TMine_TMVA',
-                                                  'TMine_Engines','TMine_Xml',
+                                                  'TMine_Engines',
+                                                  'TMine_XmlParse',
                                                   'TMine_Model', 'TMine_base',
                                                   'TMine_util']}
                     }
