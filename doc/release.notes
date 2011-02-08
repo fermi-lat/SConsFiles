@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-09-00 08-Feb-2011    jrb changes to Windows compile and link options; support for --variant=NONE
  SConsFiles-00-08-00 01-Feb-2011    jrb New TMine external; support for -debug external versions; bug fixes
  SConsFiles-00-07-05 03-Jan-2011    jrb Bug fix in generateScript on Windows
  SConsFiles-00-07-04 30-Nov-2010    jrb additions to support new Gaudi; cosmetic clean-up
