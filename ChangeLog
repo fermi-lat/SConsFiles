@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: jrb  Tue Feb  8 15:56:23 PST 2011
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	generateScript.py 
+Log Message:
+Changes to Windows compile, link options;Support for --variant=NONE
+    *
+------------------------------------------------------------
+User: jrb  Tue Feb  8 15:56:23 PST 2011
 SConsFiles
 
 Modified Files:
