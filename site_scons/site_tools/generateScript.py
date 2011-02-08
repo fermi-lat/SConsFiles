@@ -122,7 +122,12 @@ def fillScript(scriptFile, env, wrapper, script, executable):
         bs='$BASE_DIR'
         inst='$INST_DIR'
 
-    scriptdir = os.path.join(inst, 'bin', env['VARIANT'])
+    if env['VARIANT'] == 'NONE':
+        noVariant = True
+        scriptdir = os.path.join(inst, 'bin')
+    else:
+        noVariant = False
+        scriptdir = os.path.join(inst, 'bin', env['VARIANT'])
 
     if env.GetOption('supersede') != '.':
 	basedirAbs = env.Dir('.').abspath
@@ -130,7 +135,7 @@ def fillScript(scriptFile, env, wrapper, script, executable):
             basedirAbs = resolve_nfs_path(basedirAbs)
 	finalScript = finalScript.replace('${REPLACE-BASEDIR}', '"' + basedirAbs+ '"')
     else:
-        #print "inst is ", inst
+        # print "inst is ", inst
         finalScript = finalScript.replace('${REPLACE-BASEDIR}', inst)
         
     # Handle pfiles setup
@@ -155,14 +160,20 @@ def fillScript(scriptFile, env, wrapper, script, executable):
 
     #Set up LD_LIBRARY_PATH and DYLD_LIBRARY_PATH
     ldLibraryPath = [ os.path.join(inst, relpath(env.Dir(env.GetOption('supersede')).abspath, env['LIBDIR'].abspath))]
-    ldLibraryPath.append(os.path.join(bs, 'lib', env['VARIANT']))
+    if noVariant:
+        ldLibraryPath.append(os.path.join(bs, 'lib'))
+    else:
+        ldLibraryPath.append(os.path.join(bs, 'lib', env['VARIANT']))
 
     ldLibraryPath.extend(env['WRAPPERLIBS'])
 
     finalScript = finalScript.replace('${REPLACE-LIBDIRS}', separator.join(ldLibraryPath))
     #Setup PATH
     path = [os.path.join(inst, relpath(env.Dir(env.GetOption('supersede')).abspath, env['BINDIR'].abspath))]
-    path.append(os.path.join(bs, 'exe', env['VARIANT']))
+    if noVariant:
+        path.append(os.path.join(bs, 'exe'))
+    else:
+        path.append(os.path.join(bs, 'exe', env['VARIANT']))
                 
     path.extend(env['WRAPPERBINS'])
 
@@ -177,7 +188,10 @@ def fillScript(scriptFile, env, wrapper, script, executable):
     pythonPath = [os.path.join(inst,'python')]
     pythonPath.append(os.path.join(inst, relpath(env.Dir(env.GetOption('supersede')).abspath, env['LIBDIR'].abspath)))
     pythonPath.append(os.path.join(bs, 'python'))
-    pythonPath.append(os.path.join(bs, 'lib', env['VARIANT']))
+    if noVariant:
+        pythonPath.append(os.path.join(bs, 'lib'))
+    else:
+        pythonPath.append(os.path.join(bs, 'lib', env['VARIANT']))
     pythonPath.append(os.path.join(env['ROOTSYS'], 'lib'))
     finalScript = finalScript.replace('${REPLACE-PYTHONPATHS}', separator.join(pythonPath))
     
@@ -186,11 +200,18 @@ def fillScript(scriptFile, env, wrapper, script, executable):
 
     if wrapper > 0:
         if env['PLATFORM'] != 'win32':
-            finalScript = finalScript.replace('${REPLACE-WRAPPER-SCRIPT}', 'export INST_DIR=`dirname $0`\nexport INST_DIR=`cd $INST_DIR/../../; pwd`\n')
+            if noVariant:	
+                finalScript = finalScript.replace('${REPLACE-WRAPPER-SCRIPT}', 'export INST_DIR=`dirname $0`\nexport INST_DIR=`cd $INST_DIR/../; pwd`\n')
+            else:
+                finalScript = finalScript.replace('${REPLACE-WRAPPER-SCRIPT}', 'export INST_DIR=`dirname $0`\nexport INST_DIR=`cd $INST_DIR/../../; pwd`\n')
             finalScript = finalScript.replace('${REPLACE-WRAPPER-EXECUTE}', os.path.join('$INST_DIR', relpath(env.Dir(env.GetOption('supersede')).abspath, executable.abspath)+' "$@"\n'))
         else:
-            finalScript = finalScript.replace('${REPLACE-WRAPPER-SCRIPT}', 
-                                              'set INST_DIR=%~p0\\..\\..')
+            if noVariant:
+                finalScript =finalScript.replace('${REPLACE-WRAPPER-SCRIPT}', 
+                                                  'set INST_DIR=%~p0\\..')
+            else:
+                finalScript =finalScript.replace('${REPLACE-WRAPPER-SCRIPT}', 
+                                                  'set INST_DIR=%~p0\\..\\..')
             finalScript = finalScript.replace('${REPLACE-WRAPPER-EXECUTE}', os.path.join('%INST_DIR%', relpath(env.Dir(env.GetOption('supersede')).abspath, executable.abspath)+' "%*" \n'))
     else:
         if env['PLATFORM'] == 'win32':
