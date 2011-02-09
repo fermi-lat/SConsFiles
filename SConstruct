@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.87 2011/02/08 23:56:22 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.88 2011/02/08 23:57:20 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu
 # Version: SConsFiles-00-09-00
 
@@ -48,7 +48,7 @@ baseEnv.Tool('generateScript')
 baseEnv.Tool('doxygen')
 baseEnv.Alias('NoTarget')
 baseEnv.SourceCode(".", None)
-variant = "Unknown"
+variant = "Unknown-"
 baseEnv['OSNAME'] = "Unknown"
 baseEnv['MACHINENAME'] = "Unknown"
 baseEnv['ARCHNAME'] = "Unknown"
@@ -62,6 +62,9 @@ if baseEnv['PLATFORM'] == "darwin":
     version = commands.getoutput("sw_vers -productVersion")
     cpu = commands.getoutput("arch")
     baseEnv['MACHINENAME'] = cpu
+    if version.startswith("10.6"):
+        variant="snowleopard-"
+        baseEnv['OSNAME'] = "snowleopard"
     if version.startswith("10.5"):
         variant="leopard-"
         baseEnv['OSNAME'] = "leopard"
