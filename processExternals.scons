@@ -32,6 +32,7 @@ AddOption('--with-GLAST-EXT', dest = 'GLAST-EXT', nargs=1, type='string', action
 def getExternal(name, iversion):
     fdebug('getting external ' + name)
     configuredExternal = allExternals[name][iversion]['default']
+    
     #Check for default overrides for OS
     if baseEnv['PLATFORM'] in allExternals[name][iversion]:
         fdebug('overriding for PLATFORM ' + str(baseEnv['PLATFORM']))
@@ -71,12 +72,15 @@ def setupOptions(name, configuredExternal):
                   metavar='DIR', help='location of '+name+' '+configuredExternal['version']+' binaries')
 
     if baseEnv.GetOption(external['name']):
-        if 'include-path' in configuredExternal:
-            configuredExternal['include-path'] = os.path.join(baseEnv.GetOption(external['name']), 'include')
-        if 'lib-path' in configuredExternal:
-            configuredExternal['lib-path'] = os.path.join(baseEnv.GetOption(external['name']), 'lib')
-        if 'bin-path' in configuredExternal:
-            configuredExternal['bin-path'] = os.path.join(baseEnv.GetOption(external['name']), 'bin')
+        if 'top' in configuredExternal:
+            configuredExternal['top'] = baseEnv.GetOption(external['name'])
+        else:
+            if 'include-path' in configuredExternal:
+                configuredExternal['include-path'] = os.path.join(baseEnv.GetOption(external['name']), 'include')
+            if 'lib-path' in configuredExternal:
+                configuredExternal['lib-path'] = os.path.join(baseEnv.GetOption(external['name']), 'lib')
+            if 'bin-path' in configuredExternal:
+                configuredExternal['bin-path'] = os.path.join(baseEnv.GetOption(external['name']), 'bin')
     else:
         if 'include-path' in configuredExternal and baseEnv.GetOption(external['name']+'-includes'):
             configuredExternal['include-path'] = baseEnv.GetOption(external['name']+'-includes')
@@ -109,6 +113,10 @@ def substituteVars(name, version, configuredExternal):
             configuredExternal[section]=replace(configuredExternal[section], 
                                                 '$BIN-PATH',
                                                 configuredExternal['bin-path'])
+        if 'top' in configuredExternal:
+            configuredExternal[section]=replace(configuredExternal[section],
+                                                '$TOP',
+                                                configuredExternal['top'])
         if baseEnv.GetOption('GLAST-EXT'):
             # If GLAST-EXT value has trailing slash, strip it off
             geval = baseEnv.GetOption('GLAST-EXT')
@@ -391,6 +399,7 @@ def setupGaudi(configuredExternal):
     baseEnv.AddMethod(ComponentLibrary)
 
 def setupPython(configuredExternal):
+    baseEnv['pythonSitePath'] = configuredExternal['site-path']
     if baseEnv['PLATFORM'] == 'darwin':
         baseEnv.AppendUnique(LDMODULEFLAGS = ['-bundle_loader', os.path.join(configuredExternal['bin-path'], 'python')])
 
@@ -403,11 +412,15 @@ def setupObf(configuredExternal):
 #This variable holds are external library hashes once they are fully configured
 configuredExternals = []
 
+#This holds simple dict associating name with path.  Will be exported
+externalPaths = {}
+
 #Set everything up
 for external in usedExternals:
     configuredExternal = getExternal(external['name'], external['iversion'])
     configuredExternal = setupOptions(external['name'], configuredExternal)
     configuredExternal = substituteVars(external['name'], configuredExternal['version'], configuredExternal)
+
     setupEnvironment(configuredExternal)
     if external['name'] == 'ROOT':
         setupRoot(configuredExternal)
@@ -423,6 +436,10 @@ for external in usedExternals:
         setupGaudi(configuredExternal)
     configuredExternal['name'] = external['name']
     configuredExternals.append(configuredExternal)
+    if 'top' in configuredExternal:
+        externalPaths[external['name']] = configuredExternal['top']
+
+Export('externalPaths')
 
 #Check if all external libraries exist
 for configuredExternal in configuredExternals:
