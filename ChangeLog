@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu Feb 17 12:27:53 PST 2011
+SConsFiles
+
+Modified Files:
+	allExternals.scons processExternals.scons 
+Log Message:
+Define new field top in externals which is file path to top of hierarchy; export dict of all of them; also set construction variable pythonSitePath
+    *
+------------------------------------------------------------
 User: jrb  Tue Feb  8 16:12:33 PST 2011
 SConsFiles
 
