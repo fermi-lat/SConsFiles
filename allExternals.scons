@@ -616,7 +616,8 @@ allExternalLibraries = {
                   { 'libraries' :
                    {'geant4Libs' :  ['libG4readout','libG4run','libG4event',
                                      'libG4tracking', 'libG4processes',
-                                     'libG4digits_hits', 'libG4track',
+                                     'libG4digits_hits', 'libG4interfaces',
+                                     'libG4track', 'libG4parameterisations',
                                      'libG4particles', 'libG4geometry',
                                      'libG4materials', 'libG4graphics_reps',
                                      'libG4intercoms', 'libG4global']},
@@ -640,12 +641,13 @@ allExternalLibraries = {
                    'ld-path' : '$LIB-PATH'},
                   'win32' :
                   { 'libraries' :
-                   {'geant4Libs' :  ['libG4readout','libG4run','libG4event',
-                                     'libG4tracking', 'libG4processes',
-                                     'libG4digits_hits', 'libG4track',
-                                     'libG4particles', 'libG4geometry',
-                                     'libG4materials', 'libG4graphics_reps',
-                                     'libG4intercoms', 'libG4global']},
+                   {'geant4Libs' : ['libG4readout','libG4run','libG4event',
+                                    'libG4tracking', 'libG4processes',
+                                    'libG4digits_hits', 'libG4track',
+                                    'libG4particles', 'libG4geometry',
+                                    'libG4materials', 'libG4parameterisations',
+                                    'libG4graphics_reps', 'libG4interfaces.lib'
+                                    'libG4intercoms', 'libG4global']},
                   'lib-path' : os.path.join('$TOP', 'lib', 'WIN32-VC')
                     }
                   }
