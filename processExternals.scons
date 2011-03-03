@@ -302,11 +302,9 @@ def setupRoot(configuredExternal):
             orig_shlink = baseEnv['SHLINKCOM']
             baseEnv['SHLINKCOM'] = orig_shlink + ['$MT $MTFLAGS ${TARGET}.manifest -outputresource:$TARGET;#2']
     def RootDynamicLibrary(env, program, sources):
-        if env['PLATFORM'] == 'win32':
-            return env.SharedLibrary(program, sources)
-        elif env['PLATFORM'] == 'posix':
+        if env['PLATFORM'] == 'posix':
             env.AppendUnique(SHLINKFLAGS = ['-rdynamic'])
-        return env.LoadableModule('lib' + program, sources)
+        return env.SharedLibrary(program, sources)
 
     baseEnv.AddMethod(RootDynamicLibrary)
     
