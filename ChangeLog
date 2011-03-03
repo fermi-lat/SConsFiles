@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu Mar  3 13:23:59 PST 2011
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	registerTargets.py 
+Log Message:
+merging in updates for TMine-scons
+    *
+------------------------------------------------------------
 User: jrb  Thu Mar  3 13:23:36 PST 2011
 SConsFiles
 
