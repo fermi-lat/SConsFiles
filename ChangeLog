@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu Mar  3 13:23:36 PST 2011
+SConsFiles
+
+Modified Files:
+	processExternals.scons 
+Log Message:
+merging in updates for TMine-scons
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-10-00, operation: add
 Package: SConsFiles
