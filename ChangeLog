@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Tue Mar  8 12:19:10 PST 2011
+SConsFiles
+
+Modified Files:
+	allExternals.scons processExternals.scons 
+Log Message:
+change external name from ldf to LDF, same as for CMT
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-10-02, operation: add
 Package: SConsFiles
