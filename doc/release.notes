@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-10-03 08-Mar-2011    jrb Change external name from ldf to LDF to match CMT naming
  SConsFiles-00-10-02 07-Mar-2011    jrb Add entry for TMineExt 3.1.2
  SConsFiles-00-10-01 03-Mar-2011    jrb minor changes needed for TMine-scons; add 2 G4 libraries to list for Windows only
  SConsFiles-00-10-00 17-Feb-2011    jrb Add site-path field to python externals and store in construction variable; add top field to all externals and Export
