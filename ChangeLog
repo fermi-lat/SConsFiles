@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Mon Mar  7 16:07:02 PST 2011
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add entry for TMineExt 3.1.2
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-10-01, operation: add
 Package: SConsFiles
