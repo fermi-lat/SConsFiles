@@ -652,7 +652,7 @@ allExternalLibraries = {
                     }
                   }
                 },
-    'ldf'    : {'v06-02-00' :
+    'LDF'    : {'v06-02-00' :
                 {'default' :
                  {'version'      : 'v06-02-00',
                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
