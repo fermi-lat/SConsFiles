@@ -1,7 +1,7 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/users/jrb/TMineDiv/SConstruct,v 1.3 2011/01/20 22:33:01 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.94 2011/03/17 00:50:07 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu
-# Version: SConsFiles-00-07-05
+# Version: SConsFiles-00-10-03
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands,subprocess
 #########################
@@ -21,11 +21,12 @@ else:
     EnsureSConsVersion(1, 2, 0)
 
 #  Define compiler options *before* creating baseEnv
+AddOption('--32bit', dest='bits', action='store_const', const='32', help='Force 32bit compiles even on 64bit machines')
+AddOption('--64bit', dest='bits', action='store_const', const='64', help='Force 64bit compiles even on 32bit machines')
+
 if sys.platform != 'win32':
     AddOption('--with-cc', dest='cc', action='store', nargs=1, type='string', metavar='COMPILER', help='Compiler to use for compiling C files')
     AddOption('--with-cxx', dest='cxx', action='store', nargs=1, type='string', metavar='COMPILER', help='Compiler to user for compiling C++ files')
-    AddOption('--32bit', dest='bits', action='store_const', const='32', help='Force 32bit compiles even on 64bit machines')
-    AddOption('--64bit', dest='bits', action='store_const', const='64', help='Force 64bit compiles even on 32bit machines')
 else:
     AddOption('--vc7', dest='vc', action='store_const', const='7.1', help='Use the Visual C++ 7.1 compiler')
     AddOption('--vc8', dest='vc', action='store_const', const='8.0', help='Use the Visual C++ 8.0 compiler')
@@ -34,11 +35,13 @@ else:
 #..and for Windows also get --vc option value before creating baseEnv
 vccmp=''
 if sys.platform == 'win32':
+    arch = 'i386'
+    if GetOption('bits')== '64': arch = 'x86_64'
     if GetOption('vc'):
         vccmp = GetOption('vc')
-        baseEnv=Environment(MSVC_VERSION=vccmp)
+        baseEnv=Environment(MSVC_VERSION=vccmp, TARGET_ARCH=arch)
     else:
-        baseEnv=Environment( )
+        baseEnv=Environment(TARGET_ARCH=arch )
         vccmp = str(baseEnv['MSVC_VERSION'])
 else:
     baseEnv=Environment()
@@ -48,7 +51,7 @@ baseEnv.Tool('generateScript')
 baseEnv.Tool('doxygen')
 baseEnv.Alias('NoTarget')
 baseEnv.SourceCode(".", None)
-variant = "Unknown"
+variant = "Unknown-"
 baseEnv['OSNAME'] = "Unknown"
 baseEnv['MACHINENAME'] = "Unknown"
 baseEnv['ARCHNAME'] = "Unknown"
@@ -62,6 +65,9 @@ if baseEnv['PLATFORM'] == "darwin":
     version = commands.getoutput("sw_vers -productVersion")
     cpu = commands.getoutput("arch")
     baseEnv['MACHINENAME'] = cpu
+    if version.startswith("10.6"):
+        variant="snowleopard-"
+        baseEnv['OSNAME'] = "snowleopard"
     if version.startswith("10.5"):
         variant="leopard-"
         baseEnv['OSNAME'] = "leopard"
