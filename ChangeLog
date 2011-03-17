@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Wed Mar 16 17:50:07 PDT 2011
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+for Windows set target_arch to 32-bit (default) or 64-bit depending on supplied options
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-10-03, operation: add
 Package: SConsFiles
