@@ -149,7 +149,7 @@ allExternalLibraries = {
                    { 'default' : { 'version'      : 'v5.18.00c-gl1',
                                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
                                    'include-path' : os.path.join('$TOP', 'include'),
-                                   'lib-path'     : os.path.join('TOP', 'lib'),
+                                   'lib-path'     : os.path.join('$TOP', 'lib'),
                                    'ld-path'      : '$LIB-PATH',
                                    'bin-path'     : os.path.join('$TOP', 'bin'),
                                    'includes'     : [ 'RVersion.h' ],
@@ -339,6 +339,7 @@ allExternalLibraries = {
                                      'rootTMineLibs': [ 'libTreePlayer', 'libXMLIO', 'libGed', 'libMLP', 'libTMVA', 'libRint', 'libHtml']
                                    }
                                  },
+                     'vc90-debug' : { 'version' : 'v5.26.00a-gl3-dbg'}, 
                      'darwin' : { 'dylib-path' : '$LIB-PATH' }
                    },
                    'v5.26.00a-i3' :
@@ -385,12 +386,9 @@ allExternalLibraries = {
     'xerces'   : { '2.7.0' :
                    { 'default' : { 'version'      : '2.7.0',
                                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
-                                   'include-path' :
-                                   os.path.join('$TOP','include'),
-                                   'lib-path'     :
-                                   os.path.join('$TOP', 'lib'),
-                                   'bin-path'     :
-                                   os.path.join('$TOP', 'bin'),
+                                   'include-path' : os.path.join('$TOP','include'),
+                                   'lib-path'     : os.path.join('$TOP', 'lib'),
+                                   'bin-path'     : os.path.join('$TOP', 'bin'),
                                    'ld-path'      : '$LIB-PATH',
                                    'includes'     : [ 'xercesc/util/XercesVersion.hpp' ],
                                    'libraries'    :
@@ -400,8 +398,7 @@ allExternalLibraries = {
                                    'libraries'    :
                                    { 'xercesLibs' : ['xerces-c_2'] },
                                    'bin-path'     :
-                                   os.path.join('$GLAST_EXT','$NAME',
-                                                '$VERSION','$COMPILER', 'bin')
+                                   os.path.join('$TOP', 'bin')
                                  },
                      'vc90'    : { 'version'      : '2.8.0' }
                    },
@@ -433,7 +430,12 @@ allExternalLibraries = {
                      'win32'   : { 'version'      : '2.8.0',
                                    'ld-path'      : '$BIN-PATH',
                                    'libraries'    : { 'xercesLibs' : ['xerces-c_2'] }
-                                 }
+                                 },
+                     'vc90'    : {'version'       : '2.8.0-gl1'
+                                  },
+                     'vc90-debug'  : {'version'       : '2.8.0-gl1-dbg',
+                                      'libraries' : { 'xercesLibs' : ['xerces-c_2D']}
+                                  }
                    }
                  },
                    
@@ -465,8 +467,7 @@ allExternalLibraries = {
                                  },
                      'win32'   : { 'include-path' : os.path.join('$TOP', 'include'),
                                    'lib-path'     : os.path.join('$TOP', 'libs'),
-                                   'site-path'    : os.path.join('$TOP', 'Lib',
-                                                                 'site-packages'),
+                                   'site-path'    : os.path.join('$TOP', 'Lib', 'site-packages'),
                                    'libraries'    : { 'pythonLibs' : [ 'python25' ] }
                                  },
                      'posix'   : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'util', 'm', 'python2.5' ] }
@@ -488,8 +489,7 @@ allExternalLibraries = {
                                  },
                      'win32'   : { 'include-path' : os.path.join('$TOP', 'include'),
                                    'lib-path'     : os.path.join('$TOP', 'libs'),
-                                   'site-path'    : os.path.join('$TOP', 'Lib',
-                                                                 'site-packages'),
+                                   'site-path'    : os.path.join('$TOP', 'Lib', 'site-packages'),
                                    'libraries'    : { 'pythonLibs' : [ 'python25' ] },
                                    'ld-path'      : '$TOP'
                                  },
@@ -509,8 +509,7 @@ allExternalLibraries = {
                                  },
                      'win32'   : { 'include-path' : os.path.join('$TOP', 'include'),
                                    'lib-path'     : os.path.join('$TOP', 'libs'),
-                                   'site-path'    : os.path.join('$TOP', 'Lib',
-                                                                 'site-packages'),
+                                   'site-path'    : os.path.join('$TOP', 'Lib', 'site-packages'),
                                    'libraries'    : { 'pythonLibs' : [ 'python26' ] },
                                    'ld-path'      : '$TOP'
                                  },
@@ -593,8 +592,27 @@ allExternalLibraries = {
                                     'boost_system-$COMPILER-mt-1_39',
                                     'boost_filesystem-$COMPILER-mt-1_39',
                                     'boost_regex-$COMPILER-mt-1_39',
-                                    'boost_data_time-$COMPILER-mt-1_39',
-                                    'uuid', 'Reflex']},
+                                    'boost_date_time-$COMPILER-mt-1_39',
+                                    'uuid', 'libReflex']},
+                    },
+                  'vc90' :
+                  { 'libraries' : {'gaudiLibs' :
+                                   ['GaudiKernel',
+                                    'boost_system-$COMPILER-mt-1_42',
+                                    'boost_filesystem-$COMPILER-mt-1_42',
+                                    'boost_regex-$COMPILER-mt-1_42',
+                                    'boost_date_time-$COMPILER-mt-1_42',
+                                    'uuid', 'libReflex']},
+                    },
+                  'vc90-debug' :
+                    {'version' : 'v21r7-gl1-dbg', 
+                     'libraries' : {'gaudiLibs' :
+                                        ['GaudiKernel',
+                                         'boost_system-$COMPILER-mt-gd-1_42',
+                                         'boost_filesystem-$COMPILER-mt-gd-1_42',
+                                         'boost_regex-$COMPILER-mt-gd-1_42',
+                                         'boost_date_time-$COMPILER-mt-gd-1_42',
+                                         'uuid', 'libReflex']},
                     }
                   }
               },
@@ -621,15 +639,14 @@ allExternalLibraries = {
                                      'libG4particles', 'libG4geometry',
                                      'libG4materials', 'libG4graphics_reps',
                                      'libG4intercoms', 'libG4global']},
-                  'lib-path' : os.path.join('$GLAST_EXT', '$NAME', '$VERSION',
-                                            '$COMPILER', 'lib', 'WIN32-VC')
+                  'lib-path' : os.path.join('$TOP', 'lib', 'WIN32-VC')
                   }
                 },
                 '8.0.p01-gl4' :
                 { 'default' :
                   {'version' : '8.0.p01-gl4',
-                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
                   'includes' : ['G4Version.hh'],
+                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
                   'libraries' :
                    {'geant4Libs' : ['G4readout','G4run','G4event','G4tracking',
                                     'G4processes', 'G4digits_hits', 'G4track',
@@ -640,17 +657,22 @@ allExternalLibraries = {
                   'lib-path' : os.path.join('$TOP', 'lib', 'Linux-g++'),
                    'ld-path' : '$LIB-PATH'},
                   'win32' :
-                  { 'libraries' :
+                  {'libraries' :
                    {'geant4Libs' : ['libG4readout','libG4run','libG4event',
                                     'libG4tracking', 'libG4processes',
                                     'libG4digits_hits', 'libG4track',
+                                    'libG4interfaces','libG4parameterisations',
                                     'libG4particles', 'libG4geometry',
-                                    'libG4materials', 'libG4parameterisations',
-                                    'libG4graphics_reps', 'libG4interfaces.lib'
+                                    'libG4materials', 'libG4graphics_reps', 
                                     'libG4intercoms', 'libG4global']},
-                  'lib-path' : os.path.join('$TOP', 'lib', 'WIN32-VC')
-                    }
+                    'lib-path' : os.path.join('$TOP', 'lib', 'WIN32-VC')
+                    },
+                  'vc90' :{
+                      'lib-path' : os.path.join('$TOP', 'lib')
+                      },
+                  'vc90-debug' :{ 'version' : '8.0.p01-gl4-dbg' }
                   }
+                  
                 },
     'LDF'    : {'v06-02-00' :
                 {'default' :
@@ -692,8 +714,21 @@ allExternalLibraries = {
                    'ld-path' : '$LIB-PATH'},
                   'win32'   :
                   {'libraries'    : {'mysqlLibs' : ['libmysql']},
-                   'lib-path' : os.path.join('$GLAST_EXT','$NAME','$VERSION',
-                                             '$COMPILER', 'lib', 'opt'),
+                   'lib-path' : os.path.join('$TOP', 'lib', 'opt'),
+                   'ld-path'  : '$LIB-PATH'},
+                 'posix' : {'includes' : ['mysql/mysql.h']}
+                  },
+                 '5.1.39' :
+                 {'default' :
+                  {'version'      : '5.1.39',
+                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
+                   'libraries'    : {'mysqlLibs' : ['mysqlclient']},
+                   'include-path' : os.path.join('$TOP','include'),
+                   'lib-path'     : os.path.join('$TOP', 'lib', 'mysql'),
+                   'ld-path' : '$LIB-PATH'},
+                  'win32'   :
+                  {'libraries'    : {'mysqlLibs' : ['libmysql']},
+                   'lib-path' : os.path.join('$TOP', 'lib', 'opt'),
                    'ld-path'  : '$LIB-PATH'},
                  'posix' : {'includes' : ['mysql/mysql.h']}
                   }
@@ -828,6 +863,16 @@ allExternalLibraries = {
                     'include-path' : os.path.join('$TOP', 'include'),
                     'lib-path' : os.path.join('$TOP', 'lib'),
                     'ld-path' : '$LIB-PATH'}
+                   },
+                  '4.1.4' :
+                  {'default' :
+                   {'version' : '4.1.4',
+                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
+                    'includes' : ['omniconfig.h'],
+                    'libraries' : {'OmniOrbLibs' : ['']},
+                    'include-path' : os.path.join('$TOP', 'include'),
+                    'lib-path' : os.path.join('$TOP', 'lib'),
+                    'ld-path' : '$LIB-PATH'}
                    }
                   },
 
@@ -882,8 +927,7 @@ allExternalLibraries = {
                     'ld-path'   : '$LIB-PATH',
                     'libraries' : {'TMineLibs' : ['TMine', 'TMine_IM_XML',
                                                   'TMine_GUI', 'TMine_TMVA',
-                                                  'TMine_Engines',
-                                                  'TMine_XmlParse',
+                                                  'TMine_Engines','TMine_XmlParse',
                                                   'TMine_Model', 'TMine_base',
                                                   'TMine_util']}
                     }
