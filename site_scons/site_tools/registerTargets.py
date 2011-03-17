@@ -1,5 +1,5 @@
-#  $Id: registerTargets.py,v 1.15 2011/01/28 01:05:37 jrb Exp $
-import os, pprint, sys
+#  $Id: registerTargets.py,v 1.16 2011/03/03 21:23:59 jrb Exp $
+import os, pprint, sys, os.path
 from SCons.Script import *
 from fermidebug import fdebug
 
@@ -278,6 +278,10 @@ def generate(env, **kw):
 ### NOTE!!! Need to add something to makeStudio for job options
         if sys.platform=='win32':
             if env['PLATFORM'] == "win32" and env['COMPILERNAME'] == "vc90":
+                # In special case where rootcint lib is first project
+                # encountered, directory might not exist
+                if not os.path.exists(str(env['STUDIODIR'])):
+                    Execute(Mkdir(env['STUDIODIR']))
                 env.Tool('makeStudio', package=kw.get('package',''),
                          libraryCxts=kw.get('libraryCxts',''),
                          staticLibraryCxts=kw.get('staticLibraryCxts',''),
