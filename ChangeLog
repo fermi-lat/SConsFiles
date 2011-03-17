@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu Mar 17 16:21:34 PDT 2011
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+sync with allExternals.scons in Gaudi development branch
+    *
+------------------------------------------------------------
 User: jrb  Wed Mar 16 17:50:07 PDT 2011
 SConsFiles
 
