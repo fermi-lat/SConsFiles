@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-10-04 17-Mar-2011    jrb 1. add some externals 2. add option to set Windows target arch (32-bit or 64-bit) explicitly
  SConsFiles-00-10-03 08-Mar-2011    jrb Change external name from ldf to LDF to match CMT naming
  SConsFiles-00-10-02 07-Mar-2011    jrb Add entry for TMineExt 3.1.2
  SConsFiles-00-10-01 03-Mar-2011    jrb minor changes needed for TMine-scons; add 2 G4 libraries to list for Windows only
