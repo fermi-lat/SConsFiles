@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu Mar 24 12:10:49 PDT 2011
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	makeStudio.py msvs.py 
+Log Message:
+project file compiles should look first in local package include area
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-10-04, operation: add
 Package: SConsFiles
