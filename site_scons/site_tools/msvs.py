@@ -1,4 +1,4 @@
-#  $Id: msvs.py,v 1.5 2010/06/07 18:40:38 jrb Exp $
+#  $Id: msvs.py,v 1.6 2010/08/16 18:25:08 jrb Exp $
 """ Site-specific msvs, from SCons.Tool.msvs
 
     27 Feb  Get rid of some stuff which I don't think is being used
@@ -529,7 +529,11 @@ class _GenerateV7DSP(_DSPGenerator):
             elif self.targettype == "rootcintlib":
                 self.DoRootcint()
                 
+            #  set additional_includes to be our package root
             self.additional_includes      = ""
+            if env.has_key('packageroot'):
+                self.additional_includes = env['packageroot']
+
             #  Do we always want runtimelibrary = 2 ?  Probably not.
             #  It dictates whether we get MSVCRTD, MSVCRT, etc.
             self.runtimelibrary           = "2"
