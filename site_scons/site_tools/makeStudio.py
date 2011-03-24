@@ -1,5 +1,5 @@
-#  $Id: $
-import os, pprint
+#  $Id: makeStudio.py,v 1.3 2010/06/07 18:40:38 jrb Exp $
+import os, os.path, pprint
 from SCons.Script import *
 from fermidebug import fdebug
 
@@ -35,8 +35,6 @@ def _isSomething(s, something):
     return ''
 
 def generate(env, **kw):
-    pkgtopdir = str(env.Dir('.').srcnode())
-
     # Will contain list of extra libraries, required by package targets,
     # which belong to other packages.  These projects have to appear
     # in solution file
@@ -46,6 +44,11 @@ def generate(env, **kw):
     absincs = []
     pkgname = kw.get('package', '')
     if pkgname == '': return
+
+    #print "abspath for our SConscript: "    
+    #print File("SConscript").srcnode().abspath
+
+    pkgroot = os.path.dirname(str(File("SConscript").srcnode().abspath))
     
     if kw.get('includes', '') != '':
         for header in kw.get('includes'):
@@ -101,6 +104,7 @@ def generate(env, **kw):
                                                variant=env['VISUAL_VARIANT'],
                                                buildtarget=buildtarg,
                                                targettype='dll',
+                                               packageroot=pkgroot,
                                                auto_build_solution=0)
                 projectInstalled = env.Install(env['STUDIODIR'], projectFile)
                     
@@ -159,6 +163,7 @@ def generate(env, **kw):
                 projectFile=cxt[1].MSVSProject(target=targ,
                                                #!srcs=sourcenames,
                                                incs=absincs,
+                                               packageroot=pkgroot,
                                                misc=absmisc,
                                                variant=env['VISUAL_VARIANT'],
                                                buildtarget=buildtarg,
@@ -223,6 +228,7 @@ def generate(env, **kw):
                 cxt[1]['outdir'] = libdirstring
                 projectFile=cxt[1].MSVSProject(target=targ,
                                                misc=absmisc,
+                                               packageroot=pkgroot,
                                                variant=env['VISUAL_VARIANT'],
                                                buildtarget=buildtarg,
                                                targettype='swigdll',
@@ -282,6 +288,7 @@ def generate(env, **kw):
                 cxt[1]['outdir'] = libdirstring
                 projectFile=cxt[1].MSVSProject(target=targ,
                                                incs=absincs,
+                                               packageroot=pkgroot,
                                                misc=absmisc,
                                                variant=env['VISUAL_VARIANT'],
                                                buildtarget=buildtarg,
@@ -343,7 +350,7 @@ def generate(env, **kw):
                 cxt[1]['packageName'] = pkgname
                 cxt[1]['outdir'] = libdirstring
                 projectFile=cxt[1].MSVSProject(target=targ,
-
+                                               packageroot=pkgroot,
                                                incs=absincs,
                                                misc=absmisc,
                                                variant=env['VISUAL_VARIANT'],
@@ -403,6 +410,7 @@ def generate(env, **kw):
                 cxt[1]['outdir'] = env['BINDIR']
                 projectFile=cxt[1].MSVSProject(target=targ,
                                                incs=absincs,
+                                               packageroot=pkgroot,
                                                misc=absmisc,
                                                variant=env['VISUAL_VARIANT'],
                                                buildtarget=buildtarg,
