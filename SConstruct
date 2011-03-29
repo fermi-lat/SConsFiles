@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.94 2011/03/17 00:50:07 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.95 2011/03/18 00:11:49 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu
 # Version: SConsFiles-00-10-04
 
@@ -35,8 +35,8 @@ else:
 #..and for Windows also get --vc option value before creating baseEnv
 vccmp=''
 if sys.platform == 'win32':
-    arch = 'i386'
-    if GetOption('bits')== '64': arch = 'x86_64'
+    arch = 'x86'
+    if GetOption('bits')== '64': arch = 'amd64'
     if GetOption('vc'):
         vccmp = GetOption('vc')
         baseEnv=Environment(MSVC_VERSION=vccmp, TARGET_ARCH=arch)
@@ -262,10 +262,15 @@ else:
     baseEnv.AppendUnique(LIBPATH = os.path.join(os.path.abspath('.'),'lib',variant))
 ## STUDIODIR is where project and solution files will go
 if sys.platform == 'win32':
+<<<<<<< SConstruct
+    baseEnv.Append(STUDIODIR = Dir(override).Dir('studio').Dir(variant))
+    print baseEnv['STUDIODIR'], baseEnv['MSVC_VERSION']
+=======
     if 'NO_VARIANT' in baseEnv:
         baseEnv.Append(STUDIODIR = Dir(override).Dir('studio'))
     else:
         baseEnv.Append(STUDIODIR = Dir(override).Dir('studio').Dir(variant))
+>>>>>>> 1.95
                    
 ##################
 # Create release #
