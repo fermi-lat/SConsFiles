@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: tstephen  Wed Mar 30 10:11:11 PDT 2011
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Removed some merge error code from last commit.
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-11-00, operation: add
 Package: SConsFiles
