@@ -529,6 +529,21 @@ allExternalLibraries = {
                      'win32'   :
                      { 'libraries' : { 'f2cLibs' : [ 'vcf2c.lib', 'oldnames.lib' ] }
                      }
+                   },
+                   '3.4-i1' : 
+                   { 'default':
+                     { 'version'      : '3.4-gl2',
+                       'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
+                       'include-path' : os.path.join('$TOP', 'include'),
+                       'lib-path'     : os.path.join('$TOP', 'lib'),
+                       'ld-path'      : '$LIB-PATH',
+                       'libraries'    : { 'f2cLibs' : ['f2c'] },
+                     },
+                     'snowleopard' :
+                     {'version'       : '3.4-gl3'},
+                     'win32'   :
+                     { 'libraries' : { 'f2cLibs' : [ 'vcf2c.lib', 'oldnames.lib' ] }
+                     }
                    }
                  },
 
