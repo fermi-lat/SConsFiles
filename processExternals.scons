@@ -33,11 +33,17 @@ def getExternal(name, iversion):
     fdebug('getting external ' + name)
     configuredExternal = allExternals[name][iversion]['default']
     
-    #Check for default overrides for OS
+    #Check for default overrides for OS   (value of PLATFORM)
     if baseEnv['PLATFORM'] in allExternals[name][iversion]:
         fdebug('overriding for PLATFORM ' + str(baseEnv['PLATFORM']))
         for section in allExternals[name][iversion][baseEnv['PLATFORM']]:
             configuredExternal[section] = allExternals[name][iversion][baseEnv['PLATFORM']][section]
+
+    #Check for default overrides for OS   (value of OSNAME)
+    if baseEnv['OSNAME'] in allExternals[name][iversion]:
+        fdebug('overriding for OSNAME ' + str(baseEnv['OSNAME']))
+        for section in allExternals[name][iversion][baseEnv['OSNAME']]:
+            configuredExternal[section] = allExternals[name][iversion][baseEnv['OSNAME']][section]
 
     #Check for default overrides for compiler    
     if baseEnv['COMPILERNAME'] in allExternals[name][iversion]:
