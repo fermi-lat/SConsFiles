@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-11-02 30-Mar-2011    jrb make it possible to get fixed f2c, needed for snowleopard only
  SConsFiles-00-11-01 30-Mar-2011 glastrm fixed target architecture values
  SConsFiles-00-11-00 29-Mar-2011 glastrm fixed target architecture values
  SConsFiles-00-10-04 17-Mar-2011    jrb 1. add some externals 2. add option to set Windows target arch (32-bit or 64-bit) explicitly
