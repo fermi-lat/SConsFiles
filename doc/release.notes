@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-12-00 14-Apr-2011    hmk Add in entries for catalogProducts and diffuseModels
  SConsFiles-00-11-03 14-Apr-2011    hmk add new i version of cfitsio external due to new symlinked library which includes version in name
  SConsFiles-00-11-02 30-Mar-2011    jrb make it possible to get fixed f2c, needed for snowleopard only
  SConsFiles-00-11-01 30-Mar-2011 glastrm fixed target architecture values

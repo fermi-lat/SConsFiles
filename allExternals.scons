@@ -573,6 +573,28 @@ allExternalLibraries = {
                    }
                  },
 
+    'catalogProducts' : { 'v0r0' :
+                   { 'default' : { 'version'     : 'v0r0',
+                                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                                   'cpp-defines' : [ 'catalogProducts=\\"$VERSION\\"']
+                                 }
+                   }
+                 },
+
+    'diffuseModels' : { 'v0r0' :
+                   { 'default' : { 'version'     : 'v0r0',
+                                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                                   'cpp-defines' : [ 'diffuseModels=\\"$VERSION\\"']
+                                 }
+                   },
+                   'v1r0' :
+                   { 'default' : { 'version'     : 'v1r0',
+                                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                                   'cpp-defines' : [ 'diffuseModels=\\"$VERSION\\"' ]
+                                 }
+                   }
+                 },
+
     'gaudi' : { 'v18r1-gl4' :
                 { 'default' :
                   { 'version' : 'v18r1-gl4',
