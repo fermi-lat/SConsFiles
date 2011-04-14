@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Thu Apr 14 13:07:41 PDT 2011
+SConsFiles/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+fix up tags
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-12-00, operation: mov
 Package: SConsFiles
