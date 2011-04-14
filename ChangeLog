@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: heather  Thu Apr 14 10:37:57 PDT 2011
+SConsFiles/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+add in entries for catalogProducts and diffuseModels
+    *
+------------------------------------------------------------
+User: heather  Thu Apr 14 10:37:57 PDT 2011
 SConsFiles
 
 Modified Files:
