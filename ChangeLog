@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Thu Apr 14 12:56:37 PDT 2011
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+update version in SConstruct file
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-11-04, operation: add
 Package: SConsFiles
