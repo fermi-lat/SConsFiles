@@ -1,22 +1,4 @@
 ------------------------------------------------------------
-User: heather  Fri Apr 15 09:27:24 PDT 2011
-SConsFiles/doc
-
-Modified Files:
-	release.notes 
-Log Message:
-patch win32 cfitsio lib setup
-    *
-------------------------------------------------------------
-User: heather  Fri Apr 15 09:27:24 PDT 2011
-SConsFiles
-
-Modified Files:
-	SConstruct allExternals.scons 
-Log Message:
-patch win32 cfitsio lib setup
-    *
-------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-12-00, operation: mov
 Package: SConsFiles
