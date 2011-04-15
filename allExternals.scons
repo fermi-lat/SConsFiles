@@ -70,7 +70,8 @@ allExternalLibraries = {
                                    'includes'     : [ 'fitsio.h' ],
                                    'libraries'    : { 'cfitsioLibs' : [ 'cfitsio-v3.060A', 'm' ] }
                                  },
-                     'win32'   : { 'version'    : 'v3060A' }
+                     'win32'   : { 'version'    : 'v3060A',
+                                   'libraries'    : { 'cfitsioLibs' : [ 'cfitsio' ] } }
                    }
                  },
     
