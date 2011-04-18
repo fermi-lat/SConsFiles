@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Mon Apr 18 15:23:22 PDT 2011
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+always rebuild set-up scripts when --supersede option is present
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-12-01, operation: add
 Package: SConsFiles
