@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-12-02 22-Apr-2011    jrb Always build setup target if --supersede
  SConsFiles-00-12-01 15-Apr-2011    hmk Patch cfitsio set up for windows
  SConsFiles-00-12-00 14-Apr-2011    hmk Add in entries for catalogProducts and diffuseModels
  SConsFiles-00-11-04 14-Apr-2011    jrb get correct version line in SConstruct
