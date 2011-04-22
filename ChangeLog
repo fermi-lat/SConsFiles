@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Fri Apr 22 12:33:02 PDT 2011
+SConsFiles/shellscripts
+
+Modified Files:
+	pfiles_setup.sh 
+Log Message:
+comment out debug statement
+    *
+------------------------------------------------------------
 User: jrb  Mon Apr 18 15:23:22 PDT 2011
 SConsFiles
 
