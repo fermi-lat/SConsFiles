@@ -3,7 +3,7 @@
 if [ "x$PFILES" != x ]
 then
   foundSemi=`echo $PFILES | sed "s%.*;.*%;%"`
-  echo $foundSemi
+#  echo $foundSemi
   if [ "x$foundSemi" = "x;" ]
   then
     export PFILES=${PFILES}:${INST_DIR}/syspfiles
