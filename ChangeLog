@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Mon May 23 11:18:44 PDT 2011
+SConsFiles
+
+Modified Files:
+	SConstruct allExternals.scons 
+Log Message:
+adding in G4 9.4.p01 and CLHEP 2.1.0.1
+    *
+------------------------------------------------------------
 TAG
 Tag name: Toy-01-01-02, operation: add
 Package: SConsFiles
