@@ -763,6 +763,8 @@ allExternalLibraries = {
                     'linkflags' : ['-FORCE'],
                     'lib-path' : os.path.join('$TOP', 'lib', 'WIN32-VC')
                     },
+                  'vc71' :{ 'version' : '9.4.p01-gl1' 
+                    },
                   'vc90' :{
                       'lib-path' : os.path.join('$TOP', 'lib')
                       },
