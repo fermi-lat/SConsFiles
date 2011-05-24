@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-13-01 24-May-2011 heather use g4 9.4.p01-gl1 on vc71
  SConsFiles-00-13-00 23-May-2011 heather add G4 9.4.p01 and CLHEP 2.1.0.1 to allExternals
  SConsFiles-00-12-02 22-Apr-2011    jrb Always build setup target if --supersede
  SConsFiles-00-12-01 15-Apr-2011    hmk Patch cfitsio set up for windows
