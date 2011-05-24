@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: heather  Tue May 24 07:35:15 PDT 2011
+SConsFiles/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+for vc71 use geant4 9.4.p01-gl1
+    *
+------------------------------------------------------------
+User: heather  Tue May 24 07:35:15 PDT 2011
 SConsFiles
 
 Modified Files:
