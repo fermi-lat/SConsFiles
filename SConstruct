@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.106 2011/05/23 18:18:44 heather Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/GRBAnalysis-scons/SConstruct,v 1.107 2011/05/24 14:35:51 heather Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu
 # Version: SConsFiles-00-13-01
 
@@ -414,8 +414,7 @@ if not baseEnv.GetOption('help'):
         for name in pruned:
             package = re.compile('-.*$').sub('',name)
             if not name in ['build', 'CVS', 'src', 'cmt', 'mgr', 'data', 'xml',
-                            'pfiles', 'doc', 'bin', 'lib','containerSettings',
-                            baseSettingsDir, supersedeSettingsDir]:
+                            'pfiles', 'doc', 'bin', 'lib']:
                 fullpath = os.path.join(directory,name)
                 if os.path.isdir(fullpath):
                     directories.append(fullpath)
