@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Fri Jun 17 11:24:43 PDT 2011
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+run containerSettings/SConscript, usually a no-op
+    *
+------------------------------------------------------------
 TAG
 Tag name: Toy-01-01-03, operation: add
 Package: SConsFiles
