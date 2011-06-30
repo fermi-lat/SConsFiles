@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Wed Jun 29 19:02:49 PDT 2011
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+adding entry for python 2.7 and 2.6.5-gl1
+    *
+------------------------------------------------------------
 User: jrb  Fri Jun 17 11:24:43 PDT 2011
 SConsFiles
 
