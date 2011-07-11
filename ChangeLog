@@ -1,4 +1,18 @@
 ------------------------------------------------------------
+User: tstephen  Mon Jul 11 12:34:14 PDT 2011
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Added the /SUBSYSTEM:CONSOLE linker flag for Windows builds.  This tells the
+2008 compiler what type of program is being build and removes the build error:
+fatal error LNK1561: entry point must be defined
+that we have been seeing.
+
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-09-24-00, operation: add
 Package: SConsFiles
