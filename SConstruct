@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.108 2011/06/17 18:24:43 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.109 2011/06/30 02:05:46 heather Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu
 # Version: SConsFiles-00-14-00
 
@@ -198,6 +198,7 @@ if sys.platform == "win32":
         baseEnv.AppendUnique(CCFLAGS = "/O2")
 
     baseEnv.AppendUnique(LINKFLAGS = "/NODEFAULTLIB")
+    baseEnv.AppendUnique(LINKFLAGS = "/SUBSYSTEM:CONSOLE")
 
     # Disable compiler warning number 4812 having to do with
     # obsolete form of explicit constructor specialization
