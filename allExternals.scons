@@ -636,7 +636,13 @@ allExternalLibraries = {
                                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
                                    'cpp-defines' : [ 'diffuseModels=\\"$VERSION\\"' ]
                                  }
-                   }
+                   },
+                   'v2r0' :
+                   { 'default' : { 'version'     : 'v2r0',
+                                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                                   'cpp-defines' : [ 'diffuseModels=\\"$VERSION\\"' ]
+                                 }
+                   }                        
                  },
 
     'gaudi' : { 'v18r1-gl4' :
