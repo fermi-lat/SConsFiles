@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-14-02 02-Aug-2011    jrb Add entry to allExternals.scons for diffuseModels v2r0
  SConsFiles-00-14-01 11-Jul-2011 glastrm Added linker flag to fixe windows vc90 builds
  SConsFiles-00-14-00 29-Jun-2011 heather added python 2.7
  SConsFiles-00-13-01 24-May-2011 heather use g4 9.4.p01-gl1 on vc71
