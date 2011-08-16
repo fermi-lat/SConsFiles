@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Mon Aug 15 19:49:39 PDT 2011
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+G4 version 9.4.p01 needs G4physicslists in geant4Libs
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-09-25-00, operation: add
 Package: SConsFiles
