@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-15-00 16-Aug-2011    jrb add data and code for exporting G4 table path
  SConsFiles-00-14-03 15-Aug-2011    jrb Fix for new G4 on Linux
  SConsFiles-00-14-02 02-Aug-2011    jrb Add entry to allExternals.scons for diffuseModels v2r0
  SConsFiles-00-14-01 11-Jul-2011 glastrm Added linker flag to fixe windows vc90 builds
