@@ -1,5 +1,15 @@
 ------------------------------------------------------------
 TAG
+Tag name: GlastRelease-19-03-07, operation: del
+Package: SConsFiles
+User: glastrm  Tue Sep  6 14:19:14 2011
+Files:
+  SConsFiles/ChangeLog  1.455
+  SConsFiles/doc/release.notes  1.60
+
+    *
+------------------------------------------------------------
+TAG
 Tag name: GlastRelease-19-03-07, operation: add
 Package: SConsFiles
 User: heather  Fri Sep  2 20:03:29 2011
