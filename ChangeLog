@@ -1,5 +1,18 @@
 ------------------------------------------------------------
 TAG
+Tag name: GlastRelease-19-03-07, operation: add
+Package: SConsFiles
+User: heather  Wed Sep  7 10:57:54 2011
+Files:
+  SConsFiles/ChangeLog  1.455
+  SConsFiles/allExternals.scons  1.90
+  SConsFiles/SConstruct  1.114
+  SConsFiles/processExternals.scons  1.44
+  SConsFiles/Doxygen/Default  1.2
+
+    *
+------------------------------------------------------------
+TAG
 Tag name: GlastRelease-19-03-07, operation: del
 Package: SConsFiles
 User: glastrm  Tue Sep  6 14:19:14 2011
