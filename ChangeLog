@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Thu Sep 15 21:11:24 PDT 2011
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+remove libG3toG4 from g4 9.4.p01 on windows
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-09-25-01, operation: add
 Package: SConsFiles
