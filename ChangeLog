@@ -1,22 +1,4 @@
 ------------------------------------------------------------
-User: heather  Fri Sep 16 10:47:59 PDT 2011
-SConsFiles/doc
-
-Modified Files:
-	release.notes 
-Log Message:
-add doc and update tag
-    *
-------------------------------------------------------------
-User: heather  Fri Sep 16 10:47:59 PDT 2011
-SConsFiles
-
-Modified Files:
-	SConstruct 
-Log Message:
-add doc and update tag
-    *
-------------------------------------------------------------
 User: heather  Thu Sep 15 21:11:24 PDT 2011
 SConsFiles
 
