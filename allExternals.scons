@@ -794,7 +794,7 @@ allExternalLibraries = {
                    {'geant4Libs' : ['libG4Tree','libG4FR', 'libG4GMocren',
                                     'libG4visHepRep', 'libG4RayTracer', 'libG4VRML',
                                     'libG4vis_management', 'libG4modeling', 'libG4interfaces',
-                                    'libG4persistency', 'libG3toG4', 'libG4error_propagation',
+                                    'libG4persistency', 'libG4error_propagation',
                                     'libG4readout','libG4physicslists','libG4run','libG4event',
                                     'libG4tracking', 'libG4parmodels','libG4processes',
                                     'libG4digits_hits', 'libG4track',
