@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu Sep 22 12:00:17 PDT 2011
+SConsFiles
+
+Modified Files:
+	processExternals.scons 
+Log Message:
+Have RM print all externals, not just those with ld-path or bin-path
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-17-35-24-gr05, operation: add
 Package: SConsFiles
