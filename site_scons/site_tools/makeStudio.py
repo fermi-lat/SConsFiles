@@ -1,4 +1,4 @@
-#  $Id: makeStudio.py,v 1.3 2010/06/07 18:40:38 jrb Exp $
+#  $Id: makeStudio.py,v 1.4 2011/03/24 19:10:49 jrb Exp $
 import os, os.path, pprint
 from SCons.Script import *
 from fermidebug import fdebug
@@ -134,6 +134,7 @@ def generate(env, **kw):
                 env.Default(projectInstalled)
                 env.Alias('all', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
+                env.Alias('projectFiles', projectInstalled)
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
                 
     # static libraries   -----------------------------------------------
@@ -198,6 +199,7 @@ def generate(env, **kw):
                 env.Alias('all', projectInstalled)
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
+                env.Alias('projectFiles', projectInstalled)
 
     # end static libraries   --------------------------
 
@@ -260,6 +262,7 @@ def generate(env, **kw):
                 env.Default(projectInstalled)
                 env.Alias('all', projectInstalled)
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
+                env.Alias('projectFiles', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
 
     # root shared libraries. Have to get the rootcint command in there
@@ -320,6 +323,7 @@ def generate(env, **kw):
                 env.Default(projectInstalled)
                 env.Alias('all', projectInstalled)
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
+                env.Alias('projectFiles', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
 
     # end rootcint shared
@@ -383,6 +387,7 @@ def generate(env, **kw):
                 env.Default(projectInstalled)
                 env.Alias('all', projectInstalled)
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
+                env.Alias('projectFiles', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
 
     # end rootcint static
@@ -438,6 +443,7 @@ def generate(env, **kw):
 
                 env.Alias(kw.get('package'), projectInstalled)
                 env.Alias('all', projectInstalled)
+                env.Alias('projectFiles', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
     
