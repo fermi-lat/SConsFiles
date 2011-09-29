@@ -622,7 +622,13 @@ allExternalLibraries = {
                                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
                                    'cpp-defines' : [ 'catalogProducts=\\"$VERSION\\"']
                                  }
-                   }
+                   },
+                   'v1r1' :       
+                   { 'default' : { 'version'     : 'v1r1',
+                                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                                   'cpp-defines' : [ 'catalogProducts=\\"$VERSION\\"']
+                                 }
+                   }                          
                  },
 
     'diffuseModels' : { 'v0r0' :
