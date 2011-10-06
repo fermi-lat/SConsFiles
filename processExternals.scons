@@ -389,10 +389,8 @@ def setupGaudi(configuredExternal):
                 # Do an ugly thing here:  look for xerces entry; replace 'lib' with 'bin'
                 if env['PLATFORM'] == 'win32':
                     if e.find('xerces') > -1 : 
-                        #print "found xerces"
                         ix = e.rfind('lib')
                         e = e[:ix] + e[ix:].replace('lib', 'bin')
-                        #print "result after replace: ", e
 
                 env.PrependENVPath(libpathname, e)
 
@@ -412,6 +410,12 @@ def setupLdf(configuredExternal):
 
 def setupObf(configuredExternal):
     baseEnv['obfLdPath'] = configuredExternal['ld-path']
+    #print 'inside setupObf'
+    if 'dynld-dict' in configuredExternal:
+        baseEnv['obfdynlddict'] = configuredExternal['dynld-dict']
+        #print "contents of baseEnv['obfdynlddict']: "
+        #print baseEnv['obfdynlddict']
+        baseEnv['obfversion'] = configuredExternal['version']
 
 def setupG4(configuredExternal):
     baseEnv['G4TablesPath'] = configuredExternal['tables-path']
