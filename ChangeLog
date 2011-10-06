@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu Oct  6 12:52:46 PDT 2011
+SConsFiles
+
+Modified Files:
+	allExternals.scons processExternals.scons 
+Log Message:
+Add obf B3-0-0, B1-1-3-i3; beef up setupObf function
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-17-35-24-gr08, operation: add
 Package: SConsFiles
