@@ -1021,7 +1021,8 @@ allExternalLibraries = {
                                  'OBFXFC'   : 'V0-1-2','OBFEFC'   : 'V4-3-0'},
                    'ld-path'  : '$LIB-PATH'},
                  'win32' :
-                  {'libraries' : {'obfLibs' : ['lser', 'efc', 'eds',
+                  { 'top'       : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
+                  'libraries' : {'obfLibs' : ['lser', 'efc', 'eds',
                                                'ebfio',  'flight_cdm', 
                                                'cmx_asBuilt']},
                    }
