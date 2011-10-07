@@ -1,7 +1,7 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.117 2011/09/29 18:43:14 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/GlastRelease-scons/SConstruct,v 1.117 2011/09/29 18:43:14 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu
-# Version: SConsFiles-00-15-04
+# Version: SConsFiles-00-15-03
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands,subprocess
 #########################
@@ -350,15 +350,6 @@ if override != '.':
                                                   'containerPrefix.scons'))
         supersedeSettingsDir = supersedePrefix + supersedeSettingsDir
 
-############################
-# Package Specific Options #
-############################
-pkgScons = os.path.join(override, supersedeSettingsDir, 'package.scons')
-if os.path.exists(pkgScons):
-    SConscript(pkgScons, exports='pkgScons')
-else:
-    pkgScons = os.path.join(baseSettingsDir, 'package.scons')
-    SConscript(pkgScons, exports='pkgScons')
 
 
 #########################
@@ -370,6 +361,16 @@ usedExternals = SConscript(os.path.join(baseSettingsDir, 'externals.scons'),
                            exports = 'allExternals')
 SConscript('processExternals.scons', exports = 'allExternals usedExternals')
 
+
+############################
+# Package Specific Options #
+############################
+pkgScons = os.path.join(override, supersedeSettingsDir, 'package.scons')
+if os.path.exists(pkgScons):
+    SConscript(pkgScons, exports='pkgScons')
+else:
+    pkgScons = os.path.join(baseSettingsDir, 'package.scons')
+    SConscript(pkgScons, exports='pkgScons')
 
 
 def listFiles(files, **kw):
