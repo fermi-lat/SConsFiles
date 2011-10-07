@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu Oct  6 17:02:25 PDT 2011
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+put container-specific init after externals init
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-15-04, operation: add
 Package: SConsFiles
