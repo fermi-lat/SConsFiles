@@ -1043,17 +1043,23 @@ allExternalLibraries = {
                                                'cmx_asBuilt']},
                    'include-path' : os.path.join('$TOP', 'include'),
                    'lib-path' : os.path.join('$TOP', 'lib'),
-                   'dynld-dict':{'OBFCOG_DB': 'V0-0-1','OBFCGB_DB' : 'V0-1-0',
-                                 'OBFCOP_DB': 'V0-0-1','OBFCPP_DB' : 'V0-1-1',
-                                 'OBFCPG_DB': 'V0-1-0','OBFGFC_DB' : 'V3-1-1',
-                                 'OBFGGF_DB': 'V2-0-0','OBFXFC_DB' : 'V3-1-1',
+                   'dynld-dict':{'OBFCOG_DB': 'V0-0-2','OBFCGB_DB' : 'V0-1-1',
+                                 'OBFCOP_DB': 'V0-0-2','OBFCPP_DB' : 'V0-1-2',
+                                 'OBFCPG_DB': 'V0-1-1','OBFGFC_DB' : 'V3-1-1',
+                                 'OBFGGF_DB': 'V2-0-1','OBFXFC_DB' : 'V3-1-2',
                                  'OBFXFC'   : 'V0-2-2','OBFEFC'   : 'V4-4-3'},
                    'ld-path'  : '$LIB-PATH'},
                  'win32' :
-                  {'libraries' : {'obfLibs' : ['efc', 'eds',
-                                               'flight_cdm', 
+                  {'libraries' : {'obfLibs' : ['gefc', 'eds',
+                                               'flight_cdm', 'flight_mdb',
                                                'cmx_asBuilt']},
-                   }
+                   },
+                  'dynld-dict':{'OBFCOG_DB': 'V0-0-1','OBFCGB_DB' : 'V0-1-0',
+                                'OBFCOP_DB': 'V0-0-1','OBFCPP_DB' : 'V0-1-1',
+                                'OBFCPG_DB': 'V0-1-1','OBFGFC_DB' : 'V3-1-1',
+                                'OBFGGF_DB': 'V2-0-0','OBFXFC_DB' : 'V3-1-1',
+                                'OBFXFC'   : 'V0-2-2','OBFEFC'   : 'V4-4-3'},
+
                  }
                  
 
@@ -1140,6 +1146,23 @@ allExternalLibraries = {
                   {'default' :
                    {'version' : '3.1.2',
                     'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
+                    'include-path' : os.path.join('$TOP', 'include'),
+                    'includes' : ['TMine/util/Translate.h'],
+                    'lib-path' : os.path.join('$TOP', 'lib'),
+                    'bin-path' : os.path.join('$TOP', 'bin'),
+                    'ld-path'   : '$LIB-PATH',
+                    'libraries' : {'TMineLibs' : ['TMine', 'TMine_IM_XML',
+                                                  'TMine_GUI', 'TMine_TMVA',
+                                                  'TMine_Engines',
+                                                  'TMine_XmlParse',
+                                                  'TMine_Model', 'TMine_base',
+                                                  'TMine_util']}
+                    }
+                   },
+                  '3.2.5' :
+                  {'default' :
+                   {'version' : '3.2.5',
+                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
                     'include-path' : os.path.join('$TOP', 'include'),
                     'includes' : ['TMine/util/Translate.h'],
                     'lib-path' : os.path.join('$TOP', 'lib'),
