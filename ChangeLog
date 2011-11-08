@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Tue Nov  8 07:24:44 PST 2011
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+update allExternals for rhel6 python 2.7.2 and ROOT -gl5
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-17-35-24-gr13, operation: add
 Package: SConsFiles
