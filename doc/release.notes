@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-16-01 13-Dec-2011 heather mods of G4 external on rhel5
  SConsFiles-00-16-00 08-Nov-2011 heather add python 2.7.2 for rhel6 and ROOT -gl5
  SConsFiles-00-15-05 06-Oct-2011    jrb small mod to allExternals for Windows obf; put containerSettings init after externals init in SConstruct
  SConsFiles-00-15-04 06-Oct-2011    jrb new obf externals and enhancements in processExternals to propagate information about them
