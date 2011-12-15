@@ -654,6 +654,12 @@ allExternalLibraries = {
                                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
                                    'cpp-defines' : [ 'catalogProducts=\\"$VERSION\\"']
                                  }
+                   },            
+                   'v1r2' :       
+                   { 'default' : { 'version'     : 'v1r2',
+                                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                                   'cpp-defines' : [ 'catalogProducts=\\"$VERSION\\"']
+                                 }
                    }                          
                  },
 
@@ -674,7 +680,7 @@ allExternalLibraries = {
                                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
                                    'cpp-defines' : [ 'diffuseModels=\\"$VERSION\\"' ]
                                  }
-                   }                        
+                   }
                  },
 
     'gaudi' : { 'v18r1-gl4' :
