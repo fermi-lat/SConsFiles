@@ -1,7 +1,7 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.121 2011/11/08 15:48:11 heather Exp $
-# Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu
-# Version: SConsFiles-00-16-01
+# $Header: /nfs/slac/g/glast/ground/cvs/ScienceTools-scons/SConstruct,v 1.122 2011/12/13 18:15:06 heather Exp $
+# Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
+# Version: SConsFiles-00-16-02
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands,subprocess
 #########################
@@ -222,6 +222,11 @@ else:
 if baseEnv['PLATFORM'] == "posix":
     baseEnv.AppendUnique(CCFLAGS = "-fPIC")
     baseEnv.AppendUnique(SHLINKFLAGS = "-fPIC")
+#    baseEnv.AppendUnique(CCFLAGS = "-gstabs")
+# for profiling with gprof:
+#    baseEnv.AppendUnique(CCFLAGS = "-pg")
+#    baseEnv.AppendUnique(LINKFLAGS = "-pg")
+    baseEnv.AppendUnique(CPPDEFINES = ['TRAP_FPE'])
 
 if baseEnv['PLATFORM'] == "darwin":
     baseEnv.AppendUnique(SHLINKFLAGS = ["-Wl,-install_name", "-Wl,${TARGET.file}"])
