@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Wed Jan  4 13:43:11 PST 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+fix up vc90 debug version for geant4 9.4.p01-gl2
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-17-00, operation: add
 Package: SConsFiles
