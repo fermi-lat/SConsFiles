@@ -887,7 +887,7 @@ allExternalLibraries = {
                   'vc90' :{
                       'lib-path' : os.path.join('$TOP', 'lib')
                       },
-                  'vc90-debug' :{ 'version' : '9.4.p01-dbg' }
+                  'vc90-debug' :{ 'version' : '9.4.p01-gl2-dbg' }
                   }
                 },
     'ldf'    : {'v06-02-00' :
