@@ -439,7 +439,7 @@ for external in usedExternals:
         setupSwig(configuredExternal)
     if external['name'] == 'python':
         setupPython(configuredExternal)
-    if external['name'] == 'LDF':
+    if external['name'] == 'ldf':
         setupLdf(configuredExternal)
     if external['name'] == 'obf':
         setupObf(configuredExternal)
