@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Sat Jan 14 15:14:30 PST 2012
+SConsFiles
+
+Modified Files:
+	processExternals.scons 
+Log Message:
+add rdynamic for components
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-17-02, operation: add
 Package: SConsFiles
