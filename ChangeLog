@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Fri Jan 13 18:02:34 PST 2012
+SConsFiles
+
+Modified Files:
+	processExternals.scons 
+Log Message:
+add rdynamic flag for gaudi component libraries
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-17-01, operation: add
 Package: SConsFiles
