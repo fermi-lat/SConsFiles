@@ -351,6 +351,7 @@ def setupGaudi(configuredExternal):
             if env['PLATFORM'] == 'win32':
                 return env.SharedLibrary(lb, sources, **args)
             else:
+                env.AppendUnique(SHLINKFLAGS = ['-rdynamic'])
                 return env.LoadableModule('lib' + lb, sources, **args)
         
     else:
