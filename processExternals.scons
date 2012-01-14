@@ -371,6 +371,7 @@ def setupGaudi(configuredExternal):
             if env['PLATFORM'] == 'win32':
                 cmplib = env.SharedLibrary(lb, sources, **args)
             else:
+                env.AppendUnique(SHLINKFLAGS = ['-rdynamic'])
                 cmplib = env.LoadableModule('lib' + lb, sources, **args)
 
             # env['LIBPATH'] should be list of dirs to search
