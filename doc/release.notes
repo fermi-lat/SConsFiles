@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-17-04 17-Jan-2012    jrb put appropriate things in OmniOrbLibs
  SConsFiles-00-17-03 14-Jan-2012    jrb use rdynamic for component libs
  SConsFiles-00-17-02 13-Jan-2012    jrb add -rdynamic flag for gaudi components
  SConsFiles-00-17-01 04-Jan-2012 heather patch version of geant4 for vc90 debug 9.4.p01-gl2
