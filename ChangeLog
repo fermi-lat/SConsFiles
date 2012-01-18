@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Tue Jan 17 17:19:09 PST 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+Put in libraries for OmniOrb
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-17-03, operation: add
 Package: SConsFiles
