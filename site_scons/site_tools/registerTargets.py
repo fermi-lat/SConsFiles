@@ -1,4 +1,4 @@
-#  $Id: registerTargets.py,v 1.15 2011/01/28 01:05:37 jrb Exp $
+#  $Id: registerTargets.py,v 1.16 2011/03/03 21:23:59 jrb Exp $
 import os, pprint, sys, os.path
 from SCons.Script import *
 from fermidebug import fdebug
@@ -20,8 +20,9 @@ if sys.platform == 'win32':
 ##           env must have key rootcint_node
 ##        rootcintStaticCxts - list of 2-item lists [library node, env]
 ##           env must have key rootcint_node
-##        testAppCxts  - list of 2-item lists [program nodes,env]
-##        binaryCxts  - list of  2-item lists [program nodes,env]
+##        testAppCxts  - list of 2-item lists [program node,env]
+##        binaryCxts  - list of  2-item lists [program node,env]
+##        objects  - list of  2-item lists [object node,env]
 ##        includes - list of file paths
 ##        topInclude - put includes under $INST_DIR/include/topInclude
 ##                     or just $INST_DIR/include if special value "*NONE*" is supplied
@@ -137,6 +138,19 @@ def generate(env, **kw):
             env.Default(wrappers)
             env.Alias('binaries', wrappers)
             env.Alias('all', wrappers)
+
+        objs = kw.get('objects','')
+        if objs != '':
+            #fdebug('found %s objects for pkg %s' % (len(objs),pkgname))
+            nodes = []
+            for x in objs:
+                nodes.append(x[0])
+            if len(objs) > 0:
+                installedObjs = env.Install(env['LIBDIR'], nodes)
+                env.Alias('objects', installedObjs)
+                env.Alias(pkgname, installedObjs)
+                env.Alias('all', installedObjs)
+
         if kw.get('includes', '') != '':
             for header in kw.get('includes'):
                 header = env.File(str(header))
@@ -276,6 +290,7 @@ def generate(env, **kw):
             #print 'registerTargets: registering env dicts for %s' % list(x[0] for x in kw.get('wrapper_env'))
             env.Append( WRAPPER_ENV = kw.get('wrapper_env') )
 ### NOTE!!! Need to add something to makeStudio for job options
+### NOTE #2!!!    and for objects
         if sys.platform=='win32':
             if env['PLATFORM'] == "win32" and env['COMPILERNAME'] == "vc90":
                 # In special case where rootcint lib is first project
