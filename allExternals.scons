@@ -1170,9 +1170,15 @@ allExternalLibraries = {
                     'ld-path'  : '$LIB-PATH'},
                    'win32' :
                    { 'include-path' : os.path.join('$TOP', 'include'),
-                     'libraries' : {'foxLibs' : ['FOXDLL-1.4']},                     
+                     'libraries' : {'foxLibs' : ['FOXDLL-1.4']}, 
+                     },
+                   'vc90'  :
+                   { 'version' : '1.4.34-gl2' },
+                   'vc90-debug'  :
+                   { 'version' : '1.4.34-gl2-dbg',
+                     'libraries' : {'foxLibs' : ['FOXDLLD-1.4']}, 
                      }
-                    }
+                    },
                    },
 
     'zlib'    : {'1.1.4' :
