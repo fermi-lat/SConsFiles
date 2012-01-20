@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu Jan 19 17:14:15 PST 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+Add entries for vc90 fox external
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-17-04, operation: add
 Package: SConsFiles
