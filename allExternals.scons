@@ -335,7 +335,7 @@ allExternalLibraries = {
                      'win32'   : { 'libraries'    :
                                    { 'rootLibs'    : [ 'libCore', 'libCint', 'libRIO', 'libNet', 'libTree', 'libHist','libGraf','libGpad','libMatrix','libPhysics', 'libMathCore', 'libThread'],
                                      'rootGuiLibs' : [ 'libHist', 'libGraf', 'libGraf3d', 'libGpad','libRint', 'libPostscript', 'libTreePlayer', 'libGui', 'libHistPainter' ],
-                                     'minuitLibs'  : [ 'libMinuit2' ],
+                                     'minuitLibs'  : [ 'libMinuit2', 'libMinuit' ],
                                      'rootTMineLibs': [ 'libTreePlayer', 'libXMLIO', 'libGed', 'libMLP', 'libTMVA', 'libRint', 'libHtml']
                                    }
                                  },
@@ -359,7 +359,7 @@ allExternalLibraries = {
                      'win32'   : { 'libraries'    :
                                    { 'rootLibs'    : [ 'libCore', 'libCint', 'libRIO', 'libNet', 'libTree', 'libHist','libGraf','libGpad','libMatrix','libPhysics', 'libMathCore', 'libThread'],
                                      'rootGuiLibs' : [ 'libHist', 'libGraf', 'libGraf3d', 'libGpad','libRint', 'libPostscript', 'libTreePlayer', 'libGui', 'libHistPainter' ],
-                                     'minuitLibs'  : [ 'libMinuit2' ],
+                                     'minuitLibs'  : [ 'libMinuit2', 'libMinuit' ],
                                      'rootTMineLibs': [ 'libTreePlayer', 'libXMLIO', 'libGed', 'libMLP', 'libTMVA', 'libRint', 'libHtml']
                                    }
                                  },
@@ -384,7 +384,7 @@ allExternalLibraries = {
                      'win32'   : { 'libraries'    :
                                    { 'rootLibs'    : [ 'libCore', 'libCint', 'libRIO', 'libNet', 'libTree', 'libHist','libGraf','libGpad','libMatrix','libPhysics', 'libMathCore', 'libThread'],
                                      'rootGuiLibs' : [ 'libHist', 'libGraf', 'libGraf3d', 'libGpad','libRint', 'libPostscript', 'libTreePlayer', 'libGui', 'libHistPainter' ],
-                                     'minuitLibs'  : [ 'libMinuit2' ],
+                                     'minuitLibs'  : [ 'libMinuit2', 'libMinuit' ],
                                      'rootTMineLibs': [ 'libTreePlayer', 'libXMLIO', 'libGed', 'libMLP', 'libTMVA', 'libRint', 'libHtml']
                                    }
                                  },
@@ -408,7 +408,7 @@ allExternalLibraries = {
                      'win32'   : { 'libraries'    :
                                    { 'rootLibs'    : [ 'libCore', 'libCint', 'libRIO', 'libNet', 'libTree', 'libHist','libGraf','libGpad','libMatrix','libPhysics', 'libMathCore', 'libThread'],
                                      'rootGuiLibs' : [ 'libHist', 'libGraf', 'libGraf3d', 'libGpad','libRint', 'libPostscript', 'libTreePlayer', 'libGui', 'libHistPainter' ],
-                                     'minuitLibs'  : [ 'libMinuit2' ],
+                                     'minuitLibs'  : [ 'libMinuit2', 'libMinuit' ],
                                      'rootTMineLibs': [ 'libTreePlayer', 'libXMLIO', 'libGed', 'libMLP', 'libTMVA', 'libRint', 'libHtml']
                                    }
                                  },
