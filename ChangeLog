@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Mon Jan 23 11:14:12 PST 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add libMinuit to libMinuit definition for Windows (already there for other OSes)
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-17-05, operation: add
 Package: SConsFiles
