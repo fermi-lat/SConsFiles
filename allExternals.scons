@@ -723,6 +723,8 @@ allExternalLibraries = {
                     'cpp-defines' : ['GAUDI_V20_COMPAT'],
                     'lib-path' : os.path.join('$TOP', 'lib'),
                     'ld-path' : '$LIB-PATH'},
+                  'gcc34-debug' :
+                  {'version' : 'v21r7-gl1-dbg'},
                   'win32' :
                   { 'libraries' : {'gaudiLibs' :
                                    ['GaudiKernel',
