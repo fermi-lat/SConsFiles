@@ -1,4 +1,4 @@
-#  $Id: msvs.py,v 1.6 2010/08/16 18:25:08 jrb Exp $
+#  $Id: msvs.py,v 1.7 2011/03/24 19:10:49 jrb Exp $
 """ Site-specific msvs, from SCons.Tool.msvs
 
     27 Feb  Get rid of some stuff which I don't think is being used
@@ -821,7 +821,7 @@ class _GenerateV7DSP(_DSPGenerator):
             elif self.linkfileext == "exe":
                 confType = 1
 
-            print "About to write V8DSPConfigure_header"
+            #print "About to write V8DSPConfigure_header"
             self.file.write(self.dspconfiguration_header % locals())
 
 
