@@ -723,7 +723,7 @@ allExternalLibraries = {
                     'cpp-defines' : ['GAUDI_V20_COMPAT'],
                     'lib-path' : os.path.join('$TOP', 'lib'),
                     'ld-path' : '$LIB-PATH'},
-                  'gcc34-debug' :
+                  'gcc34-debug' : 
                   {'version' : 'v21r7-gl1-dbg'},
                   'win32' :
                   { 'libraries' : {'gaudiLibs' :
@@ -1187,10 +1187,12 @@ allExternalLibraries = {
                    {'version' : '4.1.2',
                     'top'      : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
                     'includes' : ['omniconfig.h'],
-                    'libraries' : {'OmniOrbLibs' : ['']},
+                    'libraries' : {'OmniOrbLibs' : ['omniDynamic4', 'omniORB4', 'omnithread']},
                     'include-path' : os.path.join('$TOP', 'include'),
                     'lib-path' : os.path.join('$TOP', 'lib'),
-                    'ld-path' : '$LIB-PATH'}
+                    'ld-path' : '$LIB-PATH'},
+                   'win32' :
+                   {'libraries' : {'OmniOrbLibs' : ['omniDynamic4d', 'omnithreadd', 'omniORB4d']} }
                    },
                   '4.1.4' :
                   {'default' :
