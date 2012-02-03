@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-17-07 03-Feb-2012    jrb SConstruct fix for vc90; various externals updates
  SConsFiles-00-17-06 23-Jan-2012    jrb allExternals: Add libMinuit to MinuitLibs for Windows
  SConsFiles-00-17-05 19-Jan-2012    jrb add new install type to registerTargets; add vc90 FOX to allExternals
  SConsFiles-00-17-04 17-Jan-2012    jrb put appropriate things in OmniOrbLibs
