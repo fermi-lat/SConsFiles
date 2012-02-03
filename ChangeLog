@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Fri Feb  3 10:26:20 PST 2012
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+For vc90 render unto debug that which is debug's
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-17-35-24-gr21, operation: add
 Package: SConsFiles
