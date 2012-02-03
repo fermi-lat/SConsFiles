@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.129 2012/01/20 01:17:55 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/GlastRelease-scons/SConstruct,v 1.128 2012/01/18 01:26:35 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
 # Version: SConsFiles-00-17-06
 
@@ -188,14 +188,16 @@ if sys.platform == "win32":
     ## baseEnv.AppendUnique(CCFLAGS = "/Zm500") probably not necessary
     baseEnv.AppendUnique(CCFLAGS = "/Z7")
     baseEnv.AppendUnique(CCFLAGS = "/GR")
-    baseEnv.AppendUnique(CCFLAGS = "/MD")
+    ##
     baseEnv.AppendUnique(CCFLAGS = "/LD")
     baseEnv.AppendUnique(CCFLAGS = "/Ob2")
     baseEnv.AppendUnique(CCFLAGS = "/Gy")
     if baseEnv.GetOption('debug'):
         baseEnv.AppendUnique(CPPDEFINES = '_DEBUG')
+        baseEnv.AppendUnique(CCFLAGS = "/MDd")
     else:
         baseEnv.AppendUnique(CCFLAGS = "/O2")
+        baseEnv.AppendUnique(CCFLAGS = "/MD")
 
     baseEnv.AppendUnique(LINKFLAGS = "/NODEFAULTLIB")
     baseEnv.AppendUnique(LINKFLAGS = "/SUBSYSTEM:CONSOLE")
@@ -209,8 +211,11 @@ if sys.platform == "win32":
         if baseEnv.GetOption('debug'):
             baseEnv.AppendUnique(LINKFLAGS = "/DEBUG")
             baseEnv.Tool('addLibrary', library = ['msvcrtd', 'msvcprtd'])
-     
-    baseEnv.Tool('addLibrary', library = ['msvcrt', 'msvcprt'])
+        else:
+            baseEnv.Tool('addLibrary', library = ['msvcrt', 'msvcprt'])
+        ##baseEnv.Tool('addLibrary', library = ['msvcrt', 'msvcprt']) # try always using non-debug
+    else:
+        baseEnv.Tool('addLibrary', library = ['msvcrt', 'msvcprt'])
     # Used as Studio working directory
     baseEnv['VISUAL_VARIANT'] = visual_variant
     baseEnv.Tool('addLibrary', library = ['kernel32', 'user32', 'ws2_32', 'advapi32',
