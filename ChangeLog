@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Fri Feb  3 12:42:43 PST 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+use debug gaudi for rhel4 debug builds
+    *
+------------------------------------------------------------
 User: jrb  Fri Feb  3 11:36:00 PST 2012
 SConsFiles
 
