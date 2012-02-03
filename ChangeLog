@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Fri Feb  3 12:54:02 PST 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+non-trivial libraries for OminiOrb 4.1.2
+    *
+------------------------------------------------------------
 User: jrb  Fri Feb  3 12:44:19 PST 2012
 SConsFiles/site_scons/site_tools
 
