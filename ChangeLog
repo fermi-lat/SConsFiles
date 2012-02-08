@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Wed Feb  8 13:42:56 PST 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add in cfitsio 3.290
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-17-07, operation: add
 Package: SConsFiles
