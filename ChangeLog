@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Thu Feb  9 10:17:15 PST 2012
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+stag/GoGui_auto-tag
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-17-35-24-gr22, operation: add
 Package: SConsFiles
