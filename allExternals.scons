@@ -1183,16 +1183,13 @@ allExternalLibraries = {
                   {'libraries' : {'obfLibs' : ['gefc', 'eds',
                                                'flight_cdm', 'flight_mdb',
                                                'cmx_asBuilt']},
-                   },
                   'dynld-dict':{'OBFCOG_DB': 'V0-0-1','OBFCGB_DB' : 'V0-1-0',
                                 'OBFCOP_DB': 'V0-0-1','OBFCPP_DB' : 'V0-1-1',
                                 'OBFCPG_DB': 'V0-1-1','OBFGFC_DB' : 'V3-1-1',
                                 'OBFGGF_DB': 'V2-0-0','OBFXFC_DB' : 'V3-1-1',
                                 'OBFXFC'   : 'V0-2-2','OBFEFC'   : 'V4-4-3'},
-
-                 }
-                 
-
+                   }
+                  }
                  },
     'OmniOrb'  : {'4.1.2' :
                   {'default' :
