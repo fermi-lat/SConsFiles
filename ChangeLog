@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Mon Feb 13 10:05:56 PST 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+fix misplaced } 
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-19-04-01-gr11, operation: add
 Package: SConsFiles
