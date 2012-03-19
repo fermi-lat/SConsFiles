@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: tstephen  Mon Mar 19 10:28:05 PDT 2012
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Added a check to the creation of the userRelease distribution files to exclude the syspfiles directory from GlastRelease builds since it isn't part of that build.
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-17-35-24-lp19, operation: add
 Package: SConsFiles
