@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-18-03 20-Mar-2012 glastrm Added the containerName option to allow the builds of the distribution packages to include the proper subdirectories
  SConsFiles-00-18-02 19-Mar-2012 glastrm Tweaked SConstruct file to not include the syspfiles directory for GlastRelease builds
  SConsFiles-00-18-01 13-Feb-2012    jrb bug fix in allExternals affecting obf on Windows
  SConsFiles-00-18-00 09-Feb-2012 heather add definition of cfitsio v3290
