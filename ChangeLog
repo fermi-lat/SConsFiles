@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: tstephen  Tue Mar 20 13:24:31 PDT 2012
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Added a new option, containerName, to allow the user to pass in the name of the package that it being built.  This option is only used during the creation of the distribution tarballs or zip files in order to properly include the correct subdirectories for the user distributions based on the package name.
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-18-02, operation: add
 Package: SConsFiles
