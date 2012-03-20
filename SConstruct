@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.135 2012/03/19 17:28:05 tstephen Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.136 2012/03/19 17:37:24 glastrm Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
 # Version: SConsFiles-00-18-02
 
@@ -103,6 +103,7 @@ AddOption('--user-release', dest='userRelease', nargs=1, type='string', action='
 AddOption('--source-release', dest='sourceRelease', nargs=1, type='string', action='store', metavar='FILE', help='Creates a compressed source release and stores it in FILE')
 AddOption('--devel-release', dest='develRelease', nargs=1, type='string', action='store', metavar='FILE', help='Creates a compressed developer release and stires it in FILE')
 AddOption('--doxygen', dest='doxygenOutput', nargs=1, type='string', default='${HTML-OUTPUT}', action='store', metavar='DIRECTORY', help='Sets up Doxygen configuration to write html in DIRECTORY')
+AddOption('--containerName', dest='containerName', nargs=1, type='string', action='store', help='Name of the package you are building (i.e. GlastRelease, ScienceTools, etc).  Only used for creating the distribution files')
 
 
 
@@ -288,11 +289,11 @@ if baseEnv.GetOption('userRelease'):
         baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['BINDIR'])
         baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['SCRIPTDIR'])
         baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['INCDIR'])
-        if 'GlastRelease' not in baseEnv['CPPDEFINES']:
+        if baseEnv.GetOption('containerName') != 'GlastRelease':
             baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['PFILESDIR'])
         baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['DATADIR'])
         baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['XMLDIR'])
-        if 'GlastRelease' in baseEnv['CPPDEFINES']:
+        if baseEnv.GetOption('containerName') == 'GlastRelease':
 	        baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['JODIR'])
         baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['TOOLDIR'])
         baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['TESTDIR'])
@@ -303,11 +304,11 @@ if baseEnv.GetOption('userRelease'):
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['BINDIR'])
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['SCRIPTDIR'])
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['INCDIR'])
-        if 'GlastRelease' not in baseEnv['CPPDEFINES']:
+        if baseEnv.GetOption('containerName') != 'GlastRelease':
             baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['PFILESDIR'])
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['DATADIR'])
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['XMLDIR'])
-        if 'GlastRelease' in baseEnv['CPPDEFINES']:
+        if baseEnv.GetOption('containerName') == 'GlastRelease':
 	        baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['JODIR'])
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['TOOLDIR'])
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['TESTDIR'])
