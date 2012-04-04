@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Wed Apr  4 12:44:29 PDT 2012
+SConsFiles
+
+Modified Files:
+	processExternals.scons 
+Log Message:
+remove -p option for rootcint for now
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-17-35-24-rp03, operation: add
 Package: SConsFiles
