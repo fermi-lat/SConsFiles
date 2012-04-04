@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-15-02-rp01 04-Apr-2012 heather remove -p option from rootcint for now
  SConsFiles-00-15-02 22-Sep-2011    jrb Have RM print all externals so that all will get packaged up for Installer
  SConsFiles-00-15-01 16-Sep-2011    hmk Remove g3tog4 for win g4 9.4.p01
  SConsFiles-00-15-00 16-Aug-2011    jrb add data and code for exporting G4 table path
