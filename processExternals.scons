@@ -284,8 +284,8 @@ def setupRoot(configuredExternal):
         execute += os.path.join(configuredExternal['bin-path'], 'rootcint')
         execute += ' -f '
         execute += str(buildlocation.rel_path(target[0]))
-        #execute += ' -c'
-        execute += ' -c -p'
+        execute += ' -c'
+        #execute += ' -c -p'  Maybe the -P is better?
         execute += root_headers
         execute += sources
         return execute
