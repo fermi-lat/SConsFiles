@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+TAG
+Tag name: GlastRelease-17-35-24-br05, operation: add
+Package: SConsFiles
+User: heather  Wed Apr  4 12:56:28 2012
+Files:
+  SConsFiles/doc/release.notes  1.62
+
+    *
+------------------------------------------------------------
 User: heather  Wed Apr  4 12:51:14 PDT 2012
 SConsFiles
 
