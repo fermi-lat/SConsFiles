@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Thu Apr  5 08:01:22 PDT 2012
+SConsFiles
+
+Modified Files:
+	processExternals.scons 
+Log Message:
+fix whata I broke
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-17-35-24-rp04, operation: add
 Package: SConsFiles
