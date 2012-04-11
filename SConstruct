@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.140 2012/04/04 19:46:30 heather Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/GlastRelease-scons/SConstruct,v 1.141 2012/04/05 15:01:51 heather Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
 # Version: SConsFiles-00-19-02
 
@@ -152,6 +152,7 @@ if baseEnv.GetOption('opt'):
         visual_variant += "-Optimized"
     else:
         baseEnv.AppendUnique(CCFLAGS = '-O2')
+        baseEnv.AppendUnique(CCFLAGS = '-g')
     variant+='-Optimized'
     
 if baseEnv.GetOption('ccflags'):
