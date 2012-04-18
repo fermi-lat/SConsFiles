@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.142 2012/04/11 23:03:50 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.143 2012/04/12 18:30:57 heather Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
 # Version: SConsFiles-00-20-00
 
@@ -15,10 +15,7 @@ for arg in sys.argv:
     print "=> ",arg
 print "\n"
 
-if sys.platform == 'win32':
-    EnsureSConsVersion(1, 3, 0)
-else:
-    EnsureSConsVersion(1, 2, 0)
+EnsureSConsVersion(1, 3, 0)
 
 #  Define compiler options *before* creating baseEnv
 AddOption('--32bit', dest='bits', action='store_const', const='32', help='Force 32bit compiles even on 64bit machines')
@@ -197,9 +194,12 @@ if sys.platform == "win32":
     if baseEnv.GetOption('debug'):
         baseEnv.AppendUnique(CPPDEFINES = '_DEBUG')
         baseEnv.AppendUnique(CCFLAGS = "/MDd")
+        baseEnv.AppendUnique(CCFLAGS = "/LDd")
     else:
         baseEnv.AppendUnique(CCFLAGS = "/O2")
+        baseEnv.AppendUnique(CCFLAGS = "/Ob2")
         baseEnv.AppendUnique(CCFLAGS = "/MD")
+        baseEnv.AppendUnique(CCFLAGS = "/LD")
 
     baseEnv.AppendUnique(LINKFLAGS = "/NODEFAULTLIB")
     baseEnv.AppendUnique(LINKFLAGS = "/SUBSYSTEM:CONSOLE")
@@ -215,7 +215,6 @@ if sys.platform == "win32":
             baseEnv.Tool('addLibrary', library = ['msvcrtd', 'msvcprtd'])
         else:
             baseEnv.Tool('addLibrary', library = ['msvcrt', 'msvcprt'])
-        ##baseEnv.Tool('addLibrary', library = ['msvcrt', 'msvcprt']) # try always using non-debug
     else:
         baseEnv.Tool('addLibrary', library = ['msvcrt', 'msvcprt'])
     # Used as Studio working directory
