@@ -309,6 +309,8 @@ class _DSPGenerator:
         if env.has_key('targettype'):
             self.targettype = self.env['targettype']
 
+        self.installScript = ''
+        if env.has_key('installScript'): self.installScript = env['installScript']
 
         for n in sourcenames:
             self.sources[n].sort(lambda a, b: cmp(string.lower(a), string.lower(b)))
@@ -423,7 +425,8 @@ V8VCCLCompilerTool = """
 \t\t\t\tAdditionalIncludeDirectories="%(additional_includes)s"
 \t\t\t\tWarningLevel="3"
 \t\t\t\tDetect64BitPortabilityProblems="false"
-\t\t\t\tDebugInformationFormat="4"
+\t\t\t\tDebugInformationFormat="1"
+\t\t\t\tRuntimeLibrary="%(rt_number)s"
 \t\t\t\tForcedIncludeFiles="%(forcedInclude)s"
 \t\t\t/>
 """
@@ -488,6 +491,13 @@ V8VCLinkExeTool = """
 \t\t\t/>
 """
 
+# Run a file created by makeStudio which copies headers, job options, etc. to install location
+V8VCInstallTool = """
+\t\t\t<Tool
+\t\t\t\tName="VCPostBuildEventTool"
+\t\t\t\tCommandLine="%(installScript)s"
+\t\t\t/>
+"""
 
 
 
@@ -515,6 +525,11 @@ class _GenerateV7DSP(_DSPGenerator):
             # Take out $CXXFLAGS since options accumulated here will be applied
             # to all compiles and may not be appropriate for .c
             self.moreCompileOptions = self.env.subst('$CCFLAGS $_CCCOMCOM')
+	    varCmps = str(env['VISUAL_VARIANT']).split("-")
+	    if "Debug" in varCmps: 
+                self.rt_number="3"
+            else: 
+                self.rt_number="2"
             if env.has_key('buildtarget') and env['buildtarget'] != None:
                 buildt = [self.env.File(env['buildtarget'])]
                 cmps = (env['buildtarget']).split('.')
@@ -848,6 +863,10 @@ class _GenerateV7DSP(_DSPGenerator):
             elif self.linkfileext == "exe":
                 self.file.write(V8VCCLCompilerTool % self.__dict__)
                 self.file.write(V8VCLinkExeTool % self.__dict__)
+
+            # If we were passed an installScript, add PostBuildEvent step to call it
+            if self.installScript != '':
+                self.file.write(V8VCInstallTool % self.__dict__)
 
             self.file.write(self.dspconfiguration_trailer % locals())
             ## end of HelloWorld stuff with additions

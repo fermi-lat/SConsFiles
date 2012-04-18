@@ -1,4 +1,4 @@
-#  $Id: makeStudio.py,v 1.4 2011/03/24 19:10:49 jrb Exp $
+#  $Id: makeStudio.py,v 1.5 2011/09/29 18:18:40 jrb Exp $
 import os, os.path, pprint
 from SCons.Script import *
 from fermidebug import fdebug
@@ -27,6 +27,27 @@ from fermidebug import fdebug
 ##        xml      - list of file paths
 ##        pfiles
 ##        python
+##        installFiles - list of pairs: [source file, dest file]
+
+## define Action makeInstallScript which, given package name and 
+## install dict (and
+## sources = single array of first elt of pair for all the arrays in
+## install dict), writes a file to do all the xcopy's .  The file will 
+## typically be called something like installPkgname.bat and should
+## be written to same directory as project files.
+def makeInstallScript(target, source, env):
+    instFiles = env['installFiles']
+    if len(instFiles) == 0: 
+        print "len of instFiles was 0"
+        return
+    try:
+        f = open(str(target[0]), 'w')
+        for p in instFiles:
+            f.write("xcopy /S /Y /F " + str(p[0]) + "  " + str(p[1]) + "\n")
+    except IOError:
+        print "Failed file operation on ", target[0]
+    
+    f.close()  
 
 def _isSomething(s, something):
     cmps = s.split(".")
@@ -39,7 +60,13 @@ def generate(env, **kw):
     # which belong to other packages.  These projects have to appear
     # in solution file
     
-    # get list of includes
+    if 'ProjectInstallFiles' not in env['BUILDERS']:
+    #if env['BUILDERS'].get('ProjectInstallFiles', '') == '':
+        projectInstallBuilder = Builder(action = makeInstallScript, 
+                                        suffix = '.bat')
+        env.Append(BUILDERS = {'ProjectInstallFiles' : projectInstallBuilder})
+
+# get list of includes
     absmisc = []
     absincs = []
     pkgname = kw.get('package', '')
@@ -49,7 +76,7 @@ def generate(env, **kw):
     #print File("SConscript").srcnode().abspath
 
     pkgroot = os.path.dirname(str(File("SConscript").srcnode().abspath))
-    
+                   
     if kw.get('includes', '') != '':
         for header in kw.get('includes'):
             absincs.append(File(header).srcnode().abspath)
@@ -62,6 +89,15 @@ def generate(env, **kw):
     if kw.get('pfiles', '') !='':
         for pfile in kw.get('pfiles'):
             absmisc.append(File(pfile).srcnode().abspath)
+
+    if kw.get('installFiles', '') != '':
+        # define the install script target
+        env['installFiles'] = kw.get('installFiles')
+        installSrcs = []
+        for p in kw.get('installFiles') : installSrcs.append(p[0])
+        installscriptPath = Dir(env['STUDIODIR']).File(pkgname + "Install.bat")
+        installscript = env.ProjectInstallFiles(installscriptPath, installSrcs)
+
     # targetNames will contain list of projects (abs path to file)
     # input to MSVSSolution( )
     targetNames = []
@@ -105,9 +141,11 @@ def generate(env, **kw):
                                                buildtarget=buildtarg,
                                                targettype='dll',
                                                packageroot=pkgroot,
+                                               installScript = str(installscriptPath),
                                                auto_build_solution=0)
                 projectInstalled = env.Install(env['STUDIODIR'], projectFile)
-                    
+                if kw.get('installFiles', '') != '':
+                    env.Depends(projectFile, installscript)
                 # Compute installed abs path; needed for sln file
                 targsrc = os.path.join(str(env['STUDIODIR']), targ)
                 targetNames.append(env.subst(targsrc))
@@ -169,8 +207,11 @@ def generate(env, **kw):
                                                variant=env['VISUAL_VARIANT'],
                                                buildtarget=buildtarg,
                                                targettype='lib',
+                                               installScript = str(installscriptPath),
                                                auto_build_solution=0)
                 projectInstalled = env.Install(env['STUDIODIR'], projectFile)
+                if kw.get('installFiles', '') != '':
+                    env.Depends(projectFile, installscript)
                     
                 # Compute installed abs path; needed for sln file
                 targsrc = os.path.join(str(env['STUDIODIR']), targ)
@@ -297,9 +338,12 @@ def generate(env, **kw):
                                                buildtarget=buildtarg,
                                                targettype='rootcintdll',
                                                rootcintnode=cxt[1]['rootcint_node'],
+                                               installScript = str(installscriptPath),
                                                auto_build_solution=0)
                 projectInstalled = env.Install(env['STUDIODIR'], projectFile)
-                    
+                if kw.get('installFiles', '') != '':
+                    env.Depends(projectFile, installscript)
+
                 # Compute installed abs path; needed for sln file
                 targsrc = os.path.join(str(env['STUDIODIR']), targ)
                 targetNames.append(env.subst(targsrc))
@@ -361,9 +405,12 @@ def generate(env, **kw):
                                                buildtarget=buildtarg,
                                                targettype='rootcintlib',
                                                rootcintnode=cxt[1]['rootcint_node'],
+                                               installScript = str(installscriptPath),
                                                auto_build_solution=0)
                 projectInstalled = env.Install(env['STUDIODIR'], projectFile)
-                    
+                if kw.get('installFiles', '') != '':
+                    env.Depends(projectFile, installscript)
+    
                 #Compute installed abs path; needed for sln file
                 targsrc = os.path.join(str(env['STUDIODIR']), targ)
                 targetNames.append(env.subst(targsrc))
