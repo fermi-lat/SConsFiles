@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Wed Apr 18 12:21:29 PDT 2012
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Fix Windows compile options for debug/opt
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-19-04-01-gr15, operation: add
 Package: SConsFiles
