@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Wed Apr 18 12:22:15 PDT 2012
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	makeStudio.py msvs.py 
+Log Message:
+Add machinery so that library projects also install headers, jo, etc.
+    *
+------------------------------------------------------------
 User: jrb  Wed Apr 18 12:21:29 PDT 2012
 SConsFiles
 
