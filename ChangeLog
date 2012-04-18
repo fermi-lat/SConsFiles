@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Wed Apr 18 12:25:31 PDT 2012
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+stag/GoGui_auto-tag
+    *
+------------------------------------------------------------
 User: jrb  Wed Apr 18 12:22:15 PDT 2012
 SConsFiles/site_scons/site_tools
 
