@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu Apr 26 15:07:03 PDT 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add entry for obf B3-0-0-gl1
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-17-35-24-gr30, operation: add
 Package: SConsFiles
