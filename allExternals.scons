@@ -1187,7 +1187,6 @@ allExternalLibraries = {
                  'B3-0-0' :
                  {'default' :
                   {'version'   : 'B3-0-0',
-                   #'top'       : os.path.join('/nfs/farm/g/glast/u54/jrb/myGLAST_EXT', '$NAME', '$VERSION'),
                    'top'       : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
                    'includes'  : ['CAB/CAB_asBuiltPub.h',
                                   'EFC_DB/EFC_DB_mode.h'],
@@ -1215,7 +1214,41 @@ allExternalLibraries = {
                                 'OBFGGF_DB': 'V2-0-0','OBFXFC_DB' : 'V3-1-1',
                                 'OBFXFC'   : 'V0-2-2','OBFEFC'   : 'V4-4-3'},
                    }
+                  },
+                 'B3-0-0-i1' :
+                 {'default' :
+                  {'version'   : 'B3-0-0-gl1',
+                   'top'       : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                   'includes'  : ['CAB/CAB_asBuiltPub.h',
+                                  'EFC_DB/EFC_DB_mode.h'],
+                   'libraries' : {'obfLibs' : ['gefc',
+                                               'eds', 
+                                               'cdm', 'fbs_rtos',
+                                               'fbs_swap','mdb',
+                                               'zlib_inflate',
+                                               'cmx_asBuilt']},
+                   'include-path' : os.path.join('$TOP', 'include'),
+                   'lib-path' : os.path.join('$TOP', 'lib'),
+                   'dynld-dict':{'OBFCOG_DB': 'V0-0-2','OBFCGB_DB' : 'V0-1-1',
+                                 'OBFCOP_DB': 'V0-0-2','OBFCPP_DB' : 'V0-1-2',
+                                 'OBFCPG_DB': 'V0-1-1','OBFGFC_DB' : 'V3-1-1',
+                                 'OBFGGF_DB': 'V2-0-2','OBFXFC_DB' : 'V3-1-2',
+                                 'OBFXFC'   : 'V0-3-0','OBFEFC'   : 'V4-5-0'},
+                   'ld-path'  : '$LIB-PATH'},
+                 'win32' :
+                  {'version'   : 'B3-0-0',   # no update for Windows yet
+                   'libraries' : {'obfLibs' : ['gefc', 'eds',
+                                               'flight_cdm', 'flight_mdb',
+                                               'cmx_asBuilt']},
+                  'dynld-dict':{'OBFCOG_DB': 'V0-0-1','OBFCGB_DB' : 'V0-1-0',
+                                'OBFCOP_DB': 'V0-0-1','OBFCPP_DB' : 'V0-1-1',
+                                'OBFCPG_DB': 'V0-1-1','OBFGFC_DB' : 'V3-1-1',
+                                'OBFGGF_DB': 'V2-0-0','OBFXFC_DB' : 'V3-1-1',
+                                'OBFXFC'   : 'V0-2-2','OBFEFC'   : 'V4-4-3'},
+                   }
                   }
+
+
                  },
     'OmniOrb'  : {'4.1.2' :
                   {'default' :
