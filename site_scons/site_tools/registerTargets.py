@@ -1,7 +1,8 @@
-#  $Id: registerTargets.py,v 1.16 2011/03/03 21:23:59 jrb Exp $
+#  $Id: registerTargets.py,v 1.17 2012/01/19 20:16:40 jrb Exp $
 import os, pprint, sys, os.path
 from SCons.Script import *
 from fermidebug import fdebug
+import pprint
 
 if sys.platform == 'win32':
     from makeStudio import *
@@ -40,7 +41,9 @@ if sys.platform == 'win32':
 
 def generate(env, **kw):
     if kw.get('package', '') != '':
+        if env['PLATFORM'] == "win32": instFiles = []
         pkgname = kw.get('package')
+
         pkgtopdir = str(env.Dir('.').srcnode())
         #fdebug('Entered registerTargets:generate for package %s' % pkgname)
         if os.path.exists(os.path.join(str(env.Dir('.').srcnode()),kw.get('package')+"Lib.py")):
@@ -152,6 +155,8 @@ def generate(env, **kw):
                 env.Alias('all', installedObjs)
 
         if kw.get('includes', '') != '':
+	    if env['PLATFORM'] == 'win32': instIncludes = []
+
             for header in kw.get('includes'):
                 header = env.File(str(header))
                 splitFile = str(env.Dir('.').srcnode().rel_path(header.srcnode()))
@@ -165,6 +170,9 @@ def generate(env, **kw):
                 if topInc == '*NONE*':
                     includes = env.Install(env['INCDIR'].Dir(installPath), header)
                 else:
+		    if env['PLATFORM'] == 'win32':
+		      dstHeader=str(env['INCDIR'].Dir(topInc).Dir(installPath))
+		      instIncludes.append([str(header), dstHeader])
                     includes = env.Install(env['INCDIR'].Dir(topInc).Dir(installPath),
                                            header)
                 env.Alias(kw.get('package'), includes)
@@ -172,7 +180,8 @@ def generate(env, **kw):
                 env.Alias('to_install', includes)
                 env.Alias('includes', includes)
                 env.Alias('all', includes)
-            
+            if env['PLATFORM'] == 'win32':
+                instFiles += instIncludes
         cxts = kw.get('testAppCxts', '')
         if cxts != '':
             nodes = []
@@ -201,41 +210,49 @@ def generate(env, **kw):
             env.Alias('to_install', pfiles)
             env.Alias('all', pfiles)
         if kw.get('data', '') != '':
-            for file in kw.get('data'):
-                file = env.File(str(file))
-                splitFile = str(env.Dir('.').srcnode().rel_path(file.srcnode()))
+            if env['PLATFORM'] == 'win32' : instData = []
+            for dfile in kw.get('data'):
+                dfile = env.File(str(dfile))
+                splitFile = str(env.Dir('.').srcnode().rel_path(dfile.srcnode()))
                 installPath = ''
                 while os.path.split(splitFile)[0] != '':
                     parts = os.path.split(splitFile)
                     splitFile = parts[0]
                     installPath = os.path.normpath(os.path.join(parts[1], installPath))
                 installPath = os.path.dirname(installPath)
-                data = env.Install(env['DATADIR'].Dir(kw.get('package')).Dir(installPath), file)
+                if env['PLATFORM'] == 'win32':
+                    dstDir = str(env['DATADIR'].Dir(kw.get('package')).Dir(installPath))
+                    instData.append([str(dfile), dstDir])
+                data = env.Install(env['DATADIR'].Dir(kw.get('package')).Dir(installPath), dfile)
                 env.Alias(pkgname, data)
                 env.Default(data)
                 env.Alias('to_install', data)
                 env.Alias('all', data)
-            
+            if env['PLATFORM'] == 'win32' : instFiles += instData
         if kw.get('xml', '') != '':
-            for file in kw.get('xml'):
-                file = env.File(str(file))
-                splitFile = str(env.Dir('.').srcnode().rel_path(file.srcnode()))
+            if env['PLATFORM'] == 'win32' : instXml = []
+            for xfile in kw.get('xml'):
+                xfile = env.File(str(xfile))
+                splitFile = str(env.Dir('.').srcnode().rel_path(xfile.srcnode()))
                 installPath = ''
                 while os.path.split(splitFile)[0] != '':
                     parts = os.path.split(splitFile)
                     splitFile = parts[0]
                     installPath = os.path.normpath(os.path.join(parts[1], installPath))
                 installPath = os.path.dirname(installPath)
-                xml = env.Install(env['XMLDIR'].Dir(kw.get('package')).Dir(installPath), file)
+                if env['PLATFORM'] == 'win32':
+                    instXml.append([str(xfile), str(env['XMLDIR'].Dir(pkgname).Dir(installPath))])
+                xml = env.Install(env['XMLDIR'].Dir(kw.get('package')).Dir(installPath), xfile)
                 env.Alias(kw.get('package'), xml)
                 env.Default(xml)
                 env.Alias('to_install', xml)
                 env.Alias('all', xml)
-
+            if env['PLATFORM'] == 'win32' : instFiles += instXml
         if kw.get('jo', '') != '':
-            for file in kw.get('jo'):
-                file = env.File(str(file))
-                splitFile = str(env.Dir('.').srcnode().rel_path(file.srcnode()))
+            if env['PLATFORM'] == 'win32' : instJo = []
+            for jfile in kw.get('jo'):
+                jfile = env.File(str(jfile))
+                splitFile = str(env.Dir('.').srcnode().rel_path(jfile.srcnode()))
                 installPath = ''
                 while os.path.split(splitFile)[0] != '':
                     parts = os.path.split(splitFile)
@@ -247,14 +264,17 @@ def generate(env, **kw):
                 #installPath = os.path.normpath(os.path.join(parts[1],
                 #                                            installPath))
                 installPath = os.path.dirname(installPath)
-                jobOptions = env.Install(env['JODIR'].Dir(kw.get('package')).Dir(installPath), file)
+                jobOptions = env.Install(env['JODIR'].Dir(kw.get('package')).Dir(installPath), jfile)
+                if env['PLATFORM'] == 'win32' :
+                    instJo.append([str(jfile), str(env['JODIR'].Dir(pkgname).Dir(installPath))])
                 env.Alias(kw.get('package'), jobOptions)
                 env.Default(jobOptions)
                 env.Alias('to_install', jobOptions)
                 env.Alias('all', jobOptions)
-
+            if env['PLATFORM'] == 'win32' : instFiles += instJo
         if kw.get('python', '') != '':
             #python = env.Install(env['PYTHONDIR'], kw.get('python'))
+            if env['PLATFORM'] == 'win32' : instPy = []
             for file in kw.get('python'):
                 file = env.File(str(file))
                 splitFile = str(env.Dir('.').srcnode().rel_path(file.srcnode()))
@@ -265,11 +285,13 @@ def generate(env, **kw):
                     installPath = os.path.normpath(os.path.join(parts[1], installPath))
                 installPath = os.path.dirname(installPath)
                 python = env.Install(env['PYTHONDIR'].Dir(installPath), file)
+                if env['PLATFORM'] == 'win32' : 
+                    instPy.append([str(file), str(env['PYTHONDIR'].Dir(installPath))])
                 env.Alias(kw.get('package'), python)
                 env.Default(python)
                 env.Alias('to_install', python)
                 env.Alias('all', python)
-
+            if env['PLATFORM'] == 'win32' : instFiles += instPy
         if kw.get('wrappedPython', '') != '':
             fdebug("Non-null set of python scripts to be wrapped")
             pythonPrg = env.Install(env['PYTHONDIR'], kw.get('wrappedPython'))
@@ -297,6 +319,9 @@ def generate(env, **kw):
                 # encountered, directory might not exist
                 if not os.path.exists(str(env['STUDIODIR'])):
                     Execute(Mkdir(env['STUDIODIR']))
+                # Clearly mark dest as directory
+                for p in instFiles: 
+                    p[1] += "\\"
                 env.Tool('makeStudio', package=kw.get('package',''),
                          libraryCxts=kw.get('libraryCxts',''),
                          staticLibraryCxts=kw.get('staticLibraryCxts',''),
@@ -306,6 +331,7 @@ def generate(env, **kw):
                          testAppCxts=kw.get('testAppCxts',''),
                          binaryCxts=kw.get('binaryCxts',''),
                          includes = kw.get('includes',''),
+                         installFiles = instFiles,
                          data = kw.get('data',''),
                          xml = kw.get('xml',''),
                          pfiles = kw.get('pfiles',''),
