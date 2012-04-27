@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Fri Apr 27 11:51:31 PDT 2012
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	registerTargets.py 
+Log Message:
+for Windows only - needed to get project files to do installs
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-21-01, operation: add
 Package: SConsFiles
