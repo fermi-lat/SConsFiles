@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Mon Apr 30 19:53:19 PDT 2012
+SConsFiles/site_scons/site_tools
+
+Added Files:
+	writeAllSln.py 
+Log Message:
+add script to generate all.sln from package sln files
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-21-02, operation: add
 Package: SConsFiles
