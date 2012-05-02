@@ -1,5 +1,5 @@
 # -*- python -*-
-#  $Id: $
+#  $Id: writeAllSln.py,v 1.1 2012/05/01 02:53:19 jrb Exp $
 #
 #  Delete old all.sln if there is one
 #  Read in *.sln for specified directory (defaults to "."), saving
@@ -77,8 +77,6 @@ class allSln(object):
             return 0
         
         if next.rfind("preSolution") != -1:
-            #print "found preSolution1"
-            print self.global_presolution1            
             sys.stdout.flush()
             if len(self.global_presolution1) == 0:
                 self.global_presolution1.append(next)
@@ -234,7 +232,7 @@ readAFile = True
 for fname in studiofiles:
     if fname[len(fname)-4:] == ".sln":
         try:
-            print "Found file ", fname
+            #print "Found file ", fname
             f = open(os.path.join(sdir, fname))
             obj.readSln(f)
             f.close()
