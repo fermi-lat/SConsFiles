@@ -1,4 +1,4 @@
-#  $Id: makeStudio.py,v 1.5 2011/09/29 18:18:40 jrb Exp $
+#  $Id: makeStudio.py,v 1.6 2012/04/18 19:22:15 jrb Exp $
 import os, os.path, pprint
 from SCons.Script import *
 from fermidebug import fdebug
@@ -38,7 +38,7 @@ from fermidebug import fdebug
 def makeInstallScript(target, source, env):
     instFiles = env['installFiles']
     if len(instFiles) == 0: 
-        print "len of instFiles was 0"
+        #print "len of instFiles was 0"
         return
     try:
         f = open(str(target[0]), 'w')
@@ -61,7 +61,6 @@ def generate(env, **kw):
     # in solution file
     
     if 'ProjectInstallFiles' not in env['BUILDERS']:
-    #if env['BUILDERS'].get('ProjectInstallFiles', '') == '':
         projectInstallBuilder = Builder(action = makeInstallScript, 
                                         suffix = '.bat')
         env.Append(BUILDERS = {'ProjectInstallFiles' : projectInstallBuilder})
@@ -71,6 +70,14 @@ def generate(env, **kw):
     absincs = []
     pkgname = kw.get('package', '')
     if pkgname == '': return
+    elif pkgname == "*ALL*":
+        #print "In makeStudio for pkgname *ALL*"
+
+        allSln = env.Command(os.path.join(str(env['STUDIODIR']), 'all.sln'), 'slns', 
+                             'site_scons\site_tools\writeAllSln.py ' + str(env['STUDIODIR']) )
+        env.Alias('all', allSln)
+        env.Alias('StudioFiles', allSln)
+        return
 
     #print "abspath for our SConscript: "    
     #print File("SConscript").srcnode().abspath
@@ -520,6 +527,7 @@ def generate(env, **kw):
         slnInstalled = env.Install(env['STUDIODIR'], slnTarget)
 
         env.Alias(kw.get('package'), slnInstalled)
+        env.Alias('slns', slnInstalled)
         env.Alias('all', slnInstalled)
         env.Alias('StudioFiles', slnInstalled)
         env.Alias(pkgname+'-StudioFiles', slnInstalled)

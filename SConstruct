@@ -1,7 +1,7 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.146 2012/04/26 22:08:14 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/GlastRelease-scons/SConstruct,v 1.146 2012/04/26 22:08:14 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
-# Version: SConsFiles-00-21-02
+# Version: SConsFiles-00-21-01
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands,subprocess
 #########################
@@ -490,6 +490,11 @@ if not baseEnv.GetOption('help'):
 	except Exception, inst:
 	    print "scons: Skipped "+pkg.lstrip(override+os.sep)+" because of exceptions: "+str(inst)
 	    traceback.print_tb(sys.exc_info()[2])
+
+    if sys.platform == "win32":
+        ## call registerTargets for imaginary "all" package in order to 
+        #create target for an "all" sln file
+        baseEnv.Tool('registerTargets', package = '*ALL*')
 
     if baseEnv.GetOption('clean'):
         baseEnv.Default('test')
