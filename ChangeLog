@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Wed May  2 15:52:46 PDT 2012
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Get SCons to write an 'all' solution file
+    *
+------------------------------------------------------------
 User: jrb  Mon Apr 30 19:53:19 PDT 2012
 SConsFiles/site_scons/site_tools
 
