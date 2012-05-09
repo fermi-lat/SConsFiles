@@ -38,7 +38,6 @@ from fermidebug import fdebug
 def makeInstallScript(target, source, env):
     instFiles = env['installFiles']
     if len(instFiles) == 0: 
-        #print "len of instFiles was 0"
         return
     try:
         f = open(str(target[0]), 'w')
@@ -71,12 +70,12 @@ def generate(env, **kw):
     pkgname = kw.get('package', '')
     if pkgname == '': return
     elif pkgname == "*ALL*":
-        #print "In makeStudio for pkgname *ALL*"
-
         allSln = env.Command(os.path.join(str(env['STUDIODIR']), 'all.sln'), 'slns', 
                              'site_scons\site_tools\writeAllSln.py ' + str(env['STUDIODIR']) )
-        env.Alias('all', allSln)
-        env.Alias('StudioFiles', allSln)
+        allGleamSln = env.Command(os.path.join(str(env['STUDIODIR']), 'allGleam.sln'), 'slns', 
+                             'site_scons\site_tools\writeAllSln.py ' + str(env['STUDIODIR']) + ' Gleam' )
+        env.Alias('all', [allSln, allGleamSln])
+        env.Alias('StudioFiles', [allSln, allGleamSln])
         return
 
     #print "abspath for our SConscript: "    
