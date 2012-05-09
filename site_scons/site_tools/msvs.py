@@ -1,4 +1,4 @@
-#  $Id: msvs.py,v 1.7 2011/03/24 19:10:49 jrb Exp $
+#  $Id: msvs.py,v 1.9 2012/04/18 19:22:15 jrb Exp $
 """ Site-specific msvs, from SCons.Tool.msvs
 
     27 Feb  Get rid of some stuff which I don't think is being used
@@ -398,7 +398,7 @@ V8DSPConfiguration_header = """\
 \t\t<Configuration
 \t\t\tName="%(variant)s|Win32"
 \t\t\tConfigurationType="%(confType)s"
-\t\t\tIntermediateDirectory="$(ConfigurationName)"
+\t\t\tIntermediateDirectory="$(ConfigurationName)\%(name)s"
 \t\t\tBuildLogFile="$(IntDir)\%(name)sBuildLog.htm"
 \t\t\tOutputDirectory="%(outdir)s"
 \t\t\tUseOfMFC="0"
@@ -543,7 +543,6 @@ class _GenerateV7DSP(_DSPGenerator):
                 
             elif self.targettype == "rootcintlib":
                 self.DoRootcint()
-                
             #  set additional_includes to be our package root
             self.additional_includes      = ""
             if env.has_key('packageroot'):
@@ -669,13 +668,21 @@ class _GenerateV7DSP(_DSPGenerator):
                     usedSources.append(str(vv))
                     env['misc'] = usedSources
 
-        else:
+        else:                # not swigdll
             # bindexplib.exe and link.exe are include in list
             # returned by FindSourceFiles, so explicitly exclude
+            # For root libs, headers can sneak in as sources; throw them out also
+            if self.targettype == "rootcintdll": 
+                foundSources.append(self.env['rootcint_node'][0])
+
             for v in foundSources:
-                vname = (os.path.split(v.abspath))[1]
+                ##vname = (os.path.split(v.abspath))[1]  do we need the abspath?
+                pcmps = os.path.split(str(v))
+                vname = pcmps[1]
+                #print "Got vname ", vname
                 cmps = vname.split(".")
-                if not ((len(cmps) == 2) and ((cmps[1] == 'exe') or (cmps[1] == 'EXE'))):
+                if not ((len(cmps) == 2) and ((cmps[1] == 'exe') or (cmps[1] == 'EXE')
+                                              or (cmps[1] == 'h') or (cmps[1] == 'H'))):
                     # look for 'build' in path
                     avcmps = str(v.abspath).split("\\")
                     vv = vname
@@ -684,6 +691,7 @@ class _GenerateV7DSP(_DSPGenerator):
                         nxt = avcmps[ix+1]
                         avcmps.remove("build")
                         avcmps.remove(nxt)
+
                         vv = '\\'.join(avcmps)
 
                     #print "from ", str(v), " created ", vv
@@ -704,7 +712,6 @@ class _GenerateV7DSP(_DSPGenerator):
                 self.prelink = env.subst(shlink0,
                                          target=buildt,
                                          source=usedSources)
-                #print self.prelink
 
             elif self.targettype == "swigdll":
                 # only source is .cc file created by swig step
@@ -744,11 +751,13 @@ class _GenerateV7DSP(_DSPGenerator):
 
             aftersub = cfile_re.sub(_toObj, self.prelink)
             # print 'after re _toObj sub: ', aftersub
-            # ..and now use cfiledir_re to get proper directory
-            vr = ' ' + env['variant'] + '\\'
+
+            # Working directory subdir of variant dir is named after target
+            vr = ' ' + env['variant'] + '\\'+ self.name + '\\'
             def _toVarDir(matchObj):
                 return  vr + matchObj.group('f')
 
+            # ..and now use cfiledir_re to get proper directory
             aftersub2 = cfiledir_re.sub(_toVarDir, aftersub)
             #print 'after re sub for  correct directory: ', aftersub2
             self.prelink = aftersub2
@@ -836,7 +845,7 @@ class _GenerateV7DSP(_DSPGenerator):
             elif self.linkfileext == "exe":
                 confType = 1
 
-            #print "About to write V8DSPConfigure_header"
+            print "About to write V8DSPConfigure_header"
             self.file.write(self.dspconfiguration_header % locals())
 
 

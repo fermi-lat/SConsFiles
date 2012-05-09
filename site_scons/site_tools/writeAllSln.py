@@ -21,6 +21,9 @@ class allSln(object):
         self.global_presolution2 = []
         self.global_postsolution_header = ""
 
+        # By default include all projects.  
+        self.pkgname = ""
+
         # Define pattern for first line of Project definition, picking out name (e.g. CalibSvcLib) and
         # unique id, which appears to be of form xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx where each x is
         # a hex digit.
@@ -40,9 +43,11 @@ class allSln(object):
 
         #  Save all lines through line with contents "EndProject" in projLines
         projLines = [firstline]
+        lenp = len(firstline)
 
         try:
             ln = fp.readline()
+            lenp += len(ln)
         except:
             print "readline inside readProject failed"
             exit(1)
@@ -50,23 +55,35 @@ class allSln(object):
         while ln[:10] != "EndProject":
             projLines.append(ln)
             ln = fp.readline()
+            lenp += len(ln)
 
         projLines.append(ln)
-        # Make dictionary entry (a triple) keyed by project name
-        if mobj.group(1) not in self.projectDict:
-            self.projectDict[mobj.group(1)] = [mobj.group(1), mobj.group(2), projLines]
+
+        # Make dictionary entry (a triple) keyed by project name if
+        #   (we're including all projects ) OR (project name ends in "Lib") OR
+        #   (pkgname is non-null and project name = pkgname or "test_" + package name
+        useIt = (self.pkgname == "")
+        projName = mobj.group(1)
+
+        if (not useIt) and ((projName[len(projName)-3:] == "Lib") or (projName == self.pkgname) or
+                             (projName == "test_" + self.pkgname)): useIt = True
+        if projName not in self.projectDict:
+            if useIt: self.projectDict[projName] = [projName, mobj.group(2), projLines, lenp]
+        else:
+            # see if new entry is shorter.  If so, replace old with it
+            if self.projectDict[projName][3] > lenp:
+                if useIt: self.projectDict[projName] = [projName, mobj.group(2), 
+                                                        projLines, lenp]
 
         # read one more line and return it
         #print "Done parsing project definition for ",  mobj.group(1)
         next = fp.readline()     
 
-        #print "returning this value from readProject: ", next
         return next
 
     def readGlobal(self, fp, firstGlobal):
         try:
             next = fp.readline()
-            #print "inside readGlobal read line: ", next
         except:
             print "read inside readGlobal failed"
             sys.stdout.flush()
@@ -100,7 +117,6 @@ class allSln(object):
 
             try:
                 next = fp.readline()
-                #print "next line past preSolution1 section is: ", next
             except:
                 print "failed read past preSolution1"
                 sys.stdout.flush()
@@ -109,13 +125,12 @@ class allSln(object):
             sys.stdout.flush()
             
         if next.rfind("postSolution") != -1:
-            #print "found postSolution1"
-
             if self.global_postsolution_header == "":
                 self.global_postsolution_header = next
 
-            # read in a line.  Either it signifies end of section or it's the start of a 2-line entry for
-            # a particular project.  Store the two lines in a dict, keyed by project id
+            # read in a line.  Either it signifies end of section or it's the start 
+            # of a 2-line entry a particular project.  Store the two lines in a dict, 
+            # keyed by project id
             next = fp.readline()
 
             while next.rfind("EndGlobalSection") == -1:
@@ -134,7 +149,6 @@ class allSln(object):
 
         sys.stdout.flush()
         if next.rfind("preSolution") != -1:
-            #print "found presolution2"
             if self.global_presolution2 == []:
                 self.global_presolution2.append(next)
                 self.global_presolution2.append(fp.readline())
@@ -146,8 +160,6 @@ class allSln(object):
             next = fp.readline()
 
         if next[:9] == "EndGlobal":
-            #print "normal return from endGlobal"
-            #sys.stdout.flush()
             return 0
         else : return 1
         
@@ -174,7 +186,7 @@ class allSln(object):
             return 0
         
     def writeAllSln(self, path):
-        print "Writing all.sln"
+        print "Writing ", path
         try:
             fp = open(path, 'w')
         except:
@@ -213,14 +225,19 @@ class allSln(object):
 # We assume we're in the same directory as the solution files
 
 obj = allSln()
+
 if len(sys.argv) > 1:
     sdir = sys.argv[1]
 else:
     sdir = (".")
 
+if len(sys.argv) > 2:
+    obj.pkgname = sys.argv[2]
+
+outfile = "all" + obj.pkgname + ".sln"
 # get rid of old all.sln if there is one
 try:
-    os.remove(os.path.join(sdir, "all.sln"))
+    os.remove(os.path.join(sdir, outfile))
 except:
     # Don't care if it fails; probably just means the file didn't exist
     pass
@@ -231,14 +248,16 @@ studiofiles = os.listdir(sdir)
 readAFile = True
 for fname in studiofiles:
     if fname[len(fname)-4:] == ".sln":
-        try:
-            #print "Found file ", fname
-            f = open(os.path.join(sdir, fname))
-            obj.readSln(f)
-            f.close()
-        except:
-            print "Unable to read file ", fname
-            if f != None: f.close()
+        if fname[0:2] != "all":    # we use it
+            try:
+                #print "Found file ", fname
+                f = open(os.path.join(sdir, fname))
+                obj.readSln(f)
+                f.close()
+            except:
+                print "Unable to read file ", fname
+                if f != None: f.close()
 
-obj.writeAllSln(os.path.join(sdir, "all.sln"))
+obj.writeAllSln(os.path.join(sdir, outfile))
 exit(0)
+
