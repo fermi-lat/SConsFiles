@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.148 2012/05/02 22:52:46 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.149 2012/05/02 22:59:55 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
 # Version: SConsFiles-00-22-00
 
@@ -491,10 +491,12 @@ if not baseEnv.GetOption('help'):
 	    print "scons: Skipped "+pkg.lstrip(override+os.sep)+" because of exceptions: "+str(inst)
 	    traceback.print_tb(sys.exc_info()[2])
 
-    if sys.platform == "win32":
-        ## call registerTargets for imaginary "all" package in order to 
-        #create target for an "all" sln file
-        baseEnv.Tool('registerTargets', package = '*ALL*')
+    if (sys.platform == "win32") and  ('CONTAINERNAME' in baseEnv):
+        if baseEnv['CONTAINERNAME'] == 'GlastRelease':
+            # call registerTargets for imaginary "all" package in order
+            # to create target for an "all" sln file
+            baseEnv.Tool('registerTargets', package = '*ALL*')
+
 
     if baseEnv.GetOption('clean'):
         baseEnv.Default('test')
