@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu May 10 11:44:37 PDT 2012
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+only make the all solution files if we're in GR
+    *
+------------------------------------------------------------
 User: jrb  Tue May  8 17:16:38 PDT 2012
 SConsFiles/site_scons/site_tools
 
