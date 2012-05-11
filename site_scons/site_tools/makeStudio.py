@@ -37,12 +37,14 @@ from fermidebug import fdebug
 ## be written to same directory as project files.
 def makeInstallScript(target, source, env):
     instFiles = env['installFiles']
-    if len(instFiles) == 0: 
-        return
     try:
         f = open(str(target[0]), 'w')
-        for p in instFiles:
-            f.write("xcopy /S /Y /F " + str(p[0]) + "  " + str(p[1]) + "\n")
+        if len(instFiles) == 0: 
+            #  write a no-op file
+            f.write("REM No files to install for this package \n")
+        else:
+            for p in instFiles:
+                f.write("xcopy /S /Y /F " + str(p[0]) + "  " + str(p[1]) + "\n")
     except IOError:
         print "Failed file operation on ", target[0]
     
