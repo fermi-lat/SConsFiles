@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Fri May 11 16:53:04 PDT 2012
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	makeStudio.py 
+Log Message:
+write harmless ..Install.bat file if nothing to install
+    *
+------------------------------------------------------------
 User: jrb  Thu May 10 11:44:37 PDT 2012
 SConsFiles
 
