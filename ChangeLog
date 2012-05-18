@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Fri May 18 09:55:28 PDT 2012
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	msvs.py 
+Log Message:
+add <pkgroot>\src to include path in project files
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-17-35-24-lp24, operation: add
 Package: SConsFiles
