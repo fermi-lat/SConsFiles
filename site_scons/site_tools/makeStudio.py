@@ -1,4 +1,4 @@
-#  $Id: makeStudio.py,v 1.6 2012/04/18 19:22:15 jrb Exp $
+#  $Id: makeStudio.py,v 1.9 2012/05/11 23:53:04 jrb Exp $
 import os, os.path, pprint
 from SCons.Script import *
 from fermidebug import fdebug
@@ -60,6 +60,14 @@ def generate(env, **kw):
     # Will contain list of extra libraries, required by package targets,
     # which belong to other packages.  These projects have to appear
     # in solution file
+
+    # return True if extension is not one of 'C', 'c', 'cxx', 'cpp'
+    def notC(path):
+        exclude = ['C', 'c', 'cxx', 'cpp']
+        cmps = path.split('.')
+        if cmps[len(cmps) - 1] in exclude:
+            return False
+        else: return True
     
     if 'ProjectInstallFiles' not in env['BUILDERS']:
         projectInstallBuilder = Builder(action = makeInstallScript, 
@@ -76,7 +84,7 @@ def generate(env, **kw):
                              'site_scons\site_tools\writeAllSln.py ' + str(env['STUDIODIR']) )
         allGleamSln = env.Command(os.path.join(str(env['STUDIODIR']), 'allGleam.sln'), 'slns', 
                              'site_scons\site_tools\writeAllSln.py ' + str(env['STUDIODIR']) + ' Gleam' )
-        env.Alias('all', [allSln, allGleamSln])
+        #env.Alias('all', [allSln, allGleamSln])
         env.Alias('StudioFiles', [allSln, allGleamSln])
         return
 
@@ -90,13 +98,18 @@ def generate(env, **kw):
             absincs.append(File(header).srcnode().abspath)
     if kw.get('xml', '') !='':
         for xmlfile in kw.get('xml'):
-            absmisc.append(File(xmlfile).srcnode().abspath)
+            if notC(str(xmlfile)):
+                absmisc.append(File(xmlfile).srcnode().abspath)
     if kw.get('python', '') !='':
         for pyfile in kw.get('python'):
             absmisc.append(File(pyfile).srcnode().abspath)
     if kw.get('pfiles', '') !='':
         for pfile in kw.get('pfiles'):
             absmisc.append(File(pfile).srcnode().abspath)
+    if kw.get('data', '') !='':
+        for datafile in kw.get('data'):
+            if notC(str(datafile)):
+                absmisc.append(File(datafile).srcnode().abspath)
 
     if kw.get('installFiles', '') != '':
         # define the install script target
@@ -178,7 +191,7 @@ def generate(env, **kw):
                     
                 env.Alias(kw.get('package'), projectInstalled)
                 env.Default(projectInstalled)
-                env.Alias('all', projectInstalled)
+                #env.Alias('all', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
                 env.Alias('projectFiles', projectInstalled)
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
@@ -245,7 +258,7 @@ def generate(env, **kw):
                     
                 env.Alias(kw.get('package'), projectInstalled)
                 env.Default(projectInstalled)
-                env.Alias('all', projectInstalled)
+                #env.Alias('all', projectInstalled)
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
                 env.Alias('projectFiles', projectInstalled)
@@ -309,7 +322,7 @@ def generate(env, **kw):
                     
                 env.Alias(kw.get('package'), projectInstalled)
                 env.Default(projectInstalled)
-                env.Alias('all', projectInstalled)
+                #env.Alias('all', projectInstalled)
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
                 env.Alias('projectFiles', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
@@ -373,7 +386,7 @@ def generate(env, **kw):
                     
                 env.Alias(kw.get('package'), projectInstalled)
                 env.Default(projectInstalled)
-                env.Alias('all', projectInstalled)
+                #env.Alias('all', projectInstalled)
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
                 env.Alias('projectFiles', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
@@ -440,7 +453,7 @@ def generate(env, **kw):
                     
                 env.Alias(kw.get('package'), projectInstalled)
                 env.Default(projectInstalled)
-                env.Alias('all', projectInstalled)
+                #env.Alias('all', projectInstalled)
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
                 env.Alias('projectFiles', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
@@ -497,7 +510,7 @@ def generate(env, **kw):
                             extras.append(extraLibProj)
 
                 env.Alias(kw.get('package'), projectInstalled)
-                env.Alias('all', projectInstalled)
+                #env.Alias('all', projectInstalled)
                 env.Alias('projectFiles', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
@@ -529,7 +542,7 @@ def generate(env, **kw):
 
         env.Alias(kw.get('package'), slnInstalled)
         env.Alias('slns', slnInstalled)
-        env.Alias('all', slnInstalled)
+        #env.Alias('all', slnInstalled)
         env.Alias('StudioFiles', slnInstalled)
         env.Alias(pkgname+'-StudioFiles', slnInstalled)
 
