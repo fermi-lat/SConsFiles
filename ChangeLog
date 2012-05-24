@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu May 24 16:23:24 PDT 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add entries for CLHEP, geant needed by vc90
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-23-01, operation: add
 Package: SConsFiles
