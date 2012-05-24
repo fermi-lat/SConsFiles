@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu May 24 11:49:38 PDT 2012
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	makeStudio.py msvs.py 
+Log Message:
+updates for VS project files
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-17-35-24-lp28, operation: add
 Package: SConsFiles
