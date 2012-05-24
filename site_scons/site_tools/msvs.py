@@ -1,4 +1,4 @@
-#  $Id: msvs.py,v 1.10 2012/05/09 00:16:38 jrb Exp $
+#  $Id: msvs.py,v 1.11 2012/05/18 16:55:28 jrb Exp $
 """ Site-specific msvs, from SCons.Tool.msvs
 
     27 Feb  Get rid of some stuff which I don't think is being used
@@ -447,6 +447,21 @@ V8VCRootcintPrebuildTool = """
 \t\t\t/>
 """
 
+# For Gaudi programs copy common source files to work area
+V8VCGaudiTestTool = """
+\t\t\t<Tool
+\t\t\t\tName="VCPreBuildEventTool"
+\t\t\t\tCommandLine='xcopy /S /Y /F ..\..\gr_app\src\setPriority.cxx $(IntDir)\ &amp;&amp; xcopy /S /Y /F ..\..\gr_app\src\TestGlastMain.cxx $(IntDir)\'
+\t\t\t/>
+"""
+
+V8VCGaudiMainTool = """
+\t\t\t<Tool
+\t\t\t\tName="VCPreBuildEventTool"
+\t\t\t\tCommandLine='xcopy /S /Y /F ..\..\gr_app\src\setPriority.cxx $(IntDir)\ &amp;&amp; xcopy /S /Y /F ..\..\gr_app\src\GlastMain.cxx $(IntDir)\'
+\t\t\t/>
+"""
+
 # Call ROOT bindexplib or other program to get necessary defs
 V8VCPrelinkTool = """
 \t\t\t<Tool
@@ -871,6 +886,11 @@ class _GenerateV7DSP(_DSPGenerator):
                 self.file.write(V8VCCLCompilerTool % self.__dict__)
                 self.file.write(V8VCLinkStaticLibTool % self.__dict__)
             elif self.linkfileext == "exe":
+                gaudi = self.env.get('GAUDIPROG','')
+                if gaudi == 'test':
+                    self.file.write(V8VCGaudiTestTool)
+                elif gaudi == 'main':
+                    self.file.write(V8VCGaudiMainTool)
                 self.file.write(V8VCCLCompilerTool % self.__dict__)
                 self.file.write(V8VCLinkExeTool % self.__dict__)
 
@@ -936,6 +956,27 @@ class _GenerateV7DSP(_DSPGenerator):
 
             sources = self.sources[kind]
 
+            # For gaudi programs, a couple files are handled specially.  For VS they will be found
+            # in intermediate directory
+            if kind == "Source Files":
+                gaudi = self.env.get('GAUDIPROG','')
+                if gaudi != '':
+                    print "sources for gaudi program are"
+                    for s in sources:  print(str(s))
+                    toRemove = []
+                    toAppend = []
+                    for s in sources:
+                        if 'setPriority'  in s:
+                            toRemove.append(s)
+                            toAppend.append(os.path.join("Visual-vc90-Debug", self.name, "setPriority.cxx"))
+                        if 'GlastMain' in s:
+                            toRemove.append(s)
+                            if gaudi == 'test':
+                                toAppend.append(os.path.join("Visual-vc90-Debug", self.name, "TestGlastMain.cxx"))
+                            elif gaudi == 'main':
+                                toAppend.append(os.path.join("Visual-vc90-Debug", self.name, "GlastMain.cxx"))
+                    for s in toRemove: sources.remove(s)
+                    for s in toAppend: sources.append(s)
             # First remove any common prefix
             commonprefix = None
             if len(sources) > 1:
