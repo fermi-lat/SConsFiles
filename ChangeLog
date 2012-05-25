@@ -1,4 +1,32 @@
 ------------------------------------------------------------
+TAG
+Tag name: SConsFiles-00-23-03, operation: add
+Package: SConsFiles
+User: jrb  Fri May 25 10:28:00 2012
+Files:
+  SConsFiles/ChangeLog  1.680
+  SConsFiles/allExternals.scons  1.113
+  SConsFiles/SConstruct  1.154
+  SConsFiles/processExternals.scons  1.51
+  SConsFiles/Doxygen/Default  1.2
+  SConsFiles/doc/release.notes  1.91
+  SConsFiles/shellscripts/pfiles_setup.sh  1.2
+  SConsFiles/shellscripts/pfiles_setup.csh  1.1
+  SConsFiles/shellscripts/pfiles_setup.bat  1.1
+  SConsFiles/site_scons/site_tools/msvs.py  1.12
+  SConsFiles/site_scons/site_tools/doxygen.py  1.5
+  SConsFiles/site_scons/site_tools/writeAllSln.py  1.3
+  SConsFiles/site_scons/site_tools/generatePythonWrapper.py  1.3
+  SConsFiles/site_scons/site_tools/.cvsignore  1.1
+  SConsFiles/site_scons/site_tools/fermidebug.py  1.1
+  SConsFiles/site_scons/site_tools/generateScript.py  1.27
+  SConsFiles/site_scons/site_tools/addLinkDeps.py  1.2
+  SConsFiles/site_scons/site_tools/makeStudio.py  1.10
+  SConsFiles/site_scons/site_tools/registerTargets.py  1.18
+  SConsFiles/site_scons/site_tools/addLibrary.py  1.3
+
+    *
+------------------------------------------------------------
 User: jrb  Fri May 25 10:27:54 PDT 2012
 SConsFiles/doc
 
