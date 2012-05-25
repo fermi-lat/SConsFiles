@@ -1051,6 +1051,26 @@ allExternalLibraries = {
                   },
                  'vc90'   :
                  {'cpp-defines' : ['__i386', '_WIN32_LDF_STATIC'],
+                  'libraries'   : {'ldfLibs' : ['ldf', 'oldnames']}
+                  }
+                 },
+                'v07-01-01-i1' :
+                {'default' :
+                 {'version'      : 'v07-01-01',
+                  'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
+                  'includes'     : ['LDFversion.h', 'EBFeventIterator.h'],
+                  'libraries'    : {'ldfLibs' : ['ldf']},
+                  'include-path' : os.path.join('$TOP', 'include'),
+                  'lib-path'     : os.path.join('$TOP', 'lib'),
+                  'test-path'     : os.path.join('$TOP', 'test'),
+                  'ld-path' : '$LIB-PATH'},
+                 'win32'  :
+                 {'cpp-defines' : ['__i386', '_WIN32_LDF_STATIC'],
+                  'libraries'   : {'ldfLibs' : ['ldf', 'oldnames']} 
+                  },
+                 'vc90'   :
+                 {'version'       : 'v07-01-01-gl1',
+                  'cpp-defines' : ['__i386', '_WIN32_LDF_STATIC'],
                   'libraries'   : {'ldfLibs' : ['ldf', 'oldnames'],
                                    'ldfExtraLibs' : ['ldfExtra']}           
                   }
