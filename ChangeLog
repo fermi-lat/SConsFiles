@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Fri May 25 10:04:37 PDT 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+make a new LDF entry v007-01-01-i1 differing from previous only for Windows vc90
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-23-02, operation: add
 Package: SConsFiles
