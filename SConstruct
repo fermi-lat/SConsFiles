@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.153 2012/05/24 23:24:22 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.154 2012/05/25 17:27:54 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
 # Version: SConsFiles-00-23-03
 
@@ -309,7 +309,7 @@ if baseEnv.GetOption('userRelease'):
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['DATADIR'])
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['XMLDIR'])
         if baseEnv.GetOption('containerName') == 'GlastRelease':
-	        baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['JODIR'])
+	        baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['JODIR'])
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['TOOLDIR'])
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['TESTDIR'])
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['TESTSCRIPTDIR'])
