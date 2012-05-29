@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Tue May 29 14:28:25 PDT 2012
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	registerTargets.py 
+Log Message:
+Special *ALL* pkgname argument should avoid most processing
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-23-04, operation: add
 Package: SConsFiles
