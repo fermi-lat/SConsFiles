@@ -1,4 +1,4 @@
-#  $Id: registerTargets.py,v 1.17 2012/01/19 20:16:40 jrb Exp $
+#  $Id: registerTargets.py,v 1.18 2012/04/27 18:51:31 jrb Exp $
 import os, pprint, sys, os.path
 from SCons.Script import *
 from fermidebug import fdebug
@@ -43,6 +43,9 @@ def generate(env, **kw):
     if kw.get('package', '') != '':
         if env['PLATFORM'] == "win32": instFiles = []
         pkgname = kw.get('package')
+        if pkgname == "*ALL*":
+            env.Tool('makeStudio', pkgname)
+            return
 
         pkgtopdir = str(env.Dir('.').srcnode())
         #fdebug('Entered registerTargets:generate for package %s' % pkgname)
