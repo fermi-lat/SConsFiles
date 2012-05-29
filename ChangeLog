@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: tstephen  Tue May 29 09:23:11 PDT 2012
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Fixed but in creation of the user release that was trying to use tar instead of zip on windows when adding the jobOptions directory.
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-23-03, operation: add
 Package: SConsFiles
