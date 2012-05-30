@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Tue May 29 19:23:46 PDT 2012
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	registerTargets.py 
+Log Message:
+revert change; need to find another way to do this
+    *
+------------------------------------------------------------
 User: jrb  Tue May 29 14:28:25 PDT 2012
 SConsFiles/site_scons/site_tools
 
