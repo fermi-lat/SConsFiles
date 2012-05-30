@@ -84,12 +84,8 @@ def generate(env, **kw):
                              'site_scons\site_tools\writeAllSln.py ' + str(env['STUDIODIR']) )
         allGleamSln = env.Command(os.path.join(str(env['STUDIODIR']), 'allGleam.sln'), 'slns', 
                              'site_scons\site_tools\writeAllSln.py ' + str(env['STUDIODIR']) + ' Gleam' )
-        #env.Alias('all', [allSln, allGleamSln])
         env.Alias('StudioFiles', [allSln, allGleamSln])
         return
-
-    #print "abspath for our SConscript: "    
-    #print File("SConscript").srcnode().abspath
 
     pkgroot = os.path.dirname(str(File("SConscript").srcnode().abspath))
                    
@@ -111,6 +107,7 @@ def generate(env, **kw):
             if notC(str(datafile)):
                 absmisc.append(File(datafile).srcnode().abspath)
 
+    installHandled = True
     if kw.get('installFiles', '') != '':
         # define the install script target
         env['installFiles'] = kw.get('installFiles')
@@ -118,6 +115,7 @@ def generate(env, **kw):
         for p in kw.get('installFiles') : installSrcs.append(p[0])
         installscriptPath = Dir(env['STUDIODIR']).File(pkgname + "Install.bat")
         installscript = env.ProjectInstallFiles(installscriptPath, installSrcs)
+        installHandled = False
 
     # targetNames will contain list of projects (abs path to file)
     # input to MSVSSolution( )
@@ -153,7 +151,10 @@ def generate(env, **kw):
                 #print 'Good myLibName is: ', myLibName
                 targ = myLibNameOnly + 'Lib' + env['MSVSPROJECTSUFFIX']
                 buildtarg = myLibName
-
+                if installHandled == False:
+                    instscript = str(installscriptPath)
+                    installHandled = True
+                else: instscript = ''
                 cxt[1]['outdir'] = libdirstring
                 projectFile=cxt[1].MSVSProject(target=targ,
                                                incs=absincs,
@@ -162,10 +163,10 @@ def generate(env, **kw):
                                                buildtarget=buildtarg,
                                                targettype='dll',
                                                packageroot=pkgroot,
-                                               installScript = str(installscriptPath),
+                                               installScript = instscript,
                                                auto_build_solution=0)
                 projectInstalled = env.Install(env['STUDIODIR'], projectFile)
-                if kw.get('installFiles', '') != '':
+                if instscript != '':
                     env.Depends(projectFile, installscript)
                 # Compute installed abs path; needed for sln file
                 targsrc = os.path.join(str(env['STUDIODIR']), targ)
@@ -191,7 +192,6 @@ def generate(env, **kw):
                     
                 env.Alias(kw.get('package'), projectInstalled)
                 env.Default(projectInstalled)
-                #env.Alias('all', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
                 env.Alias('projectFiles', projectInstalled)
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
@@ -218,6 +218,10 @@ def generate(env, **kw):
                 #print 'Good myLibName is: ', myLibName
                 targ = myLibNameOnly + 'Lib' + env['MSVSPROJECTSUFFIX']
                 buildtarg = myLibName
+                if installHandled == False:
+                    instscript = str(installscriptPath)
+                    installHandled = True
+                else: instscript = ''
 
                 cxt[1]['outdir'] = libdirstring
                 projectFile=cxt[1].MSVSProject(target=targ,
@@ -228,10 +232,10 @@ def generate(env, **kw):
                                                variant=env['VISUAL_VARIANT'],
                                                buildtarget=buildtarg,
                                                targettype='lib',
-                                               installScript = str(installscriptPath),
+                                               installScript = instscript,
                                                auto_build_solution=0)
                 projectInstalled = env.Install(env['STUDIODIR'], projectFile)
-                if kw.get('installFiles', '') != '':
+                if instscript != '':
                     env.Depends(projectFile, installscript)
                     
                 # Compute installed abs path; needed for sln file
@@ -258,7 +262,6 @@ def generate(env, **kw):
                     
                 env.Alias(kw.get('package'), projectInstalled)
                 env.Default(projectInstalled)
-                #env.Alias('all', projectInstalled)
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
                 env.Alias('projectFiles', projectInstalled)
@@ -322,7 +325,6 @@ def generate(env, **kw):
                     
                 env.Alias(kw.get('package'), projectInstalled)
                 env.Default(projectInstalled)
-                #env.Alias('all', projectInstalled)
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
                 env.Alias('projectFiles', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
@@ -349,6 +351,10 @@ def generate(env, **kw):
             if myLibNameOnly != '':
                 targ = myLibNameOnly + 'Lib' + env['MSVSPROJECTSUFFIX']
                 buildtarg = myLibName
+                if installHandled == False:
+                    instscript = str(installscriptPath)
+                    installHandled = True
+                else: instscript = ''
                 cxt[1]['packageName'] = pkgname
                 cxt[1]['outdir'] = libdirstring
                 projectFile=cxt[1].MSVSProject(target=targ,
@@ -359,10 +365,10 @@ def generate(env, **kw):
                                                buildtarget=buildtarg,
                                                targettype='rootcintdll',
                                                rootcintnode=cxt[1]['rootcint_node'],
-                                               installScript = str(installscriptPath),
+                                               installScript = instscript,
                                                auto_build_solution=0)
                 projectInstalled = env.Install(env['STUDIODIR'], projectFile)
-                if kw.get('installFiles', '') != '':
+                if instscript != '':
                     env.Depends(projectFile, installscript)
 
                 # Compute installed abs path; needed for sln file
@@ -386,7 +392,6 @@ def generate(env, **kw):
                     
                 env.Alias(kw.get('package'), projectInstalled)
                 env.Default(projectInstalled)
-                #env.Alias('all', projectInstalled)
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
                 env.Alias('projectFiles', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
@@ -418,6 +423,11 @@ def generate(env, **kw):
                 ## Probably need to add arg. for rootcint node
                 cxt[1]['packageName'] = pkgname
                 cxt[1]['outdir'] = libdirstring
+                if installHandled == False:
+                    instscript = str(installscriptPath)
+                    installHandled = True
+                else: instscript = ''
+
                 projectFile=cxt[1].MSVSProject(target=targ,
                                                packageroot=pkgroot,
                                                incs=absincs,
@@ -426,10 +436,10 @@ def generate(env, **kw):
                                                buildtarget=buildtarg,
                                                targettype='rootcintlib',
                                                rootcintnode=cxt[1]['rootcint_node'],
-                                               installScript = str(installscriptPath),
+                                               installScript = instscript,
                                                auto_build_solution=0)
                 projectInstalled = env.Install(env['STUDIODIR'], projectFile)
-                if kw.get('installFiles', '') != '':
+                if instscript != '':
                     env.Depends(projectFile, installscript)
     
                 #Compute installed abs path; needed for sln file
@@ -453,7 +463,6 @@ def generate(env, **kw):
                     
                 env.Alias(kw.get('package'), projectInstalled)
                 env.Default(projectInstalled)
-                #env.Alias('all', projectInstalled)
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
                 env.Alias('projectFiles', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
@@ -510,11 +519,31 @@ def generate(env, **kw):
                             extras.append(extraLibProj)
 
                 env.Alias(kw.get('package'), projectInstalled)
-                #env.Alias('all', projectInstalled)
                 env.Alias('projectFiles', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
     
+    if installHandled == False:   #need to make special project file
+        targ = pkgname + 'InstallSrc' + env['MSVSPROJECTSUFFIX']
+
+        projectFile = env.MSVSProject(target=targ,
+                                      packageroot =pkgroot,
+                                      incs=absincs,
+                                      misc=absmisc,
+                                      variant=env['VISUAL_VARIANT'],
+                                      #buildtarget = ["*DUMMY*"],
+                                      targettype="install",
+                                      installScript = str(installscriptPath),
+                                      auto_build_solution=0)
+        env.Depends(projectFile, installscript)
+        projectInstalled = env.Install(env['STUDIODIR'], projectFile)
+        env.Alias(pkgname, projectInstalled)
+        env.Alias('projectFiles', projectInstalled)
+        env.Alias('StudioFiles', projectInstalled)
+        env.Alias(pkgname+'-StudioFiles', projectInstalled)
+        targsrc = os.path.join(str(env['STUDIODIR']), targ)
+        targetNames.append(env.subst(targsrc))
+
     slnTarget = kw.get('package') + env['MSVSSOLUTIONSUFFIX']
         
     # Last thing:  add entries to projects for the extras.
@@ -531,7 +560,6 @@ def generate(env, **kw):
     # Note MSVSSolution has to extract filename (only; no dir, no extension)
     # to use to look up assoc. libs in libSets
     if len(targetNames) > 0:
-        #print 'For package ',pkgname, ' about to make solution file with target count = ', len(targetNames)
         fdebug('For package %s  about to make solution file with target count = %s '  % (pkgname, len(targetNames)))
         slnFile=env.MSVSSolution(target=slnTarget, projects=targetNames,
                                  variant=env['VISUAL_VARIANT'], libs=libSets,
@@ -542,7 +570,6 @@ def generate(env, **kw):
 
         env.Alias(kw.get('package'), slnInstalled)
         env.Alias('slns', slnInstalled)
-        #env.Alias('all', slnInstalled)
         env.Alias('StudioFiles', slnInstalled)
         env.Alias(pkgname+'-StudioFiles', slnInstalled)
 
