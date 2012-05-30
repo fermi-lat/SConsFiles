@@ -43,9 +43,6 @@ def generate(env, **kw):
     if kw.get('package', '') != '':
         if env['PLATFORM'] == "win32": instFiles = []
         pkgname = kw.get('package')
-        if pkgname == "*ALL*":
-            env.Tool('makeStudio', pkgname)
-            return
 
         pkgtopdir = str(env.Dir('.').srcnode())
         #fdebug('Entered registerTargets:generate for package %s' % pkgname)
