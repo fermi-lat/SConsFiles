@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Wed May 30 15:58:31 PDT 2012
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	writeAllSln.py 
+Log Message:
+slightly refined scheme for handling installs in project files
+    *
+------------------------------------------------------------
 User: jrb  Wed May 30 15:55:04 PDT 2012
 SConsFiles/site_scons/site_tools
 
