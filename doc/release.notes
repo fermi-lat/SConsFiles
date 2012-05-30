@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-23-05 30-May-2012    jrb Improve scheme for getting installs done by project files
  SConsFiles-00-23-04 29-May-2012 glastrm Fixed bug preventing user release builds of GR.
  SConsFiles-00-23-03 25-May-2012    jrb Fix up ldf external for vc90
  SConsFiles-00-23-02 24-May-2012    jrb add CLHEP and geant versions needed by Windows vc90
