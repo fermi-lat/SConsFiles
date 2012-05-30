@@ -311,7 +311,9 @@ class _DSPGenerator:
             self.targettype = self.env['targettype']
 
         self.installScript = ''
-        if env.has_key('installScript'): self.installScript = env['installScript']
+        if env.has_key('installScript'): 
+            #print "found installScript in env:  ", env['installScript']
+            self.installScript = env['installScript']
 
         for n in sourcenames:
             self.sources[n].sort(lambda a, b: cmp(string.lower(a), string.lower(b)))
@@ -515,7 +517,14 @@ V8VCInstallTool = """
 \t\t\t/>
 """
 
-
+# Same as above but for projects which don't do anything else
+V8VCInstallOnlyTool = """
+\t\t\t<Tool
+\t\t\t\tName="VCNMakeTool"
+\t\t\t\tBuildCommandLine="%(installScript)s"
+\t\t\t\tReBuildCommandLine="%(installScript)s"
+\t\t\t/>
+"""
 
 class _GenerateV7DSP(_DSPGenerator):
     """Generates a Project file for MSVS .NET"""
@@ -546,7 +555,7 @@ class _GenerateV7DSP(_DSPGenerator):
                 self.rt_number="3"
             else: 
                 self.rt_number="2"
-            if env.has_key('buildtarget') and env['buildtarget'] != None:
+            if env.has_key('buildtarget') and env['buildtarget'] != None and env['buildtarget'] != "*DUMMY*":
                 buildt = [self.env.File(env['buildtarget'])]
                 cmps = (env['buildtarget']).split('.')
                 if len(cmps) == 2:
@@ -559,6 +568,7 @@ class _GenerateV7DSP(_DSPGenerator):
                 
             elif self.targettype == "rootcintlib":
                 self.DoRootcint()
+
             #  set additional_includes to be package-root and package-root/src
             self.additional_includes      = ""
             if env.has_key('packageroot'):
@@ -640,6 +650,7 @@ class _GenerateV7DSP(_DSPGenerator):
 
     def GetSources(self):
         env = self.env
+        if self.targettype == "install": return
 
         shobjSuff = env['OBJSUFFIX'] + " "
         # Now use cfile_re pattern to replace .cxx or .c with OBJSUFFIX
@@ -707,26 +718,21 @@ class _GenerateV7DSP(_DSPGenerator):
                         nxt = avcmps[ix+1]
                         avcmps.remove("build")
                         avcmps.remove(nxt)
-
                         vv = '\\'.join(avcmps)
 
                     #print "from ", str(v), " created ", vv
-                    #usedSources.append(str(File(vv).abspath))
                     usedSources.append(vv)
                     
             self.env['src'] = usedSources
-            for u in usedSources:
-                self.sources['Source Files'].append(u)
+            for u in usedSources: self.sources['Source Files'].append(u)
             #print "GetSources:  'Source Files entry:"
-            #for i in self.sources['Source Files']:
-            #    print str(i)
+            #for i in self.sources['Source Files']: print str(i)
 
         if self.linkfileext == "dll":
             shlink0 = self.env['SHLINKCOM'].list[0].cmd_list
             buildt = [self.env.File(self.env['buildtarget'])]
             if self.targettype == "dll":
-                self.prelink = env.subst(shlink0,
-                                         target=buildt,
+                self.prelink = env.subst(shlink0, target=buildt,
                                          source=usedSources)
 
             elif self.targettype == "swigdll":
@@ -736,33 +742,28 @@ class _GenerateV7DSP(_DSPGenerator):
                 derivedsrc = env['variant'] + '\\' + ifilename.split(".")[0] + '_wrap.cc'
                 self.env['src'] = [derivedsrc]
                 self.sources["Source Files"].append(derivedsrc)
-                self.prelink = env.subst(shlink0,
-                                         target=buildt,
+                self.prelink = env.subst(shlink0, target=buildt,
                                          source=[derivedsrc])
-
                 self.swigcmd = 'swig.exe -o ' + derivedsrc + ' '
                 swigincs = ''
 
                 for p in Flatten(self.env['SWIGPATH']):
                     #print 'p is: ', p
                     #print 'type p is: ', type(p)
-                    if isinstance(p,str):
-                        swigincs += ' -I' + os.path.abspath(p)
-                    else:
-                        swigincs += ' -I' + p.abspath
+                    if isinstance(p,str): swigincs += ' -I' + os.path.abspath(p)
+                    else:  swigincs += ' -I' + p.abspath
                             
                 self.swigcmd += swigincs
                 self.swigcmd += ' '  + self.env['SWIGFLAGS']
                 self.swigcmd += ' ' + ifile 
-                print 'swigcmd is: ', self.swigcmd
+                #print 'swigcmd is: ', self.swigcmd
 
             elif self.targettype == "rootcintdll":
                 self.prelink = self.env.subst(shlink0,
                                               target=buildt,
                                               source=self.sources['Source Files'])
-                # Figure out how to write out rootcint command.
-                #  sources for the rootcint node *should* be what we
-                # want..
+                #  Writing rootcint command. Sources for the rootcint 
+                #node *should* be what we
                 self.DoRootcint()
 
             aftersub = cfile_re.sub(_toObj, self.prelink)
@@ -853,15 +854,13 @@ class _GenerateV7DSP(_DSPGenerator):
             self.outdir = ''
             if (len(outdir) > 0):
                 self.outdir = outdir
-            if self.linkfileext == "dll":
-                confType = 2
-            elif  self.linkfileext == "lib":
-                confType = 4
-                
-            elif self.linkfileext == "exe":
-                confType = 1
+            if self.linkfileext == "dll":    confType = 2
+            elif  self.linkfileext == "lib": confType = 4
+            elif self.linkfileext == "exe": confType = 1
+            # if we're just doing install, ignore everything else.
+            if self.targettype == "install": confType = 0
 
-            print "About to write V8DSPConfigure_header"
+            #print "About to write V8DSPConfigure_header"
             self.file.write(self.dspconfiguration_header % locals())
 
 
@@ -891,12 +890,18 @@ class _GenerateV7DSP(_DSPGenerator):
                     self.file.write(V8VCGaudiTestTool)
                 elif gaudi == 'main':
                     self.file.write(V8VCGaudiMainTool)
-                self.file.write(V8VCCLCompilerTool % self.__dict__)
-                self.file.write(V8VCLinkExeTool % self.__dict__)
+                if self.targettype != "install":
+                    self.file.write(V8VCCLCompilerTool % self.__dict__)
+                    self.file.write(V8VCLinkExeTool % self.__dict__)
 
-            # If we were passed an installScript, add PostBuildEvent step to call it
+            # If we were passed an installScript add either PostBuildEvent step
+            # or fake VCNMakeTool (in case we're not building anything else)
+            #print "self.installScript is: ", self.installScript
             if self.installScript != '':
-                self.file.write(V8VCInstallTool % self.__dict__)
+                if self.targettype == "install":
+                    self.file.write(V8VCInstallOnlyTool % self.__dict__)
+                else:
+                    self.file.write(V8VCInstallTool % self.__dict__)
 
             self.file.write(self.dspconfiguration_trailer % locals())
             ## end of HelloWorld stuff with additions
@@ -961,7 +966,7 @@ class _GenerateV7DSP(_DSPGenerator):
             if kind == "Source Files":
                 gaudi = self.env.get('GAUDIPROG','')
                 if gaudi != '':
-                    print "sources for gaudi program are"
+                    #print "sources for gaudi program are"
                     for s in sources:  print(str(s))
                     toRemove = []
                     toAppend = []

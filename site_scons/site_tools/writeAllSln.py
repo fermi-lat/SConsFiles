@@ -1,5 +1,5 @@
 # -*- python -*-
-#  $Id: writeAllSln.py,v 1.1 2012/05/01 02:53:19 jrb Exp $
+#  $Id: writeAllSln.py,v 1.3 2012/05/09 00:16:38 jrb Exp $
 #
 #  Delete old all.sln if there is one
 #  Read in *.sln for specified directory (defaults to "."), saving
@@ -61,12 +61,15 @@ class allSln(object):
 
         # Make dictionary entry (a triple) keyed by project name if
         #   (we're including all projects ) OR (project name ends in "Lib") OR
+        #   (project name ends in "InstallSrc")  OR
         #   (pkgname is non-null and project name = pkgname or "test_" + package name
         useIt = (self.pkgname == "")
         projName = mobj.group(1)
 
-        if (not useIt) and ((projName[len(projName)-3:] == "Lib") or (projName == self.pkgname) or
-                             (projName == "test_" + self.pkgname)): useIt = True
+        if (not useIt) and ((projName[len(projName)-3:] == "Lib") or 
+                            (projName[len(projName)-10:] == "InstallSrc") or 
+                            (projName == self.pkgname) or
+                            (projName == "test_" + self.pkgname)): useIt = True
         if projName not in self.projectDict:
             if useIt: self.projectDict[projName] = [projName, mobj.group(2), projLines, lenp]
         else:
