@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Wed May 30 15:55:04 PDT 2012
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	makeStudio.py msvs.py 
+Log Message:
+slightly refined scheme for handling installs in project files
+    *
+------------------------------------------------------------
 User: jrb  Tue May 29 19:23:46 PDT 2012
 SConsFiles/site_scons/site_tools
 
