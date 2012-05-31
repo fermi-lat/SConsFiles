@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu May 31 12:52:35 PDT 2012
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	writeAllSln.py 
+Log Message:
+clean up commented-out lines; cosmetic only
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-23-05, operation: add
 Package: SConsFiles
