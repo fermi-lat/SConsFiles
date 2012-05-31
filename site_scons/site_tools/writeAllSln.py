@@ -38,8 +38,6 @@ class allSln(object):
            print "cannot parse supposed Project definition starting ",
            print firstline
            exit(1)
-        #else:
-        #    print "match groups are ", mobj.group(1), mobj.group(2)
 
         #  Save all lines through line with contents "EndProject" in projLines
         projLines = [firstline]
