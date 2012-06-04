@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Mon Jun  4 10:34:38 PDT 2012
+SConsFiles
+
+Modified Files:
+	processExternals.scons 
+Log Message:
+try doing without rootmaps
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-17-35-24-tr06, operation: add
 Package: SConsFiles
