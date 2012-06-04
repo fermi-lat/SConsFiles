@@ -360,12 +360,16 @@ def setupGaudi(configuredExternal):
         #    showpath = 'set PATH'
         #else:
         #    showpath = 'printenv LD_LIBRARY_PATH'
-
         #rootmapBuilder = Builder(action=[showpath, 'genmap -i ${SOURCE} -o ${TARGET}'],
-        rootmapBuilder =Builder(action=['genmap -i ${SOURCE} -o ${TARGET}'],
-                                suffix='rootmap', prefix='$SHLIBPREFIX',
-                                src_suffix='$SHLIBSUFFIX')
-        baseEnv.Append(BUILDERS = {'Rootmap' : rootmapBuilder})
+
+        # Comment out the following (up to def ComponentLibrary)
+        # and end of ComponenetLibrary function to get rid of rootmaps
+
+        ### temporarily (?) comment out
+        #rootmapBuilder =Builder(action=['genmap -i ${SOURCE} -o ${TARGET}'],
+        #                        suffix='rootmap', prefix='$SHLIBPREFIX',
+        #                        src_suffix='$SHLIBSUFFIX')
+        #baseEnv.Append(BUILDERS = {'Rootmap' : rootmapBuilder})
 
         def ComponentLibrary(env, lb, sources, **args):
             if env['PLATFORM'] == 'win32':
@@ -396,9 +400,10 @@ def setupGaudi(configuredExternal):
 
                 env.PrependENVPath(libpathname, e)
 
-            rootmap = env.Rootmap(target=lb, source=cmplib)
-
-            return Flatten([cmplib, rootmap])
+            #rootmap = env.Rootmap(target=lb, source=cmplib)
+            #return Flatten([cmplib, rootmap])
+            # Replace above two lines with following to eliminate rootmap
+            return Flatten([cmplib])
         
     baseEnv.AddMethod(ComponentLibrary)
 
