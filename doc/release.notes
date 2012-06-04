@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-23-07 04-Jun-2012    jrb try getting along without rootmaps
  SConsFiles-00-23-06 31-May-2012    jrb clean up unneeded comments; cosmetic only
  SConsFiles-00-23-05 30-May-2012    jrb Improve scheme for getting installs done by project files
  SConsFiles-00-23-04 29-May-2012 glastrm Fixed bug preventing user release builds of GR.
