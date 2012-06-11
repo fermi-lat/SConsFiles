@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Mon Jun 11 10:18:09 PDT 2012
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	registerTargets.py 
+Log Message:
+handle \*ALL\* pseudo-package properly
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-20-03-04, operation: add
 Package: SConsFiles
