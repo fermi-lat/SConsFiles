@@ -1,4 +1,4 @@
-#  $Id: registerTargets.py,v 1.18 2012/04/27 18:51:31 jrb Exp $
+#  $Id: registerTargets.py,v 1.20 2012/05/30 02:23:46 jrb Exp $
 import os, pprint, sys, os.path
 from SCons.Script import *
 from fermidebug import fdebug
@@ -44,20 +44,20 @@ def generate(env, **kw):
         if env['PLATFORM'] == "win32": instFiles = []
         pkgname = kw.get('package')
 
-        pkgtopdir = str(env.Dir('.').srcnode())
-        #fdebug('Entered registerTargets:generate for package %s' % pkgname)
-        if os.path.exists(os.path.join(str(env.Dir('.').srcnode()),kw.get('package')+"Lib.py")):
-            tools = env.Install(env['TOOLDIR'], os.path.join(str(env.Dir('.').srcnode()),kw.get('package')+"Lib.py"))
-            env.Default(tools)
-            env.Alias('tools', tools)
-            env.Alias('all', tools)
-            env.Alias(pkgname, tools)
+        if pkgname != "*ALL*":
+            #fdebug('Entered registerTargets:generate for package %s' % pkgname)
+            if os.path.exists(os.path.join(str(env.Dir('.').srcnode()),kw.get('package')+"Lib.py")):
+                tools = env.Install(env['TOOLDIR'], os.path.join(str(env.Dir('.').srcnode()),kw.get('package')+"Lib.py"))
+                env.Default(tools)
+                env.Alias('tools', tools)
+                env.Alias('all', tools)
+                env.Alias(pkgname, tools)
 
-        doxyFiles = env.CreateDoxygen(target = env['DOCDIR'].Entry(pkgname))
-        env.Default(doxyFiles)
-        env.Alias('all', doxyFiles)
-        env.Alias(pkgname, doxyFiles)
-        env.Alias("doxygen", doxyFiles)
+            doxyFiles = env.CreateDoxygen(target = env['DOCDIR'].Entry(pkgname))
+            env.Default(doxyFiles)
+            env.Alias('all', doxyFiles)
+            env.Alias(pkgname, doxyFiles)
+            env.Alias("doxygen", doxyFiles)
 
         def getCxtList(argname):
             val = kw.get(argname, '')
