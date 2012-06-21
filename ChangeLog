@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu Jun 21 12:21:24 PDT 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+fix up x11, zlib definitions to make them recognizable as system libs
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-17-35-24-lp29, operation: add
 Package: SConsFiles
