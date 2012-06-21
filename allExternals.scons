@@ -1378,20 +1378,22 @@ allExternalLibraries = {
                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
                    'includes'     : ['zlib.h'],
                    'libraries'    : {'zlibLibs' : ['z']},
+                   ##'lib-path'     : os.path.join('$TOP', 'lib'),
+                   'ld-path' : '$LIB-PATH'},
+                  'win32' : {'libraries'  : {'zlibLibs' : ['zlib']},
                    'include-path' : os.path.join('$TOP', 'include'),
-                   'lib-path'     : os.path.join('$TOP', 'lib'),
-                   'lvcd-path' : '$LIB-PATH'},
-                 'win32' : {'libraries'  : {'zlibLibs' : ['zlib']}}
+                   'lib-path'    : os.path.join('$TOP', 'lib'),
+                   'ld-path' : '$LIB-PATH'}
                  }
                 },
     'x11'     : {'1.0.0' :
                  {'default' :
                   {'version' : '1.0.0',
-                   'top'     : os.path.join('/', 'usr', 'X11R6'),
+                   ##'top'     : os.path.join('/', 'usr', 'X11R6'),
                    'includes' : ['X11/X.h'],
                    'libraries' : {'x11Libs' : ['Xm', 'Xt', 'X11']},
-                   'include-path' : os.path.join('$TOP', 'include'),
-                   'lib-path' : os.path.join('$TOP', 'lib'),
+                   ##'include-path' : os.path.join('$TOP', 'include'),
+                   ###'lib-path' : os.path.join('$TOP', 'lib'),
                    'ld-path' : '$LIB-PATH'
                    }
                   }
