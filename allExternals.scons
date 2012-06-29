@@ -803,6 +803,39 @@ allExternalLibraries = {
                                          'boost_date_time-$COMPILER-mt-gd-1_42',
                                          'uuid', 'libReflex']},
                     }
+                  },
+
+                'v21r7-gl2' :
+                { 'default' :
+                  { 'version' : 'v21r7-gl2',
+                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
+                    'includes' : ['GaudiAlg/GaudiAlg.h', 'GaudiKernel/Kernel.h'],
+                    'libraries' : {'gaudiLibs' :
+                                   ['GaudiAlg', 'GaudiAlgLib',
+                                    'GaudiUtilsLib', 'GaudiAud',
+                                    'GaudiSvc', 'GaudiKernel',
+                                    'boost_filesystem-$COMPILER-mt',
+                                    'boost_system-$COMPILER-mt',
+                                    'boost_regex-$COMPILER-mt',
+                                    'boost_thread-$COMPILER-mt',
+                                    'boost_date_time-$COMPILER-mt', 'uuid',
+                                    'Reflex']},
+                    'include-path' : os.path.join('$TOP', 'include'),
+                    'cpp-defines' : ['GAUDI_V20_COMPAT'],
+                    'lib-path' : os.path.join('$TOP', 'lib'),
+                    'ld-path' : '$LIB-PATH'},
+                  'gcc44' : 
+                  {'libraries' : {'gaudiLibs' :
+                                   ['GaudiAlg', 'GaudiAlgLib',
+                                    'GaudiUtilsLib', 'GaudiAud',
+                                    'GaudiSvc', 'GaudiKernel',
+                                    'boost_filesystem-$COMPILER-mt',
+                                    'boost_system-$COMPILER-mt',
+                                    'boost_regex-$COMPILER-mt',
+                                    'boost_thread-$COMPILER-mt',
+                                    'boost_date_time-$COMPILER-mt',
+                                    'Reflex']},
+                   }
                   }
               },
     'geant4' : {'8.0.p01-gl2' :
@@ -1022,7 +1055,42 @@ allExternalLibraries = {
                       'lib-path' : os.path.join('$TOP', 'lib')
                       },
                   'vc90-debug' :{ 'version' : '9.4.p03-gl1-dbg' }
-                  }
+                  },
+
+                '9.4.p04' :
+                { 'default' :
+                  {'version' : '9.4.p04',
+                  'includes' : ['G4Version.hh'],
+                   'top'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
+                   'libraries' :
+                   {'geant4Libs' : ['G4physicslists', 'G4interfaces',
+                                    'G4readout','G4run','G4event','G4tracking',
+                                    'G4processes', 'G4digits_hits', 'G4track',
+                                    'G4particles', 'G4geometry','G4materials',
+                                    'G4graphics_reps','G4intercoms','G4global',
+                                    'CLHEP-2.1.0.1']},
+                   'include-path' : os.path.join('$TOP', 'include'),
+                   'lib-path' : os.path.join('$TOP', 'lib', 'Linux-g++'),
+                   'tables-path' : os.path.join('$TOP', 'tables'),
+                   'ld-path' : '$LIB-PATH'},
+                  'win32' :
+                  {'libraries' :
+                   {'geant4Libs' : ['libG4Tree','libG4FR', 'libG4GMocren',
+                                    'libG4visHepRep', 'libG4RayTracer', 'libG4VRML',
+                                    'libG4vis_management', 'libG4modeling', 'libG4interfaces',
+                                    'libG4persistency', 'libG4error_propagation',
+                                    'libG4readout','libG4physicslists','libG4run','libG4event',
+                                    'libG4tracking', 'libG4parmodels','libG4processes',
+                                    'libG4digits_hits', 'libG4track',
+                                    'libG4particles', 'libG4geometry',
+                                    'libG4materials', 'libG4graphics_reps',
+                                    'libG4intercoms', 'libG4global', 'libG4zlib']},
+                    'cpp-defines': ['G4LIB_USE_DLL','XPNET','G4VERBOSE', 'G4DEBUG', '_CRT_SECURE_NO_DEPRECATE', 'CPPVERBOSE', 'G4LIB_BUILD_DLL'],
+                    'linkflags' : ['-FORCE'],
+                    'lib-path' : os.path.join('$TOP', 'lib', 'WIN32-VC')
+                    },
+                  },
+
                 },
     'ldf'    : {'v06-02-00' :
                 {'default' :
@@ -1363,12 +1431,14 @@ allExternalLibraries = {
                    { 'include-path' : os.path.join('$TOP', 'include'),
                      'libraries' : {'foxLibs' : ['FOXDLL-1.4']}, 
                      },
+                   'gcc44'  :
+                       { 'version' : '1.4.34-gl2' },
                    'vc90'  :
-                   { 'version' : '1.4.34-gl2' },
+                       { 'version' : '1.4.34-gl2' },
                    'vc90-debug'  :
-                   { 'version' : '1.4.34-gl2-dbg',
-                     'libraries' : {'foxLibs' : ['FOXDLLD-1.4']}, 
-                     }
+                       { 'version' : '1.4.34-gl2-dbg',
+                         'libraries' : {'foxLibs' : ['FOXDLLD-1.4']}, 
+                         }
                     },
                    },
 
@@ -1434,6 +1504,23 @@ allExternalLibraries = {
                   '3.2.5' :
                   {'default' :
                    {'version' : '3.2.5',
+                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                    'include-path' : os.path.join('$TOP', 'include'),
+                    'includes' : ['TMine/util/Translate.h'],
+                    'lib-path' : os.path.join('$TOP', 'lib'),
+                    'bin-path' : os.path.join('$TOP', 'bin'),
+                    'ld-path'   : '$LIB-PATH',
+                    'libraries' : {'TMineLibs' : ['TMine', 'TMine_IM_XML',
+                                                  'TMine_GUI', 'TMine_TMVA',
+                                                  'TMine_Engines',
+                                                  'TMine_XmlParse',
+                                                  'TMine_Model', 'TMine_base',
+                                                  'TMine_util']}
+                    }
+                   },
+                  '3.2.7' :
+                  {'default' :
+                   {'version' : '3.2.7',
                     'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
                     'include-path' : os.path.join('$TOP', 'include'),
                     'includes' : ['TMine/util/Translate.h'],
