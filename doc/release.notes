@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-25-00 02-Jul-2012    jrb rhel6 externals for GR
  SConsFiles-00-24-00 21-Jun-2012    jrb on Linux use system installations of zlib and x11
  SConsFiles-00-23-08 11-Jun-2012    jrb properly handle pseudo package *ALL* 
  SConsFiles-00-23-07 04-Jun-2012    jrb try getting along without rootmaps
