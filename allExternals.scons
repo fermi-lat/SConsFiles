@@ -1465,6 +1465,11 @@ allExternalLibraries = {
                    ##'include-path' : os.path.join('$TOP', 'include'),
                    ###'lib-path' : os.path.join('$TOP', 'lib'),
                    'ld-path' : '$LIB-PATH'
+                   },
+                   'gcc34' :
+                   { 'top'     : os.path.join('/', 'usr', 'X11R6'),
+                   'include-path' : os.path.join('$TOP', 'include'),
+                   'lib-path' : os.path.join('$TOP', 'lib')
                    }
                   }
                  },
