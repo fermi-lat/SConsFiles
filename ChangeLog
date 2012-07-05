@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: tstephen  Thu Jul  5 10:46:52 PDT 2012
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Modified logic in creation of the user release distribution package to exclude the syspfiles, xml and python directory for the TMineExt package.
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-25-01, operation: add
 Package: SConsFiles
