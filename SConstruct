@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.162 2012/07/02 16:34:22 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.163 2012/07/04 03:51:12 heather Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
 # Version: SConsFiles-00-25-01
 
@@ -289,31 +289,33 @@ if baseEnv.GetOption('userRelease'):
         baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['BINDIR'])
         baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['SCRIPTDIR'])
         baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['INCDIR'])
-        if baseEnv.GetOption('containerName') != 'GlastRelease':
+        if (baseEnv.GetOption('containerName') != 'GlastRelease') and (baseEnv.GetOption('containerName') != 'TMineExt'):
             baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['PFILESDIR'])
         baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['DATADIR'])
-        baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['XMLDIR'])
         if baseEnv.GetOption('containerName') == 'GlastRelease':
 	        baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['JODIR'])
         baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['TOOLDIR'])
         baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['TESTDIR'])
         baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['TESTSCRIPTDIR'])
-        baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['PYTHONDIR'])
+        if (baseEnv.GetOption('containerName') != 'TMineExt'):
+            baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['XMLDIR'])
+            baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['PYTHONDIR'])
     else:
         baseEnv.Default(baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['LIBDIR']))
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['BINDIR'])
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['SCRIPTDIR'])
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['INCDIR'])
-        if baseEnv.GetOption('containerName') != 'GlastRelease':
+        if (baseEnv.GetOption('containerName') != 'GlastRelease') and (baseEnv.GetOption('containerName') != 'TMineExt'):
             baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['PFILESDIR'])
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['DATADIR'])
-        baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['XMLDIR'])
         if baseEnv.GetOption('containerName') == 'GlastRelease':
 	        baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['JODIR'])
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['TOOLDIR'])
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['TESTDIR'])
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['TESTSCRIPTDIR'])
-        baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['PYTHONDIR'])
+        if (baseEnv.GetOption('containerName') != 'TMineExt'):
+            baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['XMLDIR'])
+            baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['PYTHONDIR'])
     Return()
 
 if baseEnv.GetOption('sourceRelease'):
