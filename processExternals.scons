@@ -162,7 +162,8 @@ def setupEnvironment(configuredExternal):
         wrapperlib = configuredExternal['ld-path']
         if(baseEnv.GetOption('GLAST-EXT')):
             wrapperlib = wrapperlib.replace(baseEnv['GLASTEXTvalue'], '$GLAST_EXT')
-        baseEnv.AppendUnique(WRAPPERLIBS = [wrapperlib])
+        if wrapperlib != "$LIB-PATH":
+            baseEnv.AppendUnique(WRAPPERLIBS = [wrapperlib])
 
     #Add library groups to base environment
     if 'libraries' in configuredExternal:
