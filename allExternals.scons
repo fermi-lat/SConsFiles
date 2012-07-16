@@ -1141,11 +1141,33 @@ allExternalLibraries = {
                   'cpp-defines' : ['__i386', '_WIN32_LDF_STATIC'],
                   'libraries'   : {'ldfLibs' : ['ldf', 'oldnames'],
                                    'ldfExtraLibs' : ['ldfExtra']}           
-                  }
-                 
+                  },
+                 },
+                'v07-01-02' :
+                {'default' :
+                 {'version'      : 'v07-01-02',
+                  'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                  'includes'     : ['LDFversion.h', 'EBFeventIterator.h'],
+                  'libraries'    : {'ldfLibs' : ['ldf']},
+                  'include-path' : os.path.join('$TOP', 'include'),
+                  'lib-path'     : os.path.join('$TOP', 'lib'),
+                  'test-path'     : os.path.join('$TOP', 'test'),
+                  'ld-path' : '$LIB-PATH'},
+                 'win32'  :
+                 {'top'          : os.path.join('$GLAST_EXT', '$NAME', 
+                                                '$VERSION', '$COMPILER'),
+                  'cpp-defines' : ['__i386', '_WIN32_LDF_STATIC'],
+                  'libraries'   : {'ldfLibs' : ['ldf', 'oldnames']} 
+                  },
+                 'vc90'   :
+                 {'cpp-defines' : ['__i386', '_WIN32_LDF_STATIC'],
+                  'libraries'   : {'ldfLibs' : ['ldf', 'oldnames'],
+                                   'ldfExtraLibs' : ['ldfExtra']}           
+                  },
+                 'gcc44-debug' :
+                     {'version'  : 'v07-01-02-dbg'
+                      }
                  }
-
-                
                 },
     'mysql'   : {'4.1.18' :
                  {'default' :
