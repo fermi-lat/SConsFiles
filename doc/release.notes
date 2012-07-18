@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-26-00 18-Jul-2012 heather adding zlib 1.2.5 for vc90
  SConsFiles-00-25-04 16-Jul-2012    jrb Add entry for ldf v07-01-02
  SConsFiles-00-25-03 05-Jul-2012    jrb exclude bogus entries from LD_LIBRARY_PATH
  SConsFiles-00-25-02 05-Jul-2012 glastrm Updated SConstruct to properly exclude directories not needed by TMineExt
