@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Wed Jul 18 10:10:06 PDT 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add zlib 1.2.5 for vc90
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-25-04, operation: add
 Package: SConsFiles
