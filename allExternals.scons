@@ -578,7 +578,7 @@ allExternalLibraries = {
                    { 'default' : { 'version'    : '1.3.31-gl1',
                                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
                                    'bin-path'   : os.path.join('$TOP','bin'),
-                                   'share-path' : os.path.join('$TOP','share', 'swig', '$VERSION'),
+                                   'share-path' : os.path.join('$TOP','share', 'swig', '1.3.31'),
                                    'binaries'   : [ 'swig' ]
                                  },
                      'gcc34'   : {'version'    : '1.3.31',
