@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-00-27-01 19-Jul-2012    jrb fix share-path for new swig version
  SConsFiles-00-27-00 18-Jul-2012    jrb add versions with no compiler component in path
  SConsFiles-00-26-00 18-Jul-2012 heather adding zlib 1.2.5 for vc90
  SConsFiles-00-25-04 16-Jul-2012    jrb Add entry for ldf v07-01-02
