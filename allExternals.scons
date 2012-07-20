@@ -1734,7 +1734,7 @@ allExternalLibraries = {
                    { 'version' : '4.1.4',
                      'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
  },
-                   'gcc32' :
+                   'gcc34' :
                    { 'version' : '4.1.4',
                      'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
                      },
