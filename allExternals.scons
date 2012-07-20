@@ -659,7 +659,7 @@ allExternalLibraries = {
                                    'includes'     : [ 'xercesc/util/XercesVersion.hpp' ],
                                    'libraries'    : { 'xercesLibs'  : ['xerces-c', 'pthread'] }
                                  },
-                     'gcc34'   : { 'version'      : '2.8.0',
+                     'gcc34'   : { 'version'      : '2.8.0-gl1',
                                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
                                    },
                      'win32'   : { 'version'      : '2.8.0',
