@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Thu Jul 26 20:59:54 PDT 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+adding G4 9.4.p03-gl2 and CLHEP 2.1.2.4 for vc90
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-20-04-01, operation: add
 Package: SConsFiles
