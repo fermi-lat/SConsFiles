@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.171 2012/07/20 23:34:06 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/GlastRelease-scons/SConstruct,v 1.172 2012/07/27 04:52:15 heather Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
 # Version: SConsFiles-00-28-00
 
@@ -387,7 +387,6 @@ else:
     pkgScons = os.path.join(baseSettingsDir, 'package.scons')
     SConscript(pkgScons, exports='pkgScons')
 
-
 def listFiles(files, **kw):
     allFiles = []
     for file in files:
@@ -444,7 +443,7 @@ if not baseEnv.GetOption('help'):
         SCons.Tool.DefaultToolpath.append(os.path.abspath(str(Dir('.').Dir('sconsTools'))))
 
     Export('packages')
-
+    baseEnv['packageNameList'] = packages
 
 # To create _setup anad wrappers
     if sys.platform == 'win32':
