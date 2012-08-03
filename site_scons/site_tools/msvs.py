@@ -1,4 +1,4 @@
-#  $Id: msvs.py,v 1.11 2012/05/18 16:55:28 jrb Exp $
+#  $Id: msvs.py,v 1.13 2012/05/30 22:55:04 jrb Exp $
 """ Site-specific msvs, from SCons.Tool.msvs
 
     27 Feb  Get rid of some stuff which I don't think is being used
@@ -550,6 +550,12 @@ class _GenerateV7DSP(_DSPGenerator):
             # Take out $CXXFLAGS since options accumulated here will be applied
             # to all compiles and may not be appropriate for .c
             self.moreCompileOptions = self.env.subst('$CCFLAGS $_CCCOMCOM')
+
+            # Replace all instances of /I#  with /I..\..\ (/I..\ if no variant)
+            if 'NO_VARIANT' in self.env: incString = "/I..\\"
+            else: incString = "/I..\\..\\"
+            self.moreCompileOptions = (self.moreCompileOptions).replace("/I#", 
+                                                                      incString)
 	    varCmps = str(env['VISUAL_VARIANT']).split("-")
 	    if "Debug" in varCmps: 
                 self.rt_number="3"
