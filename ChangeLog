@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Fri Aug  3 13:30:48 PDT 2012
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+stag/GoGui_auto-tag
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-00-28-00, operation: add
 Package: SConsFiles
