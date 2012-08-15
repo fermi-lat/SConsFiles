@@ -240,6 +240,13 @@ def setupRoot(configuredExternal):
             if extpath != '':
                 root_headers += ' -I'+str(extpath)
 
+        # Attempt to accommodate non-installed headers on Windows
+        if env['PLATFORM']=='win32' and env.get('CONTAINERNAME','')=='GlastRelease':
+            for p in env['CPPPATH']:
+                # replace a # by "..\..\..\"
+                q = str(p).replace("#", "..\\..\\..\\")
+                root_headers += ' -I'+q
+
         # Copy specified includes to corresponding dir. in variant hierarchy.
         # It's needed only for Windows, and only if extra args have been supplied.
         # Only evaluate when build is taking place, not during dependency calculation.
