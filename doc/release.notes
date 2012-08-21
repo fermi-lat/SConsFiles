@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-01-00-00 21-Aug-2012    jrb Do not install headers for Windows GlastRelease
  SConsFiles-00-28-01 03-Aug-2012    jrb backwards-compatible mods needed for non-installed headers on Windows GR
  SConsFiles-00-28-00 26-Jul-2012 heather Add G4 9.4.p03-gl2 and CLHEP 2.1.2.4 for vc90
  SConsFiles-00-27-02 20-Jul-2012    jrb fix typo in allExternals affecting rhel4
