@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Tue Aug 21 12:29:51 PDT 2012
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	msvs.py registerTargets.py 
+Log Message:
+flip the switch for Windows GR non-install of headers
+    *
+------------------------------------------------------------
 User: jrb  Tue Aug 21 12:29:50 PDT 2012
 SConsFiles
 
