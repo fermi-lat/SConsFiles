@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Tue Aug 21 12:29:50 PDT 2012
+SConsFiles
+
+Modified Files:
+	SConstruct processExternals.scons 
+Log Message:
+flip the switch for Windows GR non-install of headers
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-20-04-02, operation: add
 Package: SConsFiles
