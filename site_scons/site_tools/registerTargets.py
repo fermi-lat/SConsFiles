@@ -1,4 +1,4 @@
-#  $Id: registerTargets.py,v 1.20 2012/05/30 02:23:46 jrb Exp $
+#  $Id: registerTargets.py,v 1.21 2012/06/11 17:18:09 jrb Exp $
 import os, pprint, sys, os.path
 from SCons.Script import *
 from fermidebug import fdebug
@@ -155,33 +155,34 @@ def generate(env, **kw):
                 env.Alias('all', installedObjs)
 
         if kw.get('includes', '') != '':
-	    if env['PLATFORM'] == 'win32': instIncludes = []
+	    #if env['PLATFORM'] == 'win32': instIncludes = []
+	    if env['PLATFORM'] != 'win32' or env.get('CONTAINERNAME','') != 'GlastRelease':
 
-            for header in kw.get('includes'):
-                header = env.File(str(header))
-                splitFile = str(env.Dir('.').srcnode().rel_path(header.srcnode()))
-                installPath = ''
-                while os.path.split(splitFile)[0] != '':
-                    parts = os.path.split(splitFile)
-                    splitFile = parts[0]
-                    installPath = os.path.normpath(os.path.join(parts[1], installPath))
-                installPath = os.path.dirname(installPath)
-                topInc = kw.get('topInclude', pkgname)
-                if topInc == '*NONE*':
-                    includes = env.Install(env['INCDIR'].Dir(installPath), header)
-                else:
-		    if env['PLATFORM'] == 'win32':
-		      dstHeader=str(env['INCDIR'].Dir(topInc).Dir(installPath))
-		      instIncludes.append([str(header), dstHeader])
-                    includes = env.Install(env['INCDIR'].Dir(topInc).Dir(installPath),
-                                           header)
-                env.Alias(kw.get('package'), includes)
-                env.Default(includes)
-                env.Alias('to_install', includes)
-                env.Alias('includes', includes)
-                env.Alias('all', includes)
-            if env['PLATFORM'] == 'win32':
-                instFiles += instIncludes
+                for header in kw.get('includes'):
+                    header = env.File(str(header))
+                    splitFile = str(env.Dir('.').srcnode().rel_path(header.srcnode()))
+                    installPath = ''
+                    while os.path.split(splitFile)[0] != '':
+                        parts = os.path.split(splitFile)
+                        splitFile = parts[0]
+                        installPath = os.path.normpath(os.path.join(parts[1], installPath))
+                    installPath = os.path.dirname(installPath)
+                    topInc = kw.get('topInclude', pkgname)
+                    if topInc == '*NONE*':
+                        includes = env.Install(env['INCDIR'].Dir(installPath), header)
+                    else:
+		    #if env['PLATFORM'] == 'win32':
+		    #  dstHeader=str(env['INCDIR'].Dir(topInc).Dir(installPath))
+		    #  instIncludes.append([str(header), dstHeader])
+                        includes = env.Install(env['INCDIR'].Dir(topInc).Dir(installPath),
+                                               header)
+                    env.Alias(kw.get('package'), includes)
+                    env.Default(includes)
+                    env.Alias('to_install', includes)
+                    env.Alias('includes', includes)
+                    env.Alias('all', includes)
+            #if env['PLATFORM'] == 'win32':
+            #    instFiles += instIncludes
         cxts = kw.get('testAppCxts', '')
         if cxts != '':
             nodes = []

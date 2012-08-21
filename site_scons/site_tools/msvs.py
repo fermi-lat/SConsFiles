@@ -1,4 +1,4 @@
-#  $Id: msvs.py,v 1.13 2012/05/30 22:55:04 jrb Exp $
+#  $Id: msvs.py,v 1.14 2012/08/03 20:15:40 jrb Exp $
 """ Site-specific msvs, from SCons.Tool.msvs
 
     27 Feb  Get rid of some stuff which I don't think is being used
@@ -613,6 +613,7 @@ class _GenerateV7DSP(_DSPGenerator):
         #  sources for the rootcint node *should* be what we
         # want..
         rootcintnode = self.env['rootcint_node']
+        #print "inside DoRootcint with rootcintnode ", str(rootcintnode)
         rootcintsrcnodes = self.env.FindSourceFiles(node=rootcintnode)
         rootcintsrcnames = []
         for v in rootcintsrcnodes:
@@ -627,7 +628,14 @@ class _GenerateV7DSP(_DSPGenerator):
         self.sources["Header Files"].append(derivedinc)                    
 
         fileContents = 'rootcint -f ' + rootcintfname
-        fileContents += ' -c -I..\\..\\include'
+        if self.env.get('CONTAINERNAME','') != 'GlastRelease':
+            fileContents += ' -c -I..\\..\\include'
+        else:
+            fileContents += ' -c -I'+self.env['packageroot']
+            # Also need to add any other extra include paths
+            for p in self.env['CPPPATH']:
+                q = str(p).replace("#", "..\\..\\")
+                fileContents += ' -I'+q
         linkdefentry = ''
         for nm in rootcintsrcnames:
             if nm.find("LinkDef") == -1:
@@ -650,6 +658,8 @@ class _GenerateV7DSP(_DSPGenerator):
         filename = self.name + "_rootcint.bat"
         fullpath = str(self.env['STUDIODIR']) + '\\' + filename
         rootcintFile = open(fullpath, 'w')
+        #print "opened file at path ", str(fullpath)
+        #print " resulting file object: ", str(rootcintFile)
         rootcintFile.write(fileContents)
         rootcintFile.close()
         self.rootcintcmd = filename
