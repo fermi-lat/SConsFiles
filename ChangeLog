@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Tue Aug 28 12:14:13 PDT 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+move python 2.7.2 for gcc44 to 2.7.2-gl1 for Tk fix
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-20-04-02-gr01, operation: add
 Package: SConsFiles
