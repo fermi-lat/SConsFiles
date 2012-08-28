@@ -808,7 +808,7 @@ allExternalLibraries = {
                                    'includes'     : [ 'Python.h' ],
                                    'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'util', 'm', 'python2.7' ] }
                                  },
-                     'gcc44'   : { 'version'      : '2.7.2'
+                     'gcc44'   : { 'version'      : '2.7.2-gl1'
                                  },
                      'win32'   : { 'version'      : '2.7.2', 
                                    'include-path' : os.path.join('$TOP', 'include'),
