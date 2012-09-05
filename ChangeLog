@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Tue Sep  4 20:20:42 PDT 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add in new g4 opt build for vc90
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-20-05-00, operation: add
 Package: SConsFiles
