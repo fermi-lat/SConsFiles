@@ -1299,6 +1299,45 @@ allExternalLibraries = {
                       },
                   'vc90-debug' :{ 'version' : '9.4.p01-gl2-dbg' }
                   },
+                '9.4.p01-gl3' :
+                { 'default' :
+                  {'version' : '9.4.p01-gl3',
+                  'includes' : ['G4Version.hh'],
+                   'top'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                   'libraries' :
+                   {'geant4Libs' : ['G4physicslists', 'G4interfaces',
+                                    'G4readout','G4run','G4event','G4tracking',
+                                    'G4processes', 'G4digits_hits', 'G4track',
+                                    'G4particles', 'G4geometry','G4materials',
+                                    'G4graphics_reps','G4intercoms','G4global',
+                                    'CLHEP-2.1.0.1']},
+                   'include-path' : os.path.join('$TOP', 'include'),
+                   'lib-path' : os.path.join('$TOP', 'lib', 'Linux-g++'),
+                   'tables-path' : os.path.join('$TOP', 'tables'),
+                   'ld-path' : '$LIB-PATH'},
+                  'win32' :
+                  {'libraries' :
+                   {'geant4Libs' : ['libG4Tree','libG4FR', 'libG4GMocren',
+                                    'libG4visHepRep', 'libG4RayTracer', 'libG4VRML',
+                                    'libG4vis_management', 'libG4modeling', 'libG4interfaces',
+                                    'libG4persistency', 'libG4error_propagation',
+                                    'libG4readout','libG4physicslists','libG4run','libG4event',
+                                    'libG4tracking', 'libG4parmodels','libG4processes',
+                                    'libG4digits_hits', 'libG4track',
+                                    'libG4particles', 'libG4geometry',
+                                    'libG4materials', 'libG4graphics_reps',
+                                    'libG4intercoms', 'libG4global', 'libG4zlib']},
+                    'cpp-defines': ['G4LIB_USE_DLL','XPNET','G4VERBOSE', 'G4DEBUG', '_CRT_SECURE_NO_DEPRECATE', 'CPPVERBOSE', 'G4LIB_BUILD_DLL'],
+                    'linkflags' : ['-FORCE'],
+                    'lib-path' : os.path.join('$TOP', 'lib', 'WIN32-VC')
+                    },
+                  'vc71' :{ 'version' : '9.4.p01-gl1' 
+                    },
+                  'vc90' :{
+                      'lib-path' : os.path.join('$TOP', 'lib')
+                      },
+                  'vc90-debug' :{ 'version' : '9.4.p01-gl2-dbg' }
+                  },
                 '9.4.p03-gl1' :
                 { 'default' :
                   {'version' : '9.4.p03-gl1',
