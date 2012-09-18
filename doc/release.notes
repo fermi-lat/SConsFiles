@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-01-01-03 18-Sep-2012 heather Finish removal of compiler subdirectory in externals area for GR
  SConsFiles-01-01-01 04-Sep-2012 heather adding G4 9.4.p03-gl3 for vc90 opt
  SConsFiles-01-01-00 28-Aug-2012 heather Move python 2.7.2 to -gl1 for gcc44 to get Tk fix
  SConsFiles-01-00-00 21-Aug-2012    jrb Do not install headers for Windows GlastRelease
