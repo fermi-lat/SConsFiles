@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Tue Sep 18 10:53:07 PDT 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+finish elimination of compiler subdirectory for GR
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-01-01-02, operation: add
 Package: SConsFiles
