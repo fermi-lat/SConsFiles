@@ -561,7 +561,7 @@ def generate(env, **kw):
 
         extra += env.subst(env['MSVSPROJECTSUFFIX'])
         targetNames.append(os.path.join(str(env['STUDIODIR']), extra) )
-        print "Just appended ", extra
+        ## print "Just appended ", extra
 
         
     #print 'targetNames count when including extras: ', len(targetNames)
