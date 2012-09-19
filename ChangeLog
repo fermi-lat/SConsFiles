@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: jrb  Tue Sep 18 17:55:46 PDT 2012
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	findPkgPath.py makeStudio.py msvs.py writeAllSln.py 
+Log Message:
+Fix supersede on Windows
+    *
+------------------------------------------------------------
+User: jrb  Tue Sep 18 17:55:46 PDT 2012
 SConsFiles
 
 Modified Files:
