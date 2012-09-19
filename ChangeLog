@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Tue Sep 18 17:55:46 PDT 2012
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Fix supersede on Windows
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-01-01-03, operation: add
 Package: SConsFiles
