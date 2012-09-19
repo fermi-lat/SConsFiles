@@ -1,8 +1,5 @@
 import os,platform,os.path
 
-#class forStatic:
-#   first = True
-## Find path to specified package
 def generate(env, **kw):
     pkgName = kw.get('package', '')
     if pkgName == '': 
@@ -15,14 +12,23 @@ def generate(env, **kw):
     #    print 'findPkgPath called with argument ', pkgName
     for p in env['packageNameList']:
         bname = os.path.basename(str(p[2:]))
-        #if forStatic.first == True: 
-        #    print 'bname is ', bname
-        if pkgName == bname: path = '#' + str(p[2:])
-        if pkgName + '-' == bname[:len(bname)+1]: path = '#' + str(p[2:])
+        if pkgName == bname: 
+            if env.GetOption('supersede') == '.':
+                path = '#' + str(p[2:])
+            else: path = pkgName
+        if pkgName + '-' == bname[:len(bname)+1]:
+            if env.GetOption('supersede') == '.': 
+                    path = '#' + str(p[2:])       
+            else: path = pkgName
 
-    #if forStatic.first == True:  
-    #    print 'returning path = ', path
-    #    forStatic.first = False
+    if path == None and env.GetOption('supersede') != '.': # look in base
+        for p in env['basePackageNameList']:
+            bname = os.path.basename(str(p[2:]))
+            ##if pkgName == bname: path = '#' + str(p[2:])
+            if pkgName == bname: 
+                path = os.path.join(env['absBasePath'], str(p[2:]))
+            if pkgName + '-' == bname[:len(bname)+1]: 
+                path = os.path.join(env['absBasePath'], str(p[2:]))
     if path != None:
         env.AppendUnique(CPPPATH = [path])
 

@@ -1,7 +1,7 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.178 2012/09/05 03:37:37 heather Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/GlastRelease-scons/SConstruct,v 1.178 2012/09/05 03:37:37 heather Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
-# Version: SConsFiles-01-01-03
+# Version: SConsFiles-01-01-01
 
 import os,platform,SCons,glob,re,atexit,sys,traceback,commands,subprocess
 #########################
@@ -276,9 +276,10 @@ else:
 if sys.platform == 'win32':
     if 'NO_VARIANT' in baseEnv:
         baseEnv.Append(STUDIODIR = Dir(override).Dir('studio'))
+        baseEnv.Append(BASESTUDIODIR = Dir('.').Dir('studio'))
     else:
         baseEnv.Append(STUDIODIR = Dir(override).Dir('studio').Dir(variant))
-                   
+        baseEnv.Append(BASESTUDIODIR = Dir('.').Dir('studio').Dir(variant))                   
 ##################
 # Create release #
 ##################
@@ -403,48 +404,62 @@ def listFiles(files, **kw):
 Export('listFiles')
 
 if not baseEnv.GetOption('help'):
-    directories = [override]
-    packages = []
-    # Add pkgs to package list and add pkgs to tool path if they have one
-    while len(directories)>0:
-        directory = directories.pop(0)
-        members = os.listdir(directory)
-        # filter out non-directories
-        listed = [e for e in members if os.path.isdir(os.path.join(directory,e))]
-        listed.sort()
-        pruned = []
-        # Remove excluded directories
-        if not baseEnv.GetOption('exclude') == None:
-	    for excluded in baseEnv.GetOption('exclude'):
-	        if excluded in listed:
-		    listed.remove(excluded)
+    # set haveSuper = True if this installation as non-trivial supersede dir
+    # In that case, if rootdir = '.', don't do add to tool path
+    def findPackages(rootdir, haveSuper):
+        toolAdd = not haveSuper or (rootdir != '.')
+        dirs = [rootdir]
+        pcks = []
+        while len(dirs)>0:
+            directory = dirs.pop(0)
+            members = os.listdir(directory)
+            # filter out non-directories
+            listed = [e for e in members if os.path.isdir(os.path.join(directory,e))]
+            listed.sort()
+            pruned = []
+            # Remove excluded directories
+            if not baseEnv.GetOption('exclude') == None:
+                for excluded in baseEnv.GetOption('exclude'):
+                    if excluded in listed:
+                        listed.remove(excluded)
 
-	# Remove duplicate packages
-	while len(listed)>0:
-	    curDir = listed.pop(0)
-	    package = re.compile('-.*$').sub('', curDir)
-	    while len(listed)>0 and re.match(package+'-.*', listed[0]):
-	        curDir = listed.pop(0)
-	    pruned.append(curDir)
+	    # Remove duplicate packages
+            while len(listed)>0:
+                curDir = listed.pop(0)
+                package = re.compile('-.*$').sub('', curDir)
+                while len(listed)>0 and re.match(package+'-.*', listed[0]):
+                    curDir = listed.pop(0)
+                pruned.append(curDir)
 
-        # Check if they contain SConscript and tools
-        for name in pruned:
-            package = re.compile('-.*$').sub('',name)
-            if not name in ['build', 'CVS', 'src', 'cmt', 'mgr', 'data', 'xml',
-                            'pfiles', 'doc', 'bin', 'lib']:
-                fullpath = os.path.join(directory,name)
-                if os.path.isdir(fullpath):
-                    directories.append(fullpath)
-                    if os.path.isfile(os.path.join(fullpath,"SConscript")):
-                        packages.append(fullpath)
-                    if os.path.isfile(os.path.join(fullpath, package+'Lib.py')):
-                        SCons.Tool.DefaultToolpath.append(os.path.abspath(fullpath))
+            # Check if they contain SConscript and tools
+            for name in pruned:
+                package = re.compile('-.*$').sub('',name)
+                if not name in ['build', 'CVS', 'src', 'cmt', 'mgr', 'data', 
+                                'xml', 'pfiles', 'doc', 'bin', 'lib']:
+                    fullpath = os.path.join(directory,name)
+                    if os.path.isdir(fullpath):
+                        dirs.append(fullpath)
+                        if os.path.isfile(os.path.join(fullpath,"SConscript")):
+                            pcks.append(fullpath)
+                        if os.path.isfile(os.path.join(fullpath, 
+                                                       package+'Lib.py')):
+                            if toolAdd:
+                                SCons.Tool.DefaultToolpath.append(os.path.abspath(fullpath))
+        return (dirs, pcks)
+
+    (directories, packages) = findPackages(override, False)
+
 
     if not override == '.':
         SCons.Tool.DefaultToolpath.append(os.path.abspath(str(Dir('.').Dir('sconsTools'))))
+        if sys.platform == 'win32':  # create basePkgName list as well
+            (baseDirectories, basePackages) = findPackages('.', True)
+            baseEnv['absBasePath'] = os.path.abspath(str(Dir('.')))
+            baseEnv['basePackageNameList'] = basePackages
 
     Export('packages')
     baseEnv['packageNameList'] = packages
+
 
 # To create _setup anad wrappers
     if sys.platform == 'win32':
