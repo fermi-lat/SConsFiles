@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Wed Sep 19 11:49:44 PDT 2012
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	makeStudio.py 
+Log Message:
+comment out debug statement
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-01-02-00, operation: add
 Package: SConsFiles
