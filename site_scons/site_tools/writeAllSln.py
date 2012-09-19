@@ -1,5 +1,5 @@
 # -*- python -*-
-#  $Id: writeAllSln.py,v 1.3 2012/05/09 00:16:38 jrb Exp $
+#  $Id: writeAllSln.py,v 1.5 2012/05/31 19:52:35 jrb Exp $
 #
 #  Delete old all.sln if there is one
 #  Read in *.sln for specified directory (defaults to "."), saving
@@ -31,7 +31,13 @@ class allSln(object):
         self.endProjPat = re.compile('^EndProject\s*$')
         self.gProjPat = re.compile('\w*\{([0-9,A-F,-]*)\}.*')
 
-    def readProject(self, fp, firstline):
+    # Args:
+    # fp is filepointer
+    # firstline is typically returned from previous call
+    # If base is True, we're reading corresponding sln from base release;
+    #   in this case don't preserve dependencies and don't include at all
+    #   if key is already in dict
+    def readProject(self, fp, firstline, base=False):
         #  find and save project name and project id in firstline
         mobj = self.projPat.match(firstline)
         if mobj == None:
@@ -39,7 +45,8 @@ class allSln(object):
            print firstline
            exit(1)
 
-        #  Save all lines through line with contents "EndProject" in projLines
+        #  If not base save all lines through line with contents "EndProject" 
+        # in projLines.  Otherwise ignore lines listing dependencies
         projLines = [firstline]
         lenp = len(firstline)
 
@@ -50,10 +57,31 @@ class allSln(object):
             print "readline inside readProject failed"
             exit(1)
 
-        while ln[:10] != "EndProject":
-            projLines.append(ln)
-            ln = fp.readline()
-            lenp += len(ln)
+        if not base:
+            while ln[:10] != "EndProject":
+                projLines.append(ln)
+                ln = fp.readline()
+                lenp += len(ln)
+        else:
+            #print "Processing project section for project", mobj.group(1)
+            if "ProjectSection(ProjectDependencies)" in ln:
+                projLines.append(ln)  
+                lenp += len(ln)
+            elif "EndProject" in ln: 
+                pass   # no dependencies for this project
+            else: # give up!  We can't parse it
+                print "Cannot parse sln file in base release"
+                exit(1)
+
+            if "EndProject" in ln:
+                pass
+            else:
+                while  "EndProjectSection" not in ln:   #skip
+                    ln = fp.readline()
+                while ln[:10] != "EndProject":
+                    projLines.append(ln)
+                    ln = fp.readline()
+                    lenp += len(ln)
 
         projLines.append(ln)
 
@@ -63,18 +91,22 @@ class allSln(object):
         #   (pkgname is non-null and project name = pkgname or "test_" + package name
         useIt = (self.pkgname == "")
         projName = mobj.group(1)
-
+        #print "Parsing projName = ", projName, " useIt is ", useIt
         if (not useIt) and ((projName[len(projName)-3:] == "Lib") or 
                             (projName[len(projName)-10:] == "InstallSrc") or 
                             (projName == self.pkgname) or
                             (projName == "test_" + self.pkgname)): useIt = True
         if projName not in self.projectDict:
+            #print "First-time dict entry for ", projName
             if useIt: self.projectDict[projName] = [projName, mobj.group(2), projLines, lenp]
         else:
-            # see if new entry is shorter.  If so, replace old with it
-            if self.projectDict[projName][3] > lenp:
-                if useIt: self.projectDict[projName] = [projName, mobj.group(2), 
-                                                        projLines, lenp]
+            # If base and entry already exists, don't use this one.
+            # Else see if new entry is shorter.  If so, replace old with it
+            if not base and self.projectDict[projName][3] > lenp:
+                if useIt: 
+                    self.projectDict[projName] = [projName, mobj.group(2), 
+                                                  projLines, lenp]
+                    #print "replace entry projName ",projName ," with shorter one"
 
         # read one more line and return it
         #print "Done parsing project definition for ",  mobj.group(1)
@@ -82,7 +114,7 @@ class allSln(object):
 
         return next
 
-    def readGlobal(self, fp, firstGlobal):
+    def readGlobal(self, fp, firstGlobal, base=False):
         try:
             next = fp.readline()
         except:
@@ -143,7 +175,13 @@ class allSln(object):
                     return 1
 
                 plist.append(fp.readline())
-                self.postSolutionDict[mobj.group(1)] = plist
+                if base:   # check we have corresponding project
+                    for k in self.projectDict:
+                        if k[1] in mobj.group(1):
+                            self.postSolutionDict[mobj.group(1)] = plist
+                            break
+                else:   # always add it
+                    self.postSolutionDict[mobj.group(1)] = plist
                 next = fp.readline()
 
             next = fp.readline()
@@ -164,7 +202,9 @@ class allSln(object):
             return 0
         else : return 1
         
-    def readSln(self, fp):
+    # fp is file pointer to sln to be read.  if base is True we're
+    # in supersede case and are reading corresponding base sln file
+    def readSln(self, fp, base=False):
         h1 = fp.readline()
         h2 = fp.readline()
 
@@ -174,11 +214,11 @@ class allSln(object):
 
         
         while next[:8] == "Project(":
-            next = self.readProject(fp, next)
+            next = self.readProject(fp, next, base)
 
         # Next should be Global
         if next[:6] == "Global":
-            return self.readGlobal(fp, next)
+            return self.readGlobal(fp, next, base)
         elif next != '':
             print "Unexpected section ", next, " in input solution file"
             fp.close()
@@ -187,7 +227,7 @@ class allSln(object):
             return 0
         
     def writeAllSln(self, path):
-        print "Writing ", path
+        #print "Writing ", path
         try:
             fp = open(path, 'w')
         except:
@@ -224,16 +264,23 @@ class allSln(object):
 
 # main
 # We assume we're in the same directory as the solution files
-
+# 
 obj = allSln()
 
 if len(sys.argv) > 1:
     sdir = sys.argv[1]
 else:
     sdir = (".")
+obj.sdir = sdir
 
-if len(sys.argv) > 2:
-    obj.pkgname = sys.argv[2]
+basedir = sdir
+if len(sys.argv) > 2: basedir = sys.argv[2]
+obj.basedir = basedir
+
+if len(sys.argv) > 3:
+    obj.pkgname = sys.argv[3]
+else:
+    obj.pkgname = ""
 
 outfile = "all" + obj.pkgname + ".sln"
 # get rid of old all.sln if there is one
@@ -246,7 +293,6 @@ except:
 
 studiofiles = os.listdir(sdir)
 
-readAFile = True
 for fname in studiofiles:
     if fname[len(fname)-4:] == ".sln":
         if fname[0:2] != "all":    # we use it
@@ -258,6 +304,16 @@ for fname in studiofiles:
             except:
                 print "Unable to read file ", fname
                 if f != None: f.close()
+
+if basedir != sdir:   
+    # Read corresponding sln file in basedir
+    try:
+        f = open(os.path.join(basedir, outfile))
+        obj.readSln(f, True)
+        f.close()
+    except:
+        print "Unable to read base inst. file ", os.path.join(basedir, outfile) 
+        
 
 obj.writeAllSln(os.path.join(sdir, outfile))
 exit(0)

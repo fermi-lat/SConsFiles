@@ -983,7 +983,7 @@ class _GenerateV7DSP(_DSPGenerator):
                 gaudi = self.env.get('GAUDIPROG','')
                 if gaudi != '':
                     #print "sources for gaudi program are"
-                    for s in sources:  print(str(s))
+                    #for s in sources:  print(str(s))
                     toRemove = []
                     toAppend = []
                     for s in sources:
@@ -1161,6 +1161,7 @@ class _GenerateV7DSW(_DSWGenerator):
             base, suffix = SCons.Util.splitext(name)
             if suffix == '.vcproj':
                 name = base
+            #print "working on dspfiles entry ", name
             guid = _generateGUID(p, '')
             self.file.write('Project("%s") = "%s", "%s", "%s"\n'
                             % ( external_makefile_guid, name, p, guid ) )
@@ -1170,20 +1171,27 @@ class _GenerateV7DSW(_DSWGenerator):
             elif self.version_num >=9.0:
                 self.file.write('\tProjectSection(ProjectDependencies) = postProject\n')
                 # Use 'name' above to look up assoc. libs for this project
+                super = self.env.GetOption('supersede') != '.' 
+                if super:
+                    pkgs = list(os.path.basename(i) for i in self.env['packageNameList'])
                 if self.projectLibs.has_key(name):
                     #print 'found key in projectLibs for ', name
-                    #print 'lib set for this project is ', self.projectLibs[name]
                     for usedLib in self.projectLibs[name]:
-                        usedLib += 'Lib.vcproj'
-                        if self.installDir != '':
-                            usedLib = os.path.join(self.installDir, usedLib)
-                        # Get *its* base name & use to compute guid
-                        # Not necessary - already is just basename
-                        usedGuid = _generateGUID(usedLib,'')
-                        # Write a line that looks like
-                        #    <lib-guid> = <lib-guid>
-                        self.file.write('\t\t%s = %s\n'
-                                        % (usedGuid, usedGuid) )
+                        #print "Processing usedLib ", usedLib
+                        if super and (usedLib not in pkgs): 
+                            #print usedLib, " will not be included in dependencies"
+                            pass
+                        else:
+                            usedLib += 'Lib.vcproj'
+                            if self.installDir != '':
+                                usedLib = os.path.join(self.installDir, usedLib)
+                            # Get *its* base name & use to compute guid
+                            # Not necessary - already is just basename
+                            usedGuid = _generateGUID(usedLib,'')
+                            # Write a line that looks like
+                            #    <lib-guid> = <lib-guid>
+                            self.file.write('\t\t%s = %s\n'
+                                            % (usedGuid, usedGuid) )
                 else:
                     fdebug('No key found in projectLibs for %s ' % name)
                     

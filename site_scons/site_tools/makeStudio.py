@@ -1,4 +1,4 @@
-#  $Id: makeStudio.py,v 1.9 2012/05/11 23:53:04 jrb Exp $
+#  $Id: makeStudio.py,v 1.11 2012/05/30 22:55:04 jrb Exp $
 import os, os.path, pprint
 from SCons.Script import *
 from fermidebug import fdebug
@@ -81,9 +81,9 @@ def generate(env, **kw):
     if pkgname == '': return
     elif pkgname == "*ALL*":
         allSln = env.Command(os.path.join(str(env['STUDIODIR']), 'all.sln'), 'slns', 
-                             'site_scons\site_tools\writeAllSln.py ' + str(env['STUDIODIR']) )
+                             'site_scons\site_tools\writeAllSln.py ' + str(env['STUDIODIR']) + ' ' + str(env['BASESTUDIODIR']) )
         allGleamSln = env.Command(os.path.join(str(env['STUDIODIR']), 'allGleam.sln'), 'slns', 
-                             'site_scons\site_tools\writeAllSln.py ' + str(env['STUDIODIR']) + ' Gleam' )
+                             'site_scons\site_tools\writeAllSln.py ' + str(env['STUDIODIR']) + ' ' + str(env['BASESTUDIODIR']) + ' Gleam' )
         env.Alias('StudioFiles', [allSln, allGleamSln])
         return
 
@@ -549,8 +549,19 @@ def generate(env, **kw):
     # Last thing:  add entries to projects for the extras.
     # These entries need full absolute path, so prepend dir, append .vcproj
     for extra in extras:
+        # if supersede area, then don't include references to packages
+        # *not* in the supersede area.  They're like externals.
+        if env.GetOption('supersede') != '.':
+            extraPck = extra[:len(extra) - 3] # take off Lib suffix
+            #print "Found extraPck ", extraPck
+            if not (extraPck in env['packageNameList']): 
+                #print "Did not find ", extraPck, " in packageNameList"
+                continue
+            #else: print extraPck, " was in packageNameList"
+
         extra += env.subst(env['MSVSPROJECTSUFFIX'])
         targetNames.append(os.path.join(str(env['STUDIODIR']), extra) )
+        print "Just appended ", extra
 
         
     #print 'targetNames count when including extras: ', len(targetNames)
@@ -560,6 +571,7 @@ def generate(env, **kw):
     # Note MSVSSolution has to extract filename (only; no dir, no extension)
     # to use to look up assoc. libs in libSets
     if len(targetNames) > 0:
+        #print "Target (projects) count is ", len(targetNames)
         fdebug('For package %s  about to make solution file with target count = %s '  % (pkgname, len(targetNames)))
         slnFile=env.MSVSSolution(target=slnTarget, projects=targetNames,
                                  variant=env['VISUAL_VARIANT'], libs=libSets,
