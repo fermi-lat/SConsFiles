@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Mon Oct  1 11:45:18 PDT 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add in extFiles v0r11 and ROOT v5.34.01
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-20-05-01, operation: add
 Package: SConsFiles
