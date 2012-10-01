@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-01-03-00 01-Oct-2012 heather Adding extFiles v0r11 and ROOT v5.34.01
  SConsFiles-01-02-01 19-Sep-2012    jrb comment out debug print statement
  SConsFiles-01-02-00 18-Sep-2012    jrb Resuscitate supersede for vc90
  SConsFiles-01-01-03 18-Sep-2012 heather Finish removal of compiler subdirectory in externals area for GR
