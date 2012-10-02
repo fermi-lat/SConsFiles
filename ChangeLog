@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Mon Oct  1 20:59:04 PDT 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add in TMine 3.2.8
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-01-03-00, operation: add
 Package: SConsFiles
