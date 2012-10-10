@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Tue Oct  9 20:36:44 PDT 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+use debug TMine and cfitsio for vc90
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-20-06-01, operation: add
 Package: SConsFiles
