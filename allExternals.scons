@@ -151,7 +151,8 @@ allExternalLibraries = {
                                    'includes'     : [ 'fitsio.h' ],
                                    'libraries'    : { 'cfitsioLibs' : [ 'cfitsio-v3.290', 'm' ] }
                                  },
-                     'win32'   : { 'libraries'    : { 'cfitsioLibs' : [ 'cfitsio' ] } }
+                     'win32'   : { 'libraries'    : { 'cfitsioLibs' : [ 'cfitsio' ] } },
+                     'vc90-debug' : { 'version' : 'v3290-dbg'}
                    },
                    'v3290-i1' :
                    { 'default' : { 'version'      : 'v3290-gl1',
@@ -168,7 +169,8 @@ allExternalLibraries = {
                                    },
                      'win32'   : { 'version'      : 'v3290',
                                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
-                                   'libraries'    : { 'cfitsioLibs' : [ 'cfitsio' ] } }
+                                   'libraries'    : { 'cfitsioLibs' : [ 'cfitsio' ] } },
+                     'vc90-debug' : { 'version' : 'v3290-dbg'} 
                    }
 
                  },
@@ -2090,7 +2092,8 @@ allExternalLibraries = {
                                                   'TMine_XmlParse',
                                                   'TMine_Model', 'TMine_base',
                                                   'TMine_util']}
-                    }
+                    },
+                   'vc90-debug' : { 'version' : '3.2.8-dbg'} 
                    },
                     
                   }
