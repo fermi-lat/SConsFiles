@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Tue Oct 16 15:00:12 PDT 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add entry for obf B3-1-0
+    *
+------------------------------------------------------------
 TAG
 Tag name: TMineExt-03-02-09, operation: add
 Package: SConsFiles
