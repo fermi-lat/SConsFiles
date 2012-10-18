@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Wed Oct 17 17:11:04 PDT 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+new fsw version B3-1-0
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-17-35-24-lp39, operation: add
 Package: SConsFiles
