@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: heather  Sat Oct 20 08:55:31 PDT 2012
+SConsFiles
+
+Modified Files:
+      Tag: GlastRelease-20-06-03-br01
+	allExternals.scons 
+Log Message:
+add in handling for OmniOrb vc90-debug 4.1.4
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-20-06-03-br01, operation: add
 Package: SConsFiles
