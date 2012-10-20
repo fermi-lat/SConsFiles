@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Fri Oct 19 18:00:24 PDT 2012
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	generateScript.py 
+Log Message:
+Get rid of double quotes when subbing for REPLACE-BASEDIR in_setup.bat
+    *
+------------------------------------------------------------
 TAG
 Tag name: CHS-12-02-00, operation: add
 Package: SConsFiles
