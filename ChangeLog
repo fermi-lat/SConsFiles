@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: heather  Sat Oct 20 09:04:27 PDT 2012
+SConsFiles
+
+Modified Files:
+      Tag: GlastRelease-20-06-03-br01
+	allExternals.scons 
+Log Message:
+clean up a little
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-01-05-00-gr01, operation: add
 Package: SConsFiles
