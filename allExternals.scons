@@ -1903,6 +1903,7 @@ allExternalLibraries = {
                    { 'version' : '4.1.4',
                      'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
  },
+                   'vc90-debug' : { 'version' : '4.1.4-dbg'} ,
                    'gcc34' :
                    { 'version' : '4.1.4',
                      'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
