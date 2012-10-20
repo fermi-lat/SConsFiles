@@ -133,7 +133,9 @@ def fillScript(scriptFile, env, wrapper, script, executable):
 	basedirAbs = env.Dir('.').abspath
 	if env['PLATFORM'] == "posix":  # might be nfs path
             basedirAbs = resolve_nfs_path(basedirAbs)
-	finalScript = finalScript.replace('${REPLACE-BASEDIR}', '"' + basedirAbs+ '"')
+	##finalScript = finalScript.replace('${REPLACE-BASEDIR}', '"' + basedirAbs+ '"')
+        # The " cause problems.  Let's hope we don't need them.
+	finalScript = finalScript.replace('${REPLACE-BASEDIR}', basedirAbs)
     else:
         # print "inst is ", inst
         finalScript = finalScript.replace('${REPLACE-BASEDIR}', inst)
