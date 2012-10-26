@@ -521,8 +521,11 @@ if not baseEnv.GetOption('help'):
         baseEnv.Default([superList])
         baseEnv.Alias('all', [superList])
         Depends(setupScript, [superList])
-        if (sys.platform == "win32"):
-            baseEnv.Alias('StudioFiles', [superList])
+
+    # Need set-up script for sensible use of project files.
+    # Add this dependency in case user does all building with VS
+    if (sys.platform == "win32"):
+        baseEnv.Alias('StudioFiles', [setupScript])
     if baseEnv.GetOption('clean'):
         baseEnv.Default('test')
 
