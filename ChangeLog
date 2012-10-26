@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Fri Oct 26 14:50:24 PDT 2012
+SConsFiles/site_scons/site_tools
+
+Added Files:
+	writePkgList.py 
+Log Message:
+New tool to write list of supersede pkgs; invoke in SConstruct
+    *
+------------------------------------------------------------
 User: jrb  Fri Oct 26 14:50:23 PDT 2012
 SConsFiles
 
