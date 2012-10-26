@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Fri Oct 26 16:24:16 PDT 2012
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+fix thinko
+    *
+------------------------------------------------------------
 User: jrb  Fri Oct 26 16:08:03 PDT 2012
 SConsFiles
 
