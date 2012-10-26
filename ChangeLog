@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Fri Oct 26 14:50:23 PDT 2012
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+New tool to write list of supersede pkgs; invoke in SConstruct
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-20-06-04, operation: add
 Package: SConsFiles
