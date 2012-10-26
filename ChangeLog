@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Fri Oct 26 16:47:55 PDT 2012
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+make sure set-up script is there when building StudioFiles target
+    *
+------------------------------------------------------------
 User: jrb  Fri Oct 26 16:24:16 PDT 2012
 SConsFiles
 
