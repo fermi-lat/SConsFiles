@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.186 2012/10/16 22:08:11 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/GlastRelease-scons/SConstruct,v 1.187 2012/10/18 00:13:55 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
 # Version: SConsFiles-01-05-02
 
@@ -45,6 +45,7 @@ else:
 
     
 baseEnv.Tool('generateScript')
+baseEnv.Tool('writePkgList')
 baseEnv.Tool('doxygen')
 baseEnv.Alias('NoTarget')
 baseEnv.SourceCode(".", None)
@@ -514,7 +515,14 @@ if not baseEnv.GetOption('help'):
             # to create target for an "all" sln file
             baseEnv.Tool('registerTargets', package = '*ALL*')
 
-
+    if not override == '.':
+        superList = baseEnv.GeneratePkgList(os.path.join(str(baseEnv['DATADIR']), 'supersede'), [])
+        baseEnv.AlwaysBuild([superList])
+        baseEnv.Default([superList])
+        baseEnv.Alias('all', [superlist])
+        Depends(setupScript, [superList])
+        if (sys.platform == "win32"):
+            Depends(StudioFiles, [superList])
     if baseEnv.GetOption('clean'):
         baseEnv.Default('test')
 
