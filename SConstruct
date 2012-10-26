@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.188 2012/10/26 21:50:23 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.189 2012/10/26 23:08:03 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
 # Version: SConsFiles-01-05-02
 
@@ -522,7 +522,7 @@ if not baseEnv.GetOption('help'):
         baseEnv.Alias('all', [superList])
         Depends(setupScript, [superList])
         if (sys.platform == "win32"):
-            Depends(StudioFiles, [superList])
+            baseEnv.Alias('StudioFiles', [superList])
     if baseEnv.GetOption('clean'):
         baseEnv.Default('test')
 
