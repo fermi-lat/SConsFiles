@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/GlastRelease-scons/SConstruct,v 1.187 2012/10/18 00:13:55 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.188 2012/10/26 21:50:23 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
 # Version: SConsFiles-01-05-02
 
@@ -519,7 +519,7 @@ if not baseEnv.GetOption('help'):
         superList = baseEnv.GeneratePkgList(os.path.join(str(baseEnv['DATADIR']), 'supersede'), [])
         baseEnv.AlwaysBuild([superList])
         baseEnv.Default([superList])
-        baseEnv.Alias('all', [superlist])
+        baseEnv.Alias('all', [superList])
         Depends(setupScript, [superList])
         if (sys.platform == "win32"):
             Depends(StudioFiles, [superList])
