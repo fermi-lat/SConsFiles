@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Fri Oct 26 16:08:03 PDT 2012
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+fix type
+    *
+------------------------------------------------------------
 User: jrb  Fri Oct 26 14:50:24 PDT 2012
 SConsFiles/site_scons/site_tools
 
