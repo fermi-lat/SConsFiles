@@ -1935,6 +1935,39 @@ allExternalLibraries = {
                                 'OBFXFC'   : 'V0-3-1','OBFEFC'   : 'V4-5-4'},
                    }
                   },
+
+                 'B3-1-1' :
+                 {'default' :
+                  {'version'   : 'B3-1-1',
+                   'top'       : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                   'includes'  : ['CAB/CAB_asBuiltPub.h',
+                                  'EFC_DB/EFC_DB_mode.h'],
+                   'libraries' : {'obfLibs' : ['gefc',
+                                               'eds', 
+                                               'cdm', 'fbs_rtos',
+                                               'fbs_swap','mdb',
+                                               'zlib_inflate',
+                                               'cmx_asBuilt']},
+                   'include-path' : os.path.join('$TOP', 'include'),
+                   'lib-path' : os.path.join('$TOP', 'lib'),
+                   'dynld-dict':{'OBFCOG_DB': 'V0-0-2','OBFCGB_DB' : 'V0-1-1',
+                                 'OBFCOP_DB': 'V0-0-2','OBFCPP_DB' : 'V0-1-2',
+                                 'OBFCPG_DB': 'V0-1-1','OBFGFC_DB' : 'V3-1-1',
+                                 'OBFGGF_DB': 'V2-0-2','OBFXFC_DB' : 'V3-1-2',
+                                 'OBFXFC'   : 'V0-3-1','OBFEFC'   : 'V4-5-4'},
+                   'ld-path'  : '$LIB-PATH'},
+                 'win32' :
+                  {'libraries' : {'obfLibs' : ['gefc', 'eds',
+                                               'flight_cdm', 'flight_mdb',
+                                               'cmx_asBuilt']},
+                  'dynld-dict':{'OBFCOG_DB': 'V0-0-2','OBFCGB_DB' : 'V0-1-1',
+                                'OBFCOP_DB': 'V0-0-2','OBFCPP_DB' : 'V0-1-2',
+                                'OBFCPG_DB': 'V0-1-1','OBFGFC_DB' : 'V3-1-1',
+                                'OBFGGF_DB': 'V2-0-2','OBFXFC_DB' : 'V3-1-2',
+                                'OBFXFC'   : 'V0-3-1','OBFEFC'   : 'V4-5-4'},
+                   }
+                  },
+
                  },
     'OmniOrb'  : {'4.1.2' :
                   {'default' :
