@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Mon Oct 29 22:10:45 PDT 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add entry for obf B3-1-1
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-01-06-00, operation: add
 Package: SConsFiles
