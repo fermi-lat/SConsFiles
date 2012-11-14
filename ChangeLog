@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Tue Nov 13 20:04:27 PST 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add in TMineExt 3.3.2 for rhel5-32
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-01-07-00, operation: add
 Package: SConsFiles
