@@ -1183,6 +1183,69 @@ allExternalLibraries = {
                                          'uuid', 'libReflex']},
                     }
                   },
+                'v21r7-i2' :
+                { 'default' :
+                  { 'version' : 'v21r7-gl4',
+                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                    'includes' : ['GaudiAlg/GaudiAlg.h', 'GaudiKernel/Kernel.h'],
+                    'libraries' : {'gaudiLibs' :
+                                   ['GaudiAlg', 'GaudiAlgLib',
+                                    'GaudiUtilsLib', 'GaudiAud',
+                                    'GaudiSvc', 'GaudiKernel',
+                                    'boost_filesystem-$COMPILER-mt',
+                                    'boost_system-$COMPILER-mt',
+                                    'boost_regex-$COMPILER-mt',
+                                    'boost_thread-$COMPILER-mt',
+                                    'boost_date_time-$COMPILER-mt', 'uuid',
+                                    'Reflex']},
+                    'include-path' : os.path.join('$TOP', 'include'),
+                    'cpp-defines' : ['GAUDI_V20_COMPAT'],
+                    'lib-path' : os.path.join('$TOP', 'lib'),
+                    'ld-path' : '$LIB-PATH'},
+                  'gcc44' : 
+                  {'libraries' : {'gaudiLibs' :
+                                   ['GaudiAlg', 'GaudiAlgLib',
+                                    'GaudiUtilsLib', 'GaudiAud',
+                                    'GaudiSvc', 'GaudiKernel',
+                                    'boost_filesystem-$COMPILER-mt',
+                                    'boost_system-$COMPILER-mt',
+                                    'boost_regex-$COMPILER-mt',
+                                    'boost_thread-$COMPILER-mt',
+                                    'boost_date_time-$COMPILER-mt',
+                                    'Reflex']},
+                   },
+                  'win32' :
+                  {'version' : 'v21r7-gl1',
+                   'top'     : os.path.join('$GLAST_EXT', '$NAME', '$VERSION',
+                                            '$COMPILER'),
+                   'libraries' : {'gaudiLibs' :
+                                   ['GaudiKernel',
+                                    'boost_system-$COMPILER-mt-1_39',
+                                    'boost_filesystem-$COMPILER-mt-1_39',
+                                    'boost_regex-$COMPILER-mt-1_39',
+                                    'boost_date_time-$COMPILER-mt-1_39',
+                                    'uuid', 'libReflex']},
+                    },
+                  'vc90' :
+                  { 'libraries' : {'gaudiLibs' :
+                                   ['GaudiKernel',
+                                    'boost_system-$COMPILER-mt-1_42',
+                                    'boost_filesystem-$COMPILER-mt-1_42',
+                                    'boost_regex-$COMPILER-mt-1_42',
+                                    'boost_date_time-$COMPILER-mt-1_42',
+                                    'uuid', 'libReflex']},
+                    },
+                  'vc90-debug' :
+                    {'version' : 'v21r7-gl4-dbg', 
+                     'libraries' : {'gaudiLibs' :
+                                        ['GaudiKernel',
+                                         'boost_system-$COMPILER-mt-gd-1_42',
+                                         'boost_filesystem-$COMPILER-mt-gd-1_42',
+                                         'boost_regex-$COMPILER-mt-gd-1_42',
+                                         'boost_date_time-$COMPILER-mt-gd-1_42',
+                                         'uuid', 'libReflex']},
+                    }
+                  },
               },
     'geant4' : {'8.0.p01-gl2' :
                 { 'default' :
