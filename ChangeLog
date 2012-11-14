@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Tue Nov 13 20:30:43 PST 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add in gaudi v21r7-gl4
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-01-08-00, operation: add
 Package: SConsFiles
