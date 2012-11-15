@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Wed Nov 14 20:57:46 PST 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+stick with python 2.7.2 on windows
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-01-08-02, operation: add
 Package: SConsFiles
