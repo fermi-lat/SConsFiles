@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-01-08-03 14-Nov-2012 heather stick with python 2.7.2 on windows
  SConsFiles-01-08-02 14-Nov-2012 heather adding in new python with additional requested modules
  SConsFiles-01-08-01 13-Nov-2012 heather add in gaudi v21r7-gl4
  SConsFiles-01-08-00 13-Nov-2012 heather Add in TMineExt 3.3.2
