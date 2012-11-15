@@ -903,6 +903,32 @@ allExternalLibraries = {
                                  },
                      'darwin'  : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.7' ] } }
                    },
+                  '2.7-i2' :
+                   { 'default' : { 'version'      : '2.7.2',
+                                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                                   'include-path' : os.path.join('$TOP', 'include', 'python2.7'),
+                                   'lib-path'     : os.path.join('$TOP', 'lib', 'python2.7', 'config'),
+                                   'site-path'    : os.path.join('$TOP', 'lib', 'python2.7', 'site-packages'),
+                                   'ld-path'      : '$LIB-PATH',
+                                   'bin-path'     : os.path.join('$TOP', 'bin'),
+                                   'includes'     : [ 'Python.h' ],
+                                   'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'util', 'm', 'python2.7' ] }
+                                 },
+                     'gcc44'   : { 'version'      : '2.7.2-gl4'
+                                 },
+                     'win32'   : { 'version'      : '2.7.3', 
+                                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
+
+                                   'include-path' : os.path.join('$TOP', 'include'),
+                                   'lib-path'     : os.path.join('$TOP', 'libs'),
+                                   'site-path'    : os.path.join('$TOP', 'Lib', 'site-packages'),
+                                   'libraries'    : { 'pythonLibs' : [ 'python27' ] },
+                                   'ld-path'      : '$TOP'
+                                 },
+                     'darwin'  : { 'version'      : '2.7.1-gl1',
+                                   'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.7' ] } }
+                   },
+
 
                  },
                    
