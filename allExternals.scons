@@ -916,9 +916,7 @@ allExternalLibraries = {
                                  },
                      'gcc44'   : { 'version'      : '2.7.2-gl4'
                                  },
-                     'win32'   : { 'version'      : '2.7.3', 
-                                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
-
+                     'win32'   : { 'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
                                    'include-path' : os.path.join('$TOP', 'include'),
                                    'lib-path'     : os.path.join('$TOP', 'libs'),
                                    'site-path'    : os.path.join('$TOP', 'Lib', 'site-packages'),
