@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-01-08-05 16-Nov-2012 heather add debug root on windows
  SConsFiles-01-08-04 16-Nov-2012 heather add TMineExt 3.3.2-gr01
  SConsFiles-01-08-03 14-Nov-2012 heather stick with python 2.7.2 on windows
  SConsFiles-01-08-02 14-Nov-2012 heather adding in new python with additional requested modules
