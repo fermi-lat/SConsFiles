@@ -628,6 +628,7 @@ allExternalLibraries = {
                                      'rootTMineLibs': [ 'libTreePlayer', 'libXMLIO', 'libGed', 'libMLP', 'libTMVA', 'libRint', 'libHtml']
                                    }
                                  },
+                     'vc90-debug' : { 'version' : 'v5.34.03-dbg'}, 
                      'darwin' : { 'dylib-path' : '$LIB-PATH' }
                    }                   
 
