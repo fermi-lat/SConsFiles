@@ -2375,6 +2375,25 @@ allExternalLibraries = {
                    'vc90-debug' : { 'version' : '3.3.2-dbg'},
                    'gcc41-debug' : {'version' : '3.3.2-dbg'}
                    },
+                  '3.3.2-i1' :
+                  {'default' :
+                   {'version' : '3.3.2-gr01',
+                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                    'include-path' : os.path.join('$TOP', 'include'),
+                    'includes' : ['TMine/util/Translate.h'],
+                    'lib-path' : os.path.join('$TOP', 'lib'),
+                    'bin-path' : os.path.join('$TOP', 'bin'),
+                    'ld-path'   : '$LIB-PATH',
+                    'libraries' : {'TMineLibs' : ['TMine', 'TMine_IM_XML',
+                                                  'TMine_GUI', 'TMine_TMVA',
+                                                  'TMine_Engines',
+                                                  'TMine_XmlParse',
+                                                  'TMine_Model', 'TMine_base',
+                                                  'TMine_util']}
+                    },
+                   'vc90-debug' : { 'version' : '3.3.2-gr01-dbg'},
+                   'gcc41-debug' : {'version' : '3.3.2-gr01-dbg'}
+                   },
                     
                   }
     }
