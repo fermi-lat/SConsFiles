@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Mon Nov 19 09:50:25 PST 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add in gr01 5.34.03 ROOT for xrootd libs
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-01-08-05, operation: add
 Package: SConsFiles
