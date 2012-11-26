@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Mon Nov 26 11:01:05 PST 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+rebuilt TMine for windows and updated the ROOT binaries for win
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-01-08-06, operation: add
 Package: SConsFiles
