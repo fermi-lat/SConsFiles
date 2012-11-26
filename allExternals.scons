@@ -651,14 +651,15 @@ allExternalLibraries = {
                                   },
                      'win32'   : { 'version'       : 'v5.34.03',
                                    'top'           : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'), 
-                                   'libraries'    :
+                                   'bin-path'      : os.path.join('$TOP', 'bin'),
+                                   'libraries'     :
                                    { 'rootLibs'    : [ 'libCore', 'libCint', 'libRIO', 'libNet', 'libTree', 'libHist','libGraf','libGpad','libMatrix','libPhysics', 'libMathCore', 'libThread'],
                                      'rootGuiLibs' : [ 'libHist', 'libGraf', 'libGraf3d', 'libGpad','libRint', 'libPostscript', 'libTreePlayer', 'libGui', 'libHistPainter' ],
                                      'minuitLibs'  : [ 'libMinuit2', 'libMinuit' ],
                                      'rootTMineLibs': [ 'libTreePlayer', 'libXMLIO', 'libGed', 'libMLP', 'libTMVA', 'libRint', 'libHtml']
                                    }
                                  },
-                     'vc90-debug' : { 'version' : 'v5.34.03-dbg'}, 
+                     'vc90-debug' : { 'version' : 'v5.34.03-gr01-dbg'}, 
                      'darwin' : { 'dylib-path' : '$LIB-PATH' }
                    }                   
 
@@ -2422,7 +2423,7 @@ allExternalLibraries = {
                                                   'TMine_Model', 'TMine_base',
                                                   'TMine_util']}
                     },
-                   'vc90-debug' : { 'version' : '3.3.2-gr01-dbg'},
+                   'vc90-debug' : { 'version' : '3.3.2-gr02-dbg'},
                    'gcc41-debug' : {'version' : '3.3.2-gr01-dbg'}
                    },
                     
