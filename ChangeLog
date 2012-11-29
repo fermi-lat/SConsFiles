@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Thu Nov 29 10:55:20 PST 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+update RHEL6 externals
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-01-08-07, operation: add
 Package: SConsFiles
