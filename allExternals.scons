@@ -2424,7 +2424,8 @@ allExternalLibraries = {
                                                   'TMine_util']}
                     },
                    'vc90-debug' : { 'version' : '3.3.2-gr02-dbg'},
-                   'gcc41-debug' : {'version' : '3.3.2-gr01-dbg'}
+                   'gcc41-debug' : {'version' : '3.3.2-gr01-dbg'},
+                   'gcc44'       : {'version' : '3.3.2-gr02'}
                    },
                     
                   }
