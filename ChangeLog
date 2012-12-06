@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: jrb  Wed Dec  5 17:30:14 PST 2012
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	findPkgPath.py 
+Log Message:
+fixes to get include path right for supersede on Windows
+    *
+------------------------------------------------------------
+User: jrb  Wed Dec  5 17:30:14 PST 2012
 SConsFiles
 
 Modified Files:
