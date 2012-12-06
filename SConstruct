@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.202 2012/11/26 19:01:27 heather Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.203 2012/11/29 19:28:27 heather Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
 # Version: SConsFiles-01-08-08
 
@@ -457,6 +457,7 @@ if not baseEnv.GetOption('help'):
             (baseDirectories, basePackages) = findPackages('.', True)
             baseEnv['absBasePath'] = os.path.abspath(str(Dir('.')))
             baseEnv['basePackageNameList'] = basePackages
+            baseEnv['absSuperPath'] = os.path.abspath(override)
 
     Export('packages')
     baseEnv['packageNameList'] = packages

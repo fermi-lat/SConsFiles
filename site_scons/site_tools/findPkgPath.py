@@ -10,17 +10,23 @@ def generate(env, **kw):
     # paths all start with .\ so strip it off
     #if forStatic.first == True: 
     #    print 'findPkgPath called with argument ', pkgName
+    ##  First look in env['packageNameList'].  If we *have* supersede,
+    ##  this is the supersede list.  Otherwise it's the base list
     for p in env['packageNameList']:
         bname = os.path.basename(str(p[2:]))
         if pkgName == bname: 
             if env.GetOption('supersede') == '.':
                 path = '#' + str(p[2:])
-            else: path = pkgName
+            else: 
+                path = os.path.join(str(env['absSuperPath']), pkgName)
         if pkgName + '-' == bname[:len(bname)+1]:
             if env.GetOption('supersede') == '.': 
                     path = '#' + str(p[2:])       
-            else: path = pkgName
+            else: path = os.path.join(str(env['absSuperPath']), str(p[2:]))
 
+    # If not found up to this point, we must be in case
+    #    -have supersede dir
+    #    -package we have been called for is not in supersede area
     if path == None and env.GetOption('supersede') != '.': # look in base
         for p in env['basePackageNameList']:
             bname = os.path.basename(str(p[2:]))
