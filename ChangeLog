@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Wed Dec  5 17:30:14 PST 2012
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+fixes to get include path right for supersede on Windows
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-20-07-00, operation: add
 Package: SConsFiles
