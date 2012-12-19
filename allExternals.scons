@@ -972,7 +972,7 @@ allExternalLibraries = {
                        'libraries'    : { 'f2cLibs' : ['f2c'] },
                      },
                      'win32'   :
-                     { 'libraries' : { 'f2cLibs' : [ 'vcf2c.lib', 'oldnames.lib' ] }
+                     { 'libraries' : { 'f2cLibs' : [ 'vcf2c', 'oldnames' ] }
                      }
                    },
                    '3.4-i1' : 
