@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Wed Dec 19 12:15:19 PST 2012
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+Fix f2c entry for Windows
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-09-31-00, operation: add
 Package: SConsFiles
