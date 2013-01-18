@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Fri Jan 18 11:08:39 PST 2013
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	generateScript.py 
+Log Message:
+bug fixes for Windows wrapper script generation
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-20-08-04, operation: add
 Package: SConsFiles
