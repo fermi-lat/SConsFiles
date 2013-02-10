@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Sun Feb 10 06:59:40 PST 2013
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add in extFiles v0r12 for p8 worksheet update
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-20-08-06, operation: add
 Package: SConsFiles
