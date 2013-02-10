@@ -1015,6 +1015,12 @@ allExternalLibraries = {
                                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
                                    'cpp-defines' : [ 'extFiles=\\"$VERSION\\"' ]
                                  }
+                   },
+                   'v0r12' :
+                   { 'default' : { 'version'     : 'v0r12',
+                                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                                   'cpp-defines' : [ 'extFiles=\\"$VERSION\\"' ]
+                                 }
                    }
                  },
 
