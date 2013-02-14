@@ -1,4 +1,4 @@
-#  $Id: registerTargets.py,v 1.21 2012/06/11 17:18:09 jrb Exp $
+#  $Id: registerTargets.py,v 1.22 2012/08/21 19:29:51 jrb Exp $
 import os, pprint, sys, os.path
 from SCons.Script import *
 from fermidebug import fdebug
@@ -50,6 +50,7 @@ def generate(env, **kw):
                 tools = env.Install(env['TOOLDIR'], os.path.join(str(env.Dir('.').srcnode()),kw.get('package')+"Lib.py"))
                 env.Default(tools)
                 env.Alias('tools', tools)
+                env.Alias('to_install', tools)
                 env.Alias('all', tools)
                 env.Alias(pkgname, tools)
 
