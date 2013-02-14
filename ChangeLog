@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu Feb 14 15:58:46 PST 2013
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	registerTargets.py 
+Log Message:
+add tools to the to_install target
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-20-08-07, operation: add
 Package: SConsFiles
