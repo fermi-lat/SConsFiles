@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Wed Feb 20 12:21:01 PST 2013
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	findPkgPath.py 
+Log Message:
+findPkgPath can now also define construction variables for paths such as gr_app/src
+    *
+------------------------------------------------------------
 User: jrb  Wed Feb 20 12:19:09 PST 2013
 SConsFiles
 
