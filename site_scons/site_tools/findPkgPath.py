@@ -1,11 +1,16 @@
 import os,platform,os.path
 
+#  Usual case:  find where package is; add to env include path
+#  If 'subdir' argument, instead set construction env variable
+#  to point to it
 def generate(env, **kw):
     pkgName = kw.get('package', '')
     if pkgName == '': 
         print 'findPkgPath called with no arg'
         return None
     path = None
+    subDir = kw.get('subDir', '')
+    usualCase = (subDir == '')
 
     # paths all start with .\ so strip it off
     #if forStatic.first == True: 
@@ -36,7 +41,10 @@ def generate(env, **kw):
             if pkgName + '-' == bname[:len(bname)+1]: 
                 path = os.path.join(env['absBasePath'], str(p[2:]))
     if path != None:
-        env.AppendUnique(CPPPATH = [path])
-
+        if usualCase:
+            env.AppendUnique(CPPPATH = [path])
+        else:
+            conVarName = pkgName + '_' + subDir
+            env[conVarName] = os.path.join(path, subDir)
 def exists(env):
     return 1
