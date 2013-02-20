@@ -313,7 +313,7 @@ def setupRoot(configuredExternal):
         baseEnv['SHLINKCOM'].list[1].cmd_list += " $DEFGENERATOR\")}"
         if baseEnv['COMPILERNAME'] == 'vc80' or baseEnv['COMPILERNAME'] == 'vc90':
             baseEnv['MT'] = 'mt'
-            baseEnv['MTFLAGS'] = '-hashupdate -makecdfs -manifest'
+            baseEnv['MTFLAGS'] = '-manifest'
             orig_link = baseEnv['LINKCOM']
             baseEnv['LINKCOM'] = [orig_link, '$MT $MTFLAGS ${TARGET}.manifest -outputresource:$TARGET']
             orig_shlink = baseEnv['SHLINKCOM']
