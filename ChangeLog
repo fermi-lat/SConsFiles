@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu Feb 21 14:35:38 PST 2013
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+add forVS alias to simplify lives of VS partisans
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-01-10-00, operation: add
 Package: SConsFiles
