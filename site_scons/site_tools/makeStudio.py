@@ -1,4 +1,4 @@
-#  $Id: makeStudio.py,v 1.11 2012/05/30 22:55:04 jrb Exp $
+#  $Id: makeStudio.py,v 1.13 2012/09/19 18:49:44 jrb Exp $
 import os, os.path, pprint
 from SCons.Script import *
 from fermidebug import fdebug
@@ -85,6 +85,7 @@ def generate(env, **kw):
         allGleamSln = env.Command(os.path.join(str(env['STUDIODIR']), 'allGleam.sln'), 'slns', 
                              'site_scons\site_tools\writeAllSln.py ' + str(env['STUDIODIR']) + ' ' + str(env['BASESTUDIODIR']) + ' Gleam' )
         env.Alias('StudioFiles', [allSln, allGleamSln])
+        env.Alias('forVS', [allSln, allGleamSln])
         return
 
     pkgroot = os.path.dirname(str(File("SConscript").srcnode().abspath))
@@ -193,6 +194,7 @@ def generate(env, **kw):
                 env.Alias(kw.get('package'), projectInstalled)
                 env.Default(projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
+                env.Alias('forVS', projectInstalled)
                 env.Alias('projectFiles', projectInstalled)
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
                 
@@ -264,6 +266,7 @@ def generate(env, **kw):
                 env.Default(projectInstalled)
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
+                env.Alias('forVS', projectInstalled)
                 env.Alias('projectFiles', projectInstalled)
 
     # end static libraries   --------------------------
@@ -328,6 +331,7 @@ def generate(env, **kw):
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
                 env.Alias('projectFiles', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
+                env.Alias('forVS', projectInstalled)
 
     # root shared libraries. Have to get the rootcint command in there
     cxts = kw.get('rootcintSharedCxts','')
@@ -395,6 +399,7 @@ def generate(env, **kw):
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
                 env.Alias('projectFiles', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
+                env.Alias('forVS', projectInstalled)
 
     # end rootcint shared
 
@@ -466,6 +471,7 @@ def generate(env, **kw):
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
                 env.Alias('projectFiles', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
+                env.Alias('forVS', projectInstalled)
 
     # end rootcint static
 
@@ -521,6 +527,7 @@ def generate(env, **kw):
                 env.Alias(kw.get('package'), projectInstalled)
                 env.Alias('projectFiles', projectInstalled)
                 env.Alias('StudioFiles', projectInstalled)
+                env.Alias('forVS', projectInstalled)
                 env.Alias(pkgname+'-StudioFiles', projectInstalled)
     
     if installHandled == False:   #need to make special project file
@@ -540,6 +547,7 @@ def generate(env, **kw):
         env.Alias(pkgname, projectInstalled)
         env.Alias('projectFiles', projectInstalled)
         env.Alias('StudioFiles', projectInstalled)
+        env.Alias('forVS', projectInstalled)
         env.Alias(pkgname+'-StudioFiles', projectInstalled)
         targsrc = os.path.join(str(env['STUDIODIR']), targ)
         targetNames.append(env.subst(targsrc))
@@ -583,6 +591,7 @@ def generate(env, **kw):
         env.Alias(kw.get('package'), slnInstalled)
         env.Alias('slns', slnInstalled)
         env.Alias('StudioFiles', slnInstalled)
+        env.Alias('forVS', slnInstalled)
         env.Alias(pkgname+'-StudioFiles', slnInstalled)
 
 def handleLib(libentry='', libtype=''):

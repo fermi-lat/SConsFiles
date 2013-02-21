@@ -1,4 +1,4 @@
-#  $Id: registerTargets.py,v 1.22 2012/08/21 19:29:51 jrb Exp $
+ #  $Id: registerTargets.py,v 1.23 2013/02/14 23:58:46 jrb Exp $
 import os, pprint, sys, os.path
 from SCons.Script import *
 from fermidebug import fdebug
@@ -50,6 +50,7 @@ def generate(env, **kw):
                 tools = env.Install(env['TOOLDIR'], os.path.join(str(env.Dir('.').srcnode()),kw.get('package')+"Lib.py"))
                 env.Default(tools)
                 env.Alias('tools', tools)
+                if env['PLATFORM'] == 'win32' : env.Alias('forVS', tools)
                 env.Alias('to_install', tools)
                 env.Alias('all', tools)
                 env.Alias(pkgname, tools)
@@ -179,6 +180,8 @@ def generate(env, **kw):
                                                header)
                     env.Alias(kw.get('package'), includes)
                     env.Default(includes)
+                    if env['PLATFORM'] == 'win32': 
+                        env.Alias('forVS', includes)
                     env.Alias('to_install', includes)
                     env.Alias('includes', includes)
                     env.Alias('all', includes)
@@ -209,6 +212,7 @@ def generate(env, **kw):
             env.AppendUnique(PFILES = pfiles)
             env.Alias(kw.get('package'), pfiles)
             env.Default(pfiles)
+            if env['PLATFORM'] == 'win32' : env.Alias('forVS', pfiles)
             env.Alias('to_install', pfiles)
             env.Alias('all', pfiles)
         if kw.get('data', '') != '':
@@ -229,6 +233,7 @@ def generate(env, **kw):
                 env.Alias(pkgname, data)
                 env.Default(data)
                 env.Alias('to_install', data)
+                if env['PLATFORM'] == 'win32' : env.Alias('forVS', data)
                 env.Alias('all', data)
             if env['PLATFORM'] == 'win32' : instFiles += instData
         if kw.get('xml', '') != '':
@@ -247,6 +252,7 @@ def generate(env, **kw):
                 xml = env.Install(env['XMLDIR'].Dir(kw.get('package')).Dir(installPath), xfile)
                 env.Alias(kw.get('package'), xml)
                 env.Default(xml)
+                if env['PLATFORM'] == 'win32' : env.Alias('forVS', xml)
                 env.Alias('to_install', xml)
                 env.Alias('all', xml)
             if env['PLATFORM'] == 'win32' : instFiles += instXml
@@ -272,6 +278,7 @@ def generate(env, **kw):
                 env.Alias(kw.get('package'), jobOptions)
                 env.Default(jobOptions)
                 env.Alias('to_install', jobOptions)
+                if env['PLATFORM'] == 'win32': env.Alias('forVS', jobOptions)
                 env.Alias('all', jobOptions)
             if env['PLATFORM'] == 'win32' : instFiles += instJo
         if kw.get('python', '') != '':
@@ -292,6 +299,7 @@ def generate(env, **kw):
                 env.Alias(kw.get('package'), python)
                 env.Default(python)
                 env.Alias('to_install', python)
+                if env['PLATFORM'] == 'win32' :env.Alias('forVS', python)
                 env.Alias('all', python)
             if env['PLATFORM'] == 'win32' : instFiles += instPy
         if kw.get('wrappedPython', '') != '':
@@ -304,6 +312,8 @@ def generate(env, **kw):
             env.Default(pythonPrg)
             env.Default(pyWrappers)
             env.Alias('to_install', pythonPrg)
+            if env['PLATFORM'] == 'win32' : env.Alias('forVS', pythonPrg)
+
             env.Alias('all', pythonPrg)
             env.Alias('all', pyWrappers)
             
