@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu Feb 21 14:35:39 PST 2013
+SConsFiles/site_scons/site_tools
+
+Modified Files:
+	makeStudio.py registerTargets.py 
+Log Message:
+add forVS alias to simplify lives of VS partisans
+    *
+------------------------------------------------------------
 User: jrb  Thu Feb 21 14:35:38 PST 2013
 SConsFiles
 
