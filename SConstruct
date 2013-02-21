@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.208 2013/02/15 00:00:51 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.209 2013/02/20 20:29:29 jrb Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
 # Version: SConsFiles-01-10-00
 
@@ -487,6 +487,8 @@ if not baseEnv.GetOption('help'):
     baseEnv.Default(setupScript)
     baseEnv.Alias('all', setupScript)
     baseEnv.Alias('setup', setupScript)
+    if sys.platform == 'win32':  baseEnv.Alias('forVS', setupScript)
+        
     baseEnv['setupTarget'] = setupScript
 
 
