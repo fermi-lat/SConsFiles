@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Fri Mar 15 14:23:41 PDT 2013
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+stag/GoGui_auto-tag
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-20-08-11, operation: add
 Package: SConsFiles
