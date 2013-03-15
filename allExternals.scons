@@ -87,7 +87,7 @@ allExternalLibraries = {
                      'win32'   : { 'libraries'    : { 'fftwLibs' : ['libfftw3'] } }
                      },
                    '3.1.2-i1' :
-                   { 'default' : { 'version'      : '3.1.2-g1',
+                   { 'default' : { 'version'      : '3.1.2-gl1',
                                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),                               
                                    'include-path' : os.path.join('$TOP', 'include'),
                                    'lib-path'     : os.path.join('$TOP', 'lib'),
@@ -987,8 +987,28 @@ allExternalLibraries = {
                      'snowleopard' :
                      {'version'       : '3.4-gl3'},
                      'win32'   :
-                     { 'libraries' : { 'f2cLibs' : [ 'vcf2c', 'oldnames' ] }
+                         { 'libraries' : { 'f2cLibs' : [ 'vcf2c', 'oldnames' ] }
+                           }
+                     },
+                   '3.4-i2' : 
+                   { 'default':
+                     { 'version'      : '3.4-gl4',
+                       'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                       'include-path' : os.path.join('$TOP', 'include'),
+                       'lib-path'     : os.path.join('$TOP', 'lib'),
+                       'ld-path'      : '$LIB-PATH',
+                       'libraries'    : { 'f2cLibs' : ['f2c'] },
+                     },
+                     'snowleopard' :
+                     {'version'       : '3.4-gl3',
+                       'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER')
+                      },
+                     'win32'   :                          
+                         { 'version'   : '3.4-gl2',
+                           'top'    : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
+                           'libraries' : { 'f2cLibs' : [ 'vcf2c', 'oldnames' ] }
                      }
+
                    }
                  },
 
