@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-01-10-02 15-Mar-2013    jrb Add f2c entry to allExternals.scons for external with no compiler component in path
  SConsFiles-01-10-01 21-Feb-2013    jrb Add new target forVS
  SConsFiles-01-10-00 20-Feb-2013    jrb Patches, enhancements to for Windows builds, especially with VS and/or supersede area
  SConsFiles-01-09-01 14-Feb-2013    jrb add xxLib.py files to to_include target
