@@ -1,5 +1,5 @@
 # -*- python -*-
-#  $Id: writeAllSln.py,v 1.5 2012/05/31 19:52:35 jrb Exp $
+#  $Id: writeAllSln.py,v 1.6 2012/09/19 00:55:46 jrb Exp $
 #
 #  Delete old all.sln if there is one
 #  Read in *.sln for specified directory (defaults to "."), saving
@@ -85,7 +85,7 @@ class allSln(object):
 
         projLines.append(ln)
 
-        # Make dictionary entry (a triple) keyed by project name if
+        # Make dictionary entry (a quintuple) keyed by project name if
         #   (we're including all projects ) OR (project name ends in "Lib") OR
         #   (project name ends in "InstallSrc")  OR
         #   (pkgname is non-null and project name = pkgname or "test_" + package name
@@ -98,14 +98,17 @@ class allSln(object):
                             (projName == "test_" + self.pkgname)): useIt = True
         if projName not in self.projectDict:
             #print "First-time dict entry for ", projName
-            if useIt: self.projectDict[projName] = [projName, mobj.group(2), projLines, lenp]
+            if useIt: self.projectDict[projName] = [projName, mobj.group(2), projLines, lenp, base]
         else:
             # If base and entry already exists, don't use this one.
             # Else see if new entry is shorter.  If so, replace old with it
-            if not base and self.projectDict[projName][3] > lenp:
-                if useIt: 
-                    self.projectDict[projName] = [projName, mobj.group(2), 
-                                                  projLines, lenp]
+            if not base:
+                if self.projectDict[projName][4] == True:
+                    #if useIt:    Unnecessary.  Wouldn't get here if useIt were false
+                    self.projectDict[projName] = [projName, mobj.group(2), projLines, lenp, False]
+                    #print "replace base entry with non-base entry"
+                elif self.projectDict[projName][3] > lenp:
+                    self.projectDict[projName] = [projName, mobj.group(2), projLines, lenp, False]
                     #print "replace entry projName ",projName ," with shorter one"
 
         # read one more line and return it
@@ -240,6 +243,7 @@ class allSln(object):
 
             # Write out all the projects
             for k in self.projectDict:
+                ###print "First line of project is ", str(self.projectDict[k][2][0])
                 for ln in self.projectDict[k][2]:
                     fp.write(ln)
 
