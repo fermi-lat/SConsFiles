@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-01-10-04 08-Apr-2013 heather new P8 XML in extFiles
  SConsFiles-01-10-03 03-Apr-2013    jrb Bug fix for writeAllSln.py
  SConsFiles-01-10-02 15-Mar-2013    jrb Add f2c entry to allExternals.scons for external with no compiler component in path
  SConsFiles-01-10-01 21-Feb-2013    jrb Add new target forVS
