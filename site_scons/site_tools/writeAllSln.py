@@ -1,5 +1,5 @@
 # -*- python -*-
-#  $Id: writeAllSln.py,v 1.6 2012/09/19 00:55:46 jrb Exp $
+#  $Id: writeAllSln.py,v 1.7 2013/04/02 23:59:31 jrb Exp $
 #
 #  Delete old all.sln if there is one
 #  Read in *.sln for specified directory (defaults to "."), saving
@@ -96,6 +96,10 @@ class allSln(object):
                             (projName[len(projName)-10:] == "InstallSrc") or 
                             (projName == self.pkgname) or
                             (projName == "test_" + self.pkgname)): useIt = True
+
+        # One more special case:  for alluserAlg, include userApp
+        if((self.pkgname == 'userAlg') and (projName == 'userApp')): useIt = True
+
         if projName not in self.projectDict:
             #print "First-time dict entry for ", projName
             if useIt: self.projectDict[projName] = [projName, mobj.group(2), projLines, lenp, base]
