@@ -1,4 +1,4 @@
-#  $Id: makeStudio.py,v 1.13 2012/09/19 18:49:44 jrb Exp $
+#  $Id: makeStudio.py,v 1.14 2013/02/21 22:35:38 jrb Exp $
 import os, os.path, pprint
 from SCons.Script import *
 from fermidebug import fdebug
@@ -84,8 +84,10 @@ def generate(env, **kw):
                              'site_scons\site_tools\writeAllSln.py ' + str(env['STUDIODIR']) + ' ' + str(env['BASESTUDIODIR']) )
         allGleamSln = env.Command(os.path.join(str(env['STUDIODIR']), 'allGleam.sln'), 'slns', 
                              'site_scons\site_tools\writeAllSln.py ' + str(env['STUDIODIR']) + ' ' + str(env['BASESTUDIODIR']) + ' Gleam' )
-        env.Alias('StudioFiles', [allSln, allGleamSln])
-        env.Alias('forVS', [allSln, allGleamSln])
+        alluserAlgSln = env.Command(os.path.join(str(env['STUDIODIR']), 'allGleam.sln'), 'slns', 
+                             'site_scons\site_tools\writeAllSln.py ' + str(env['STUDIODIR']) + ' ' + str(env['BASESTUDIODIR']) + ' userAlg' )
+        env.Alias('StudioFiles', [allSln, allGleamSln, alluserAlgSln])
+        env.Alias('forVS', [allSln, allGleamSln, alluserAlgSln])
         return
 
     pkgroot = os.path.dirname(str(File("SConscript").srcnode().abspath))
