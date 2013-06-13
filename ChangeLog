@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Thu Jun 13 14:24:07 PDT 2013
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add in extFiles v0r14
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-09-32-03, operation: add
 Package: SConsFiles
