@@ -84,7 +84,7 @@ def generate(env, **kw):
                              'site_scons\site_tools\writeAllSln.py ' + str(env['STUDIODIR']) + ' ' + str(env['BASESTUDIODIR']) )
         allGleamSln = env.Command(os.path.join(str(env['STUDIODIR']), 'allGleam.sln'), 'slns', 
                              'site_scons\site_tools\writeAllSln.py ' + str(env['STUDIODIR']) + ' ' + str(env['BASESTUDIODIR']) + ' Gleam' )
-        alluserAlgSln = env.Command(os.path.join(str(env['STUDIODIR']), 'allGleam.sln'), 'slns', 
+        alluserAlgSln = env.Command(os.path.join(str(env['STUDIODIR']), 'allusrAlg.sln'), 'slns', 
                              'site_scons\site_tools\writeAllSln.py ' + str(env['STUDIODIR']) + ' ' + str(env['BASESTUDIODIR']) + ' userAlg' )
         env.Alias('StudioFiles', [allSln, allGleamSln, alluserAlgSln])
         env.Alias('forVS', [allSln, allGleamSln, alluserAlgSln])
