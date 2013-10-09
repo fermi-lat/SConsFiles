@@ -1073,7 +1073,13 @@ allExternalLibraries = {
                                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
                                    'cpp-defines' : [ 'catalogProducts=\\"$VERSION\\"']
                                  }
-                   }                          
+                   },
+                   'v1r3' :
+                   { 'default' : { 'version'     : 'v1r3',
+                                   'top'         : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                                   'cpp-defines' : [ 'catalogProducts=\\"$VERSION\\"']
+                                 }
+                   }
                  },
 
     'diffuseModels' : { 'v0r0' :
@@ -1090,6 +1096,12 @@ allExternalLibraries = {
                    },
                    'v2r0' :
                    { 'default' : { 'version'     : 'v2r0',
+                                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                                   'cpp-defines' : [ 'diffuseModels=\\"$VERSION\\"' ]
+                                 }
+                   },
+                   'v4r0' :
+                   { 'default' : { 'version'     : 'v4r0',
                                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
                                    'cpp-defines' : [ 'diffuseModels=\\"$VERSION\\"' ]
                                  }
