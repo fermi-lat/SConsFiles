@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-01-11-03 09-Oct-2013    jrb add catalogProducts v1r3, diffuseModels v4r0 (for jchiang)
  SConsFiles-01-11-02 25-Jul-2013    jrb store SCons dependency and externals bookkeeping in os/compiler-specific directory
  SConsFiles-01-11-01 18-Jun-2013    jrb bug fix to properly create ALL the all*.sln files (affects Windows only)
  SConsFiles-01-11-00 13-Jun-2013 heather add extFiles v0r14
