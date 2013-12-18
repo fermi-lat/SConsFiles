@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Wed Dec 18 08:54:09 PST 2013
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+adding extFiles v0r15
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-20-09-05, operation: add
 Package: SConsFiles
