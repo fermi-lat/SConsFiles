@@ -955,7 +955,7 @@ allExternalLibraries = {
                                    'libraries'    : { 'pythonLibs' : [ 'python27' ] },
                                    'ld-path'      : '$TOP'
                                  },
-                     'darwin'  : { 'version'      : '2.7.1-gl1',
+                     'darwin'  : { 'version'      : '2.7.2',
                                    'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.7' ] } }
                    },
 
