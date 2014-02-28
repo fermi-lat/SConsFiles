@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: tstephen  Fri Feb 28 11:04:20 PST 2014
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+- Added a new entry in the darwin platform section to handle Mountain Lion.
+- Also updated the 32/64 bit check to force Mountain Lion builds to 64 bits.  For some reason SCons is still picking it up as 32 bit even though everything is built 64 bit.
+    *
+------------------------------------------------------------
 User: tstephen  Fri Feb 28 11:02:32 PST 2014
 SConsFiles
 
