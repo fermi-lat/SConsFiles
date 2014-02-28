@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: tstephen  Fri Feb 28 11:02:32 PST 2014
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+Changed the darwin entry for python version 2.7-i2 to point to the version used by Mountain Lion.  This hould have no impact on Snow Leopard as it uses version 2.6.5.
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-20-09-07, operation: add
 Package: SConsFiles
