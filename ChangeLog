@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: tstephen  Mon Mar  3 09:49:39 PST 2014
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Modified Mountain Lion specific code to set cpu to to x86_64.  Mountain Lion reports an i386 type even though it is a 64 bit OS.  
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-01-11-05, operation: add
 Package: SConsFiles
