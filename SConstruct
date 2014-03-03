@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.224 2014/02/28 19:04:20 tstephen Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.225 2014/02/28 19:10:19 glastrm Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
 # Version: SConsFiles-01-11-05
 
@@ -67,6 +67,7 @@ if baseEnv['PLATFORM'] == "darwin":
     baseEnv['MACHINENAME'] = cpu
     if version.startswith("10.8"):
         variant="mountainlion-"
+        cpu = "x86_64"
         baseEnv['OSNAME'] = "mountainlion"
     if version.startswith("10.6"):
         variant="snowleopard-"
@@ -78,7 +79,7 @@ if baseEnv['PLATFORM'] == "darwin":
         variant="tiger-"
         baseEnv['OSNAME'] = "tiger"
     variant+=cpu+"-"
-    if cpu.endswith("64") or "mountainlion" == baseEnv['OSNAME']:
+    if cpu.endswith("64"):
         variant+="64bit"
         baseEnv['ARCHNAME'] = '64bit'
     else:
