@@ -1805,6 +1805,14 @@ allExternalLibraries = {
                       }
                  }
                 },
+    'ruby'    : {'1.8.6' :
+                 {'default' :
+                  {'version'      : '1.8.6',
+                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
+                   'bin-path'     : os.path.join('$TOP', 'bin')
+                  }
+                 }
+                },
     'mysql'   : {'4.1.18' :
                  {'default' :
                   {'version'      : '4.1.18',
