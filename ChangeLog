@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Mon Mar  3 23:49:34 PST 2014
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add in 1.8.7 ruby
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-01-12-00, operation: add
 Package: SConsFiles
