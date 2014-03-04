@@ -1811,6 +1811,13 @@ allExternalLibraries = {
                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
                    'bin-path'     : os.path.join('$TOP', 'bin')
                   }
+                 },
+                 '1.8.7' :
+                 {'default' :
+                  {'version'      : '1.8.7',
+                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
+                   'bin-path'     : os.path.join('$TOP', 'bin')
+                  }
                  }
                 },
     'mysql'   : {'4.1.18' :
