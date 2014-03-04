@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-01-12-01 03-Mar-2014 heather adding ruby 1.8.7
  SConsFiles-01-12-00 03-Mar-2014 heather Adding ruby
  SConsFiles-01-11-06 03-Mar-2014 glastrm Changed MountainLion section of SConstruct to get proper x86_64 cpu type
  SConsFiles-01-11-05 28-Feb-2014 glastrm Updated files for building Mountain Lion
