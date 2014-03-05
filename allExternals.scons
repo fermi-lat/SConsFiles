@@ -1808,14 +1808,14 @@ allExternalLibraries = {
     'ruby'    : {'1.8.6' :
                  {'default' :
                   {'version'      : '1.8.6',
-                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
+                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
                    'bin-path'     : os.path.join('$TOP', 'bin')
                   }
                  },
                  '1.8.7' :
                  {'default' :
                   {'version'      : '1.8.7',
-                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
+                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
                    'bin-path'     : os.path.join('$TOP', 'bin')
                   }
                  }
