@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Mon Apr  7 11:13:19 PDT 2014
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add new TMineExt 3.3.6
+    *
+------------------------------------------------------------
 TAG
 Tag name: TMineExt-03-03-06, operation: add
 Package: SConsFiles
