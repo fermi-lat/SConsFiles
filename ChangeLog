@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: echarles  Tue Apr 22 11:03:43 PDT 2014
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+Have TMineExt also make python dir
+    *
+------------------------------------------------------------
 TAG
 Tag name: TMineExt-03-03-08, operation: add
 Package: SConsFiles
