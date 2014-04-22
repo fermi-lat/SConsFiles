@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.231 2014/04/07 18:14:58 heather Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.232 2014/04/08 19:17:58 heather Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
 # Version: SConsFiles-01-14-00
 
@@ -309,9 +309,9 @@ if baseEnv.GetOption('userRelease'):
         baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['TOOLDIR'])
         baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['TESTDIR'])
         baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['TESTSCRIPTDIR'])
+        baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['PYTHONDIR'])
         if (baseEnv.GetOption('containerName') != 'TMineExt'):
             baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['XMLDIR'])
-            baseEnv.Tar(baseEnv.GetOption('userRelease'), baseEnv['PYTHONDIR'])
     else:
         baseEnv.Default(baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['LIBDIR']))
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['BINDIR'])
@@ -326,9 +326,9 @@ if baseEnv.GetOption('userRelease'):
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['TOOLDIR'])
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['TESTDIR'])
         baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['TESTSCRIPTDIR'])
+        baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['PYTHONDIR'])
         if (baseEnv.GetOption('containerName') != 'TMineExt'):
             baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['XMLDIR'])
-            baseEnv.Zip(baseEnv.GetOption('userRelease'), baseEnv['PYTHONDIR'])
     Return()
 
 if baseEnv.GetOption('sourceRelease'):
