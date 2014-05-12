@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Mon May 12 12:44:33 PDT 2014
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+adding python 2.7.6
+    *
+------------------------------------------------------------
 TAG
 Tag name: TMineExt-03-03-09, operation: add
 Package: SConsFiles
