@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: echarles  Wed Jul 16 11:41:14 PDT 2014
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+Fix python version for darwin in python 2.7-i2 to be 2.7.2-gl4
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-09-34-00, operation: add
 Package: SConsFiles
