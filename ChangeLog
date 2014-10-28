@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Tue Oct 28 07:17:30 PDT 2014
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+adding fsw B3-2-0
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-09-34-03, operation: add
 Package: SConsFiles
