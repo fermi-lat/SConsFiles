@@ -1886,16 +1886,25 @@ allExternalLibraries = {
                       {'version'      : '5.1.39',
                        'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
                        },
-                    'win32'   :
+                  'win32'   :
                   {'version'      : '5.1.39',
                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
                    'libraries'    : {'mysqlLibs' : ['libmysql']},
                    'lib-path' : os.path.join('$TOP', 'lib', 'opt'),
                    'ld-path'  : '$LIB-PATH'},
-                 'posix' : {'includes' : ['mysql/mysql.h']}
+                  'posix' : {'includes' : ['mysql/mysql.h']}
                   },
+                 '5.5.15' :
+                 {'default' :
+                  {'version'       : '5.5.15',
+                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                   'libraries'    : {'mysqlLibs' : ['mysqlclient']},
+                   'include-path' : os.path.join('$TOP','include'),
+                   'lib-path'     : os.path.join('$TOP', 'lib', 'mysql'),
+                   'ld-path' : '$LIB-PATH'},
+                 'posix' : {'includes' : ['mysql/mysql.h']}
                  },
-
+                },
     'fsw'     : {'B2-0-0_20090121' :
                  {'default' :
                   {'version'       : 'B2-0-0_20090121',
@@ -2034,7 +2043,7 @@ allExternalLibraries = {
                                                 'pbs', 'cdm', 
                                                 'fbs_rtos', 'mdb',
                                                 'zlib_inflate', 'fbs_swap',
-                                                'cmx_asBuilt'],
+                                                'cmx_asBuilt', 'mysqlclient'],
                                    'fswDecipherLibs' : ['cdm',
                                                         'fbs_rtos','mdb',
                                                         'zlib_inflate',
@@ -2053,7 +2062,8 @@ allExternalLibraries = {
                                                     'cpu_db_server','msg_print',
                                                     'qsdprint','qse', 'encdec',
                                                     'qsedgm', 'lser','fmxshr',
-                                                    'lseprint', 'encdec']},
+                                                    'lseprint', 'encdec',
+                                                    'mysqlclient']},
                    'linkflags' : ['-Wl,-rpath-link,'+os.path.join( '$TOP', 'lib' )],
                    'include-path' : [os.path.join('$TOP', 'include'),
                                      os.path.join('$TOP', 'include', 'fsw')],
