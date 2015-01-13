@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-01-16-02 13-Jan-2015 jchiang added catalogProducts v2r1 diffuseModels v4r1
  SConsFiles-01-16-01 21-Nov-2014    jrb Add mysql 5.5.15 (exists only for rhel5-32.  Use as dependency for fsw B3-2-0
  SConsFiles-01-16-00 28-Oct-2014 heather Added fsw B3-2-0
  SConsFiles-01-15-01 18-Jul-2014 heather adding TMine 3.3.9
