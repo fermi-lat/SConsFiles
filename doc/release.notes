@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-01-17-00 09-Feb-2015 heather add cfitsio v3370 and ape 2.8
  SConsFiles-01-16-02 13-Jan-2015 jchiang added catalogProducts v2r1 diffuseModels v4r1
  SConsFiles-01-16-01 21-Nov-2014    jrb Add mysql 5.5.15 (exists only for rhel5-32.  Use as dependency for fsw B3-2-0
  SConsFiles-01-16-00 28-Oct-2014 heather Added fsw B3-2-0
