@@ -171,7 +171,24 @@ allExternalLibraries = {
                                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
                                    'libraries'    : { 'cfitsioLibs' : [ 'cfitsio' ] } },
                      'vc90-debug' : { 'version' : 'v3290-dbg'} 
+                   },
+
+                   'v3370' :
+                   { 'default' : { 'version'      : 'v3370',
+                                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+
+                                   'include-path' : os.path.join('$TOP', 'include'),
+                                   'lib-path'     : os.path.join('$TOP', 'lib'),
+                                   'ld-path'      : '$LIB-PATH',
+                                   'includes'     : [ 'fitsio.h' ],
+                                   'libraries'    : { 'cfitsioLibs' : [ 'cfitsio-v3.37', 'm' ] }
+                                 },
+                     'win32'   : { 'version'      : 'v3290',
+                                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
+                                   'libraries'    : { 'cfitsioLibs' : [ 'cfitsio' ] } },
+                     'vc90-debug' : { 'version' : 'v3290-dbg'} 
                    }
+
 
                  },
     
@@ -245,6 +262,19 @@ allExternalLibraries = {
                      'gcc34'  : { 'version'       : '2.6',
                                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
                                   }
+                     },
+                   '2.8' :
+                   { 'default' : { 'version'      : '2.8',
+                                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                                   'include-path' : os.path.join('$TOP', 'include'),
+                                   'lib-path'     : os.path.join('$TOP', 'lib'),
+                                   'ld-path'      : '$LIB-PATH',
+                                   'includes'     : [ 'ape/ape_list.h' ],
+                                   'libraries'    : { 'apeLibs' : [ 'ape', 'readline', 'termcap' ] }
+                                 },
+                     'win32'   : { 'version'       : '2.6',
+                                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
+                                   'libraries'    : { 'apeLibs' : [ 'apelib' ] } },
                      },
                  },
     
