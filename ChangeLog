@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: echarles  Fri Mar 27 12:53:08 PDT 2015
+SConsFiles
+
+Modified Files:
+	SConstruct 
+Log Message:
+stag/GoGui_auto-tag
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-10-00-03, operation: add
 Package: SConsFiles
