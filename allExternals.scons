@@ -2711,7 +2711,29 @@ allExternalLibraries = {
                    'gcc44-debug' : {'version' : '3.3.9-dbg'},
                    },
                     
-                  }
+                  },
+    'wcslib'  : { '4.25.1' :
+                      { 'default' : { 'version'      : '4.25.1',
+                                      'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                                      'include-path' : os.path.join('$TOP', 'include'),
+                                      'lib-path'     : os.path.join('$TOP', 'lib'),
+                                      'ld-path'      : '$LIB-PATH',
+                                      'includes'     : [ 'wcslib/wcsconfig.h' ],
+                                      'libraries'    : { 'wcslibs' : [ 'libwcs']}
+                                      }
+                        }
+                  },
+    'healpix'  : { '3.20' :
+                       { 'default' : { 'version'      : '3.20',
+                                       'top'          : os.path.join('$GLAST_EXT','$NAME','Healpix_$VERSION'),
+                                       'include-path' : os.path.join('$TOP','src','cxx','basic_gcc','include'),
+                                       'lib-path'     : os.path.join('$TOP','src','cxx','basic_gcc','lib'),
+                                       'ld-path'      : '$LIB-PATH',
+                                       'includes'     : [ 'healpix_base.h' ],
+                                       'libraries'    : { 'healpixlibs' : [ 'libhealpix_cxx','libcxxsupport','libfftpack','libsharp','libc_utils']}
+                                       }
+                         }
+                   }
     }
 Return("allExternalLibraries")
 
