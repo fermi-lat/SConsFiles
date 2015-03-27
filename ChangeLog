@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: echarles  Fri Mar 27 13:11:31 PDT 2015
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+updated allExternals.scons
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-01-19-00, operation: add
 Package: SConsFiles
