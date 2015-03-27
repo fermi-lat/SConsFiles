@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-01-19-00 27-Mar-2015 echarles Added healpix and wcslib to allExternals.scons
  SConsFiles-01-18-00 09-Feb-2015 heather add python 2.7.8
  SConsFiles-01-17-00 09-Feb-2015 heather add cfitsio v3370 and ape 2.8
  SConsFiles-01-16-02 13-Jan-2015 jchiang added catalogProducts v2r1 diffuseModels v4r1
