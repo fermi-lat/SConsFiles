@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/SConsFiles/SConstruct,v 1.242 2015/03/27 19:53:08 echarles Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/CHS-scons/SConstruct,v 1.243 2015/03/27 20:12:01 echarles Exp $
 # Authors: Navid Golpayegani <golpa@slac.stanford.edu>, Joanne Bogart <jrb@slac.stanford.edu>
 # Version: SConsFiles-01-19-01
 
@@ -234,6 +234,14 @@ if sys.platform == "win32":
             
 else:
     baseEnv.AppendUnique(CXXFLAGS = "-fpermissive")
+    # Where FMX should look inside its database. When building flight
+    # software one uses the value of CMX_TAG but here we have to roll
+    # our own definition.  Make sure that the sequence '\"' appears on
+    # the compiler command line so that the macro value is a C-string
+    # as required.
+    fmxPlatform = ("rhel6" if baseEnv["OSNAME"]   == "redhat6" else "rhel5") + \
+                  ("-64"   if baseEnv["ARCHNAME"] == "64bit"   else "-32")
+    baseEnv.AppendUnique(CPPDEFINES = dict(FMX_PLATFORM=r'\"' + fmxPlatform + r'\"'))
 
 if baseEnv['PLATFORM'] == "posix":
     baseEnv.AppendUnique(CCFLAGS = "-fPIC")
