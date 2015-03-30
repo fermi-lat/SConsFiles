@@ -234,14 +234,6 @@ if sys.platform == "win32":
             
 else:
     baseEnv.AppendUnique(CXXFLAGS = "-fpermissive")
-    # Where FMX should look inside its database. When building flight
-    # software one uses the value of CMX_TAG but here we have to roll
-    # our own definition.  Make sure that the sequence '\"' appears on
-    # the compiler command line so that the macro value is a C-string
-    # as required.
-    fmxPlatform = ("rhel6" if baseEnv["OSNAME"]   == "redhat6" else "rhel5") + \
-                  ("-64"   if baseEnv["ARCHNAME"] == "64bit"   else "-32")
-    baseEnv.AppendUnique(CPPDEFINES = dict(FMX_PLATFORM=r'\"' + fmxPlatform + r'\"'))
 
 if baseEnv['PLATFORM'] == "posix":
     baseEnv.AppendUnique(CCFLAGS = "-fPIC")
