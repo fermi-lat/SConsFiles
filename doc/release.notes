@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-01-19-02 31-Mar-2015    jrb Add rhel6 python 2.5.2 external for CHS (on behalf of Steve Tether)
  SConsFiles-01-19-01 27-Mar-2015 echarles Really added healpix and wcslib to allExternals.scons
  SConsFiles-01-19-00 27-Mar-2015 echarles Added healpix and wcslib to allExternals.scons
  SConsFiles-01-18-00 09-Feb-2015 heather add python 2.7.8
