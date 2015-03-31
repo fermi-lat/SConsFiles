@@ -847,7 +847,20 @@ allExternalLibraries = {
 
                  },
                    
-    'python'   : { '2.5.1' :
+    'python'   : { '2.5.2' :
+                   { 'default' : { 'version'      : '2.5.2',
+                                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
+                                   'include-path' : os.path.join('$TOP', 'include', 'python2.5'),
+                                   'lib-path'     : os.path.join('$TOP', 'lib', 'python2.5', 'config'),
+                                   'ld-path'      : '$LIB-PATH',
+                                   'bin-path'     : os.path.join('$TOP', 'bin'),
+                                   'site-path'    : os.path.join('$TOP', 'lib', 'python2.5', 'site-packages'),
+                                   'includes'     : [ 'Python.h' ]
+                                 },
+                     'posix'   : { 'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'util', 'm', 'python2.5' ] }
+                                 },
+                   },
+                  '2.5.1' :
                    { 'default' : { 'version'      : '2.5.1-gl1',
                                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
                                    'include-path' : os.path.join('$TOP', 'include', 'python2.5'),
@@ -1081,7 +1094,7 @@ allExternalLibraries = {
                            'libraries' : { 'f2cLibs' : [ 'vcf2c', 'oldnames' ] }
                      }
 
-                   }
+                   },
                  },
 
     'extFiles' : { 'v0r7' :
