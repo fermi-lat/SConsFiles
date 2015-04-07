@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Tue Apr  7 09:54:11 PDT 2015
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+rename healpix from Healpix_3.20 to 3.20
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-01-19-02, operation: add
 Package: SConsFiles
