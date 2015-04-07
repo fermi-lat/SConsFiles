@@ -2738,7 +2738,7 @@ allExternalLibraries = {
                   },
     'healpix'  : { '3.20' :
                        { 'default' : { 'version'      : '3.20',
-                                       'top'          : os.path.join('$GLAST_EXT','$NAME','Healpix_$VERSION'),
+                                       'top'          : os.path.join('$GLAST_EXT','$NAME','$VERSION'),
                                        'include-path' : os.path.join('$TOP','src','cxx','basic_gcc','include'),
                                        'lib-path'     : os.path.join('$TOP','src','cxx','basic_gcc','lib'),
                                        'ld-path'      : '$LIB-PATH',
