@@ -849,7 +849,7 @@ allExternalLibraries = {
                    
     'python'   : { '2.5.2' :
                    { 'default' : { 'version'      : '2.5.2',
-                                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
+                                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
                                    'include-path' : os.path.join('$TOP', 'include', 'python2.5'),
                                    'lib-path'     : os.path.join('$TOP', 'lib', 'python2.5', 'config'),
                                    'ld-path'      : '$LIB-PATH',
