@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Tue Aug 25 07:08:44 PDT 2015
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+adding 2.7.6-gl1
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-01-21-00, operation: add
 Package: SConsFiles
