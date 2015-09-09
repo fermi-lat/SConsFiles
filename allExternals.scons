@@ -1055,7 +1055,7 @@ allExternalLibraries = {
                                    'includes'     : [ 'Python.h' ],
                                    'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'util', 'm', 'python2.7' ] }
                                  },
-                     'gcc41'   : {'version'      : '2.7.6'
+                     'gcc41'   : {'version'      : '2.7.2'
                                  },
                      'win32'   : { 'version'      : '2.7.6', 
                                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION', '$COMPILER'),
