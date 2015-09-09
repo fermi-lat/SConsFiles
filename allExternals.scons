@@ -1045,7 +1045,7 @@ allExternalLibraries = {
                                    'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.7' ] } }
                    },
                   '2.7-i5' :
-                   { 'default' : { 'version'      : '2.7.6-gl1',
+                   { 'default' : { 'version'      : '2.7.6-gl2',
                                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
                                    'include-path' : os.path.join('$TOP', 'include', 'python2.7'),
                                    'lib-path'     : os.path.join('$TOP', 'lib', 'python2.7', 'config'),
