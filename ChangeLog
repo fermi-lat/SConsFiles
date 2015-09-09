@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Wed Sep  9 16:58:38 PDT 2015
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+back off 2.7.6 for rhel5-64
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-01-21-02, operation: add
 Package: SConsFiles
