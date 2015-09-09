@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Wed Sep  9 09:33:21 PDT 2015
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+move on to python 2.7.6-gl2
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-01-21-01, operation: add
 Package: SConsFiles
