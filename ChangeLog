@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Tue Sep 29 10:13:38 PDT 2015
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+added rebuilds of healpix and wcslib for cfitsio v3370
+    *
+------------------------------------------------------------
 TAG
 Tag name: SConsFiles-01-21-03, operation: add
 Package: SConsFiles
