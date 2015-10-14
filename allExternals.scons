@@ -2772,6 +2772,17 @@ allExternalLibraries = {
                         }
 
                   },
+    'gsl'  : { '1.16' :
+                      { 'default' : { 'version'      : '1.16',
+                                      'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                                      'include-path' : os.path.join('$TOP', 'include'),
+                                      'lib-path'     : os.path.join('$TOP', 'lib'),
+                                      'ld-path'      : '$LIB-PATH',
+                                      'includes'     : [ 'gsl/gsl_math.h' ],
+                                      'libraries'    : { 'gsllibs' : [ 'libgsl', 'libgslcblas']}
+                                      }
+                        }
+              },
     'healpix'  : { '3.20' :
                        { 'default' : { 'version'      : '3.20',
                                        'top'          : os.path.join('$GLAST_EXT','$NAME','$VERSION'),
