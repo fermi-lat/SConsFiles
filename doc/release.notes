@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-01-22-01 04-Dec-2015 echarles Added healpix 3.30
  SConsFiles-01-22-00 14-Oct-2015 heather adding gsl as a new external library
  SConsFiles-01-21-04 29-Sep-2015 heather adding rebuilds of healpix and wcslib for cfitsio v3370
  SConsFiles-01-21-03 09-Sep-2015 heather back off python 2.7.6 for rhel5-64
