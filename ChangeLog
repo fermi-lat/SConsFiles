@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Thu Jan 14 09:32:19 PST 2016
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+introducing ROOT v5.34.34
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-20-10-04, operation: add
 Package: SConsFiles
