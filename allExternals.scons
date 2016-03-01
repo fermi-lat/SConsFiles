@@ -1086,6 +1086,22 @@ allExternalLibraries = {
                      'darwin'  : { 'version'      : '2.7.2',
                                    'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.7' ] } }
                    },
+                  '2.7-i6' :
+                   { 'default' : { 'version'      : '2.7.10',
+                                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                                   'include-path' : os.path.join('$TOP', 'include', 'python2.7'),
+                                   'lib-path'     : os.path.join('$TOP', 'lib', 'python2.7', 'config'),
+                                   'site-path'    : os.path.join('$TOP', 'lib', 'python2.7', 'site-packages'),
+                                   'ld-path'      : '$LIB-PATH',
+                                   'bin-path'     : os.path.join('$TOP', 'bin'),
+                                   'includes'     : [ 'Python.h' ],
+                                   'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'util', 'm', 'python2.7' ] }
+                                 },
+                     'gcc41'   : {'version'      : '2.7.2'
+                                 },
+                     'darwin'  : { 'version'      : '2.7.2',
+                                   'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.7' ] } }
+                   },
 
 
                  },
@@ -2765,6 +2781,24 @@ allExternalLibraries = {
                    'vc90-debug' : { 'version' : '3.3.9-dbg'},
                    'gcc41-debug' : {'version' : '3.3.9-dbg'},
                    'gcc44-debug' : {'version' : '3.3.9-dbg'},
+                   },
+                  '3.3.10' :
+                  {'default' :
+                   {'version' : '3.3.10',
+                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                    'include-path' : os.path.join('$TOP', 'include'),
+                    'includes' : ['TMine/util/Translate.h'],
+                    'lib-path' : os.path.join('$TOP', 'lib'),
+                    'bin-path' : os.path.join('$TOP', 'bin'),
+                    'ld-path'   : '$LIB-PATH',
+                    'libraries' : {'TMineLibs' : ['TMine', 'TMine_IM_XML',
+                                                  'TMine_GUI', 'TMine_TMVA',
+                                                  'TMine_Engines',
+                                                  'TMine_XmlParse',
+                                                  'TMine_Model', 'TMine_base',
+                                                  'TMine_util']}
+                    },
+                   'gcc44-debug' : {'version' : '3.3.10-dbg'},
                    },
                     
                   },
