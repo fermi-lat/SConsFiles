@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Tue Mar  1 10:03:47 PST 2016
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+adding TMine 3.3.10 and Anaconda Python
+    *
+------------------------------------------------------------
 TAG
 Tag name: TMineExt-03-03-10, operation: add
 Package: SConsFiles
