@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-01-24-00 30-Mar-2016 heather adding xerces 3.1.3
  SConsFiles-01-23-00 01-Mar-2016 heather adding TMine 3.3.10 and Anaconda Python
  SConsFiles-01-22-02 14-Jan-2016 heather ROOT v5.34.34 is now available on RH6 only
  SConsFiles-01-22-01 04-Dec-2015 echarles Added healpix 3.30
