@@ -1285,6 +1285,12 @@ allExternalLibraries = {
                                    'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
                                    'cpp-defines' : [ 'diffuseModels=\\"$VERSION\\"' ]
                                  }
+                   },
+                   'v5r0' :
+                   { 'default' : { 'version'     : 'v5r0',
+                                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                                   'cpp-defines' : [ 'diffuseModels=\\"$VERSION\\"' ]
+                                 }
                    }
                  },
 
