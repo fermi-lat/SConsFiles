@@ -1114,6 +1114,22 @@ allExternalLibraries = {
                      'darwin'  : { 'version'      : '2.7.2',
                                    'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.7' ] } }
                    },
+                  '2.7-i7' :
+                   { 'default' : { 'version'      : '2.7.12',
+                                   'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                                   'include-path' : os.path.join('$TOP', 'include', 'python2.7'),
+                                   'lib-path'     : os.path.join('$TOP', 'lib', 'python2.7', 'config'),
+                                   'site-path'    : os.path.join('$TOP', 'lib', 'python2.7', 'site-packages'),
+                                   'ld-path'      : '$LIB-PATH',
+                                   'bin-path'     : os.path.join('$TOP', 'bin'),
+                                   'includes'     : [ 'Python.h' ],
+                                   'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'util', 'm', 'python2.7' ] }
+                                 },
+                     'gcc41'   : {'version'      : '2.7.2'
+                                 },
+                     'darwin'  : { 'version'      : '2.7.2',
+                                   'libraries'    : { 'pythonLibs' : [ 'pthread', 'dl', 'm', 'python2.7' ] } }
+                   },
 
 
                  },
