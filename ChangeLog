@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Tue Jul  5 13:11:43 PDT 2016
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+add python 2.7.12
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-11-01-01, operation: add
 Package: SConsFiles
