@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-01-26-01 18-Jul-2016    jrb make nodebug the default for opt builds. Packages may override in containerSettings/package.scons
  SConsFiles-01-26-00 05-Jul-2016 heather add python 2.7.10
  SConsFiles-01-25-00 18-Apr-2016 heather adding diffuseModels v5r0
  SConsFiles-01-24-00 30-Mar-2016 heather adding xerces 3.1.3
