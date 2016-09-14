@@ -874,6 +874,17 @@ allExternalLibraries = {
                        'libraries'    : { 'cppunitLibs' : [ 'CPPUNIT' ] }
                      }
                    },
+                   '1.12.1' :
+                   { 'default' :
+                     { 'version'      : '1.12.1',
+                       'top'          : os.path.join('$GLAST_EXT', '$NAME', '$VERSION'),
+                       'include-path' : os.path.join('$TOP', 'include'),
+                       'lib-path'     : os.path.join('$TOP', 'lib'),
+                       'ld-path'      : '$LIB-PATH',
+                       'includes'     : [ 'cppunit/ui/text/TextTestRunner.h' ],
+                       'libraries'    : { 'cppunitLibs' : [ 'cppunit', 'dl' ] }
+                       }
+                   }
 
                  },
                    
