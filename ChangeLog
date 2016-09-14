@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Wed Sep 14 10:07:29 PDT 2016
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+adding cppunit 1.12.1
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-11-03-00, operation: add
 Package: SConsFiles
