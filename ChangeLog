@@ -1,5 +1,15 @@
 ------------------------------------------------------------
 TAG
+Tag name: GlastRelease-20-10-04-gr01, operation: add
+Package: SConsFiles
+User: heather  Mon Dec  5 09:24:22 2016
+Files:
+  SConsFiles/ChangeLog  1.1136
+  SConsFiles/doc/release.notes  1.167
+
+    *
+------------------------------------------------------------
+TAG
 Tag name: ScienceTools-11-05-01, operation: add
 Package: SConsFiles
 User: glastrm  Thu Dec  1 20:12:47 2016
