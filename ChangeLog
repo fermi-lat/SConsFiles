@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Thu Mar 30 08:07:03 PDT 2017
+SConsFiles
+
+Modified Files:
+	allExternals.scons 
+Log Message:
+adding standalong Minuit2
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-11-05-02, operation: add
 Package: SConsFiles
