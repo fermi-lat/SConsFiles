@@ -4,6 +4,7 @@
  *
  *                * EOH *
 
+ SConsFiles-02-00-00 30-Mar-2017 heather Add in standalone Minuit2
  SConsFiles-01-27-00 14-Sep-2016 heather adding cppunit 1.12.1 for RH7
  SConsFiles-01-26-01 18-Jul-2016    jrb make nodebug the default for opt builds. Packages may override in containerSettings/package.scons
  SConsFiles-01-26-00 05-Jul-2016 heather add python 2.7.10
